@@ -55,7 +55,7 @@ namespace AntBoxFrontEnd
             //   consumerSecret: "");
 
             //app.UseFacebookAuthentication(
-            //   appId: "",
+            //   appId: "634151640084540",
             //   appSecret: "");
 
             //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
