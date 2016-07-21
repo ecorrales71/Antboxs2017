@@ -54,9 +54,13 @@ namespace AntBoxFrontEnd
             //   consumerKey: "",
             //   consumerSecret: "");
 
-            //app.UseFacebookAuthentication(
-            //   appId: "634151640084540",
-            //   appSecret: "");
+            app.UseFacebookAuthentication(
+               //appId: System.Configuration.ConfigurationManager.AppSettings["FacebookID"],
+               //appSecret: System.Configuration.ConfigurationManager.AppSettings["FacebookKey"]
+               appId: "1751225815144367",
+               appSecret: "b22664244b318da6315108e1ff416d88"
+
+               );
 
             //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
             //{
