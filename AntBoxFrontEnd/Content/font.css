@@ -1,0 +1,26 @@
+@font-face{ 
+    font-family: 'Nexa_Light';
+    src: url('../fonts/Nexa_Light-webfont.eot');
+    src: url('../fonts/Nexa_Light-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/Nexa_Light-webfont.woff') format('woff'),
+         url('../fonts/Nexa_Light-webfont.ttf') format('truetype'),
+         url('../fonts/Nexa_Light-webfont.svg#webfont') format('svg');
+}
+
+@font-face{ 
+    font-family: 'Nexa_Bold';
+    src: url('../fonts/Nexa_Bold-webfont.eot');
+    src: url('../fonts/Nexa_Bold-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/Nexa_Bold-webfont.woff') format('woff'),
+         url('../fonts/Nexa_Bold-webfont.ttf') format('truetype'),
+         url('../fonts/Nexa_Bold-webfont.svg#webfont') format('svg');
+}
+
+h1, h2, h3, h4, h5, h6, div, nav {
+    font-family: 'Nexa_Bold', FontAwesome !important; 
+}
+
+p, a, address{
+    font-family: 'Nexa_Light', FontAwesome !important; 
+}
+

@@ -1,0 +1,24 @@
+/*----------------------------------- GENERAL -------------------------------------*/
+
+/*----------------------------- Esapcio superiror en menú - mobile -----------------------------*/
+@media screen and (max-width: 992px){
+    .navbar-nav{
+        padding-top: 15px;
+    }
+}
+
+/*----------------------------------- EXTRA MENÚ -------------------------------------*/
+
+/*----------------------------- Corregir extra menú tel & email -----------------------------*/
+@media screen and (max-width: 767px){
+	.extra-menu a {
+		margin: 0px 0px 0px 0px !important;
+	}
+}
+
+/*----------------------------- Marggin top en el promobox -----------------------------*/
+@media screen and (max-width: 767px){
+.promo-box .promobox_txt {
+	margin-bottom: 30px;
+	}
+}
