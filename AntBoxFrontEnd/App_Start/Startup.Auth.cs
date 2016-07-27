@@ -57,8 +57,8 @@ namespace AntBoxFrontEnd
             app.UseFacebookAuthentication(
                //appId: System.Configuration.ConfigurationManager.AppSettings["FacebookID"],
                //appSecret: System.Configuration.ConfigurationManager.AppSettings["FacebookKey"]
-               appId: "1751225815144367",
-               appSecret: "b22664244b318da6315108e1ff416d88"
+               appId: System.Web.Configuration.WebConfigurationManager.AppSettings["FacebookID"],
+               appSecret: System.Web.Configuration.WebConfigurationManager.AppSettings["FacebookKey"]
 
                );
 
