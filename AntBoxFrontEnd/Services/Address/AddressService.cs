@@ -8,6 +8,7 @@ using Newtonsoft.Json;
 using AntBoxFrontEnd.Infrastructure;
 using AntBoxFrontEnd.Entities;
 using System.Text;
+using AntBoxFrontEnd.Models;
 
 
 using System.Threading.Tasks;
@@ -22,21 +23,20 @@ namespace AntBoxFrontEnd.Services.Address
         }
 
 
-        public virtual Boolean CreateAddress(AddressRequestOptions createOptions, RequestOptions requestOptions = null)
-        {
-            requestOptions = SetupRequestOptions(requestOptions);
-            
+        //public virtual Boolean CreateAddress(AddressRequestOptions createOptions, RequestOptions requestOptions = null)
+        //{
+        //    requestOptions = SetupRequestOptions(requestOptions);
 
 
-            string serilizedObj = JsonConvert.SerializeObject(createOptions, new JsonSerializerSettings() { NullValueHandling = NullValueHandling.Ignore }).ToString();
-            var PostData = new StringContent(serilizedObj, Encoding.UTF8, "application/json");
-            var destination = Requestor.Post<AddressService>(UrlsConstants.CustomerAddress , requestOptions, PostData);
+        //    requestOptions = SetupRequestOptions(requestOptions);
+
+        //    string serilizedObj = JsonConvert.SerializeObject(createOptions, new JsonSerializerSettings() { NullValueHandling = NullValueHandling.Ignore }).ToString();
+        //    var PostData = new StringContent(serilizedObj, Encoding.UTF8, "application/json");
+        //    var destination = Requestor.Post<>(UrlsConstants.Customer, requestOptions, PostData);
 
 
-
-
-            return true;
-        }
+        //    return true;
+        //}
 
 
 

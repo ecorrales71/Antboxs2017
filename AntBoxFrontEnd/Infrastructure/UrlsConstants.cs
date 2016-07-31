@@ -16,5 +16,10 @@ namespace AntBoxFrontEnd.Infrastructure
         public static String Task { get { return BaseUrl + "/tasks"; } }
 
         public static String Login { get { return BaseUrl + "/login"; } }
+
+        public static string AuthUrl { get { return "http://173.203.159.102:8081/auth"; } }
+        
+
+
     }
 }

@@ -3,6 +3,11 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Web;
+using RestSharp;
+using RestSharp.Authenticators;
+using AntBoxFrontEnd.Entities;
+using System.Web.Configuration;
+using Newtonsoft.Json;
 
 namespace AntBoxFrontEnd.Infrastructure
 {
@@ -19,7 +24,63 @@ namespace AntBoxFrontEnd.Infrastructure
         internal static string GetApiKey()
         {
             if (string.IsNullOrEmpty(_apiKey))
-                _apiKey = System.Web.Configuration.WebConfigurationManager.AppSettings["hovakey"];
+            {
+                string hovaus = WebConfigurationManager.AppSettings["hovaid"];
+                string hovapw = WebConfigurationManager.AppSettings["hovapw"];
+
+                HovaAuthResponse hovaAuth = null;
+
+                RestRequest request = new RestRequest(Method.POST);
+
+                var client = new RestClient(UrlsConstants.AuthUrl);
+
+                client.BaseUrl = new Uri(UrlsConstants.AuthUrl);
+
+                request.AddHeader("Content-Type", "application/x-www-form-urlencoded");
+
+                client.Authenticator = new HttpBasicAuthenticator(hovaus, hovapw);
+                request.AddHeader("Accept", "application/json");
+
+                request.AddParameter("grant_type", "password");
+                request.AddParameter("password", hovapw);
+                request.AddParameter("username", hovaus);
+                request.AddParameter("scope", "core");
+
+                try
+                {
+                    var response = client.Execute(request);
+
+
+                    if (response.ResponseStatus != ResponseStatus.Completed)
+                    {
+                        ServiceError err = JsonConvert.DeserializeObject<ServiceError>(response.Content);
+                        throw new ServiceException(response.StatusCode, err);
+                    }
+
+
+                    var result = response.Content;
+
+                    hovaAuth = JsonConvert.DeserializeObject<HovaAuthResponse>(result);
+
+
+                    if (hovaAuth == null || String.IsNullOrEmpty(hovaAuth.Access_token))
+                        return null;
+
+
+                    _apiKey = hovaAuth.Access_token;
+
+
+
+                }
+                catch (Exception ex)
+                {
+                    // Log
+
+                    return null;
+
+                }
+                
+            }
 
             return _apiKey;
         }
