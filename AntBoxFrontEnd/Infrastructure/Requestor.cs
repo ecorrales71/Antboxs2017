@@ -20,118 +20,134 @@ namespace AntBoxFrontEnd.Infrastructure
 {
     internal class Requestor
     {
-
-        public static T Get<T>(string url, RequestOptions requestOptions, StringContent content = null)
+        
+        public static T Get<T>(string url, RequestOptions requestOptions)
         {
-            var client = GetHttpClient(requestOptions);
-
-            var responseMessage = client.GetAsync(url).Result;
-            var responseString = responseMessage.Content.ReadAsStringAsync().Result;
-
-            if (responseMessage.IsSuccessStatusCode)
+            using (var client = new HttpClient())
             {
-                T obj = JsonConvert.DeserializeObject<T>(responseString);
-                return obj;
-            }
-            else
-            {
-                
+                requestOptions.ApiKey = requestOptions.ApiKey ?? ServiceConfiguration.GetApiKey();
+                client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", requestOptions.ApiKey);
+                client.DefaultRequestHeaders.Accept.Clear();
+                //client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-                ServiceError err = JsonConvert.DeserializeObject<ServiceError>(responseString);
-                    throw new ServiceException(responseMessage.StatusCode, err);
+                HttpResponseMessage responseMessage;
+                    
+                responseMessage = client.GetAsync(url).Result;
+                    
+
+                var responseString = responseMessage.Content.ReadAsStringAsync().Result;
+
+                if (responseMessage.IsSuccessStatusCode)
+                {
+                    T obj = JsonConvert.DeserializeObject<T>(responseString);
+                    return obj;
+                }
+                else
+                {
+                    var err = JsonConvert.DeserializeObject<MissingError>(responseString);
+
+                    if (err == null)
+                        throw new Exception(responseString);
+
+                    throw new MissingException(responseMessage.StatusCode, err);
+                }
             }
         }
 
         public static T Post<T>(string path, RequestOptions requestOptions,  StringContent content = null)
         {
-            var client = GetHttpClient(requestOptions);
-
-
-            var responseMessage = client.PostAsync(path,content).Result;
-            var responseString = responseMessage.Content.ReadAsStringAsync().Result;
-
-
-            if (responseMessage.IsSuccessStatusCode)
+            using(var client = new HttpClient())
             {
-                T obj = JsonConvert.DeserializeObject<T>(responseString);
-                return obj;
-            }
-            else
-            {
-                ServiceError err = JsonConvert.DeserializeObject<ServiceError>(responseString);
-                throw new ServiceException(responseMessage.StatusCode, err);
-            }
+                requestOptions.ApiKey = requestOptions.ApiKey ?? ServiceConfiguration.GetApiKey();
+                client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", requestOptions.ApiKey);
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                var response = client.PostAsync(path, content);
+                var responseMessage = response.Result;
+                var responseString = responseMessage.Content.ReadAsStringAsync().Result;
 
 
-            //var client = GetRestClient(requestOptions);
+                if (responseMessage.IsSuccessStatusCode)
+                {
+                    T obj = JsonConvert.DeserializeObject<T>(responseString);
+                    return obj;
+                }
+                else
+                {
+                    var err = JsonConvert.DeserializeObject<MissingError>(responseString);
 
+                    if (err == null)
+                        throw new Exception(responseString);
 
-            //var request = new RestRequest(path, Method.POST);
-
-            //request.AddHeader("Authorization", "Bearer " + requestOptions.ApiKey);
-            //request.AddHeader("Accept", "application/json");
-            //request.AddHeader("Content-Type", "application/x-www-form-urlencoded");
-            ////request.AddHeader("Content-Type", "application/json");
-            //request.AddBody(content);
-
-
-
-            //var response = client.Execute(request);
-
-            //var obj = JsonConvert.DeserializeObject<T>(response.Content);
-
-
-           // return obj;
-
-
-
-
-
+                    throw new MissingException(responseMessage.StatusCode, err);
+                }
+            }            
         }
 
         public static T Put<T>(string url, RequestOptions requestOptions, StringContent content = null)
         {
-            var client = GetHttpClient(requestOptions);
-
-            var responseMessage = client.PutAsync(url, content).Result;
-            var responseString = responseMessage.Content.ReadAsStringAsync().Result;
-
-            if (responseMessage.IsSuccessStatusCode)
+            using (var client = new HttpClient())
             {
-                T obj = JsonConvert.DeserializeObject<T>(responseString);
-                return obj;
-            }
-            else
-            {
-                ServiceError err = JsonConvert.DeserializeObject<ServiceError>(responseString);
-                throw new ServiceException(responseMessage.StatusCode, err);
+                requestOptions.ApiKey = requestOptions.ApiKey ?? ServiceConfiguration.GetApiKey();
+                client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", requestOptions.ApiKey);
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                var responseMessage = client.PutAsync(url, content).Result;
+                var responseString = responseMessage.Content.ReadAsStringAsync().Result;
+
+                if (responseMessage.IsSuccessStatusCode)
+                {
+                    T obj = JsonConvert.DeserializeObject<T>(responseString);
+                    return obj;
+                }
+                else
+                {
+                    var err = JsonConvert.DeserializeObject<MissingError>(responseString);
+
+                    if (err == null)
+                        throw new Exception(responseString);
+
+                    throw new MissingException(responseMessage.StatusCode, err);
+                }
             }
         }
 
         public static void Delete(string url, RequestOptions requestOptions)
         {
-            var client = GetHttpClient(requestOptions);
-
-            var responseMessage = client.DeleteAsync(url).Result;
-            var responseString = responseMessage.Content.ReadAsStringAsync().Result;
-            if (!responseMessage.IsSuccessStatusCode)
+            using (var client = new HttpClient())
             {
-                ServiceError err = JsonConvert.DeserializeObject<ServiceError>(responseString);
-                throw new ServiceException(responseMessage.StatusCode, err);
+                requestOptions.ApiKey = requestOptions.ApiKey ?? ServiceConfiguration.GetApiKey();
+                client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", requestOptions.ApiKey);
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                var responseMessage = client.DeleteAsync(url).Result;
+                var responseString = responseMessage.Content.ReadAsStringAsync().Result;
+                if (!responseMessage.IsSuccessStatusCode)
+                {
+                    var err = JsonConvert.DeserializeObject<MissingError>(responseString);
+
+                    if (err == null)
+                        throw new Exception(responseString);
+
+                    throw new MissingException(responseMessage.StatusCode, err);
+                }
             }
 
         }
 
-        internal static HttpClient GetHttpClient(RequestOptions requestOptions)
-        {
-            requestOptions.ApiKey = requestOptions.ApiKey ?? ServiceConfiguration.GetApiKey();
-            HttpClient client = new HttpClient();
-            //var byteArray = Encoding.ASCII.GetBytes(requestOptions.ApiKey);
-            client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", requestOptions.ApiKey );
-            client.DefaultRequestHeaders.Accept.Clear();
-            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            return client;
-        }
+        //internal static HttpClient GetHttpClient(RequestOptions requestOptions)
+        //{
+        //    requestOptions.ApiKey = requestOptions.ApiKey ?? ServiceConfiguration.GetApiKey();
+        //    HttpClient client = new HttpClient();
+        //    //var byteArray = Encoding.ASCII.GetBytes(requestOptions.ApiKey);
+        //    client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", requestOptions.ApiKey );
+        //    client.DefaultRequestHeaders.Accept.Clear();
+        //    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+        //    return client;
+        //}
 
 
         internal static RestClient GetRestClient(RequestOptions requestOptions)

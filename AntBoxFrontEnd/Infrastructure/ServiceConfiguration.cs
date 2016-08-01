@@ -53,8 +53,9 @@ namespace AntBoxFrontEnd.Infrastructure
 
                     if (response.ResponseStatus != ResponseStatus.Completed)
                     {
-                        ServiceError err = JsonConvert.DeserializeObject<ServiceError>(response.Content);
-                        throw new ServiceException(response.StatusCode, err);
+                        var error = response.Content;
+
+                        throw new Exception(response.StatusCode + " " + error);
                     }
 
 

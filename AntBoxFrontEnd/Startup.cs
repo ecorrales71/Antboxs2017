@@ -3,6 +3,7 @@ using Owin;
 using AntBoxFrontEnd.Infrastructure;
 using AntBoxFrontEnd.Services.Login;
 using AntBoxFrontEnd.Services.Customer;
+using AntBoxFrontEnd.Services.Address;
 using AntBoxFrontEnd.Services;
 
 [assembly: OwinStartupAttribute(typeof(AntBoxFrontEnd.Startup))]
@@ -14,9 +15,14 @@ namespace AntBoxFrontEnd
         {
             ConfigureAuth(app);
 
-            // CreateCustomer();
-            Login();
-           // Requestor.GetHovaToken();
+
+            //ListCustomer();
+            //CreateCustomer();
+            //UpdateCustomer();
+            // Login();
+            // Requestor.GetHovaToken();
+            ListAddresses();
+
 
         }
 
@@ -27,8 +33,8 @@ namespace AntBoxFrontEnd
 
             var usr = new AntBoxFrontEnd.Services.Login.LoginCreateOptions
             {
-                Email = "emartinez@greenrivercg.com.mx",
-                Password = "123"
+                Email = "prueba@prueba.com",
+                Password = "258abc"
             };
 
 
@@ -44,20 +50,56 @@ namespace AntBoxFrontEnd
         {
             var cus = new AntBoxFrontEnd.Services.Customer.CustomerRequestOptions
             {
-                Email = "prueba@prueba.com",
-                Name = "Prueba nombre",
-                LastName = "Prueba Apellido paterno",
-                Lastname2 = "Prueba Apellido materno",
-                Mobile_phone = "55555555555",
-                Password = "258abc"                
+                Email = "prueba4@prueba.com",
+                Name = "Prueba nombre4",
+                LastName = "Prueba Apellido paterno4",
+                //Lastname2 = "Prueba Apellido materno4",
+                Mobile_phone = "55333333333",
+                Password = "44abc"                
             };
 
             var ser = new CustomerServices(ServiceConfiguration.GetApiKey());
 
-            var res = ser.CreateCustomer(cus);
-            
+            var res = ser.CreateCustomer(cus);           
 
         }
+
+
+        private void UpdateCustomer()
+        {
+            var cus = new AntBoxFrontEnd.Services.Customer.CustomerUpdateOptions
+            {
+                Email = "prueba4@prueba.com",
+                Name = "Prueba nombre4 modificado",
+                LastName = "Prueba Apellido paterno4 mod",
+                Lastname2 = "Prueba Apellido materno4",
+                Mobile_phone = "5523232323"
+            };
+
+            var ser = new CustomerServices(ServiceConfiguration.GetApiKey());
+
+            var res = ser.UpdateCustomer(cus, "e5bb4f5290ab4fb8b75a84046a09a921");
+
+        }
+
+        private void ListCustomer()
+        {
+            var l = new CustomerServices(ServiceConfiguration.GetApiKey());
+
+            var res = l.SearchCustomer("e5bb4f5290ab4fb8b75a84046a09a921");
+
+
+        }
+
+        private void ListAddresses()
+        {
+            var l = new AddressService(ServiceConfiguration.GetApiKey());
+
+            var res = l.ListAddresses("ag6hhjauatyy127jas");
+
+
+        }
+
 
     }
 }

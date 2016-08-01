@@ -22,13 +22,13 @@ namespace AntBoxFrontEnd.Services.Login
 
             requestOptions = SetupRequestOptions(requestOptions);
 
-            string serilizedObj = JsonConvert.SerializeObject(createOptions, new JsonSerializerSettings() { NullValueHandling = NullValueHandling.Ignore }).ToString();
-            var PostData = new StringContent(serilizedObj, Encoding.UTF8, "application/json");
-            var response = Requestor.Get<LoginResponse>(UrlsConstants.Login, requestOptions, PostData);
+            var parameters = new Dictionary<string, string> { { "email", createOptions.Email }, { "password", createOptions.Password} };
 
+            var encodedContent = Infrastructure.UrlHelper.BuildURLParametersString(parameters);
 
+            var response = Requestor.Get<LoginResponse>(UrlsConstants.Login + encodedContent, requestOptions);
 
-            return id;
+            return response.Id;
         }
 
 

@@ -1,9 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
 using Newtonsoft.Json;
 
 namespace AntBoxFrontEnd.Services.Address
 {
-    public class AddressRequestOptions
+    public class AddressResponse
     {
         [JsonProperty("alias")]
         string Alias { get; set; }

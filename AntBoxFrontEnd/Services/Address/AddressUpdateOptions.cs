@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace AntBoxFrontEnd.Services.Address
 {
-    public class AddressRequestOptions
+    public class AddressUpdateOptions
     {
         [JsonProperty("alias")]
         string Alias { get; set; }
@@ -28,8 +28,5 @@ namespace AntBoxFrontEnd.Services.Address
 
         [JsonProperty("delegation")]
         string Delegation { get; set; }
-
-        [JsonProperty("customer_id")]
-        string Customer_id { get; set; }
     }
 }

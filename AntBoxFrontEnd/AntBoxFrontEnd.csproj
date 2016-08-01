@@ -242,15 +242,20 @@
     <Compile Include="Entities\Customer.cs" />
     <Compile Include="Entities\HovaAuthResponse.cs" />
     <Compile Include="Entities\HovaAuth.cs" />
+    <Compile Include="Entities\MissingError.cs" />
     <Compile Include="Entities\ServiceError.cs" />
     <Compile Include="Entities\ServiceErrorMessage.cs" />
     <Compile Include="GlimpseSecurityPolicy.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Infrastructure\AutoMapperConfig.cs" />
+    <Compile Include="Infrastructure\DateHelpers.cs" />
     <Compile Include="Infrastructure\Requestor.cs" />
     <Compile Include="Infrastructure\ServiceConfiguration.cs" />
+    <Compile Include="Infrastructure\MissingException.cs" />
     <Compile Include="Infrastructure\ServiceException.cs" />
+    <Compile Include="Infrastructure\UrlHelper.cs" />
     <Compile Include="Infrastructure\UrlsConstants.cs" />
     <Compile Include="Migrations\201607270257118_AntboxDb.cs" />
     <Compile Include="Migrations\201607270257118_AntboxDb.Designer.cs">
@@ -265,15 +270,24 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\Address\AddressResponse.cs" />
+    <Compile Include="Services\Address\AddressUpdateOptions.cs" />
     <Compile Include="Services\Address\AddressRequestOptions.cs" />
     <Compile Include="Services\Address\AddressService.cs" />
+    <Compile Include="Services\Address\PaginationAddresses.cs" />
+    <Compile Include="Services\Customer\CustomerUpdateOptions.cs" />
     <Compile Include="Services\Customer\CustomerRequestOptions.cs" />
     <Compile Include="Services\Customer\CustomerResponse.cs" />
     <Compile Include="Services\Customer\CustomerServices.cs" />
     <Compile Include="Services\Login\LoginCreateOptions.cs" />
     <Compile Include="Services\Login\LoginService.cs" />
+    <Compile Include="Services\MissingResponse.cs" />
+    <Compile Include="Services\RequestId.cs" />
     <Compile Include="Services\RequestOptions.cs" />
     <Compile Include="Services\Services.cs" />
+    <Compile Include="Services\Tasks\TaskRequestOption.cs" />
+    <Compile Include="Services\Tasks\TaskResponse.cs" />
+    <Compile Include="Services\Tasks\TaskUpdateOptions.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -6,11 +6,8 @@ using Newtonsoft.Json;
 
 namespace AntBoxFrontEnd.Services.Customer
 {
-    public class CustomerResponse
+    public class CustomerUpdateOptions
     {
-        [JsonProperty("id")]
-        public string Id { get; set; }
-
         [JsonProperty("name")]
         public string Name { get; set; }
 
@@ -20,7 +17,7 @@ namespace AntBoxFrontEnd.Services.Customer
         [JsonProperty("lastname")]
         public string LastName { get; set; }
 
-        [JsonProperty("password")]
+        [JsonProperty("id")]
         public string Password { get; set; }
 
         [JsonProperty("email")]
@@ -58,6 +55,5 @@ namespace AntBoxFrontEnd.Services.Customer
 
         [JsonProperty("delegation")]
         string Delegation { get; set; }
-
     }
 }
