@@ -11,6 +11,8 @@ namespace AntBoxFrontEnd.Infrastructure
 
         public static String CustomerAddress { get { return BaseUrl + "/customer-address"; } }
 
+        public static String CustomerAddressSearch { get { return BaseUrl + "/customer-address/search"; } }
+
         public static String Customer { get { return BaseUrl + "/customer"; } }
 
         public static String Task { get { return BaseUrl + "/tasks"; } }

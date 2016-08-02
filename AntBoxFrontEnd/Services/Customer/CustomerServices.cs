@@ -58,7 +58,7 @@ namespace AntBoxFrontEnd.Services.Customer
 
             try
             {
-                var customerResponse = Requestor.Put<CustomerResponse>(UrlsConstants.Customer + encodedParams, requestOptions, PostData);
+                var customerResponse = Requestor.Put<CustomerResponse>(UrlsConstants.Customer + "/" + id, requestOptions, PostData);
             }
             catch (Exception ex)
             {
@@ -72,7 +72,7 @@ namespace AntBoxFrontEnd.Services.Customer
             return true;
         }
 
-        public virtual CustomerResponse SearchCustomer(string id, RequestOptions requestOptions = null)
+        public virtual CustomerResponse SearchCustomer(string id , RequestOptions requestOptions = null)
         {
             requestOptions = SetupRequestOptions(requestOptions);
 
@@ -80,7 +80,7 @@ namespace AntBoxFrontEnd.Services.Customer
 
             var encodedParams = Infrastructure.UrlHelper.BuildURLParametersString(parameters);
             
-            var customers = Requestor.Get<CustomerResponse>(UrlsConstants.Customer + encodedParams, requestOptions);
+            var customers = Requestor.Get<CustomerResponse>(UrlsConstants.Customer + "/" + id, requestOptions);
 
             return customers;
         }

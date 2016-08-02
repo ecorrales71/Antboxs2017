@@ -67,7 +67,7 @@ namespace AntBoxFrontEnd.Services.Address
 
             try
             {
-                var customerResponse = Requestor.Put<MissingResponse>(UrlsConstants.CustomerAddress + encodedParams, requestOptions, PostData);
+                var customerResponse = Requestor.Put<MissingResponse>(UrlsConstants.CustomerAddress + "/" + id, requestOptions, PostData);
             }
             catch (Exception ex)
             {
@@ -91,7 +91,7 @@ namespace AntBoxFrontEnd.Services.Address
 
             var encodedParams = Infrastructure.UrlHelper.BuildURLParametersString(parameters);
 
-            var addresses = Requestor.Get<AddressResponse>(UrlsConstants.CustomerAddress + encodedParams, requestOptions);
+            var addresses = Requestor.Get<AddressResponse>(UrlsConstants.CustomerAddress + "/" + id, requestOptions);
 
             return addresses;
         }
@@ -108,9 +108,28 @@ namespace AntBoxFrontEnd.Services.Address
 
             var encodedParams = Infrastructure.UrlHelper.BuildURLParametersString(parameters);
 
-            var addresses = Requestor.Get<PaginationAddresses>(UrlsConstants.CustomerAddress + encodedParams, requestOptions);
+            var addresses = Requestor.Get<PaginationAddresses>(UrlsConstants.CustomerAddressSearch + "/"+id, requestOptions);
             
-            return addresses.ListAddresses;
+            return addresses.Addresses;
+        }
+
+
+        public virtual bool DeleteAddress(string id, RequestOptions requestOptions = null)
+        {
+            requestOptions = SetupRequestOptions(requestOptions);
+
+            try
+            {
+                Requestor.Delete(UrlsConstants.CustomerAddress + "/" + id, requestOptions);
+
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+            
+
+            return true;
         }
 
 
