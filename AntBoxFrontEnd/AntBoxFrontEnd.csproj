@@ -285,9 +285,14 @@
     <Compile Include="Services\RequestId.cs" />
     <Compile Include="Services\RequestOptions.cs" />
     <Compile Include="Services\Services.cs" />
+    <Compile Include="Services\ServicesTest.cs" />
     <Compile Include="Services\Tasks\TaskRequestOption.cs" />
     <Compile Include="Services\Tasks\TaskResponse.cs" />
+    <Compile Include="Services\Tasks\TaskService.cs" />
     <Compile Include="Services\Tasks\TaskUpdateOptions.cs" />
+    <Compile Include="Services\Tasks\TaskUpdateResponse.cs" />
+    <Compile Include="Services\Zipcodes\ZipCodeResponse.cs" />
+    <Compile Include="Services\Zipcodes\ZipcodeService.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>

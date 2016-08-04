@@ -75,6 +75,17 @@ namespace AntBoxFrontEnd.Infrastructure
                 }
                 else
                 {
+
+                    if(responseMessage.StatusCode == HttpStatusCode.BadRequest)
+                    {
+                        var errbad = JsonConvert.DeserializeObject<AntBoxFrontEnd.Services.Tasks.TaskUpdateResponse>(responseString);
+
+                        if (errbad == null)
+                            throw new Exception(errbad.Log);
+                    }
+
+
+
                     var err = JsonConvert.DeserializeObject<MissingError>(responseString);
 
                     if (err == null)
