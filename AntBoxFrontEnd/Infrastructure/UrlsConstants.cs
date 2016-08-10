@@ -20,7 +20,13 @@ namespace AntBoxFrontEnd.Infrastructure
         public static String Login { get { return BaseUrl + "/login"; } }
 
         public static String ZipCode { get { return BaseUrl + "/zipcode"; } }
-        
+
+        public static String PaymentCard { get { return BaseUrl + "/payment-card"; } }
+
+        public static String Payment { get { return BaseUrl + "/payment"; } }
+
+
+
 
         public static string AuthUrl { get { return "http://173.203.159.102:8081/auth"; } }
         

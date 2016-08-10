@@ -1,31 +1,185 @@
 ﻿@{
-    ViewBag.Title = "Home Page";
+    ViewBag.Title = "Antbox";
 }
+<!-- /.header -->
+<!-- WRAPPER -->
+<div class="wrapper inicio">
 
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="http://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
-</div>
+    <!-- VIDEO -->
+    <div class="bannercontainer">
+        <div class="banner" data-fullscreen="on" data-auto="true" data-hidetimerbar="off" data-fullscreenoffsetcontainer=".header">
+            <ul>
+                <li data-transition="fade" data-slotamount="7" data-saveperformance="on" class="background overlay overlay-light" style="background-image: url(images/video_antboxs.jpg)">
+                    <div class="tp-caption sft large_bold_white" data-x="left" data-y="center" data-hoffset="100" data-voffset="-85" data-speed="700" data-start="700" data-easing="easeOutBack">Paga solo por lo que usas</div>
+                    <p class="tp-caption fade" data-x="left" data-y="center" data-hoffset="100" data-speed="500" data-start="900" data-easing="easeOutBack">Porque el mundo siempre tuvo que haber sido así.<br />Utiliza solo el espacio que necesitas.<br />Es lo justo.</p>
+                    <a href="como-funciona.php" class="tp-caption sfb btn btn-primary btn-md btn-wide" data-x="left" data-y="center" data-voffset="80" data-hoffset="100" data-speed="300" data-start="1000">Saber más</a>
+                    <div class="tp-caption tp-fade fadeout fullscreenvideo"
+                         data-x="0"
+                         data-y="0"
+                         data-autoplay="true"
+                         data-autoplayonlyfirsttime="false"
+                         data-nextslideatend="true"
+                         data-forceCover="1"
+                         data-dottedoverlay="twoxtwo"
+                         data-aspectratio="16:9"
+                         data-forcerewind="on"
+                         style="z-index: -1;">
+                        <video muted class="video-js vjs-default-skin" preload="none" width="100%" height="100%"
+                               poster="images/video_antboxs.jpg" data-setup="{}">
+                            <source src='video/video_antboxs.mp4' type='video/mp4' />
+                            <source src='video/video_antboxs.webm' type='video/webm' />
+                        </video>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!-- /.video -->
+    <div class="content no-pt">
 
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+        <!-- CONTAINER -->
+        <div class="iwrap">
+            <section class="container intro">
+                <div class="row text-wrap text-center">
+                    <div class="col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1" data-animate="fadeInDown">
+                        <h1>Almacenamiento Seguro, Fácil y Conveniente</h1>
+                        <p>Más fácil imposible. Regístrate, pide tus Antboxs, empácalas y nosotros nos las llevamos a guardar.</p>
+                        <p>Más seguro imposible, no sales de tu casa y no te arriesgas. Las guardamos en bodegas resguardadas, fumigadas, custodiadas 24/7, CCTV, Alarma y acceso restringido.</p>
+                        <p>Más conveniente imposible, no las cargas ni las llevas a ningún lado, nosotros lo hacemos por ti y cuando las necesites, te las llevamos. </p>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <!-- /.container -->
+        <!-- CONTAINER -->
+        <div class="container">
+            <div class="row irow-sm text-center steps-2">
+                <div class="col-md-3 col-sm-6">
+                    <div><img class=" mb20" src="@Url.Content("~/Content/Images/pide_tus_antboxs.png")" width="180" height="130" alt=""></div>
+                    <div class="icon icon-step icon-inverse icon-size-3 icon-theme icon-rounded"><i>1.</i></div>
+                    <h4>Pide tu Antboxs</h4>
+                    <p>Calcula cuántas requieres, si te sobran no pasa nada solo te cobramos por las que llenes. Solo dinos a dónde te las llevamos.</p>
+                    <div class="heading-divider"></div>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <div><img class=" mb20" src="@Url.Content("~/Content/Images/guarda_tus_cosas.png")" width="180" height="130" alt=""></div>
+                    <div class="icon icon-step icon-inverse icon-size-3 icon-theme icon-rounded"><i>2.</i></div>
+                    <h4>Guarda tus cosas</h4>
+                    <p>Llénalas con tus cosas, puedes hacer un inventario y tomar fotos para que recuerdes qué hay en cada Antbox, así cuando nos las pidas sepas cuál quieres que te llevemos. </p>
+                    <div class="heading-divider"></div>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <div><img class=" mb20" src="@Url.Content("~/Content/Images/almacenamos.png")" width="180" height="130" alt=""></div>
+                    <div class="icon icon-step icon-inverse icon-size-3 icon-theme icon-rounded"><i>3.</i></div>
+                    <h4>Almacenamos</h4>
+                    <p>Las almacenamos por ti, siempre estarán bien cuidadas y protegidas, vigiladas y aseguradas*. Cuidamos de tus cosas, cuidamos de tu vida.</p>
+                    <div class="heading-divider"></div>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <div><img class=" mb20" src="@Url.Content("~/Content/Images/agenda_tu_entrega.png")" width="180" height="130" alt=""></div>
+                    <div class="icon icon-step icon-inverse icon-size-3 icon-theme icon-rounded"><i>4.</i></div>
+                    <h4>Agenda tu entrega</h4>
+                    <p>¿Quieres tus cosas de regreso o solo algunas de tus Antboxs? Escoge de tu inventario qué Antboxs quieres y cuándo te gustaría recibirlas, para que te las llevemos*. ¿Así o más fácil?</p>
+                    <div class="heading-divider"></div>
+                </div>
+            </div>
+        </div>
+        <!-- /.container -->
+        <hr class="hr-dashed mt70 pb40" />
+
+        <!-- CONTAINER -->
+        <div class="container text-center">
+            <div class="row irow-xs cols-border">
+                <div class="col-sm-6">
+                    <div class="countup countup-hg countup-color" data-increment="13" data-num="1240"></div>
+                    <h3>Antboxs Utilizados</h3>
+                    <p>Hasta el momento tenemos estas Antboxs seguras, resguardadas en nuestra bodega y contando…</p>
+                </div>
+                <div class="col-sm-6">
+                    <div class="countup countup-hg countup-color" data-increment="1" data-num="94"></div>
+                    <h3>Clientes Satisfechos</h3>
+                    <p>Este es el número de personas que ha confiado su vida a nosotros y les agradecemos con el corazón, porque lo más importante son nuestros clientes. Te queremos ver pronto con nosotros. </p>
+                </div>
+            </div>
+        </div>
+        <!-- /.container -->
+
+        <hr class="hr-nobg" />
+
+
+        <!-- CONTAINER -->
+        <div class="iwrap iwrap-light">
+            <div class="container">
+                <div class="row irow-xs">
+                    <div class="col-sm-7 text-wrap">
+                        <h2>¿Por qué elegir Antboxs?</h2>
+                        <p>Porque cada vez hay más tráfico, menos tiempo, y los espacios son más reducidos. Olvídate del tráfico y de la inseguridad, ahorra tiempo y dinero y déjalo en manos de los expertos.</p>
+                        <div class="heading-divider heading-divider-lg"></div>
+                        <div class="row irow-xs">
+                            <div class="col-sm-6">
+                                <h4>Paga lo que utilizas</h4>
+                                <p>A nadie le gusta pagar más de lo necesario. La mayoría de las bodegas se llenan a medias. Paga por el espacio exacto que necesitas, ni un peso más.</p>
+                            </div>
+                            <div class="col-sm-6">
+                                <h4>Fácil de usar</h4>
+                                <p>Nos pides on-line o por teléfono y nosotros vamos a tu casa u oficina, entregamos Antboxs, las llenas y nos las llevamos. ¿Así o más fácil?</p>
+                            </div>
+                        </div>
+                        <div class="row irow-xs">
+                            <div class="col-sm-6">
+                                <h4>Seguridad</h4>
+                                <p>Mucho más seguro que salir de tu casa u oficina, arriesgarte en el tráfico y además resguardamos tus Antboxs fumigadas, custodiadas 24/7, CCTV, con alarmas y aseguradas*.</p>
+                            </div>
+                            <div class="col-sm-6">
+                                <h4>Conveniente</h4>
+                                <p>¡Si! recogemos las cosas en tu casa u oficina y nosotros las cargamos, las aseguramos, y guardamos, ¿qué podría ser más conveniente que eso? ¡De nada!</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-5 img-wrap img-wrap-right img-wrap-auto">
+                        <img src="@Url.Content("~/Content/Images/cajas_apiladas_antboxs.png")" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.container -->
+        <!-- CONTAINER -->
+        <div class="iwrap pt70 pb20">
+            <div class="container">
+                <div class="row irow-xs nobg" data-animate="fadeInUp">
+                    <div class="col-md-8 col-sm-10 col-md-offset-2 col-sm-offset-1 text-center">
+                        <div class="circle"></div>
+                        <div class="icon icon-color icon-size-6">
+                            <i class="fa fa-archive"></i>
+                        </div>
+                        <h1>Haz más espacio en tu hogar u oficina</h1>
+                        <p>Todos necesitamos más espacio. Hay muchas cosas, mercancía, recuerdos, ornamenta, documentos, fotografías, libros, CD, ropa de invierno, de verano, adornos, que estorban y quitan espacio. ¿Necesitas facturar? ¡con gusto!</p>
+                        <div class="heading-divider heading-divider-xs mb30"></div>
+                        <a href="" class="btn btn-primary">Comenzar ahora</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.container -->
+
     </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
+    <!-- /.content -->
+    <!-- PROMO-BOX -->
+    <div class="promo-box promo-box-light">
+        <div class="container">
+            <section class="row irow-xs page-header cols-border divtable mt30 mb30">
+                <div class="col-lg-10 col-md-9 col-sm-8 divcell promobox_txt">
+                    <h1>¿Tienes dudas sobre nuestro servicio?</h1>
+                    <p>Visita las preguntas frecuentes, probablemente ya hemos respondido tus dudas. Sino escríbenos o llámanos y con gusto te atendemos. </p>
+                </div>
+                <div class="col-lg-2 col-md-3 col-sm-4 text-right divcell">
+                    <a href="preguntas-frecuentes.php" class="btn btn-primary btn-md">Preguntas Frecuentes</a>
+                </div>
+            </section>
+        </div>
     </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
-    </div>
+    <!-- /.promo-box -->
 </div>
+<!-- /.wrapper -->
+
+

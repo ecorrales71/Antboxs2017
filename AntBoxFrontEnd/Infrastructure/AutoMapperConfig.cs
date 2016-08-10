@@ -20,7 +20,7 @@ namespace AntBoxFrontEnd.Infrastructure
 
         private static void ConfigureCustomerMapping()
         {
-          // AutoMapper.Mapper. CreateMap<Customer, CustomerResponse>();
+            CreateMap<Customer, CustomerResponse>();
         }
 
     }

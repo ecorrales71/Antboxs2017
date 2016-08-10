@@ -10,10 +10,10 @@ namespace AntBoxFrontEnd.Services.Zipcodes
     {
 
         [JsonProperty("longitude")]
-        Double Logitude { get; set; }
+        decimal Logitude { get; set; }
 
         [JsonProperty("latitude")]
-        Double Latitude { get; set; }
+        decimal Latitude { get; set; }
 
         [JsonProperty("neighborhood")]
         string Neighborhood { get; set; }

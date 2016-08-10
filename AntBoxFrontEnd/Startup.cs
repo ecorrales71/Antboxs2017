@@ -13,9 +13,13 @@ namespace AntBoxFrontEnd
         {
             ConfigureAuth(app);
 
+            AutoMapperConfig.Configure();
+
             var serv = new ServicesTest();
 
-            serv.Start();
+
+
+           // serv.Start();
 
         }
 

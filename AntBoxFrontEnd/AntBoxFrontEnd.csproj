@@ -44,8 +44,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AutoMapper, Version=5.0.2.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
-      <HintPath>..\packages\AutoMapper.5.0.2\lib\net45\AutoMapper.dll</HintPath>
+    <Reference Include="AutoMapper, Version=4.2.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.4.2.1\lib\net45\AutoMapper.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
@@ -238,6 +238,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Entities\Customer.cs" />
     <Compile Include="Entities\HovaAuthResponse.cs" />
@@ -275,6 +276,7 @@
     <Compile Include="Services\Address\AddressRequestOptions.cs" />
     <Compile Include="Services\Address\AddressService.cs" />
     <Compile Include="Services\Address\PaginationAddresses.cs" />
+    <Compile Include="Services\BadRequestResponse.cs" />
     <Compile Include="Services\Customer\CustomerUpdateOptions.cs" />
     <Compile Include="Services\Customer\CustomerRequestOptions.cs" />
     <Compile Include="Services\Customer\CustomerResponse.cs" />
@@ -282,6 +284,14 @@
     <Compile Include="Services\Login\LoginCreateOptions.cs" />
     <Compile Include="Services\Login\LoginService.cs" />
     <Compile Include="Services\MissingResponse.cs" />
+    <Compile Include="Services\Payments\CardInfo.cs" />
+    <Compile Include="Services\Payments\CardObject.cs" />
+    <Compile Include="Services\Payments\Charge.cs" />
+    <Compile Include="Services\Payments\ChargeResponse.cs" />
+    <Compile Include="Services\Payments\PaymentRequestOptions.cs" />
+    <Compile Include="Services\Payments\CreatedCardResponse.cs" />
+    <Compile Include="Services\Payments\PaginationListCards.cs" />
+    <Compile Include="Services\Payments\PaymentService.cs" />
     <Compile Include="Services\RequestId.cs" />
     <Compile Include="Services\RequestOptions.cs" />
     <Compile Include="Services\Services.cs" />
@@ -298,13 +308,18 @@
   <ItemGroup>
     <Content Include="Content\animate.css" />
     <Content Include="Content\bootstrap.css" />
-    <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\custom-responsive.css" />
     <Content Include="Content\custom.css" />
     <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\font.css" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Content\Gridmvc.css" />
+    <Content Include="Content\Images\agenda_tu_entrega.png" />
+    <Content Include="Content\Images\almacenamos.png" />
+    <Content Include="Content\Images\antboxs_logo.png" />
+    <Content Include="Content\Images\cajas_apiladas_antboxs.png" />
+    <Content Include="Content\Images\guarda_tus_cosas.png" />
+    <Content Include="Content\Images\pide_tus_antboxs.png" />
     <Content Include="Content\PagedList.css" />
     <Content Include="Content\preloader.css" />
     <Content Include="Content\revolution.css" />
@@ -312,7 +327,6 @@
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="Content\Site.css" />
     <Content Include="Scripts\ai.0.22.9-build00167.js" />
     <Content Include="Scripts\ai.0.22.9-build00167.min.js" />
     <Content Include="Scripts\bootstrap-datetimepicker.js" />
@@ -462,6 +476,7 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Shared\_GridPager.cshtml" />
     <Content Include="Views\Shared\_Grid.cshtml" />
+    <Content Include="Views\Login\LoginView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Customer\" />

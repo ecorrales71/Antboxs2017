@@ -1,7 +1,4 @@
-﻿using AntBoxFrontEnd.Infrastructure;
-using AntBoxFrontEnd.Services.Customer;
-using AntBoxFrontEnd.Services.Login;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -9,32 +6,34 @@ using System.Web.Mvc;
 
 namespace AntBoxFrontEnd.Controllers
 {
-    public class CustomerController : Controller
+    public class LoginController : Controller
     {
-        // GET: Customer
+        // GET: Login
         public ActionResult Index()
         {
             return View();
         }
 
-        // GET: Customer/Details/5
+        // GET: Login/Details/5
         public ActionResult Details(int id)
         {
             return View();
         }
 
-        // GET: Customer/Create
+        // GET: Login/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Customer/Create
+        // POST: Login/Create
         [HttpPost]
         public ActionResult Create(FormCollection collection)
         {
             try
             {
+                // TODO: Add insert logic here
+
                 return RedirectToAction("Index");
             }
             catch
@@ -43,13 +42,13 @@ namespace AntBoxFrontEnd.Controllers
             }
         }
 
-        // GET: Customer/Edit/5
+        // GET: Login/Edit/5
         public ActionResult Edit(int id)
         {
             return View();
         }
 
-        // POST: Customer/Edit/5
+        // POST: Login/Edit/5
         [HttpPost]
         public ActionResult Edit(int id, FormCollection collection)
         {
@@ -65,13 +64,13 @@ namespace AntBoxFrontEnd.Controllers
             }
         }
 
-        // GET: Customer/Delete/5
+        // GET: Login/Delete/5
         public ActionResult Delete(int id)
         {
             return View();
         }
 
-        // POST: Customer/Delete/5
+        // POST: Login/Delete/5
         [HttpPost]
         public ActionResult Delete(int id, FormCollection collection)
         {

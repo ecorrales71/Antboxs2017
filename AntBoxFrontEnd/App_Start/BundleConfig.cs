@@ -25,7 +25,20 @@ namespace AntBoxFrontEnd
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
-                      "~/Content/site.css"));
+                      "~/Content/site.css",
+                      "~/Content/preloader.css",
+                      "~/Content/font-awesome.min.css",
+                      "~/Content/animate.css",
+                      "~/Content/revolution.css",
+                      "~/Content/style.css",
+                      "~/Content/custom.css",
+                      "~/Content/custom-responsive.css",
+                      "~/Content/font.css"
+
+
+
+
+                      ));
         }
     }
 }

@@ -73,26 +73,26 @@ namespace AntBoxFrontEnd.Infrastructure
                     T obj = JsonConvert.DeserializeObject<T>(responseString);
                     return obj;
                 }
-                else
+                
+
+                if(responseMessage.StatusCode == HttpStatusCode.BadRequest)
                 {
+                    var errbad = JsonConvert.DeserializeObject<AntBoxFrontEnd.Services.BadRequestResponse>(responseString);
 
-                    if(responseMessage.StatusCode == HttpStatusCode.BadRequest)
-                    {
-                        var errbad = JsonConvert.DeserializeObject<AntBoxFrontEnd.Services.Tasks.TaskUpdateResponse>(responseString);
-
-                        if (errbad == null)
-                            throw new Exception(errbad.Log);
-                    }
-
-
-
-                    var err = JsonConvert.DeserializeObject<MissingError>(responseString);
-
-                    if (err == null)
-                        throw new Exception(responseString);
-
-                    throw new MissingException(responseMessage.StatusCode, err);
+                    if (errbad == null)
+                        throw new Exception(errbad.Log);
                 }
+
+                if(responseMessage.StatusCode == HttpStatusCode.Forbidden)
+                {
+                    var errMissing = JsonConvert.DeserializeObject<AntBoxFrontEnd.Services.MissingResponse>(responseString);
+
+                    if (errMissing == null)
+                        throw new Exception(errMissing.Missing);
+                }
+
+                throw new MissingException(responseMessage.StatusCode,responseMessage.Content.ToString());
+                
             }            
         }
 
@@ -113,15 +113,24 @@ namespace AntBoxFrontEnd.Infrastructure
                     T obj = JsonConvert.DeserializeObject<T>(responseString);
                     return obj;
                 }
-                else
+
+                if (responseMessage.StatusCode == HttpStatusCode.BadRequest)
                 {
-                    var err = JsonConvert.DeserializeObject<MissingError>(responseString);
+                    var errbad = JsonConvert.DeserializeObject<AntBoxFrontEnd.Services.BadRequestResponse>(responseString);
 
-                    if (err == null)
-                        throw new Exception(responseString);
-
-                    throw new MissingException(responseMessage.StatusCode, err);
+                    if (errbad == null)
+                        throw new Exception(errbad.Log);
                 }
+
+                if (responseMessage.StatusCode == HttpStatusCode.Forbidden)
+                {
+                    var errMissing = JsonConvert.DeserializeObject<AntBoxFrontEnd.Services.MissingResponse>(responseString);
+
+                    if (errMissing == null)
+                        throw new Exception(errMissing.Missing);
+                }
+
+                throw new MissingException(responseMessage.StatusCode, responseMessage.Content.ToString());
             }
         }
 
@@ -148,18 +157,6 @@ namespace AntBoxFrontEnd.Infrastructure
             }
 
         }
-
-        //internal static HttpClient GetHttpClient(RequestOptions requestOptions)
-        //{
-        //    requestOptions.ApiKey = requestOptions.ApiKey ?? ServiceConfiguration.GetApiKey();
-        //    HttpClient client = new HttpClient();
-        //    //var byteArray = Encoding.ASCII.GetBytes(requestOptions.ApiKey);
-        //    client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", requestOptions.ApiKey );
-        //    client.DefaultRequestHeaders.Accept.Clear();
-        //    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-        //    return client;
-        //}
-
 
         internal static RestClient GetRestClient(RequestOptions requestOptions)
         {
