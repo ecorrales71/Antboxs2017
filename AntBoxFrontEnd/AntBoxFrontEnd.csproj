@@ -320,15 +320,22 @@
     <Content Include="Content\Images\cajas_apiladas_antboxs.png" />
     <Content Include="Content\Images\guarda_tus_cosas.png" />
     <Content Include="Content\Images\pide_tus_antboxs.png" />
+    <Content Include="Images\video_antboxs.jpg" />
     <Content Include="Content\PagedList.css" />
     <Content Include="Content\preloader.css" />
     <Content Include="Content\revolution.css" />
     <Content Include="Content\style.css" />
     <Content Include="favicon.ico" />
+    <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="fonts\Nexa_Bold-webfont.svg" />
+    <Content Include="fonts\Nexa_Light-webfont.svg" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\ai.0.22.9-build00167.js" />
     <Content Include="Scripts\ai.0.22.9-build00167.min.js" />
+    <Content Include="Scripts\antbox\custom.js" />
+    <Content Include="Scripts\antbox\fontawesome-markers.min.js" />
+    <Content Include="Scripts\antbox\plugins.js" />
     <Content Include="Scripts\bootstrap-datetimepicker.js" />
     <Content Include="Scripts\bootstrap-datetimepicker.min.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -417,6 +424,18 @@
     <Content Include="App_Data\ss.config">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="fonts\fontawesome-webfont.eot" />
+    <Content Include="fonts\fontawesome-webfont.ttf" />
+    <Content Include="fonts\fontawesome-webfont.woff" />
+    <Content Include="fonts\fontawesome-webfont.woff2" />
+    <Content Include="fonts\Nexa_Bold-webfont.eot" />
+    <Content Include="fonts\Nexa_Bold-webfont.ttf" />
+    <Content Include="fonts\Nexa_Bold-webfont.woff" />
+    <Content Include="fonts\Nexa_Bold-webfont.woff2" />
+    <Content Include="fonts\Nexa_Light-webfont.eot" />
+    <Content Include="fonts\Nexa_Light-webfont.ttf" />
+    <Content Include="fonts\Nexa_Light-webfont.woff" />
+    <Content Include="fonts\Nexa_Light-webfont.woff2" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\gridmvc.js" />
     <Content Include="Scripts\gridmvc.lang.ru.js" />
@@ -479,6 +498,7 @@
     <Content Include="Views\Login\LoginView.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Video\" />
     <Folder Include="Views\Customer\" />
   </ItemGroup>
   <ItemGroup>

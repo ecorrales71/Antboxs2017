@@ -11,6 +11,11 @@ namespace AntBoxFrontEnd
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/antbox").Include(
+                        "~/Scripts/antbox/plugins.js",
+                        "~/Scripts/antbox/fontawesome-markers.min.js",
+                        "~/Scripts/antbox/custom.js"));
+
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
 
@@ -34,10 +39,6 @@ namespace AntBoxFrontEnd
                       "~/Content/custom.css",
                       "~/Content/custom-responsive.css",
                       "~/Content/font.css"
-
-
-
-
                       ));
         }
     }
