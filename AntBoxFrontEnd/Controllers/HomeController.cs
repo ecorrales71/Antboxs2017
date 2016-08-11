@@ -21,6 +21,27 @@ namespace AntBoxFrontEnd.Controllers
             return View();
         }
 
+        public ActionResult ComoFunciona()
+        {
+            ViewBag.Message = "¿Cómo Funciona?";
+
+            return View();
+        }
+
+        public ActionResult QueDeboHacer()
+        {
+            ViewBag.Message = "¿Qué debo hacer?";
+
+            return View();
+        }
+
+        public ActionResult Precios()
+        {
+            ViewBag.Message = "Precios";
+
+            return View();
+        }
+
         public ActionResult Contact()
         {
             ViewBag.Message = "Pagina de contacto.";

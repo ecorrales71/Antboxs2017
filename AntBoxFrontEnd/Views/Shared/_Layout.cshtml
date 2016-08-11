@@ -59,13 +59,13 @@
                         @Html.ActionLink("Antboxs es...", "Index", "Home")
                     </li>
                     <li>
-                        <a href="como-funciona.cshtml">¿Cómo funciona?</a>
+                        @Html.ActionLink("¿Cómo funciona?", "ComoFunciona", "Home")
                     </li>
                     <li>
-                        <a href="que-debo-hacer.cshtml">¿Qué debo hacer?</a>
+                        @Html.ActionLink("¿Qué debo hacer?", "QueDeboHacer", "Home")
                     </li>
                     <li>
-                        <a href="precios.cshtml">Precios</a>
+                        @Html.ActionLink("Precios", "Precios", "Home")
                     </li>
                     <li class="dropdown">
                         <a href="" class="dropdown-toggle" data-toggle="dropdown">Ayuda</a>
@@ -235,7 +235,56 @@
             </div>
         </div>
     </div>
+    <!-- /.modal -->
+    <!-- Modal Register -->
+    <div class="modal fade" id="registro">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><i class="fa fa-times"></i></button>
+                    <h6 class="modal-title">Registrar nueva cuenta</h6>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-form">
+                        <p>Indícanos el código postal de la dirección dónde deseas que realicemos la recolección de tus cosas.</p>
+                        <hr class="hr-sm hr-stroke" />
+                        <form>
+                            <div class="form-group">
+                                <label for="username">Usuario</label>
+                                <input type="text" name="username" id="username">
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="email" name="email" id="email">
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Códio Postal de Recolección</label>
+                                <input type="email" name="email" id="email">
+                            </div>
+                            <div class="alert alert-warning">
+                                <p><i class="fa fa-exclamation-triangle"></i> <strong>Prueba con otro código postal.</strong> Por el momento nuestro servicio no llega a este domicilio pero te mantendremos informado de las próximas zonas de cobertura.</p>
+                            </div>
+                            <hr class="hr-sm hr-stroke" />
+                            <div class="form-group">
+                                <label for="password">Contraseña</label>
+                                <input type="password" name="password" id="password">
+                            </div>
+                            <div class="form-group">
+                                <label for="password2">Confirmar Contraseña</label>
+                                <input type="password" name="password2" id="password2">
+                            </div>
+                            <hr class="hr-sm hr-stroke" />
+                            <div class="form-group">
+                                <input type="submit" class="btn btn-primary" value="Regristrarme">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
+    <!-- /.modal -->
 </html>
 
 @Scripts.Render("~/bundles/jquery")

@@ -459,6 +459,7 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
+    <Content Include="Video\video_antboxs.mp4" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -496,9 +497,11 @@
     <Content Include="Views\Shared\_GridPager.cshtml" />
     <Content Include="Views\Shared\_Grid.cshtml" />
     <Content Include="Views\Login\LoginView.cshtml" />
+    <Content Include="Views\Home\ComoFunciona.cshtml" />
+    <Content Include="Views\Home\QueDeboHacer.cshtml" />
+    <Content Include="Views\Home\Precios.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Video\" />
     <Folder Include="Views\Customer\" />
   </ItemGroup>
   <ItemGroup>

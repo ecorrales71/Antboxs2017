@@ -25,6 +25,8 @@
 .mr10 {margin-right: 10px !important;}
 .mb10 {margin-bottom: 10px !important;}
 
+.ml15 {margin-left: 15px !important;}
+
 .pl10 {padding-left: 10px !important;}
 .pt10 {padding-top: 10px !important;}
 .pr10 {padding-right: 10px !important;}
@@ -91,19 +93,44 @@
 .pb70 {padding-bottom: 70px !important;}
 
 
+/*----------------------------------- INICIO -------------------------------------*/
+
+/*TamaÃ±o de los cÃ­rculos rojos con los nÃºmeros*/
+.inicio .icon.icon-size-3.icon-rounded, .inicio .icon.icon-size-3.icon-square {
+    width: 52px;
+    height: 52px;
+}
+/*Color de fondo de los cÃ­rculos de flechas*/
+.inicio .steps-2 [class*=col-] + [class*=col-]:before {
+    background-color: #ba2025;
+}
+/* TamaÃ±o de los nÃºmero de los cÃ­rculos*/
+.inicio .steps-2 i {
+    font-size: 24px;
+}
+/* Centrar nÃºmero de cÃ­rculos */
+.inicio .icon.icon-rounded i, .icon.icon-square i {
+    top: 55%;
+}
+
+/*----------------------------------- MENU -------------------------------------*/
+/* Fondo blanco en submenu */
+.header-light .dropdown-menu {
+    background: #fff;
+}
 /*----------------------------- Padding arriba/abajo de menu top oculto -----------------------------*/
 .corner-container .container {
     display: none;
     padding: 0px;
 }
 
-/*----------------------------- Tamaño fuente de video-galería -----------------------------*/
+/*----------------------------- TamaÃ±o fuente de video-galerÃ­a -----------------------------*/
 .bannercontainer p {
 	font-size: 1em !important;
 	line-height: 1.5em !important;
 }
 
-/*----------------------------- Cambio de color de barrita lateral izquierda en menú mobile -----------------------------*/
+/*----------------------------- Cambio de color de barrita lateral izquierda en menÃº mobile -----------------------------*/
 .no-menu .header:not(.header-vertical) .navbar-collapse .navbar-nav > li:hover > a,
 .no-menu .header:not(.header-vertical) .navbar-collapse .navbar-nav > li.open > a,
 .no-menu .header:not(.header-vertical) .navbar-collapse .navbar-nav > li > a:focus
@@ -111,20 +138,85 @@
     border-left-color: #192151;
 }
 
+/* Estilo de btn Entrar */
+.btn-link {
+    color: #ba2025;
+    border: 0;
+}
+.btn-link:hover {
+    color: #cf2626;
+}
+.btn-link:visited, .btn-link:focus  {
+    color: #ba2025;
+}
+/* Hacer visible el botÃ³n de Entrar */
+.navbar-account nav .btn-link {
+    font-size: 14px;
+    display: inline-block;
+    vertical-align: middle;
+    color: #000;
+}
+/* Acomodar el icono de btn Entrar */
+.navbar-account nav button i
+{
+    font-size: 16px;
+    margin-right: 5px;
+    margin-top: -3px;
+    color: #000;
+}
 
+/*----------------------------------- CÃ“MO FUNCIONA -------------------------------------*/
+/* Pading del background images */
+.como_funciona .highlight {
+    padding-top: 170px !important;
+    padding-bottom: 170px !important;
+}
+
+/*----------------------------------- PREGUNTAS FRECUENTES -------------------------------------*/
+.preguntas_frecuentes .panel-body {
+    padding-top: 10px;
+}
+.preguntas_frecuentes .panel-body p {
+    padding-top: 0px;
+    margin-bottom: 10px;
+}
+
+.preguntas_frecuentes .nobg p, .inicio .intro p {
+    padding-top: 0px;
+    margin-bottom: 15px;
+}
+
+/*----------------------------------- CONTACTO -------------------------------------*/
+/* Cuadros de InformaciÃ³n Adicional */
+.contacto .tabs-icons-square .nav-tabs > li > a {
+    width: 59px;
+    height: 59px;
+}
+/* Alinear cuadros en Info Adicional */
+.contacto [class*=tabs-vertical][class*=tabs-icons] .tab-content {
+    padding: 0 0;
+}
+/* TamaÃ±o de iconos en Cuadros de InformaciÃ³n Adicional */
+.contacto [class*=tabs-icons] .nav-tabs > li > a i {
+    font-size: 30px;
+}
+/* Centrar iconos en Cuadros de InformaciÃ³n Adicional */
+.contacto .nav-tabs > li > a i {
+    top: -15px;
+}
 /*----------------------------------- FOOTER -------------------------------------*/
 .footer-extra {
 	background-color: #fff;
 }
-/* Color de la flecha del btn para abrir menú de footer */
+/* Color de la flecha del btn para abrir menÃº de footer */
 .pagetitle-toggle:after, .pagetitle-toggle:hover:after{
     color: #fff;
 }
-/* Color del círculo de la flecha del btn para abrir menú de footer */
+/* Color del cÃ­rculo de la flecha del btn para abrir menÃº de footer */
 .pagetitle-toggle.collapsed, .pagetitle-toggle {
     background-color: #b91f25;
 }
-/* Color del círculo de la flecha del btn para abrir menú de footer :hover */
+/* Color del cÃ­rculo de la flecha del btn para abrir menÃº de footer :hover */
 .pagetitle-toggle:hover {
     background-color: #192151;
 }
