@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using AntBoxFrontEnd.Models;
+using AntBoxFrontEnd.Services.Login;
 
 namespace AntBoxFrontEnd.Controllers
 {
@@ -61,35 +62,65 @@ namespace AntBoxFrontEnd.Controllers
             return View();
         }
 
-        //
-        // POST: /Account/Login
         [HttpPost]
-        [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
+        public ActionResult Login(string email, string password, bool isPersistent)
         {
-            if (!ModelState.IsValid)
+            string id = string.Empty;
+            if (new UserManager().IsValid(email, password, ref id))
             {
-                return View(model);
+                var customer = new UserManager().GetCustomer(id);
+
+
+                var ident = new ClaimsIdentity(
+                                new[] { 
+                                    // adding following 2 claim just for supporting default antiforgery provider
+                                    new Claim(ClaimTypes.NameIdentifier, customer.Name),
+                                    new Claim("http://schemas.microsoft.com/accesscontrolservice/2010/07/claims/identityprovider",
+                                    "ASP.NET Identity", "http://www.w3.org/2001/XMLSchema#string"),
+                                    new Claim(ClaimTypes.Name,customer.Name),
+                                }, DefaultAuthenticationTypes.ApplicationCookie);
+
+                HttpContext.GetOwinContext().Authentication.SignIn(
+                    new AuthenticationProperties { IsPersistent = isPersistent }, ident);
+
+                return RedirectToAction("Index"); // auth succeed 
             }
 
-            // This doesn't count login failures towards account lockout
-            // To enable password failures to trigger account lockout, change to shouldLockout: true
-            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: true);
-            switch (result)
-            {
-                case SignInStatus.Success:
-                    return RedirectToLocal(returnUrl);
-                case SignInStatus.LockedOut:
-                    return View("Lockout");
-                case SignInStatus.RequiresVerification:
-                    return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
-                case SignInStatus.Failure:
-                default:
-                    ModelState.AddModelError("", "Invalid login attempt.");
-                    return View(model);
-            }
+            ModelState.AddModelError("", "invalid username or password");
+            return View();
         }
+
+
+        ////
+        //// POST: /Account/Login
+        //[HttpPost]
+        //[AllowAnonymous]
+        //[ValidateAntiForgeryToken]
+        //public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return View(model);
+        //    }
+
+        //    // This doesn't count login failures towards account lockout
+        //    // To enable password failures to trigger account lockout, change to shouldLockout: true
+        //    var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+        //    switch (result)
+        //    {
+        //        case SignInStatus.Success:
+        //            return RedirectToLocal(returnUrl);
+        //        case SignInStatus.LockedOut:
+        //            return View("Lockout");
+        //        case SignInStatus.RequiresVerification:
+        //            return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
+        //        case SignInStatus.Failure:
+        //        default:
+        //            ModelState.AddModelError("", "Invalid login attempt.");
+        //            return View(model);
+        //    }
+        //}
 
         //
         // GET: /Account/VerifyCode

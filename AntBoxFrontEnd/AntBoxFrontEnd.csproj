@@ -283,6 +283,7 @@
     <Compile Include="Services\Customer\CustomerServices.cs" />
     <Compile Include="Services\Login\LoginCreateOptions.cs" />
     <Compile Include="Services\Login\LoginService.cs" />
+    <Compile Include="Services\Login\UserManager.cs" />
     <Compile Include="Services\MissingResponse.cs" />
     <Compile Include="Services\Payments\CardInfo.cs" />
     <Compile Include="Services\Payments\CardObject.cs" />
