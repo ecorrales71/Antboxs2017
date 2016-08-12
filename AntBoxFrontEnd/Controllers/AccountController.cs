@@ -26,10 +26,10 @@ namespace AntBoxFrontEnd.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> AntBoxLogin(AntBoxLoginViewModel model)
+        public async Task<ActionResult> AntBoxLogin(AntBoxRegisterViewModel model)
         {
-            if (ModelState.IsValid)
-            {
+            //if (ModelState.IsValid)
+            //{
                 var usr = new AntBoxFrontEnd.Services.Login.LoginCreateOptions
                 {
                     Email = model.Email,
@@ -47,7 +47,18 @@ namespace AntBoxFrontEnd.Controllers
                 Session["customer"] = customer;
 
                 return RedirectToAction("Precios", "Home");
-            }
+            //}
+            //return RedirectToAction("Index", "Home");
+        }
+
+        // POST: /Account/Login
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> AntBoxLogout()
+        {
+            Session["customer"] = null;
+
             return RedirectToAction("Index", "Home");
         }
         //
@@ -86,9 +97,24 @@ namespace AntBoxFrontEnd.Controllers
                 var res = ser.CreateCustomer(cus);
                 if (res)
                 {
-                    
+                    var usr = new AntBoxFrontEnd.Services.Login.LoginCreateOptions
+                    {
+                        Email = model.Email,
+                        Password = model.Password
+                    };
+
+                    LoginService ls = new LoginService(ServiceConfiguration.GetApiKey());
+
+                    string id = ls.HovaLogin(usr);
+
+                    CustomerServices cs = new CustomerServices(ServiceConfiguration.GetApiKey());
+
+                    CustomerResponse customer = cs.SearchCustomer(id);
+
+                    Session["customer"] = customer;
 
                     return RedirectToAction("Precios", "Home");
+
                 }
 
 
