@@ -3,6 +3,55 @@ using System.ComponentModel.DataAnnotations;
 
 namespace AntBoxFrontEnd.Models
 {
+    public class AntBoxRegisterViewModel
+    {
+        [Required]
+        [StringLength(100, ErrorMessage = "El {0} debe ser de al menos {2} caracteres de longitud.", MinimumLength = 3)]
+        [Display(Name = "Nombre")]
+        public string Name { get; set; }
+
+        [Required]
+        [StringLength(100, ErrorMessage = "El {0} debe ser de al menos {2} caracteres de longitud.", MinimumLength = 3)]
+        [Display(Name = "Apellido")]
+        public string LastName { get; set; }
+
+        [Required]
+        [EmailAddress]
+        [Display(Name = "Email")]
+        public string Email { get; set; }
+
+        [Required]
+        [StringLength(100, ErrorMessage = "La {0} debe ser de al menos {2} caracteres de longitud.", MinimumLength = 6)]
+        [DataType(DataType.Password)]
+        [Display(Name = "Contraseña")]
+        public string Password { get; set; }
+
+        [DataType(DataType.Password)]
+        [Display(Name = "Confirmar contraseña")]
+        [Compare("Password", ErrorMessage = "Las contraseñas no coinciden.")]
+        public string ConfirmPassword { get; set; }
+
+        [Required]
+        [StringLength(5, ErrorMessage = "El {0} deber ser de {2} digitos.", MinimumLength = 5)]
+        [Display(Name = "Código postal")]
+        public string ZipCode { get; set; }
+
+    }
+
+    public class AntBoxLoginViewModel
+    {
+        [Required]
+        [EmailAddress]
+        [Display(Name = "Email")]
+        public string Email { get; set; }
+
+        [Required]
+        [DataType(DataType.Password)]
+        [Display(Name = "Contraseña")]
+        public string Password { get; set; }
+        
+    }
+
     public class ExternalLoginConfirmationViewModel
     {
         [Required]

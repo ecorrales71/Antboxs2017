@@ -1,22 +1,123 @@
 ﻿@using Microsoft.AspNet.Identity
-@if (Request.IsAuthenticated)
+@model AntBoxFrontEnd.Models.AntBoxRegisterViewModel
+@if (Session["customer"] != null)
 {
-    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+      using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
     {
-    @Html.AntiForgeryToken()
+        @Html.AntiForgeryToken()
 
-    <ul class="nav navbar-nav navbar-right">
-        <li>
-            @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
-        </li>
-        <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
-    </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li>
+                @Html.ActionLink("Hello " + ((AntBoxFrontEnd.Services.Customer.CustomerResponse)Session["customer"]).Name+ "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+            </li>
+            <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+        </ul>
     }
 }
 else
 {
-    <ul class="nav navbar-nav navbar-right">
-        <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
-        <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
-    </ul>
+    <nav>
+        <button type="button" class="btn-link" data-toggle="modal" data-target="#login"><i class="fa fa-lock"></i> Entrar</button>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#registro">Crear Cuenta</button>
+    </nav>
+
+    <div class="modal fade" id="login">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><i class="fa fa-times"></i></button>
+                    <h6 class="modal-title">Entrar a mi cuenta</h6>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-form">
+                        <form>
+                            <div class="form-group">
+                                <label for="username">Usuario</label>
+                                <input type="text" name="name" id="username">
+                            </div>
+                            <div class="form-group">
+                                <label for="password">Contraseña</label>
+                                <input type="password" name="name" id="password">
+                            </div>
+                            <div class="form-group">
+                                <a href="recuperar-password.cshtml">¿Olvidaste tu contraseña?</a>
+                            </div>
+                            <hr class="hr-sm hr-stroke" />
+                            <div class="form-group">
+                                <input type="submit" class="btn btn-primary btn-wide" value="Entrar">
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" id="inlineCheckbox1" value="option1"> Recordarme
+                                </label>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /.modal -->
+    <!-- Modal Register -->
+    <div class="modal fade" id="registro">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><i class="fa fa-times"></i></button>
+                    <h6 class="modal-title">Registrar nueva cuenta</h6>
+                </div>
+                <div class="modal-body">
+                    
+                        
+                        <div class="modal-form">
+                            <p>Indícanos el código postal de la dirección dónde deseas que realicemos la recolección de tus cosas.</p>
+                            <hr class="hr-sm hr-stroke" />
+@using (Html.BeginForm("AntBoxRegister", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+                            @*<form>*@
+    @Html.ValidationSummary(false, "", new { @class = "text-danger !important" })
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.Name)
+                                    @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.LastName)
+                                    @Html.TextBoxFor(m => m.LastName, new { @class = "form-control" })
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.Email)
+                                    @Html.TextBoxFor(m => m.Email)
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.ZipCode)
+                                    @Html.TextBoxFor(m => m.ZipCode)
+                                </div>
+                                <div class="alert alert-warning">
+                                    <p><i class="fa fa-exclamation-triangle"></i> <strong>Prueba con otro código postal.</strong> Por el momento nuestro servicio no llega a este domicilio pero te mantendremos informado de las próximas zonas de cobertura.</p>
+                                </div>
+                                <hr class="hr-sm hr-stroke" />
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.Password)
+                                    @Html.PasswordFor(m => m.Password)
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.ConfirmPassword)
+                                    @Html.PasswordFor(m => m.ConfirmPassword)
+                                </div>
+                                <hr class="hr-sm hr-stroke" />
+                                <div class="form-group">
+                                    <input type="submit" class="btn btn-primary" value="Regristrarme">
+                                </div>
+                            @*</form>*@
+}
+                        </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /.modal -->
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
 }

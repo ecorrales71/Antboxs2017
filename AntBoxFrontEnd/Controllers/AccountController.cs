@@ -8,7 +8,10 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
+using AntBoxFrontEnd.Infrastructure;
 using AntBoxFrontEnd.Models;
+using AntBoxFrontEnd.Services.Customer;
+using AntBoxFrontEnd.Services.Login;
 
 namespace AntBoxFrontEnd.Controllers
 {
@@ -17,6 +20,84 @@ namespace AntBoxFrontEnd.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+
+
+        // POST: /Account/Login
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> AntBoxLogin(AntBoxLoginViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var usr = new AntBoxFrontEnd.Services.Login.LoginCreateOptions
+                {
+                    Email = model.Email,
+                    Password = model.Password
+                };
+
+                LoginService ls = new LoginService(ServiceConfiguration.GetApiKey());
+
+                string id = ls.HovaLogin(usr);
+
+                CustomerServices cs = new CustomerServices(ServiceConfiguration.GetApiKey());
+
+                CustomerResponse customer = cs.SearchCustomer(id);
+
+                Session["customer"] = customer;
+
+                return RedirectToAction("Precios", "Home");
+            }
+            return RedirectToAction("Index", "Home");
+        }
+        //
+        // POST: /Account/Register
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> AntBoxRegister(AntBoxRegisterViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                //var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                //var result = await UserManager.CreateAsync(user, model.Password);
+                //if (result.Succeeded)
+                //{
+                //    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+
+                //    // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
+                //    // Send an email with this link
+                //    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                //    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                //    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+
+                var cus = new AntBoxFrontEnd.Services.Customer.CustomerRequestOptions
+                {
+                    Email = model.Email,
+                    Name = model.Name,
+                    LastName = model.LastName,
+                    //Lastname2 = "Prueba Apellido materno4",
+                    Mobile_phone = "",
+                    Password = model.Password
+                };
+
+                var ser = new CustomerServices(ServiceConfiguration.GetApiKey());
+
+                var res = ser.CreateCustomer(cus);
+                if (res)
+                {
+                    
+
+                    return RedirectToAction("Precios", "Home");
+                }
+
+
+                //AddErrors(result);
+            }
+            return RedirectToAction("Index", "Home");
+            // If we got this far, something failed, redisplay form
+            //return View(model);
+        }
 
         public AccountController()
         {
@@ -171,6 +252,8 @@ namespace AntBoxFrontEnd.Controllers
             // If we got this far, something failed, redisplay form
             return View(model);
         }
+
+        
 
         //
         // GET: /Account/ConfirmEmail

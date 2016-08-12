@@ -25,12 +25,7 @@
         <div class="container pr30">
             <!-- NAVBAR ACCOUNT -->
             <div class="navbar-account pull-right">
-                <nav>
-                    <!--<a href="#login-modal" data-toggle="modal"><i class="fa fa-lock"></i> Entrar</a>-->
-                    <button type="button" class="btn-link" data-toggle="modal" data-target="#login"><i class="fa fa-lock"></i> Entrar</button>
-                    <!--<a href="#register-modal" class="btn btn-primary" data-toggle="modal">Crear Cuenta</a>-->
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#registro">Crear Cuenta</button>
-                </nav>
+                 @Html.Partial("_LoginPartial")
             </div>
             <!-- /.navbar-account -->
         </div>
@@ -201,88 +196,6 @@
     </div>
 
 
-    <div class="modal fade" id="login">
-        <div class="modal-dialog modal-sm">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal"><i class="fa fa-times"></i></button>
-                    <h6 class="modal-title">Entrar a mi cuenta</h6>
-                </div>
-                <div class="modal-body">
-                    <div class="modal-form">
-                        <form>
-                            <div class="form-group">
-                                <label for="username">Usuario</label>
-                                <input type="text" name="name" id="username">
-                            </div>
-                            <div class="form-group">
-                                <label for="password">Contraseña</label>
-                                <input type="password" name="name" id="password">
-                            </div>
-                            <div class="form-group">
-                                <a href="recuperar-password.cshtml">¿Olvidaste tu contraseña?</a>
-                            </div>
-                            <hr class="hr-sm hr-stroke" />
-                            <div class="form-group">
-                                <input type="submit" class="btn btn-primary btn-wide" value="Entrar">
-                                <label class="checkbox-inline">
-                                    <input type="checkbox" id="inlineCheckbox1" value="option1"> Recordarme
-                                </label>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- /.modal -->
-    <!-- Modal Register -->
-    <div class="modal fade" id="registro">
-        <div class="modal-dialog modal-sm">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal"><i class="fa fa-times"></i></button>
-                    <h6 class="modal-title">Registrar nueva cuenta</h6>
-                </div>
-                <div class="modal-body">
-                    <div class="modal-form">
-                        <p>Indícanos el código postal de la dirección dónde deseas que realicemos la recolección de tus cosas.</p>
-                        <hr class="hr-sm hr-stroke" />
-                        <form>
-                            <div class="form-group">
-                                <label for="username">Usuario</label>
-                                <input type="text" name="username" id="username">
-                            </div>
-                            <div class="form-group">
-                                <label for="email">Email</label>
-                                <input type="email" name="email" id="email">
-                            </div>
-                            <div class="form-group">
-                                <label for="email">Códio Postal de Recolección</label>
-                                <input type="email" name="email" id="email">
-                            </div>
-                            <div class="alert alert-warning">
-                                <p><i class="fa fa-exclamation-triangle"></i> <strong>Prueba con otro código postal.</strong> Por el momento nuestro servicio no llega a este domicilio pero te mantendremos informado de las próximas zonas de cobertura.</p>
-                            </div>
-                            <hr class="hr-sm hr-stroke" />
-                            <div class="form-group">
-                                <label for="password">Contraseña</label>
-                                <input type="password" name="password" id="password">
-                            </div>
-                            <div class="form-group">
-                                <label for="password2">Confirmar Contraseña</label>
-                                <input type="password" name="password2" id="password2">
-                            </div>
-                            <hr class="hr-sm hr-stroke" />
-                            <div class="form-group">
-                                <input type="submit" class="btn btn-primary" value="Regristrarme">
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 </body>
     <!-- /.modal -->
 </html>
@@ -290,4 +203,5 @@
 @Scripts.Render("~/bundles/jquery")
 @Scripts.Render("~/bundles/bootstrap")
 @Scripts.Render("~/bundles/antbox")
+@Scripts.Render("~/bundles/jqueryval")
 @RenderSection("scripts", required: false)
