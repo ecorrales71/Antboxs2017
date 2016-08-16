@@ -49,7 +49,6 @@ namespace AntBoxFrontEnd.Models
         [DataType(DataType.Password)]
         [Display(Name = "Contraseña")]
         public string Password { get; set; }
-        
     }
 
     public class ExternalLoginConfirmationViewModel

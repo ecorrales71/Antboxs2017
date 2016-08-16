@@ -236,6 +236,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AntBoxAddressController.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
@@ -437,6 +438,7 @@
     <Content Include="fonts\Nexa_Light-webfont.ttf" />
     <Content Include="fonts\Nexa_Light-webfont.woff" />
     <Content Include="fonts\Nexa_Light-webfont.woff2" />
+    <None Include="Properties\PublishProfiles\antbox - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\gridmvc.js" />
     <Content Include="Scripts\gridmvc.lang.ru.js" />
@@ -461,7 +463,9 @@
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Video\video_antboxs.mp4" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -501,8 +505,10 @@
     <Content Include="Views\Home\ComoFunciona.cshtml" />
     <Content Include="Views\Home\QueDeboHacer.cshtml" />
     <Content Include="Views\Home\Precios.cshtml" />
+    <Content Include="Views\Shared\_PickupAddress.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Views\AntBoxAddress\" />
     <Folder Include="Views\Customer\" />
   </ItemGroup>
   <ItemGroup>

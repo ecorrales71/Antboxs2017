@@ -8,24 +8,38 @@
 
     <meta name="description" content="">
     @*<link href="@Url.Content("http://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic&amp;subset=latin,cyrillic")" rel="stylesheet">
-    <link href="@Url.Content("http://fonts.googleapis.com/css?family=Montserrat:700")" rel="stylesheet">
-    <link href="@Url.Content("http://fonts.googleapis.com/css?family=Satisfy")" rel="stylesheet">*@
+        <link href="@Url.Content("http://fonts.googleapis.com/css?family=Montserrat:700")" rel="stylesheet">
+        <link href="@Url.Content("http://fonts.googleapis.com/css?family=Satisfy")" rel="stylesheet">*@
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic&amp;subset=latin,cyrillic" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:700" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Satisfy" rel="stylesheet">
 
-
+    <!--Start of Zopim Live Chat Script-->
+    <script type="text/javascript">
+        window.$zopim || (function (d, s) {
+            var z = $zopim = function (c) {
+                z._.push(c)
+            }, $ = z.s =
+            d.createElement(s), e = d.getElementsByTagName(s)[0]; z.set = function (o) {
+                z.set.
+                _.push(o)
+            }; z._ = []; z.set._ = []; $.async = !0; $.setAttribute('charset', 'utf-8');
+            $.src = '//v2.zopim.com/?48t9sHbPiJXiOp8FTz9bJDRvanNLcWcl'; z.t = +new Date; $.
+            type = 'text/javascript'; e.parentNode.insertBefore($, e)
+        })(document, 'script');
+    </script>
+    <!--End of Zopim Live Chat Script-->
 </head>
 <body>
     <!-- Preloader -->
     <div class="preloader"></div>
 
     <!-- CORNER CONTAINER -->
-    <div class="corner-container footer">
+    <div class="corner-container footer" id="body-content">
         <div class="container pr30">
             <!-- NAVBAR ACCOUNT -->
             <div class="navbar-account pull-right">
-                 @Html.Partial("_LoginPartial")
+                @Html.Partial("_LoginPartial")
             </div>
             <!-- /.navbar-account -->
         </div>
@@ -197,7 +211,7 @@
 
 
 </body>
-    <!-- /.modal -->
+<!-- /.modal -->
 </html>
 
 @Scripts.Render("~/bundles/jquery")
@@ -205,3 +219,28 @@
 @Scripts.Render("~/bundles/antbox")
 @Scripts.Render("~/bundles/jqueryval")
 @RenderSection("scripts", required: false)
+
+<script>
+        $('#testAjax').click(function () {
+            $.ajax({
+                type: 'POST',
+                url: 'Account/AntBoxRegister',
+                data: {},
+                success: function (emp) {
+                    $('#body-content').prepend(
+                        '<div class="alert alert-success" id="success-alert">Login exitoso</div>');
+                    window.setTimeout(function ()
+                    { $("#success-alert").alert('close'); }, 2000);
+                    
+                },
+                error: function (emp) {
+                    $('#body-content').prepend(
+                        '<div class="alert alert-danger fade-in" id="error-alert">Login fallido</div>'
+                        );
+                    window.setTimeout(function ()
+                    { $("#error-alert").alert('close'); }, 2000);
+                    
+                }
+            });
+        });
+</script>
