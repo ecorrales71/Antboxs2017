@@ -5,6 +5,8 @@ using System.Web;
 using AntBoxFrontEnd.Entities;
 using AntBoxFrontEnd.Services.Customer;
 using static AutoMapper.Mapper;
+using AntBoxFrontEnd.Services.Address;
+using AntBoxFrontEnd.Models;
 
 namespace AntBoxFrontEnd.Infrastructure
 {
@@ -21,6 +23,15 @@ namespace AntBoxFrontEnd.Infrastructure
         private static void ConfigureCustomerMapping()
         {
             CreateMap<Customer, CustomerResponse>();
+
+            CreateMap<AddressRequestOptions, AntBoxAddressViewModel>();
+
+            CreateMap<AntBoxAddressViewModel, AddressRequestOptions>();
+
+
+
+
+
         }
 
     }

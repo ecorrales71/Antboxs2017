@@ -13,7 +13,7 @@ namespace AntBoxFrontEnd.Services.Zipcodes
         {
         }
 
-        public ZipCodeResponse SearchZipCode (string zipcode, RequestOptions requestOptions = null)
+        public List<ZipCodeResponse> SearchZipCode (string zipcode, RequestOptions requestOptions = null)
         {
             requestOptions = SetupRequestOptions(requestOptions);
 
@@ -23,7 +23,7 @@ namespace AntBoxFrontEnd.Services.Zipcodes
 
             var zipResponse = Requestor.Get<List<ZipCodeResponse>>(UrlsConstants.ZipCode + encodedContent, requestOptions);
 
-            return zipResponse.FirstOrDefault();
+            return zipResponse;
         }
 
     }

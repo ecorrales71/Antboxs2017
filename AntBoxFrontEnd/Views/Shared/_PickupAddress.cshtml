@@ -1,4 +1,8 @@
-﻿<script>
+﻿@using Microsoft.AspNet.Identity
+@model AntBoxFrontEnd.Models.AntBoxAddressViewModel 
+  
+
+<script>
     $(function () {
         $("button").click(function () {
             $.ajax({
@@ -13,6 +17,7 @@
         });
     });
 </script>
+<script src="@Url.Content("~/Scripts/antbox/index.js")" type="text/javascript"></script>
 
 <div class="row">
     <div class="col-sm-12">
@@ -82,85 +87,86 @@
                 <h6 class="modal-title">Registrar nueva dirección</h6>
             </div>
             <div class="modal-body">
-                <form action="../../php/email.php" method="post" class="contact-form form-solid" novalidate>
+                @using (Html.BeginForm("Create", "AntBoxAddresses", FormMethod.Post , new { @class = "contact-form form-solid", role = "form" }))
+                {
+                    @Html.HiddenFor(a => a.Customer_id)
+                    @Html.HiddenFor(a => a.Rfc_id)
                     <div class="row">
                         <div class="col-sm-6">
                             <div class="form-group">
-                                <label for="send-form-name">Nombre de Identificación*</label>
-                                <input type="text" name="name" id="send-form-name">
+                                @Html.LabelFor(a => a.Alias)
+                                @Html.TextBoxFor(a => a.Alias)
+                                @Html.ValidationMessageFor(a => a.Alias, "", new { @class = "alert alert-danger fade-in" })
                             </div>
                             <div class="form-group">
-                                <label for="send-form-email">Calle</label>
-                                <input type="text" name="email" id="send-form-email">
+                                @Html.LabelFor(a => a.Street)
+                                @Html.TextBoxFor(a => a.Street)
+                                @Html.ValidationMessageFor(a => a.Street, "", new { @class = "alert alert-danger fade-in" })
                             </div>
                             <div class="row">
                                 <div class="col-sm-6">
                                     <div class="form-group">
-                                        <label for="send-form-email">Núm. Int.</label>
-                                        <input type="text" name="email" id="send-form-email">
+                                        @Html.LabelFor(a => a.Internal_number)
+                                        @Html.TextBoxFor(a => a.Internal_number)
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="form-group">
-                                        <label for="send-form-email">Núm. Ext.</label>
-                                        <input type="text" name="email" id="send-form-email">
+                                        @Html.LabelFor(a => a.External_number)
+                                        @Html.TextBoxFor(a => a.External_number)
+                                        @Html.ValidationMessageFor(a => a.External_number, "", new { @class = "alert alert-danger fade-in" })
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="send-form-email">Código Postal</label>
-                                <input type="text" name="email" id="send-form-email">
+                                @Html.LabelFor(a => a.Zipcode)
+                                @Html.TextBoxFor(a => a.Zipcode)
+                                @Html.ValidationMessageFor(a => a.Zipcode, "", new { @class = "alert alert-danger fade-in" })
                             </div>
                             <div class="form-group">
-                                <label for="form-select">Delegación o Municipio</label>
-                                <select id="form-select">
-                                    <option value>- Selecciona una opción -</option>
-                                    <option value="d1">Delegacion 1</option>
-                                    <option value="d2">Delegacion 2</option>
-                                    <option value="d3">Delegacion 3</option>
-                                    <option value="d4">Delegacion 4</option>
-                                </select>
+                                @Html.LabelFor(a => a.Delegation)
+                                @Html.TextBoxFor(a => a.Delegation)
+                                Model.Delegaciones)
+                                @Html.ValidationMessageFor(a => a.Delegation, "", new { @class = "alert alert-danger fade-in" })
+                               
                             </div>
                             <div class="form-group">
-                                <label for="form-select">Colonia</label>
-                                <select id="test" name="form_select" onchange="showOtraColonia3(this)">
-                                    <option value>- Selecciona una opción -</option>
-                                    <option value="c1">Colonia 1</option>
-                                    <option value="c2">Colonia 2</option>
-                                    <option value="c3">Colonia 3</option>
-                                    <option value="c4">Colonia 4</option>
-                                    <option value="otra">Otra</option>
-                                </select>
+                                @Html.LabelFor(a => a.Neighborhood)
+                                @Html.TextBoxFor(a => a.Neighborhood)
+                                @Html.ValidationMessageFor(a => a.Neighborhood, "", new { @class = "alert alert-danger fade-in" })
                             </div>
                             <div id="hidden_div3" class="form-group">
-                                <label for="send-form-email">Nombre de la colonia*</label>
-                                <input type="text" name="email" id="send-form-email">
+                                @Html.LabelFor(a => a.Neighborhood)
+                                @Html.TextBoxFor(a => a.Neighborhood)
+                                @Html.ValidationMessageFor(a => a.Neighborhood, "", new { @class = "alert alert-danger fade-in" })
                             </div>
                         </div>
                         <div class="col-sm-6 pl0_modal">
                             <div class="form-group">
-                                <label for="send-form-name">Ciudad</label>
-                                <input type="text" name="name" id="send-form-name">
+                                @Html.LabelFor(a => a.City)
+                                @Html.TextBoxFor(a => a.City)
+                                @Html.ValidationMessageFor(a => a.City, "", new { @class = "alert alert-danger fade-in" })
                             </div>
                             <div class="form-group">
-                                <label for="send-form-name">Estado</label>
-                                <input type="text" name="name" id="send-form-name">
+                                @Html.LabelFor(a => a.State)
+                                @Html.TextBoxFor(a => a.State)
+                                @Html.ValidationMessageFor(a => a.State, "", new { @class = "alert alert-danger fade-in" })
                             </div>
                             <div class="form-group">
-                                <label for="send-form-email">País</label>
-                                <input type="text" name="email" id="send-form-email">
+                                @Html.LabelFor(a => a.Country)
+                                @Html.TextBoxFor(a => a.Country)
                             </div>
                             <div class="form-group">
-                                <label for="send-form-message">Referencias y Comentarios</label>
-                                <textarea name="message" id="send-form-message"></textarea>
+                                @Html.LabelFor(a => a.References)
+                                @Html.TextAreaFor(a => a.References)
                             </div>
                         </div>
                         <div class="col-sm-12 mt10">
-                            <input type="submit" class="btn btn-primary btn-wide pull-right" value="Registrar">
+                            <input type="submit" value="Create" class="btn btn-primary btn-wide pull-right" />
                             <p class="succs-msg">Мensaje enviado</p>
                         </div>
                     </div>
-                </form>
+                }
             </div>
         </div>
     </div>

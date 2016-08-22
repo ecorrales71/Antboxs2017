@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using AntBoxFrontEnd.Infrastructure;
+using AntBoxFrontEnd.Services.Zipcodes;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace AntBoxFrontEnd.Models
@@ -37,6 +39,8 @@ namespace AntBoxFrontEnd.Models
         public string ZipCode { get; set; }
 
     }
+
+
 
     public class AntBoxLoginViewModel
     {
