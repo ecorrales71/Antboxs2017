@@ -42,9 +42,38 @@ namespace AntBoxFrontEnd.Controllers
             return View();
         }
 
-        public ActionResult Contact()
+        public ActionResult Contacto()
         {
             ViewBag.Message = "Pagina de contacto.";
+
+            return View();
+        }
+
+        public ActionResult PreguntasFrecuentes()
+        {
+            ViewBag.Message = "Preguntas frecuentes.";
+
+            return View();
+        }
+
+
+        public ActionResult AgendarEntregas()
+        {
+            ViewBag.Message = "Agendar entregas.";
+
+            return View();
+        }
+
+        public ActionResult CrearCuenta()
+        {
+            ViewBag.Message = "Agendar entregas.";
+
+            return View();
+        }
+
+        public ActionResult OrdenCompleta()
+        {
+            ViewBag.Message = "Agendar entregas.";
 
             return View();
         }

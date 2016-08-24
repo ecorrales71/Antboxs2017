@@ -1,0 +1,239 @@
+﻿
+@{
+    ViewBag.Title = "Contacto";
+}
+
+<!-- WRAPPER -->
+<div class="wrapper contacto">
+
+    <!-- PAGE TITLE -->
+    <header class="pagetitle pagetitle-sm">
+        <div class="container">
+            <div class="divtable irow">
+                <div class="divcell">
+                    <i class="fa fa-envelope-o"></i>
+                    <h1>Información de contacto</h1>
+                    <div class="divider"></div>
+                    <span class="subtitle">Si tienes alguna pregunta no dudes en escribirnos</span>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- /.pagetitle -->
+    <!-- CONTENT -->
+    <div class="content no-pt">
+
+        <!-- CONTAINER -->
+        <div class="iwrap">
+            <section class="container">
+                <div class="row text-wrap text-center">
+                    <div class="col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1" data-animate="fadeInDown">
+                        <h1>Tal vez ya hemos respondido a tu pregunta</h1>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip retex tempor incididunea commodo consequat.</p>
+                        <div class="heading-divider heading-divider-xs mb30"></div>
+                        @Html.ActionLink("Preguntas Frecuentes", "PreguntasFrecuentes", "Home", new { @class = "btn btn-primary" })
+                    </div>
+                </div>
+            </section>
+        </div>
+        <!-- /.container -->
+        <!-- CONTAINER -->
+        <div class="container">
+            <div class="row irow-sm text-center cols-border contact-wrap">
+                <div class="col-md-3 col-xs-6">
+                    <div class="icon icon-size-4 icon-color">
+                        <i class="fa fa-clock-o"></i>
+                    </div>
+                    <h4>Atención al cliente</h4>
+                    <address>
+                        Lu a Vi de 9:00 a 18:00<br />
+                        Sábados de 10:00 a 15:00
+                    </address>
+                    <div class="heading-divider"></div>
+                </div>
+                <div class="col-md-3 col-xs-6">
+                    <div class="icon icon-size-4 icon-color">
+                        <i class="fa fa-map-marker"></i>
+                    </div>
+                    <h4>Dirección</h4>
+                    <address>
+                        Vereda de Santa Fe 26,<br />
+                        Col. Lomas de Santa Fe,<br />
+                        Álvaro Obregón, 01219 México
+                    </address>
+                    <div class="heading-divider"></div>
+                </div>
+                <div class="col-md-3 col-xs-6">
+                    <div class="icon icon-size-4 icon-color">
+                        <i class="fa fa-phone"></i>
+                    </div>
+                    <h4>Teléfonos</h4>
+                    <address>
+                        +55 212 290 4700<br />
+                        +55 430 290 5500<br />
+                        +55 212 290 4799
+                    </address>
+                    <div class="heading-divider"></div>
+                </div>
+                <div class="col-md-3 col-xs-6">
+                    <div class="icon icon-size-4 icon-color">
+                        <i class="fa fa-envelope-o"></i>
+                    </div>
+                    <h4>E-mails</h4>
+                    <address>
+                        <a href="mailto:info@antboxs.com">info@antboxs.com</a> <br />
+                        <a href="mailto:admon@antboxs.com">admon@antboxs.com</a>
+                    </address>
+                    <div class="heading-divider"></div>
+                </div>
+            </div>
+
+        </div>
+        <!-- /.container -->
+        <!-- MAP -->
+        <div class="google-map google-map-sm">
+            <div class="google-map-container" data-markers="19.365809,-99.265156" data-center="19.401505,-99.190217" data-zoom="11" title="Hello"></div>
+            <!--<a href="#map-modal" class="a-map" data-toggle="modal">
+                <i class="fa fa-arrows-alt"></i>
+            </a>-->
+        </div>
+        <!-- /.google-map -->
+        <!--<div id="map"></div>-->
+
+        <hr class="hr-nobg" />
+
+        <!-- CONTAINER -->
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6">
+                    <h3>Información Adicional</h3>
+                    <!-- Tabs -->
+                    <div class="tabs tabs-vertical-left tabs-icons-square mt30 mb30">
+                        <!-- Nav tabs -->
+                        <ul class="nav nav-tabs pull-left">
+                            <li class="active"><a href="#mus-5" data-toggle="tab"><i class="fa fa-user"></i></a></li>
+                            <li><a href="#time-5" data-toggle="tab"><i class="fa fa-clock-o"></i></a></li>
+                            <li><a href="#photo-5" data-toggle="tab"><i class="fa fa-heart"></i></a></li>
+                        </ul>
+
+                        <!-- Tab panes -->
+                        <div class="tab-content no-border">
+                            <div class="tab-pane fade in active" id="mus-5">
+                                <h4>Clientes</h4>
+                                <p>Si ya eres cliente nuestro es importante que te identifiques como estés registrado, así podremos ofrecerte un mejor servicio.</p>
+                            </div>
+                            <div class="tab-pane fade" id="time-5">
+                                <h4>Tiempo de Respuesta</h4>
+                                <p>Responderemos a todas tus preguntas tan pronto nos sea posible, nuestro tiempo de respuesta promedio es de 1 a 24 hrs.</p>
+                            </div>
+                            <div class="tab-pane fade" id="photo-5">
+                                <h4>Queremos saber de ti</h4>
+                                <p>Si tienes alguna pregunta sobre nuestro servicio por favor déjanos un mensaje y nosotros nos pondremos en contacto contigo, nos interesa saber de ti.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.tabs -->
+                </div>
+                <div class="col-sm-6">
+                    <h3>Formulario de Contacto</h3>
+                    <form action="../../php/email.php" method="post" class="contact-form form-solid mt30" novalidate>
+                        <div class="form-group">
+                            <label for="send-form-name">Nombre</label>
+                            <input type="text" name="name" id="send-form-name">
+                        </div>
+                        <div class="form-group">
+                            <label for="send-form-email">Email</label>
+                            <input type="email" name="email" id="send-form-email">
+                        </div>
+                        <div class="form-group">
+                            <label for="send-form-name">Teléfono</label>
+                            <input type="text" name="name" id="send-form-name">
+                        </div>
+                        <div class="form-group">
+                            <label for="send-form-name">Código Postal</label>
+                            <input type="text" name="name" id="send-form-name">
+                        </div>
+                        <div class="form-group">
+                            <label for="send-form-message">Mensaje</label>
+                            <textarea name="message" id="send-form-message"></textarea>
+                        </div>
+                        <input type="submit" class="btn btn-primary btn-wide" value="Enviar">
+                        <p class="succs-msg">Мessage was sent</p>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- /.container -->
+
+    </div>
+    <!-- /.content -->
+    <!-- PROMO-BOX -->
+    <div class="promo-box promo-box-light">
+        <div class="container">
+            <section class="row irow-xs page-header cols-border divtable mt30 mb30">
+                <div class="col-lg-10 col-md-9 col-sm-8 divcell promobox_txt">
+                    <h1>¿Tienes dudas sobre nuestro servicio?</h1>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.</p>
+                </div>
+                <div class="col-lg-2 col-md-3 col-sm-4 text-right divcell">
+                    <a href="" class="btn btn-primary btn-md">Preguntas Frecuentes</a>
+                </div>
+            </section>
+        </div>
+    </div>
+    <!-- /.promo-box -->
+
+</div>
+<!-- /.wrapper -->
+<!-- Modal -->
+<div class="modal map-modal" id="map-modal">
+    <a href="#" class="map-close" data-dismiss="modal"><i class="fa fa-close"></i></a>
+    <div class="google-map-popup"></div>
+</div>
+
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB40Z_-G33kr2YjKhFn9QSz-1y7YBrMxYE" type="text/javascript"></script>
+
+<!-- Google Map -->
+<script type="text/javascript">
+  (function($) {
+    "use strict";
+    var locations = [
+    ['<div class="infobox"><h2 class="title"><a href="contacto.php"><mark>Teknoturf</mark></a></h2><span>Lomas Verdes, Naucalpan, Edo. Méx.</span><br>(01-55) 5343-6622<br><a href="mailto:ventasmex@teknoturf.com.mx">ventasmex@teknoturf.com.mx</a></p></div></div></div>', 19.51141465562705, -99.26876104999997, 2]
+    ];
+
+    var map = new google.maps.Map(document.getElementById('map'), {
+      zoom: 14,
+      scrollwheel: false,
+      navigationControl: true,
+      mapTypeControl: true,
+      scaleControl: false,
+      draggable: true,
+      styles: [ { "stylers": [ { "hue": "#66cc33" },  {saturation: -40},
+                {gamma: 0.50} ] } ],
+      center: new google.maps.LatLng(19.512142770715705, -99.26876104999997),
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    });
+
+    var infowindow = new google.maps.InfoWindow();
+
+    var marker, i;
+
+    for (i = 0; i < locations.length; i++) {
+
+      marker = new google.maps.Marker({
+      position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+      map: map ,
+      icon: 'Images/marker.png'
+      });
+
+
+      google.maps.event.addListener(marker, 'click', (function(marker, i) {
+      return function() {
+        infowindow.setContent(locations[i][0]);
+        infowindow.open(map, marker);
+      }
+      })(marker, i));
+    }
+  })(jQuery);
+</script>

@@ -314,8 +314,11 @@
   <ItemGroup>
     <Content Include="Content\animate.css" />
     <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\calendar.css" />
     <Content Include="Content\custom-responsive.css" />
     <Content Include="Content\custom.css" />
+    <Content Include="Content\flags.css" />
     <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\font.css" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
@@ -326,6 +329,30 @@
     <Content Include="Content\Images\cajas_apiladas_antboxs.png" />
     <Content Include="Content\Images\guarda_tus_cosas.png" />
     <Content Include="Content\Images\pide_tus_antboxs.png" />
+    <Content Include="Content\Site.css" />
+    <Content Include="Images\agenda-tu-entrega-icono.png" />
+    <Content Include="Images\agenda-tu-entrega.png" />
+    <Content Include="Images\almacenamos-icono.png" />
+    <Content Include="Images\almacenamos-y-protegemos.png" />
+    <Content Include="Images\antboxs_chica.jpg" />
+    <Content Include="Images\antboxs_chica.png" />
+    <Content Include="Images\antboxs_logo.png" />
+    <Content Include="Images\antboxs_logo_2.png" />
+    <Content Include="Images\cajas_apiladas_antboxs.png" />
+    <Content Include="Images\calendario.png" />
+    <Content Include="Images\como-funciona-guarda-tus-articulos.png" />
+    <Content Include="Images\como_funciona_background_antboxs.jpg" />
+    <Content Include="Images\cuenta.png" />
+    <Content Include="Images\gridtile.png" />
+    <Content Include="Images\guarda-tus-cosas-icono.png" />
+    <Content Include="Images\pide-tus-antboxs-icono.png" />
+    <Content Include="Images\preloader.gif" />
+    <Content Include="Images\presenta-tus-articulos.jpg" />
+    <Content Include="Images\que-debo-hacer-entrega-de-antboxs.png" />
+    <Content Include="Images\que-debo-hacer-esperamos-20-minutos.png" />
+    <Content Include="Images\que-debo-hacer-sellos-de-seguridad.png" />
+    <Content Include="Images\que-debo-hacer-toma-fotografias.png" />
+    <Content Include="Images\solicita_tus_antboxs.png" />
     <Content Include="Images\video_antboxs.jpg" />
     <Content Include="Content\PagedList.css" />
     <Content Include="Content\preloader.css" />
@@ -482,7 +509,6 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
     <Content Include="Views\Account\ConfirmEmail.cshtml" />
@@ -511,6 +537,11 @@
     <Content Include="Views\Home\QueDeboHacer.cshtml" />
     <Content Include="Views\Home\Precios.cshtml" />
     <Content Include="Views\Shared\_PickupAddress.cshtml" />
+    <Content Include="Views\Home\AgendarEntregas.cshtml" />
+    <Content Include="Views\Home\Contacto.cshtml" />
+    <Content Include="Views\Home\PreguntasFrecuentes.cshtml" />
+    <Content Include="Views\Home\CrearCuenta.cshtml" />
+    <Content Include="Views\Home\OrdenCompleta.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Addresses\" />

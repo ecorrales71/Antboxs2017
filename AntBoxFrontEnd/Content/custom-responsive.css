@@ -14,6 +14,10 @@
 	.extra-menu a {
 		margin: 0px 0px 0px 0px !important;
 	}
+	.preguntas_frecuentes .media-left {
+		padding: 0 0 15px;
+
+	}
 }
 
 /*----------------------------- Marggin top en el promobox -----------------------------*/
@@ -21,4 +25,79 @@
 .promo-box .promobox_txt {
 	margin-bottom: 30px;
 	}
+	.no_portrait {
+		display: none;
+	}
+}
+
+
+/*----------------------------------- MENU -------------------------------------*/
+@media screen and (max-width: 1023px){
+	/* Letra roja en hover submenu */
+	.header-light .dropdown-menu > li > a:hover {
+	    color: #ba2025;
+	    background-color: transparent;
+	}
+}
+
+/* alinear hacia la izquierda las fotos del timeline */
+@media screen and (min-width: 768px){
+	.que_debo_hacer .timeline [class*=col-] > img {
+		margin-left: -35px;
+	}
+	.que_debo_hacer .img-lg {
+		width: 300px;
+	}
+
+}
+@media screen and (min-width: 768px){
+	.mobile {
+		display: none;
+	}
+		.tp-dottedoverlay.twoxtwo {
+    background:url(../images/gridtile.png) !important;
+}
+
+}
+
+@media screen and (max-width: 767px){
+	.portrait {
+		display: none;
+	}
+}
+
+@media screen and (max-width: 479px){
+	.no_mobile {
+		display: none !important;
+	}
+	.pl5_pr5 {
+		padding-left: 5px;
+		padding-right: 5px;
+	}
+	.cart tbody tr td {
+		padding: 5px;
+	}
+	.actions {
+		padding: 30px 0px 30px 0px !important;
+	}
+	.product-quantity input[type=text] {
+    width: 55px;
+    height: 37px;
+    text-align: center;
+}
+
+}
+
+@media screen and (max-width: 350px){
+	.product-quantity input[type=text] {
+    width: 100%;
+
+}
+
+}
+
+@media screen and (max-width: 767px){
+.precios .irow-md [class*=col-], .precios .irow-sm [class*=col-], .precios .irow-xs [class*=col-] {
+    margin-bottom: 0px;
+}
 }

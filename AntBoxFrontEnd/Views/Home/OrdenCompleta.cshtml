@@ -1,0 +1,95 @@
+﻿
+@{
+    ViewBag.Title = "Antboxes";
+}
+
+<!-- WRAPPER -->
+<div class="wrapper precios">
+
+    <!-- PAGE TITLE -->
+    <header class="pagetitle pagetitle-sm">
+        <div class="container">
+            <div class="divtable irow">
+                <div class="divcell">
+                    <i class="fa fa-check-square-o"></i>
+                    <h1>Crear Cuenta</h1>
+                    <div class="divider"></div>
+                    <span class="subtitle">Usa sin salir de casa y paga solo lo que usas</span>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- /.pagetitle -->
+    <!-- CONTENT -->
+    <div class="content">
+
+        <!-- CONTAINER -->
+        <div class="container">
+            <div class="row irow-sm text-center ml0 mr0">
+                <div class="col-md-3 col-sm-6 card card-light card-border-top-4">
+                    <div class="icon icon-color icon-size-4">
+                        <i class="fa fa-archive"></i>
+                    </div>
+                    <h4>1. Agregar Antboxs</h4>
+                </div>
+                <div class="col-md-3 col-sm-6 card card-light card-lighter card-border-top-4">
+                    <div class="icon icon-color icon-size-4">
+                        <i class="fa fa-truck fa-flip-horizontal"></i>
+                    </div>
+                    <h4>2. Agendar entregas</h4>
+                </div>
+                <div class="col-md-3 col-sm-6 card card-light card-darker card-border-top-4">
+                    <div class="icon icon-color icon-size-4">
+                        <i class="fa fa-user "></i>
+                    </div>
+                    <h4>3. Crear nueva cuenta</h4>
+                </div>
+                <div class="col-md-3 col-sm-6 card card-light card-lighter card-border-top-3">
+                    <div class="icon icon-color icon-size-4">
+                        <i class="fa fa-thumbs-up"></i>
+                    </div>
+                    <h4>4. ¡Orden completa!</h4>
+                </div>
+            </div>
+        </div>
+        <!-- /.container -->
+        <!-- CONTAINER -->
+        <div class="iwrap pt70 pb20">
+            <div class="container">
+                <div class="row irow-xs nobg" data-animate="fadeInUp">
+                    <div class="col-md-8 col-sm-10 col-md-offset-2 col-sm-offset-1 text-center">
+                        <div class="circle"></div>
+                        <div class="icon icon-color icon-size-6">
+                            <i class="fa fa-check"></i>
+                        </div>
+                        <h1>¡Orden Completa!</h1>
+                        <p>Muy pronto comenzarás a disfrutar de los servicios de almacenamiento Antboxs, te invitamos a que entres a tu cuenta y conozcas tu panel de usuario. Si tienes alguna duda o comentario ponte en contacto con nosotros a la brevedad. </p>
+                        <div class="heading-divider heading-divider-xs mb30"></div>
+                        <a href="" class="btn btn-primary">Mi Cuenta</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.container -->
+
+
+    </div>
+    <!-- /.content -->
+    <!-- PROMO-BOX -->
+    <div class="promo-box promo-box-light">
+        <div class="container">
+            <section class="row irow-xs page-header cols-border divtable mt30 mb30">
+                <div class="col-lg-10 col-md-9 col-sm-8 divcell promobox_txt">
+                    <h1>¿Tienes dudas sobre nuestro servicio?</h1>
+                    <p>Visita las preguntas frecuentes, probablemente ya hemos respondido tus dudas. Sino escríbenos o llámanos y con gusto te atendemos. </p>
+                </div>
+                <div class="col-lg-2 col-md-3 col-sm-4 text-right divcell">
+                    @Html.ActionLink("Preguntas Frecuentes", "PreguntasFrecuentes", "Home", new { @class = "btn btn-primary btn-md" })
+                </div>
+            </section>
+        </div>
+    </div>
+    <!-- /.promo-box -->
+
+</div>
+<!-- /.wrapper -->

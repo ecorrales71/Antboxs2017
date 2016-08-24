@@ -125,31 +125,38 @@
                             </div>
                             <div class="form-group">
                                 @Html.LabelFor(a => a.Delegation)
-                                @Html.TextBoxFor(a => a.Delegation)
+                                @Html.DropDownListFor(x=> x.Delegation,
+                                                        Enumerable.Empty<SelectListItem>(),
+                                                            "-- Seleccione el código postal --")
                                 Model.Delegaciones)
                                 @Html.ValidationMessageFor(a => a.Delegation, "", new { @class = "alert alert-danger fade-in" })
                                
                             </div>
                             <div class="form-group">
                                 @Html.LabelFor(a => a.Neighborhood)
-                                @Html.TextBoxFor(a => a.Neighborhood)
+                                @Html.DropDownListFor(x => x.Neighborhood,
+                                                        Enumerable.Empty<SelectListItem>(),
+                                                            "-- Seleccione el código postal --")
                                 @Html.ValidationMessageFor(a => a.Neighborhood, "", new { @class = "alert alert-danger fade-in" })
                             </div>
                             <div id="hidden_div3" class="form-group">
                                 @Html.LabelFor(a => a.Neighborhood)
                                 @Html.TextBoxFor(a => a.Neighborhood)
-                                @Html.ValidationMessageFor(a => a.Neighborhood, "", new { @class = "alert alert-danger fade-in" })
                             </div>
                         </div>
                         <div class="col-sm-6 pl0_modal">
                             <div class="form-group">
                                 @Html.LabelFor(a => a.City)
-                                @Html.TextBoxFor(a => a.City)
+                                @Html.DropDownListFor(x => x.City,
+                                                        Enumerable.Empty<SelectListItem>(),
+                                                            "-- Seleccione el código postal --")
                                 @Html.ValidationMessageFor(a => a.City, "", new { @class = "alert alert-danger fade-in" })
                             </div>
                             <div class="form-group">
                                 @Html.LabelFor(a => a.State)
-                                @Html.TextBoxFor(a => a.State)
+                                @Html.DropDownListFor(x => x.State,
+                                                        Enumerable.Empty<SelectListItem>(),
+                                                            "-- Seleccione el código postal --")
                                 @Html.ValidationMessageFor(a => a.State, "", new { @class = "alert alert-danger fade-in" })
                             </div>
                             <div class="form-group">

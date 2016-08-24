@@ -19,7 +19,7 @@
     </header>
     <!-- /.pagetitle -->
     <!-- CONTAINER -->
-    <div class="highlight inverse background overlay" style="background-image: url(images/como_funciona_background_antboxs.jpg);">
+    <div class="highlight inverse background overlay" style="background-image: url(../Images/como_funciona_background_antboxs.jpg);">
         <section class="container">
             <div class="row irow-xs text-center">
                 <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1">
@@ -39,7 +39,7 @@
 
             <div class="col-lg-5 col-md-4">
                 <hr class="hr-nobg hidden visible-lg visible-md" />
-                <img src="images/solicita_tus_antboxs.png" class="img-responsive center-block" alt="">
+                <img src="@Url.Content("~/Images/solicita_tus_antboxs.png")" class="img-responsive center-block" alt="">
                 <hr class="hr-nobg" />
             </div>
 
@@ -115,10 +115,11 @@
     </div>
     <!-- /.container -->
     <!-- CONTAINER -->
-    <div class="iwrap iwrap-light">
+    <!-- CONTAINER -->
+    <div class="iwrap">
         <div class="container">
             <div class="row irow-xs">
-                <div class="col-sm-8 text-wrap">
+                <div class="col-sm-6 col-md-8 text-wrap">
                     <div class="row irow-sm mb50">
                         <div class="col-md-12">
                             <h1>Guarda tus Artículos</h1>
@@ -136,8 +137,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-3 col-sm-offset-1 img-wrap img-wrap-left img-wrap-auto">
-                    <img src="http://placehold.it/451x655" alt="" data-animate="fadeInUpBig">
+                <div class="col-sm-6 col-md-4 pt30">
+                    <img src="@Url.Content("~/Images/como-funciona-guarda-tus-articulos.png")" class="img-responsive" alt="" data-animate="fadeInUpBig">
                 </div>
             </div>
         </div>
@@ -150,14 +151,17 @@
     <div class="iwrap iwrap-light">
         <div class="container">
             <div class="row irow-xs">
-                <div class="col-sm-6 img-wrap img-wrap-right img-wrap-auto">
-                    <img src="http://placehold.it/451x655" alt="" data-animate="fadeInUpBig">
+                <div class="col-sm-6">
+                    <!--<img src="images/almacenamos-y-protegemos.png" alt="" data-animate="fadeInUpBig">-->
+                    <img src="~/Images/almacenamos-y-protegemos.png" class="img-responsive" alt="">
                 </div>
                 <div class="col-sm-6 text-wrap">
                     <div class="row irow-sm mb50">
                         <div class="col-md-12">
                             <h1>Almacenamos y protegemos</h1>
                             <div class="heading-divider"></div>
+                            <p>Tus Antboxs están protegidas, fumigadas y almacenadas en un lugar seguro y custodiado 24/7 con CCTV, alarma, controles de seguridad, clima y humedad. Además, tu información está segura con nosotros y resguardamos tus artículos como si fuera nuestra vida. </p>
+
                             <p>Tus Antboxs están protegidas, fumigadas y almacenadas en un lugar seguro y custodiado 24/7 con CCTV, alarma, controles de seguridad, clima y humedad. Además, tu información está segura con nosotros y resguardamos tus artículos como si fuera nuestra vida. </p>
                         </div>
 
@@ -171,7 +175,7 @@
         <hr class="hr-nobg" />
 
         <!-- CONTAINER -->
-        <div class="iwrap iwrap-light">
+        <div class="iwrap">
             <div class="container">
                 <div class="row irow-xs">
                     <div class="col-sm-4 text-wrap">
@@ -183,11 +187,12 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-4 img-wrap img-wrap-left img-wrap-auto">
-                        <img src="http://placehold.it/451x655" alt="" data-animate="fadeInUpBig">
+                    <div class="col-sm-4 text-wrap">
+                        <!--<img src="images/agenda-tu-entrega.png" alt="" data-animate="fadeInUpBig">-->
+                        <img src="~/Images/agenda-tu-entrega.png" class="img-responsive center-block" alt="">
                     </div>
                     <div class="col-sm-4 text-wrap">
-                        <div class="row irow-sm mb50">
+                        <div class="row irow-sm mt70">
                             <div class="col-md-12">
                                 <p>Lo único que tienes que hacer es decirnos cuándo y a dónde vamos y qué es lo que te gustaría hacer, de una forma muy fácil y rápida, todo está pensado para tu comodidad. ¡Con Gusto!</p>
                             </div>
@@ -216,7 +221,7 @@
                         <p>¡Recupera tu espacio!</p>
 
                         <div class="heading-divider heading-divider-xs mb30"></div>
-                        <a href="" class="btn btn-primary">Comenzar ahora</a>
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#registro">Comenzar Ahora</button>
                     </div>
                 </div>
             </div>
@@ -228,13 +233,10 @@
                 <section class="row irow-xs page-header cols-border divtable mt30 mb30">
                     <div class="col-lg-10 col-md-9 col-sm-8 divcell promobox_txt">
                         <h1>¿Tienes dudas sobre nuestro servicio?</h1>
-                        <p>
-                            Visita las preguntas frecuentes, probablemente ya hemos respondido tus dudas.
-                            Sino escríbenos o llámanos y con gusto te atendemos.
-                        </p>
+                        <p>Visita las preguntas frecuentes, probablemente ya hemos respondido tus dudas. Sino escríbenos o llámanos y con gusto te atendemos. </p>
                     </div>
                     <div class="col-lg-2 col-md-3 col-sm-4 text-right divcell">
-                        <a href="" class="btn btn-primary btn-lg">Preguntas Frecuentes</a>
+                        <a href="preguntas-frecuentes.php" class="btn btn-primary btn-md">Preguntas Frecuentes</a>
                     </div>
                 </section>
             </div>

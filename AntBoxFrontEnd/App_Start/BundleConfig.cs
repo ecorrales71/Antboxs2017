@@ -14,7 +14,15 @@ namespace AntBoxFrontEnd
             bundles.Add(new ScriptBundle("~/bundles/antbox").Include(
                         "~/Scripts/antbox/plugins.js",
                         "~/Scripts/antbox/fontawesome-markers.min.js",
-                        "~/Scripts/antbox/custom.js"));
+                        "~/Scripts/antbox/custom.js",
+                        "~/Scripts/antbox/plugins.js",
+                        "~/Scripts/antbox/fontawesome-markers.min.js",
+                        "~/Scripts/antbox/custom.js",
+                        "~/Scripts/antbox/jquery-2.1.4.min.js",
+                        "~/Scripts/antbox/calendar.js",
+                        "~/Scripts/antbox/calendar-es.js",
+                        "~/Scripts/antbox/calendar-setup.js"
+                        ));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));

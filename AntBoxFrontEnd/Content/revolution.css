@@ -1366,10 +1366,11 @@ img.tp-slider-alternative-image	{	width:100%; height:auto;}
 	-	DOTTED OVERLAYS	-
 *********************************/
 .tp-dottedoverlay						{	background-repeat:repeat;width:100%;height:100%;position:absolute;top:0px;left:0px;z-index:4}
-.tp-dottedoverlay.twoxtwo				{	background:url(http://media.aisconverse.com/images/other/gridtile.png)}
-.tp-dottedoverlay.twoxtwowhite			{	background:url(http://media.aisconverse.com/images/other/gridtile_white.png)}
-.tp-dottedoverlay.threexthree			{	background:url(http://media.aisconverse.com/images/other/gridtile_3x3.png)}
-.tp-dottedoverlay.threexthreewhite		{	background:url(http://media.aisconverse.com/images/other/gridtile_3x3_white.png)}
+/* edited
+.tp-dottedoverlay.twoxtwo				{	background:url(#)}
+.tp-dottedoverlay.twoxtwowhite			{	background:url(#)}
+.tp-dottedoverlay.threexthree			{	background:url(#)}
+.tp-dottedoverlay.threexthreewhite		{	background:url(#)}*/
 /********************************
 	-	DOTTED OVERLAYS ENDS	-
 *********************************/
@@ -1909,7 +1910,7 @@ img.tp-slider-alternative-image	{	width:100%; height:auto;}
 .tp-loader.spinner0 {
   width: 43px;
   height: 11px;
-  background:url(http://media.aisconverse.com/images/other/preloader-slider.gif) no-repeat center center;
+  background:url(#) no-repeat center center;
   margin-top:-6px;
   margin-left:-22px;
 }
@@ -2090,7 +2091,7 @@ img.tp-slider-alternative-image	{	width:100%; height:auto;}
 
 
 
-.tp-transparentimg {	content:"url(http://media.aisconverse.com/images/other/transparent.png)"}
+.tp-transparentimg {	content:"url(#)"}
 .tp-3d				{	-webkit-transform-style: preserve-3d;
 						 -webkit-transform-origin: 50% 50%;
 					}

@@ -16,11 +16,49 @@
          url('../fonts/Nexa_Bold-webfont.svg#webfont') format('svg');
 }
 
-h1, h2, h3, h4, h5, h6, div, nav {
-    font-family: 'Nexa_Bold', FontAwesome !important; 
+header, h1, h2, h3, h4, h5, h6, div, nav, .widget_tag_cloud .tagcloud a, .btn, .table-responsive table th, .nav-tabs li a, .inicio .mask-light.mask-info p {
+    font-family: 'Nexa_Bold', FontAwesome !important;
 }
 
-p, a, address{
+p, a, address, input, textarea, .active-result, .contact-info, label, .table-responsive table, .countup-amount{
     font-family: 'Nexa_Light', FontAwesome !important; 
 }
 
+
+
+.footer .pagetitle i, .footer  .pagetitle h1, .footer  .pagetitle span {
+    color: #666 !important;
+}
+
+
+p, input{
+    font-size: 105% !important;
+}
+
+label, .etiqueta {
+    color: #666 !important;
+}
+
+.iwrap h1 {
+    font-size: 220%;
+}
+
+.table-responsive table {
+    font-size: 95% !important;
+}
+.shop_table tbody {
+    font-size: 90% !important;
+}
+h2 {
+    font-size: 32px;
+}
+
+
+p {
+    color: #000 !important;
+}
+
+/*Color de fuente background image - Cómo funciona*/
+.inverse p, .inverse q, .banner p {
+    color: #fff !important;
+}
