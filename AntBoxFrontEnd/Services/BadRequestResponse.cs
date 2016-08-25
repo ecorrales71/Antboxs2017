@@ -6,7 +6,7 @@ using Newtonsoft.Json;
 
 namespace AntBoxFrontEnd.Services
 {
-    public class BadRequestResponse
+    public class BadRequestResponse : Response
     {
         [JsonProperty("status")]
         public string Status { get; set; }

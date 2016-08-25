@@ -42,15 +42,26 @@ namespace AntBoxFrontEnd.Infrastructure
                     T obj = JsonConvert.DeserializeObject<T>(responseString);
                     return obj;
                 }
-                else
+
+
+                if (responseMessage.StatusCode == HttpStatusCode.BadRequest)
                 {
-                    var err = JsonConvert.DeserializeObject<MissingError>(responseString);
+                    var errbad = JsonConvert.DeserializeObject<AntBoxFrontEnd.Services.BadRequestResponse>(responseString);
 
-                    if (err == null)
-                        throw new Exception(responseString);
-
-                    throw new MissingException(responseMessage.StatusCode, err);
+                    if (errbad == null)
+                        throw new Exception(errbad.Log);
                 }
+
+                if (responseMessage.StatusCode == HttpStatusCode.Forbidden)
+                {
+                    var errMissing = JsonConvert.DeserializeObject<AntBoxFrontEnd.Services.MissingResponse>(responseString);
+
+                    if (errMissing == null)
+                        throw new Exception(errMissing.Missing);
+                }
+
+                    throw new MissingException(responseMessage.StatusCode, new MissingError { Missing = responseString});
+                
             }
         }
 
@@ -160,15 +171,22 @@ namespace AntBoxFrontEnd.Infrastructure
 
         internal static RestClient GetRestClient(RequestOptions requestOptions)
         {
-            requestOptions.ApiKey = requestOptions.ApiKey ?? ServiceConfiguration.GetApiKey();
-            var client = new RestClient();
-            string hovaus = WebConfigurationManager.AppSettings["hovaid"];
-            string hovapw = WebConfigurationManager.AppSettings["hovapw"];
+            try
+            {
+                requestOptions.ApiKey = requestOptions.ApiKey ?? ServiceConfiguration.GetApiKey();
+                var client = new RestClient();
+                string hovaus = WebConfigurationManager.AppSettings["hovaid"];
+                string hovapw = WebConfigurationManager.AppSettings["hovapw"];
 
-            client.Authenticator = new HttpBasicAuthenticator(hovaus, hovapw);
-            client.BaseUrl = new Uri(UrlsConstants.BaseUrl);
+                client.Authenticator = new HttpBasicAuthenticator(hovaus, hovapw);
+                client.BaseUrl = new Uri(UrlsConstants.BaseUrl);
 
-            return client;
+                return client;
+            }catch (Exception ex)
+            {
+                LogManager.Write(ex.Message + " " + ex.InnerException, LogManager.Error);
+                return null;
+            }
         }
 
 

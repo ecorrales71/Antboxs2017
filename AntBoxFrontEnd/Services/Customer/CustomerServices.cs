@@ -33,7 +33,7 @@ namespace AntBoxFrontEnd.Services.Customer
             }catch (Exception ex)
             {
                 //Todo log
-
+                LogManager.Write(ex.Message + " " + ex.InnerException, LogType.Error);
                 return false;
             }
             
@@ -62,7 +62,7 @@ namespace AntBoxFrontEnd.Services.Customer
             catch (Exception ex)
             {
                 //Todo log
-
+                LogManager.Write(ex.Message + " " + ex.InnerException, LogType.Error);
                 return false;
             }
 
@@ -73,15 +73,22 @@ namespace AntBoxFrontEnd.Services.Customer
 
         public virtual CustomerResponse SearchCustomer(string id , RequestOptions requestOptions = null)
         {
-            requestOptions = SetupRequestOptions(requestOptions);
+            try
+            {
+                requestOptions = SetupRequestOptions(requestOptions);
 
-            var parameters = new Dictionary<string, string> { { "id", id } };
+                var parameters = new Dictionary<string, string> { { "id", id } };
 
-            var encodedParams = Infrastructure.UrlHelper.BuildURLParametersString(parameters);
-            
-            var customers = Requestor.Get<CustomerResponse>(UrlsConstants.Customer + "/" + id, requestOptions);
+                var encodedParams = Infrastructure.UrlHelper.BuildURLParametersString(parameters);
 
-            return customers;
+                var customers = Requestor.Get<CustomerResponse>(UrlsConstants.Customer + "/" + id, requestOptions);
+
+                return customers;
+            }catch(Exception ex)
+            {
+                LogManager.Write(ex.Message + " " + ex.InnerException, LogType.Error);
+                return null;
+            }
         }
 
 

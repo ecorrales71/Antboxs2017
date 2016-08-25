@@ -25,7 +25,11 @@ namespace AntBoxFrontEnd.Infrastructure
 
         public static String Payment { get { return BaseUrl + "/payment"; } }
 
+        public static String Box { get { return BaseUrl + "/box"; } }
 
+        public static String BoxesSearch { get { return BaseUrl + "/box/search"; } }
+
+        public static String Worker { get { return BaseUrl + "/worker"; } }
 
 
         public static string AuthUrl { get { return "http://173.203.159.102:8081/auth"; } }

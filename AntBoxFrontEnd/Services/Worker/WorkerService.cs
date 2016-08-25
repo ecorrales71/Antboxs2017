@@ -6,21 +6,21 @@ using System.Net;
 using System.Net.Http;
 using Newtonsoft.Json;
 using AntBoxFrontEnd.Infrastructure;
-using AntBoxFrontEnd.Services;
+using AntBoxFrontEnd.Entities;
 using System.Text;
 using AntBoxFrontEnd.Models;
 using AutoMapper;
 
-
-namespace AntBoxFrontEnd.Services.Tasks
+namespace AntBoxFrontEnd.Services.Worker
 {
-    public class TaskService : Services
+    public class WorkerService : Services
     {
-        public TaskService(string apiKey) : base(apiKey)
+        public WorkerService(string apiKey) : base(apiKey)
         {
         }
 
-        public virtual Boolean CreateTask(TaskRequestOption createOptions, RequestOptions requestOptions = null)
+
+        public virtual Boolean CreateWorker(WorkerRequestOption createOptions, RequestOptions requestOptions = null)
         {
             requestOptions = SetupRequestOptions(requestOptions);
 
@@ -29,22 +29,19 @@ namespace AntBoxFrontEnd.Services.Tasks
 
             try
             {
-                var task = Requestor.Post<TaskUpdateResponse>(UrlsConstants.Task, requestOptions, PostData);
+                var customerResponse = Requestor.Post<MissingResponse>(UrlsConstants.Worker, requestOptions, PostData);
+
             }
             catch (Exception ex)
             {
                 //Todo log
-                LogManager.Write(ex.Message + " " + ex.InnerException, LogManager.Error);
+                LogManager.Write(ex.Message + " " + ex.InnerException, LogType.Error);
                 return false;
             }
-
-
-
             return true;
         }
 
-
-        public virtual Boolean UpdateTask(TaskUpdateOptions createOptions, string id, RequestOptions requestOptions = null)
+        public virtual bool UpdateWorker(WorkerUpdateOptions createOptions, string id, RequestOptions requestOptions = null)
         {
             requestOptions = SetupRequestOptions(requestOptions);
 
@@ -57,22 +54,20 @@ namespace AntBoxFrontEnd.Services.Tasks
 
             try
             {
-                var task = Requestor.Put<TaskUpdateResponse>(UrlsConstants.Task + "/" + id, requestOptions, PostData);
+                var customerResponse = Requestor.Put<MissingError>(UrlsConstants.Worker + "/" + id, requestOptions, PostData);
+                return true;
             }
             catch (Exception ex)
             {
                 //Todo log
-                LogManager.Write(ex.Message + " " + ex.InnerException, LogManager.Error);
+                LogManager.Write(ex.Message + " " + ex.InnerException, LogType.Error);
                 return false;
             }
-
-
-
-            return true;
         }
 
 
-        public virtual TaskResponse ListTaskByWorker(string id, RequestOptions requestOptions = null)
+
+        public virtual WorkerResponse SearchWorker(string id, RequestOptions requestOptions = null)
         {
             try
             {
@@ -82,27 +77,16 @@ namespace AntBoxFrontEnd.Services.Tasks
 
                 var encodedParams = Infrastructure.UrlHelper.BuildURLParametersString(parameters);
 
-                var task = Requestor.Get<TaskResponse>(UrlsConstants.Task + "/" + id, requestOptions);
+                var customers = Requestor.Get<WorkerResponse>(UrlsConstants.Worker + "/" + id, requestOptions);
 
-                return task;
-            }catch(Exception ex)
+                return customers;
+            }
+            catch (Exception ex)
             {
-                LogManager.Write(ex.Message + " " + ex.InnerException, LogManager.Error);
+                LogManager.Write(ex.Message + " " + ex.InnerException, LogType.Error);
                 return null;
             }
         }
 
-
-
     }
-
-
-    public static class ConstantsTaskStates
-    {
-        public static string Unassigned { get { return "unassigned"; } }
-        public static string Assigned { get { return "assigned"; } }
-        public static string Active { get { return "active"; } }
-        public static string Completed { get { return "completed"; } }
-    }
-
 }

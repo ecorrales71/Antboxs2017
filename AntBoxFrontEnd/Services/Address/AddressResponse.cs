@@ -6,7 +6,7 @@ using Newtonsoft.Json;
 
 namespace AntBoxFrontEnd.Services.Address
 {
-    public class AddressResponse
+    public class AddressResponse : Response
     {
         [JsonProperty("id")]
         public string Id { get; set; }

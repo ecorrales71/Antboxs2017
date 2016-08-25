@@ -9,6 +9,7 @@ namespace AntBoxFrontEnd.Controllers
     [RequireHttps]
     public class HomeController : Controller
     {
+
         public ActionResult Index()
         {
             return View();
@@ -77,5 +78,8 @@ namespace AntBoxFrontEnd.Controllers
 
             return View();
         }
+
+
+
     }
 }

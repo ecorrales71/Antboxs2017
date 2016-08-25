@@ -6,7 +6,7 @@ using Newtonsoft.Json;
 
 namespace AntBoxFrontEnd.Services.Tasks
 {
-    public class TaskResponse
+    public class TaskResponse : Response
     {
         [JsonProperty("id")]
         public string Id { get; set; }

@@ -6,7 +6,7 @@ using Newtonsoft.Json;
 
 namespace AntBoxFrontEnd.Services.Payments
 {
-    public class ChargeResponse
+    public class ChargeResponse : Response
     {
 
         [JsonProperty("status")]

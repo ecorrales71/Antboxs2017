@@ -9,7 +9,9 @@ using AntBoxFrontEnd.Services.Customer;
 using AntBoxFrontEnd.Services.Login;
 using AntBoxFrontEnd.Services.Tasks;
 using AntBoxFrontEnd.Services.Zipcodes;
-
+using System.Diagnostics;
+using AntBoxFrontEnd.Services.Worker;
+using AntBoxFrontEnd.Services.Boxes;
 
 namespace AntBoxFrontEnd.Services
 {
@@ -18,18 +20,61 @@ namespace AntBoxFrontEnd.Services
         
         public void Start()
         {
-            SearchZip();
+            //SearchZip();
 
-            //var idcustomer = Login();
+            var idcustomer = Login();
 
-            //var idAddress = ListAddresses(idcustomer)
-            //                    .FirstOrDefault().Id;
+            // Debug.WriteLine(idcustomer);
+
+            //// CreateAddress(idcustomer,4);
 
 
-            //var address = SearchAddresses(idAddress);
-            
+            var idAddress = ListAddresses(idcustomer)
+                                .OrderByDescending(a => a.Id)
+                                .FirstOrDefault().Id;
 
-            //CreateTask(idcustomer, idAddress);
+            // Debug.WriteLine(idAddress.ToString());
+
+            // var address = SearchAddresses(idAddress);
+
+            // Debug.WriteLine(address.ToString());
+
+            // UpdateAddress(idAddress);
+
+            // var addressNew = SearchAddresses(idAddress);
+
+            // Debug.WriteLine(addressNew.ToString());
+
+            //var restask = CreateTask(idcustomer, idAddress);
+
+            //Debug.WriteLine("Se creo Tarea: " + restask);
+
+            var box = CreateBoxes(idcustomer,2);
+            Debug.WriteLine(box);
+
+            var listabox = ListBoxes(idcustomer);
+
+            var idbox = listabox
+                        .OrderBy(a => a.Id)
+                        .FirstOrDefault();
+            Debug.WriteLine(idbox);
+
+            var boxtest = SearchBox(idbox.Id);
+            Debug.WriteLine(idbox);
+
+            Debug.WriteLine("Se actualizo box" + UpdateBox(idbox.Id));
+
+            SearchBox(idbox.Id);
+
+            var delbox = DeleteBox(idbox.Id);
+
+
+            CreateWorker(2);
+
+
+
+
+
         }
 
 
@@ -98,46 +143,44 @@ namespace AntBoxFrontEnd.Services
         }
 
 
-        private void CreateAddress()
+        private void CreateAddress(string idcustomer , int numero)
         {
-            var address = new AddressRequestOptions
+            for(int i = 0; i < numero; i++)
             {
-                Alias = "oficina",
-                Customer_id = "b3c7fcada2e8473491a7d12e302a3e31",
-                Delegation = "milpa alta" ,
-                External_number = "5001"
-                ,
-                Neighborhood = "ahuehuetes"
-                ,
-                State = "ciudad de méxico"
-                ,
-                Street = "avenida toltecas"
-                ,
-                City = "México"
-                ,
-                Country = "México"
-                ,
-                Rfc_id = "RFC 10455"
-                ,
-                References = "referencias direccion nueva"
-                ,
-                Zipcode = "07878"
-                ,
-                Internal_number = "4b"
-            };
-            var a = new AddressService(ServiceConfiguration.GetApiKey());
+                var address = new AddressRequestOptions
+                {
+                    Alias = "nueva prueba " + i,
+                    Customer_id = idcustomer,
+                    Delegation = "Delegacion " + i,
+                    External_number = "NumExt " + i,
+                    Neighborhood = "Colonia " +i,
+                    State = "ciudad de méxico",
+                    Street = "Calle " + i,
+                    City = "México",
+                    Country = "México",
+                    Rfc_id = "RFC" + i,
+                    References = "referencias direccion " + i,
+                    Zipcode = "01000",
+                    Internal_number = "IntNum "+ i
+                };
+                var a = new AddressService(ServiceConfiguration.GetApiKey());
 
-            var ad = a.CreateAddress(address);
+                var ad = a.CreateAddress(address);
+
+
+            }
+
+           
 
 
         }
 
 
-        private void UpdateAddress()
+        private void UpdateAddress(string idaddress)
         {
             var address = new AddressUpdateOptions
             {
-                Alias = "oficina updated"
+                Alias = "nueva prueba  updated"
 
                 ,
                 Delegation = "miguel hidalgo updated"
@@ -165,7 +208,7 @@ namespace AntBoxFrontEnd.Services
             };
             var a = new AddressService(ServiceConfiguration.GetApiKey());
 
-            var ad = a.UpdateAddress(address, "30993450aa834a35af67bfe6b978059a");
+            var ad = a.UpdateAddress(address, idaddress);
 
 
         }
@@ -200,7 +243,7 @@ namespace AntBoxFrontEnd.Services
         }
 
 
-        public void CreateTask(string idcustomer, string idAddress)
+        public bool CreateTask(string idcustomer, string idAddress)
         {
             var t = new TaskRequestOption
             {
@@ -212,7 +255,7 @@ namespace AntBoxFrontEnd.Services
 
             var ts = new TaskService(ServiceConfiguration.GetApiKey());
 
-            var res = ts.CreateTask(t);
+            return ts.CreateTask(t);
         }
 
 
@@ -226,6 +269,99 @@ namespace AntBoxFrontEnd.Services
 
             var ans = ser.SearchZipCode(zipcode);
 
+        }
+
+
+        private void CreateWorker(int num)
+        {
+            for(int i = 0; i< num; i++)
+            {
+                var cus = new WorkerRequestOption
+                {                    
+                    Email = "prueba"+ i+"@prueba.com",
+                    Name = "Prueba nombre " +i,
+                    Phone = "Prueba Apellido paterno " + i,
+                    Capacity = 1,
+                    Password = "123456",
+                    Status = true                    
+                };
+
+                var ser = new WorkerService(ServiceConfiguration.GetApiKey());
+
+                var res = ser.CreateWorker(cus);
+            }
+        }
+
+
+        private bool CreateBoxes(string id,int num)
+        {
+            for (int i = 0; i < num; i++)
+            {
+                var cus = new BoxesRequestOptions
+                {
+                    Label = "ALIAS " +i,
+                    Model = "modelo " + i,
+                    Price = 300,
+                    Secure = 1500,
+                    Registered_by = id,
+                    Size = "Size " + i,
+                    Status = true
+                };
+
+                var ser = new BoxesService(ServiceConfiguration.GetApiKey());
+
+                var res = ser.CreateBoxes(cus);
+            }
+
+            return true;
+        }
+
+
+
+        private List<BoxesResponse> ListBoxes(string idcustomer)
+        {
+            var l = new BoxesService(ServiceConfiguration.GetApiKey());
+
+            var res = l.ListBoxes(idcustomer);
+
+            return res;
+
+        }
+
+        private bool DeleteBox(string id)
+        {
+            var l = new BoxesService(ServiceConfiguration.GetApiKey());
+
+            return l.DeleteBoxes(id);
+
+        }
+
+        private BoxesResponse SearchBox(string id)
+        {
+            var l = new BoxesService(ServiceConfiguration.GetApiKey());
+
+            var res = l.SearchBox(id);
+
+            return res;
+        }
+
+        private bool UpdateBox(string id)
+        {
+            var l = new BoxesService(ServiceConfiguration.GetApiKey());
+
+            var cus = new BoxesRequestOptions
+            {
+                Label = "ALIAS updated",
+                Model = "modelo  updated",
+                Price = 301,
+                Secure = 750,
+                Registered_by = id,
+                Size = "Size  updated"
+            };
+
+            var res = l.UpdateBox(cus,id);
+
+            return res;
         }
 
 

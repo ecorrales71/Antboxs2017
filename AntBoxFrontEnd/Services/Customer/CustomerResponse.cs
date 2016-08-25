@@ -6,7 +6,7 @@ using Newtonsoft.Json;
 
 namespace AntBoxFrontEnd.Services.Customer
 {
-    public class CustomerResponse
+    public class CustomerResponse : Response
     {
         [JsonProperty("id")]
         public string Id { get; set; }

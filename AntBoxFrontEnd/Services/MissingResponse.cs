@@ -2,7 +2,7 @@
 
 namespace AntBoxFrontEnd.Services
 {
-    public class MissingResponse
+    public class MissingResponse : Response
     {
         [JsonProperty("missing")]
         public string Missing { get; set; }

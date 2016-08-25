@@ -256,6 +256,7 @@
     </Compile>
     <Compile Include="Infrastructure\AutoMapperConfig.cs" />
     <Compile Include="Infrastructure\DateHelpers.cs" />
+    <Compile Include="Infrastructure\LogManager.cs" />
     <Compile Include="Infrastructure\Requestor.cs" />
     <Compile Include="Infrastructure\ServiceConfiguration.cs" />
     <Compile Include="Infrastructure\MissingException.cs" />
@@ -282,6 +283,10 @@
     <Compile Include="Services\Address\AddressService.cs" />
     <Compile Include="Services\Address\PaginationAddresses.cs" />
     <Compile Include="Services\BadRequestResponse.cs" />
+    <Compile Include="Services\Boxes\BoxesRequestOptions.cs" />
+    <Compile Include="Services\Boxes\BoxesResponse.cs" />
+    <Compile Include="Services\Boxes\BoxesService.cs" />
+    <Compile Include="Services\Boxes\PaginationBoxesResponse.cs" />
     <Compile Include="Services\Customer\CustomerUpdateOptions.cs" />
     <Compile Include="Services\Customer\CustomerRequestOptions.cs" />
     <Compile Include="Services\Customer\CustomerResponse.cs" />
@@ -300,6 +305,7 @@
     <Compile Include="Services\Payments\PaymentService.cs" />
     <Compile Include="Services\RequestId.cs" />
     <Compile Include="Services\RequestOptions.cs" />
+    <Compile Include="Services\Response.cs" />
     <Compile Include="Services\Services.cs" />
     <Compile Include="Services\ServicesTest.cs" />
     <Compile Include="Services\Tasks\TaskRequestOption.cs" />
@@ -307,6 +313,11 @@
     <Compile Include="Services\Tasks\TaskService.cs" />
     <Compile Include="Services\Tasks\TaskUpdateOptions.cs" />
     <Compile Include="Services\Tasks\TaskUpdateResponse.cs" />
+    <Compile Include="Services\Worker\Vehicle.cs" />
+    <Compile Include="Services\Worker\WorkerRequestOption.cs" />
+    <Compile Include="Services\Worker\WorkerResponse.cs" />
+    <Compile Include="Services\Worker\WorkerService.cs" />
+    <Compile Include="Services\Worker\WorkerUpdateOptions.cs" />
     <Compile Include="Services\Zipcodes\ZipCodeResponse.cs" />
     <Compile Include="Services\Zipcodes\ZipcodeService.cs" />
     <Compile Include="Startup.cs" />

@@ -37,7 +37,7 @@ namespace AntBoxFrontEnd.Services.Payments
             catch (Exception ex)
             {
                 //Todo log
-
+                LogManager.Write(ex.Message + " " + ex.InnerException, LogManager.Error);
                 return false;
             }
             return true;
@@ -62,7 +62,7 @@ namespace AntBoxFrontEnd.Services.Payments
             catch (Exception ex)
             {
                 //Todo log
-
+                LogManager.Write(ex.Message + " " + ex.InnerException, LogManager.Error);
                 return false;
             }
             return true;
@@ -101,7 +101,7 @@ namespace AntBoxFrontEnd.Services.Payments
             catch (Exception ex)
             {
                 //Todo log
-
+                LogManager.Write(ex.Message + " " + ex.InnerException, LogManager.Error);
                 return false;
             }
             return true;
@@ -115,15 +115,22 @@ namespace AntBoxFrontEnd.Services.Payments
         /// <returns></returns>
         public virtual List<ChargeResponse> ListCharges (string id, RequestOptions requestOptions = null)
         {
-            requestOptions = SetupRequestOptions(requestOptions);
+            try
+            {
+                requestOptions = SetupRequestOptions(requestOptions);
 
-            var parameters = new Dictionary<string, string> { { "id", id } };
+                var parameters = new Dictionary<string, string> { { "id", id } };
 
-            var encodedParams = Infrastructure.UrlHelper.BuildURLParametersString(parameters);
+                var encodedParams = Infrastructure.UrlHelper.BuildURLParametersString(parameters);
 
-            var charges = Requestor.Get<List<ChargeResponse>>(UrlsConstants.Payment + "/" + id, requestOptions);
+                var charges = Requestor.Get<List<ChargeResponse>>(UrlsConstants.Payment + "/" + id, requestOptions);
 
-            return charges;
+                return charges;
+            }catch(Exception ex)
+            {
+                LogManager.Write(ex.Message + " " + ex.InnerException, LogManager.Error);
+                return null;
+            }
         }
 
 

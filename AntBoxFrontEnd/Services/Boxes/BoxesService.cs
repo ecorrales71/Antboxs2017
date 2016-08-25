@@ -10,30 +10,19 @@ using AntBoxFrontEnd.Entities;
 using System.Text;
 using AntBoxFrontEnd.Models;
 
-
-using System.Threading.Tasks;
-
-namespace AntBoxFrontEnd.Services.Address
+namespace AntBoxFrontEnd.Services.Boxes
 {
-    public class AddressService : Services
+    public class BoxesService : Services
     {
-
         const int itemPerPage = 10;
         public int Page { get; set; }
 
-
-        public AddressService(string apiKey = null) : base(apiKey)
+        public BoxesService(string apiKey) : base(apiKey)
         {
             Page = 1;
         }
 
-        public AddressService(int page, string apiKey = null) : base(apiKey)
-        {
-            Page = page;
-        }
-
-
-        public virtual Boolean CreateAddress(AddressRequestOptions createOptions, RequestOptions requestOptions = null)
+        public virtual Boolean CreateBoxes(BoxesRequestOptions createOptions, RequestOptions requestOptions = null)
         {
             requestOptions = SetupRequestOptions(requestOptions);
 
@@ -42,19 +31,18 @@ namespace AntBoxFrontEnd.Services.Address
 
             try
             {
-                var customerResponse = Requestor.Post<MissingError>(UrlsConstants.CustomerAddress, requestOptions, PostData);
+                var customerResponse = Requestor.Post<MissingError>(UrlsConstants.Box, requestOptions, PostData);
             }
             catch (Exception ex)
             {
-                //Todo log
                 LogManager.Write(ex.Message + " " + ex.InnerException, LogManager.Error);
+
                 return false;
             }
             return true;
         }
 
-
-        public virtual Boolean UpdateAddress(AddressUpdateOptions createOptions, string id, RequestOptions requestOptions = null)
+        public virtual Boolean UpdateBox(BoxesRequestOptions createOptions, string id, RequestOptions requestOptions = null)
         {
             requestOptions = SetupRequestOptions(requestOptions);
 
@@ -67,12 +55,12 @@ namespace AntBoxFrontEnd.Services.Address
 
             try
             {
-                var customerResponse = Requestor.Put<MissingResponse>(UrlsConstants.CustomerAddress + "/" + id, requestOptions, PostData);
+                var customerResponse = Requestor.Put<MissingResponse>(UrlsConstants.Box + "/" + id, requestOptions, PostData);
             }
             catch (Exception ex)
             {
-                //Todo log
                 LogManager.Write(ex.Message + " " + ex.InnerException, LogManager.Error);
+
                 return false;
             }
 
@@ -82,14 +70,10 @@ namespace AntBoxFrontEnd.Services.Address
         }
 
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="id">Address  ID</param>
-        /// <param name="requestOptions"></param>
-        /// <returns></returns>
-        public virtual AddressResponse SearchAddress(string id, RequestOptions requestOptions = null)
+        public virtual BoxesResponse SearchBox(string id, RequestOptions requestOptions = null)
         {
+            BoxesResponse box = new BoxesResponse();
+
             try
             {
                 requestOptions = SetupRequestOptions(requestOptions);
@@ -98,53 +82,57 @@ namespace AntBoxFrontEnd.Services.Address
 
                 var encodedParams = Infrastructure.UrlHelper.BuildURLParametersString(parameters);
 
-                var addresses = Requestor.Get<AddressResponse>(UrlsConstants.CustomerAddress + "/" + id, requestOptions);
+                box = Requestor.Get<BoxesResponse>(UrlsConstants.Box + "/" + id, requestOptions);
 
-                return addresses;
-            }catch (Exception ex)
-            {
-                LogManager.Write(ex.Message + " " + ex.InnerException, LogManager.Error);
-                return null;
-            }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="id">Customer ID</param>
-        /// <param name="requestOptions"></param>
-        /// <returns></returns>
-        public virtual List<AddressResponse> ListAddresses(string id, RequestOptions requestOptions = null)
-        {
-            try
-            {
-                requestOptions = SetupRequestOptions(requestOptions);
-
-                var parameters = new Dictionary<string, string> { { "customer_id", id } };
-
-                parameters.Add("items_per_page", itemPerPage.ToString());
-                parameters.Add("page_number", Page.ToString());
-
-                var encodedParams = Infrastructure.UrlHelper.BuildURLParametersString(parameters);
-
-                var addresses = Requestor.Get<PaginationAddresses>(UrlsConstants.CustomerAddressSearch + "/" + id, requestOptions);
-
-                return addresses.Addresses;
             }catch(Exception ex)
             {
                 LogManager.Write(ex.Message + " " + ex.InnerException, LogManager.Error);
                 return null;
             }
+
+            return box;
         }
 
 
-        public virtual bool DeleteAddress(string id, RequestOptions requestOptions = null)
+        public virtual List<BoxesResponse> ListBoxes(string id,string status =null , RequestOptions requestOptions = null)
+        {
+            PaginationBoxesResponse boxes = new PaginationBoxesResponse();
+
+            try
+            {
+                requestOptions = SetupRequestOptions(requestOptions);
+
+                var parameters = new Dictionary<string, string> ();
+
+                if(string.IsNullOrEmpty(status))
+                    status = "all";
+
+                parameters.Add("status", status);
+
+                parameters.Add("items_per_page", itemPerPage.ToString());
+                parameters.Add("page_number", Page.ToString());
+                parameters.Add("include", "price,label,model,size,secure");
+
+                var encodedParams = Infrastructure.UrlHelper.BuildURLParametersString(parameters);
+
+                boxes = Requestor.Get<PaginationBoxesResponse>(UrlsConstants.BoxesSearch + "/" + id, requestOptions);
+
+            }catch (Exception ex)
+            {
+                LogManager.Write(ex.Message + " " + ex.InnerException, LogManager.Error);
+                return null;
+            }
+            return boxes.Boxes;
+        }
+
+
+        public virtual bool DeleteBoxes(string id, RequestOptions requestOptions = null)
         {
             requestOptions = SetupRequestOptions(requestOptions);
 
             try
             {
-                Requestor.Delete(UrlsConstants.CustomerAddress + "/" + id, requestOptions);
+                Requestor.Delete(UrlsConstants.Box + "/" + id, requestOptions);
 
             }
             catch (Exception ex)
@@ -152,7 +140,7 @@ namespace AntBoxFrontEnd.Services.Address
                 LogManager.Write(ex.Message + " " + ex.InnerException, LogManager.Error);
                 return false;
             }
-            
+
 
             return true;
         }

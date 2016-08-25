@@ -6,7 +6,7 @@ using Newtonsoft.Json;
 
 namespace AntBoxFrontEnd.Services.Zipcodes
 {
-    public class ZipCodeResponse
+    public class ZipCodeResponse : Response
     {
 
         [JsonProperty("longitude")]
