@@ -21,7 +21,39 @@ namespace AntBoxFrontEnd.Controllers
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
+        [HttpPost]
+        [AllowAnonymous]
+        public ActionResult AntBoxLoginAjax(string username, string password)
+        {
+            //if (ModelState.IsValid)
+            //{
+            var usr = new AntBoxFrontEnd.Services.Login.LoginCreateOptions
+            {
+                Email = username,
+                Password = password
+            };
 
+            LoginService ls = new LoginService(ServiceConfiguration.GetApiKey());
+
+            string id = ls.HovaLogin(usr);
+
+            CustomerServices cs = new CustomerServices(ServiceConfiguration.GetApiKey());
+
+            CustomerResponse customer = cs.SearchCustomer(id);
+
+            if (customer != null)
+            {
+                Session["customer"] = customer;
+
+                return Json(new { success = true, user = customer }, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json(new { success = false, user = customer }, JsonRequestBehavior.AllowGet);
+            }
+            //}
+            //return RedirectToAction("Index", "Home");
+        }
         // POST: /Account/Login
         [HttpPost]
         [AllowAnonymous]
