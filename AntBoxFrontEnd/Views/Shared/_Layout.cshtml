@@ -1,15 +1,12 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8" />
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
     <title>@ViewBag.Title - Antboxs</title>
     @Styles.Render("~/Content/css")
 
     <meta name="description" content="">
-    @*<link href="@Url.Content("http://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic&amp;subset=latin,cyrillic")" rel="stylesheet">
-        <link href="@Url.Content("http://fonts.googleapis.com/css?family=Montserrat:700")" rel="stylesheet">
-        <link href="@Url.Content("http://fonts.googleapis.com/css?family=Satisfy")" rel="stylesheet">*@
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic&amp;subset=latin,cyrillic" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:700" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Satisfy" rel="stylesheet">
@@ -28,9 +25,10 @@
             type = 'text/javascript'; e.parentNode.insertBefore($, e)
         })(document, 'script');
     </script>
+    <!--End of Zopim Live Chat Script-->
     <script type="text/javascript">
-// Script para aparecer/desaparecer la dirección de entrega
-$(document).ready(function(){
+    // Script para aparecer/desaparecer la dirección de entrega
+    $(document).ready(function(){
     $('.checkdisplay').change(function(){
         if(this.checked)
             $('.todisplay').fadeOut('slow');
@@ -40,31 +38,34 @@ $(document).ready(function(){
     });
 });
     </script>
-    <!--End of Zopim Live Chat Script-->
+
+    
 </head>
 <body>
     <!-- Preloader -->
     <div class="preloader"></div>
 
-    <!-- CORNER CONTAINER -->
-    <div class="corner-container footer" id="body-content">
-        <div class="container pr30">
+    <!-- HEADER EXTRA TOP -->
+    <div class="header-extra-top">
+        <div class="container">
             <!-- NAVBAR ACCOUNT -->
             <div class="navbar-account pull-right">
-                @Html.Partial("_LoginPartial")
+                <nav>
+                    @Html.Partial("_LoginPartial")
+                </nav>
             </div>
             <!-- /.navbar-account -->
         </div>
-        <a href="" class="corner-link"><i class="fa fa-plus"></i></a>
     </div>
-    <!-- /.corner-container -->
+    <!-- /.header-extra-top -->
+
     <!-- HEADER -->
     <header class="header header-light">
         <!-- NAVBAR -->
         <nav class="navbar container">
 
             <!-- NAVBAR BRAND -->
-            <a class="navbar-brand pull-left" href="index.cshtml">
+            <a class="navbar-brand pull-left" href='@Url.Action("Index","")'>
                 <img src="@Url.Content("~/Content/Images/antboxs_logo.png")" alt="Antboxs">
             </a>
             <!-- /.navbar-brand -->

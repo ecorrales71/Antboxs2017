@@ -4,7 +4,7 @@
 
 @if (Session["customer"] != null)
 {
-      using (Html.BeginForm("AntBoxLogout", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+    using (Html.BeginForm("AntBoxLogout", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
     {
         @Html.AntiForgeryToken()
 
@@ -12,9 +12,9 @@
             <button type="button" class="btn-link">
                 <i class="fa fa-user"></i>
                 @Html.Label(((AntBoxFrontEnd.Services.Customer.CustomerResponse)Session["customer"]).Name + " " + ((AntBoxFrontEnd.Services.Customer.CustomerResponse)Session["customer"]).LastName)
-                </button>
-                <button type="submit" class="btn btn-primary">Salir</button>
-                
+            </button>
+            <button type="submit" class="btn btn-primary">Salir</button>
+
         </nav>
     }
 }
@@ -24,49 +24,46 @@ else
         <button type="button" class="btn-link" data-toggle="modal" data-target="#login"><i class="fa fa-lock"></i> Entrar</button>
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#registro">Crear Cuenta</button>
     </nav>
-
+    <!-- Modal Login -->
     <div class="modal fade" id="login">
-	<div class="modal-dialog modal-sm">
-		<div class="modal-content">
-			<div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"><i class="fa fa-times"></i></button>
-                <h6 class="modal-title">Entrar a mi cuenta</h6>
-			</div>
-			<div class="modal-body">
-				<div class="modal-form">
-@using (Html.BeginForm("AntBoxLogin", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-{
-    @Html.AntiForgeryToken()
-
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><i class="fa fa-times"></i></button>
+                    <h6 class="modal-title">Entrar a mi cuenta</h6>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-form">
+                        @using (Html.BeginForm("AntBoxLogin", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                        {
+                            @Html.AntiForgeryToken()
                             <div class="form-group">
-                                <div class="form-group">
-                                    @Html.LabelFor(m => m.Email)
-                                    @Html.TextBoxFor(m => m.Email)
-                                </div>
+                                @Html.LabelFor(m => m.Email)
+                                @Html.TextBoxFor(m => m.Email)
                             </div>
                             <div class="form-group">
-                                <div class="form-group">
-                                    @Html.LabelFor(m => m.Password)
-                                    @Html.PasswordFor(m => m.Password)
-                                </div>
+                                @Html.LabelFor(m => m.Password)
+                                @Html.PasswordFor(m => m.Password)
                             </div>
                             @*<div class="form-group">
-                                <a href="recuperar-password.cshtml">¿Olvidaste tu contraseña?</a>
-                            </div>
-                            <hr class="hr-sm hr-stroke" />*@
+                                <a href="recuperar-password.php">¿Olvidaste tu contraseña?</a>
+                            </div>*@
+                            <hr class="hr-sm hr-stroke" />
                             <div class="form-group">
                                 <input type="submit" class="btn btn-primary btn-wide" value="Entrar">
                                 <label class="checkbox-inline">
-                                    @*<input type="checkbox" id="inlineCheckbox1" value="option1"> Recordarme*@
+                                    <input type="checkbox" id="inlineCheckbox1" value="option1"> Recordarme
                                 </label>
                             </div>
-}
+                        }
                     </div>
                 </div>
             </div>
         </div>
     </div>
     <!-- /.modal -->
+
+
     <!-- Modal Register -->
     <div class="modal fade" id="registro">
         <div class="modal-dialog modal-sm">
@@ -76,62 +73,58 @@ else
                     <h6 class="modal-title">Registrar nueva cuenta</h6>
                 </div>
                 <div class="modal-body">
-                    
-                        
-                        <div class="modal-form">
-                            <p>Indícanos el código postal de la dirección dónde deseas que realicemos la recolección de tus cosas.</p>
+                    <div class="modal-form">
+                        <p>Indícanos el código postal de la dirección dónde deseas que realicemos la recolección de tus cosas.</p>
+                        <hr class="hr-sm hr-stroke" />
+                        @using (Html.BeginForm("AntBoxRegister", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                        {
+                            @Html.AntiForgeryToken()
+                        @*<form>*@
+
+                            @Html.ValidationSummary(false, "", new { @class = "text-danger !important" })
+
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.Name)
+                                @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.Email)
+                                @Html.TextBoxFor(m => m.Email)
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Códio Postal de Recolección</label>
+                                @Html.TextBoxFor(m => m.ZipCode)
+                            </div>
+                            <div class="alert alert-warning">
+                                <p><i class="fa fa-exclamation-triangle"></i> <strong>Prueba con otro código postal.</strong> Por el momento nuestro servicio no llega a este domicilio pero te mantendremos informado de las próximas zonas de cobertura.</p>
+                            </div>
                             <hr class="hr-sm hr-stroke" />
-@using (Html.BeginForm("AntBoxRegister", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-{
-    @Html.AntiForgeryToken()
-                            @*<form>*@
-    @Html.ValidationSummary(false, "", new { @class = "text-danger !important" })
-                                <div class="form-group">
-                                    @Html.LabelFor(m => m.Name)
-                                    @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
-                                </div>
-                                <div class="form-group">
-                                    @Html.LabelFor(m => m.LastName)
-                                    @Html.TextBoxFor(m => m.LastName, new { @class = "form-control" })
-                                </div>
-                                <div class="form-group">
-                                    @Html.LabelFor(m => m.Email)
-                                    @Html.TextBoxFor(m => m.Email)
-                                </div>
-                                <div class="form-group">
-                                    @Html.LabelFor(m => m.ZipCode)
-                                    @Html.TextBoxFor(m => m.ZipCode)
-                                </div>
-                                @*<div class="alert alert-warning">
-                                    <p><i class="fa fa-exclamation-triangle"></i> <strong>Prueba con otro código postal.</strong> Por el momento nuestro servicio no llega a este domicilio pero te mantendremos informado de las próximas zonas de cobertura.</p>
-                                </div>*@
-                                @*<hr class="hr-sm hr-stroke" />*@
-                                <div class="form-group">
-                                    @Html.LabelFor(m => m.Password)
-                                    @Html.PasswordFor(m => m.Password)
-                                </div>
-                                <div class="form-group">
-                                    @Html.LabelFor(m => m.ConfirmPassword)
-                                    @Html.PasswordFor(m => m.ConfirmPassword)
-                                </div>
-                                <hr class="hr-sm hr-stroke" />
-                                <div class="form-group">
-                                    <input type="submit" class="btn btn-primary" value="Regristrarme">
-                                    <input type="button" class="btn btn-default" value="test Ajax" id="testAjax"/>
-                                </div>
-                            @*</form>*@
-}
-                        </div>
-                    
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.Password)
+                                @Html.PasswordFor(m => m.Password)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.ConfirmPassword)
+                                @Html.PasswordFor(m => m.ConfirmPassword)
+                            </div>
+                            <hr class="hr-sm hr-stroke" />
+                            <div class="form-group">
+                                <input type="submit" class="btn btn-primary" value="Regristrarme">
+                                <input type="button" class="btn btn-default" value="test Ajax" id="testAjax" />
+                            </div>
+                        @*</form>*@
+                        }
+                    </div>
                 </div>
             </div>
         </div>
     </div>
     <!-- /.modal -->
+
 }
 
 @section Scripts {
-    
+
 
     @Scripts.Render("~/bundles/jqueryval")
 

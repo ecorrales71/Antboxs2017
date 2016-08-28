@@ -20,15 +20,23 @@ namespace AntBoxFrontEnd.Services.Login
         {
             string id = null;
 
-            requestOptions = SetupRequestOptions(requestOptions);
+            try
+            {
+                requestOptions = SetupRequestOptions(requestOptions);
 
-            var parameters = new Dictionary<string, string> { { "email", createOptions.Email }, { "password", createOptions.Password} };
+                var parameters = new Dictionary<string, string> { { "email", createOptions.Email }, { "password", createOptions.Password } };
 
-            var encodedContent = Infrastructure.UrlHelper.BuildURLParametersString(parameters);
+                var encodedContent = Infrastructure.UrlHelper.BuildURLParametersString(parameters);
 
-            var response = Requestor.Get<LoginResponse>(UrlsConstants.Login + encodedContent, requestOptions);
+                var response = Requestor.Get<LoginResponse>(UrlsConstants.Login + encodedContent, requestOptions);
+                id = response.Id;
+            }catch(Exception ex)
+            {
+                LogManager.Write(ex.Message + " " + ex.InnerException, LogManager.Error);
+                return null;
+            }
 
-            return response.Id;
+            return id;
         }
 
 

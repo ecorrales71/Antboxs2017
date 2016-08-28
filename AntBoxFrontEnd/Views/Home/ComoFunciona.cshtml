@@ -236,7 +236,8 @@
                         <p>Visita las preguntas frecuentes, probablemente ya hemos respondido tus dudas. Sino escríbenos o llámanos y con gusto te atendemos. </p>
                     </div>
                     <div class="col-lg-2 col-md-3 col-sm-4 text-right divcell">
-                        <a href="preguntas-frecuentes.php" class="btn btn-primary btn-md">Preguntas Frecuentes</a>
+                        @Html.ActionLink("Preguntas Frecuentes", "PreguntasFrecuentes", "Home", new { @class = "btn btn-primary btn-md" })
+                        @*<a href="preguntas-frecuentes.php" class="btn btn-primary btn-md">Preguntas Frecuentes</a>*@
                     </div>
                 </section>
             </div>

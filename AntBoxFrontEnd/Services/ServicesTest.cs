@@ -29,13 +29,14 @@ namespace AntBoxFrontEnd.Services
             //// CreateAddress(idcustomer,4);
 
 
+            CreateValidAddress(idcustomer);
+
             var idAddress = ListAddresses(idcustomer)
-                                .OrderByDescending(a => a.Id)
-                                .FirstOrDefault().Id;
+                                .Where(a=> a.Alias == "Dirección valida").FirstOrDefault();
 
-            // Debug.WriteLine(idAddress.ToString());
+            Debug.WriteLine(idAddress.ToString());
 
-            // var address = SearchAddresses(idAddress);
+            var address = SearchAddresses(idAddress.Id);
 
             // Debug.WriteLine(address.ToString());
 
@@ -45,31 +46,31 @@ namespace AntBoxFrontEnd.Services
 
             // Debug.WriteLine(addressNew.ToString());
 
-            //var restask = CreateTask(idcustomer, idAddress);
+            var restask = CreateTask(idcustomer, idAddress.Id);
 
             //Debug.WriteLine("Se creo Tarea: " + restask);
 
-            var box = CreateBoxes(idcustomer,2);
-            Debug.WriteLine(box);
+            //var box = CreateBoxes(idcustomer,2);
+            //Debug.WriteLine(box);
 
-            var listabox = ListBoxes(idcustomer);
+            //var listabox = ListBoxes(idcustomer);
 
-            var idbox = listabox
-                        .OrderBy(a => a.Id)
-                        .FirstOrDefault();
-            Debug.WriteLine(idbox);
+            //var idbox = listabox
+            //            .OrderBy(a => a.Id)
+            //            .FirstOrDefault();
+            //Debug.WriteLine(idbox);
 
-            var boxtest = SearchBox(idbox.Id);
-            Debug.WriteLine(idbox);
+            //var boxtest = SearchBox(idbox.Id);
+            //Debug.WriteLine(idbox);
 
-            Debug.WriteLine("Se actualizo box" + UpdateBox(idbox.Id));
+            //Debug.WriteLine("Se actualizo box" + UpdateBox(idbox.Id));
 
-            SearchBox(idbox.Id);
+            //SearchBox(idbox.Id);
 
-            var delbox = DeleteBox(idbox.Id);
+            //var delbox = DeleteBox(idbox.Id);
 
 
-            CreateWorker(2);
+            //CreateWorker(2);
 
 
 
@@ -175,7 +176,32 @@ namespace AntBoxFrontEnd.Services
 
         }
 
+        private void CreateValidAddress(string idcustomer)
+        {
+            var address = new AddressRequestOptions
+            {
+                Alias = "Dirección valida" ,
+                Customer_id = idcustomer,
+                Delegation = "GUSTAVO A. MADERO",
+                External_number = "6343" ,
+                Neighborhood = "TRES ESTRELLAS ",
+                State = "CIUDAD DE MÉXICO",
+                Street = "ESPINELA",
+                City = "CIUDAD DE MÉXICO",
+                Country = "MÉXICO",
+                Rfc_id = "RFC" ,
+                References = "referencias direccion " ,
+                Zipcode = "07820"
+            };
+            var a = new AddressService(ServiceConfiguration.GetApiKey());
 
+            var ad = a.CreateAddress(address);
+            
+
+
+
+
+        }
         private void UpdateAddress(string idaddress)
         {
             var address = new AddressUpdateOptions

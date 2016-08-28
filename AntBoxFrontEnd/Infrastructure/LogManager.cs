@@ -24,7 +24,8 @@ namespace AntBoxFrontEnd.Infrastructure
 
 
             if (!File.Exists(filename))
-                File.Create(filename);
+                File.Create(filename).Dispose();
+
             var sw = new System.IO.StreamWriter(filename, true);
             sw.WriteLine(DateTime.Now.ToString() + " "  + log);
             sw.Close();

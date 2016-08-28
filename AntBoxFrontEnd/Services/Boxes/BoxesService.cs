@@ -80,7 +80,7 @@ namespace AntBoxFrontEnd.Services.Boxes
 
                 var parameters = new Dictionary<string, string> { { "id", id } };
 
-                var encodedParams = Infrastructure.UrlHelper.BuildURLParametersString(parameters);
+                var encodedParams = UrlHelper.BuildURLParametersString(parameters);
 
                 box = Requestor.Get<BoxesResponse>(UrlsConstants.Box + "/" + id, requestOptions);
 
@@ -105,7 +105,7 @@ namespace AntBoxFrontEnd.Services.Boxes
                 var parameters = new Dictionary<string, string> ();
 
                 if(string.IsNullOrEmpty(status))
-                    status = "all";
+                    status = StatusBoxes.All;
 
                 parameters.Add("status", status);
 
@@ -115,7 +115,7 @@ namespace AntBoxFrontEnd.Services.Boxes
 
                 var encodedParams = Infrastructure.UrlHelper.BuildURLParametersString(parameters);
 
-                boxes = Requestor.Get<PaginationBoxesResponse>(UrlsConstants.BoxesSearch + "/" + id, requestOptions);
+                boxes = Requestor.Get<PaginationBoxesResponse>(UrlsConstants.BoxesSearch + encodedParams, requestOptions);
 
             }catch (Exception ex)
             {
@@ -148,4 +148,16 @@ namespace AntBoxFrontEnd.Services.Boxes
 
 
     }
+
+
+    public static class StatusBoxes
+    {
+        public static readonly string Active = "active";
+
+        public static readonly string Inactive = "inactive";
+
+        public static readonly string All = "all";
+
+    }
+
 }
