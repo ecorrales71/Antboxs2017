@@ -25,7 +25,7 @@ namespace AntBoxFrontEnd.Controllers
         [AllowAnonymous]
         public ActionResult AntBoxLoginAjax(string username, string password)
         {
-            //if (ModelState.IsValid)
+            //if (ModelState.IsValid)w
             //{
             var usr = new AntBoxFrontEnd.Services.Login.LoginCreateOptions
             {

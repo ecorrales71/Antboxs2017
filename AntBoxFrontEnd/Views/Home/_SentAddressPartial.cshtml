@@ -1,0 +1,124 @@
+﻿<div class="row">
+    <div class="col-sm-12">
+        <hr class="hr-dashed mt0 mb40" />
+    </div>
+</div>
+<div class="row mt10">
+    <div class="col-sm-12">
+        <div class="irow-xs">
+            <h3>Dirección de entrega</h3>
+            <p>¿Dónde y cuándo debemos entregar tus Antboxs con tus artículos?</p>
+            <div class="alert alert-warning alert-dismissible fade in">
+                <button type="button" class="close" data-dismiss="alert">
+                    <i class="fa fa-times"></i>
+                </button>
+                <p><i class="fa fa-exclamation-triangle"></i> <strong>Si aún no sabes cuándo podrás necesitar tus Antboxs de vuelta, no te preocupes.</strong><br />Podrás agendar la entrega en el momento que tú lo decidas desde tu cuenta en la opción "Mis Antboxs".</p>
+            </div>
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" name="optionsCheckbox" class="checkdisplay">
+                    Aún no sé cuándo voy a necesitar mis Antboxs de vuelta. Agendar más adelante desde mi cuenta.
+                </label>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row mt20 roompass todisplay">
+    <div class="col-sm-6">
+        <div class="form-group">
+            <label for="send-form-email">Calle</label>
+            <input type="text" name="email" id="send-form-email">
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="send-form-email">Núm. Int.</label>
+                    <input type="text" name="email" id="send-form-email">
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="send-form-email">Núm. Ext.</label>
+                    <input type="text" name="email" id="send-form-email">
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="send-form-email">Código Postal</label>
+            <input type="text" name="email" id="send-form-email">
+        </div>
+        <div class="form-group">
+            <label for="form-select">Delegación o Municipio</label>
+            <select id="form-select">
+                <option value>- Selecciona una opción -</option>
+                <option value="d1">Delegacion 1</option>
+                <option value="d2">Delegacion 2</option>
+                <option value="d3">Delegacion 3</option>
+                <option value="d4">Delegacion 4</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="form-select">Colonia</label>
+            <select name="form_select" onchange="showOtraColonia2(this)">
+                <option value>- Selecciona una opción -</option>
+                <option value="c1">Colonia 1</option>
+                <option value="c2">Colonia 2</option>
+                <option value="c3">Colonia 3</option>
+                <option value="c4">Colonia 4</option>
+                <option value="otra">Otra</option>
+            </select>
+        </div>
+        <div id="hidden_div2" class="form-group">
+            <label for="send-form-email">Nombre de la colonia*</label>
+            <input type="text" name="email" id="send-form-email">
+        </div>
+
+        <div class="form-group">
+            <label for="send-form-name">Ciudad</label>
+            <input type="text" name="name" id="send-form-name">
+        </div>
+        <div class="form-group">
+            <label for="send-form-name">Estado</label>
+            <input type="text" name="name" id="send-form-name">
+        </div>
+
+    </div>
+
+    <div class="col-sm-6">
+        <div class="form-group">
+            <label for="send-form-email">País</label>
+            <input type="text" name="email" id="send-form-email">
+        </div>
+        <label for="textbox">Fecha de entrega (aaaa-mm-dd)</label>
+        <div class="input-group">
+            <span class="input-group-btn">
+                <button type="button" id="entrega" class="btn btn-primary pull-right"><i class="fa fa-calendar"></i></button>
+            </span>
+            <input class="form-control" type="text" id="fecha_entrega" name="fecha_entrega">
+        </div>
+        <div class="form-group">
+            <label for="form-select">Horario de recolección</label>
+            <select id="form-select">
+                <option value>- Selecciona una opción -</option>
+                <option value="09-11">09:00 - 11:00 hrs.</option>
+                <option value="11-13">11:00 - 13:00 hrs.</option>
+                <option value="13-15">13:00 - 15:00 hrs.</option>
+                <option value="15-17">15:00 - 17:00 hrs.</option>
+                <option value="17-19">17:00 - 19:00 hrs.</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="form-message">Referencias o comentarios</label>
+            <textarea name="message" id="form-message"></textarea>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12">
+        @Html.ActionLink("Precios", "Precios", "Home", new { @class = "btn btn-primary btn-wide btn_blue pull-left" })
+        @*<input type="" class="btn btn-primary btn-wide btn_blue pull-left" value="Regresar" onclick="window.location='precios.php';" />*@
+        @Html.ActionLink("Agendar", "CrearCuenta", "Home", new { @class = "btn btn-primary btn-wide pull-right" })
+        @*<input type="" class="btn btn-primary btn-wide pull-right" value="Agendar" onclick="window.location='crear-cuenta.php';" />*@
+        <p class="succs-msg">Мensaje enviado</p>
+    </div>
+</div>
