@@ -49,11 +49,8 @@
     <div class="header-extra-top">
         <div class="container">
             <!-- NAVBAR ACCOUNT -->
-            <div class="navbar-account pull-right">
-                <nav>
-                    <button type="button" class="btn-link" data-toggle="modal" data-target="#login"><i class="fa fa-lock"></i> Entrar</button>
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#registro">Crear Cuenta</button>
-                </nav>
+            <div class="navbar-account pull-right" id="login-info">
+                @Html.Partial("_LoginPartial")
             </div>
             <!-- /.navbar-account -->
         </div>
@@ -322,22 +319,19 @@
         $('#btnLogin').click(function () {
             $.ajax({
                 type: 'POST',
-                url: 'Account/AntBoxLoginAjax',
+                url: '@Url.Action("AntBoxLoginAjax", "Account")',
                 data: $('#LoginForm').serialize(),
                 success: function (result) {
-                    if (result.success) {
-                        
-                        $('#body-content').prepend(
-                        '<div class="alert alert-success" role="alert" id="LoginSuccessAlert">Bienvenido '+result.user.Name+'</div>');
-                        window.setTimeout(function ()
-                        { $("#LoginSuccessAlert").alert('close'); }, 2000);
-                        
-                    }
-                    else {
+                    if (result.success==false) {
                         $('#body-content').prepend(
                         '<div class="alert alert-warning" role="alert" id="LoginFailAlert">Usuario o Password no valido.</div>');
                         window.setTimeout(function ()
                         { $("#LoginFailAlert").alert('close'); }, 2000);
+                        
+                        
+                    }
+                    else {
+                        $('#login-info').html(result);
                     }
                     
                     

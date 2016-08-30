@@ -44,8 +44,8 @@ namespace AntBoxFrontEnd.Controllers
             if (customer != null)
             {
                 Session["customer"] = customer;
-
-                return Json(new { success = true, user = customer }, JsonRequestBehavior.AllowGet);
+                return PartialView("_LoginPartial");
+                //return Json(new { success = true, user = customer }, JsonRequestBehavior.AllowGet);
             }
             else
             {

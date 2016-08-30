@@ -21,7 +21,9 @@ namespace AntBoxFrontEnd
                         "~/Scripts/antbox/jquery-2.1.4.min.js",
                         "~/Scripts/antbox/calendar.js",
                         "~/Scripts/antbox/calendar-es.js",
-                        "~/Scripts/antbox/calendar-setup.js"
+                        "~/Scripts/antbox/calendar-setup.js",
+                        "~/Scripts/antbox/openpay.v1.js",
+                        "~/Scripts/antbox/openpay-data.v1.js"
                         ));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(

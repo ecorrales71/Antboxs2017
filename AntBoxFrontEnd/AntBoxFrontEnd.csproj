@@ -381,6 +381,10 @@
     <Content Include="Scripts\antbox\custom.js" />
     <Content Include="Scripts\antbox\fontawesome-markers.min.js" />
     <Content Include="Scripts\antbox\index.js" />
+    <Content Include="Scripts\antbox\openpay-data.v1.js" />
+    <Content Include="Scripts\antbox\openpay-data.v1.min.js" />
+    <Content Include="Scripts\antbox\openpay.v1.js" />
+    <Content Include="Scripts\antbox\openpay.v1.min.js" />
     <Content Include="Scripts\antbox\plugins.js" />
     <Content Include="Scripts\bootstrap-datetimepicker.js" />
     <Content Include="Scripts\bootstrap-datetimepicker.min.js" />
