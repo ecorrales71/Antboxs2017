@@ -90,7 +90,7 @@ namespace AntBoxFrontEnd.Infrastructure
                 {
                     var errbad = JsonConvert.DeserializeObject<AntBoxFrontEnd.Services.BadRequestResponse>(responseString);
 
-                    if (errbad == null)
+                    if (errbad != null)
                         throw new Exception(errbad.Log);
                 }
 
@@ -98,7 +98,7 @@ namespace AntBoxFrontEnd.Infrastructure
                 {
                     var errMissing = JsonConvert.DeserializeObject<AntBoxFrontEnd.Services.MissingResponse>(responseString);
 
-                    if (errMissing == null)
+                    if (errMissing != null)
                         throw new Exception(errMissing.Missing);
                 }
 
