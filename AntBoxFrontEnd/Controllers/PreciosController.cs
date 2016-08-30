@@ -83,18 +83,6 @@ namespace AntBoxFrontEnd.Controllers
         {
             var ps = new PaymentService(ServiceConfiguration.GetApiKey());
 
-
-            var card = new PaymentRequestOptions
-            {
-                Customer_id = "b3c7fcada2e8473491a7d12e302a3e31",
-                Device_id = "X80Ab8yQUaqcV1nUZZy1tizEZ6s9Mlc3",
-                State = "main",
-                Token = "ktapeagpgmhpuhjt1z5d"
-            };
-
-
-            var isCreated = ps.CreatePaymentCard(card);
-
             PaymentRequestOptions pro = new PaymentRequestOptions
             {
                 Customer_id = ((CustomerResponse)Session["customer"]).Id,
