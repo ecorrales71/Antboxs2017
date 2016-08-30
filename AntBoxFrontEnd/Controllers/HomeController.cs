@@ -67,6 +67,12 @@ namespace AntBoxFrontEnd.Controllers
         {
             ViewBag.Message = "Agendar entregas.";
 
+            List<SelectListItem> delegaciones = new List<SelectListItem>() { new SelectListItem { Value = "",  Text= "Selecciona código postal"} };
+            List<SelectListItem> colonias = new List<SelectListItem>() { new SelectListItem { Value = "", Text = "Selecciona código postal" } };
+
+            ViewBag.DelegationList = new SelectList(delegaciones, "Value", "Text");
+            ViewBag.ColoniasList = new SelectList(delegaciones, "Value", "Text");
+
             return View();
         }
 
@@ -118,6 +124,15 @@ namespace AntBoxFrontEnd.Controllers
         }
 
 
+        public ActionResult GuardaTempTasks(string form)
+        {
+            //guardamos de forma temporal las direcciones y tareas en la session
+            Session["TasksTemp"] = form;
+
+            return View();
+        }
+
+
         //[HttpPost]
         //public ActionResult Create(FormCollection collection)
         //{
@@ -147,6 +162,9 @@ namespace AntBoxFrontEnd.Controllers
 
 
         //}
+
+        
+
 
         private JsonResult CreateAddress(AddressRequestOptions address)
         {
@@ -205,40 +223,41 @@ namespace AntBoxFrontEnd.Controllers
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 
-        public IEnumerable<SelectListItem> GetStates(string zipcode = null)
+        public JsonResult GetDelegation(string zipcode)
         {
-            var states = new List<SelectListItem>();
+            var delegations = new List<SelectListItem>() { { new SelectListItem { Text = "Selecciona el código postal",Value=""} } };
             if (zipcode == null)
-                return states;
+                zipcode = "";
 
             var service = new ZipcodeService(ServiceConfiguration.GetApiKey());
 
-            var result = service.SearchZipCode(zipcode);
+            var results = service.SearchZipCode(zipcode);
 
-            result.ForEach(x =>
+            results.ForEach(x =>
             {
-                states.Add(new SelectListItem
+                delegations.Add(new SelectListItem
                 {
-                    Text = x.State,
-                    Value = x.State
+                    Value = x.Delegation,
+                    Text = x.Delegation
+                   
                 });
             });
 
-            return states;
+            return Json(new { result = delegations }, JsonRequestBehavior.AllowGet);
+
 
         }
 
-        public IEnumerable<SelectListItem> GetColonias(string zipcode = null)
+        public JsonResult GetColonias(string zipcode = null)
         {
             var col = new List<SelectListItem>();
-            if (zipcode == null)
-                return col;
+          
 
             var service = new ZipcodeService(ServiceConfiguration.GetApiKey());
 
-            var result = service.SearchZipCode(zipcode);
+            var results = service.SearchZipCode(zipcode);
 
-            result.ForEach(x =>
+            results.ForEach(x =>
             {
                 col.Add(new SelectListItem
                 {
@@ -247,7 +266,8 @@ namespace AntBoxFrontEnd.Controllers
                 });
             });
 
-            return col;
+
+            return Json(new { result = col }, JsonRequestBehavior.AllowGet);
 
         }
 

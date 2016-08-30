@@ -70,6 +70,5 @@ namespace AntBoxFrontEnd.Models
 
         public virtual List<SelectListItem> Delegaciones { get; set; }
 
-
     }
 }

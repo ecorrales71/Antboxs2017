@@ -68,7 +68,7 @@
         <!-- /.container -->
         <!-- CONTAINER -->
         <div class="container mt30">
-            <form class="form-solid">
+            <form class="form-solid" id="Tareas">
               
                 @{
                     Html.RenderPartial("~/Views/Home/_PickupAddressPartial.cshtml", Model);
@@ -77,6 +77,16 @@
                 @{
                     Html.RenderPartial("~/Views/Home/_SentAddressPartial.cshtml", Model);
                 }
+
+                <div class="row"  id="Agendar-tareas">
+                    <div class="col-sm-12">
+                        @Html.ActionLink("Precios", "Precios", "Home", new { @class = "btn btn-primary btn-wide btn_blue pull-left" })
+                        @*<input type="" class="btn btn-primary btn-wide btn_blue pull-left" value="Regresar" onclick="window.location='precios.php';" />*@
+                        @Html.ActionLink("Agendar", "CrearCuenta", "Home", new { onclick = "agendarTareas();" , @class = "btn btn-primary btn-wide pull-right" })
+                        @*<input type="" class="btn btn-primary btn-wide pull-right" value="Agendar" onclick="agendarTareas()" />*@
+                        <p class="succs-msg">Мensaje enviado</p>
+                    </div>
+                </div>
                 
             </form>
         </div>
@@ -104,5 +114,122 @@
 </div>
 <!-- /.wrapper -->
 
+<script type="text/javascript">
+
+Calendar.setup({
+inputField     :    "fecha_recoleccion",      // id del campo de texto
+ifFormat       :    "%Y-%m-%d",       // formato de la fecha, cuando se escriba en el campo de texto
+button         :    "recoleccion"   // el id del botón que lanzará el calendario
+});
+</script>
+
+<script type="text/javascript">
+
+Calendar.setup({
+inputField     :    "fecha_entrega",      // id del campo de texto
+ifFormat       :    "%Y-%m-%d",       // formato de la fecha, cuando se escriba en el campo de texto
+button         :    "entrega"   // el id del botón que lanzará el calendario
+});
+</script>
+
+
+<script type="text/javascript">
+// Script para el campo de colonia
+	function showOtraColonia1(elem){
+	if(elem.value == "otra")
+	document.getElementById('hidden_div1').style.display = "block";
+	else
+	document.getElementById('hidden_div1').style.display = "none";
+	}
+</script>
+
+<script type="text/javascript">
+// Script para el campo de colonia
+	function showOtraColonia2(elem){
+	if(elem.value == "otra")
+	document.getElementById('hidden_div2').style.display = "block";
+	else
+	document.getElementById('hidden_div2').style.display = "none";
+	}
+</script>
+
+<script type="text/javascript">
+// Script para aparecer/desaparecer la dirección de entrega
+$(document).ready(function(){
+    $('.checkdisplay').change(function(){
+        if(this.checked)
+            $('.todisplay').fadeOut('slow');
+        else
+            $('.todisplay').fadeIn('slow');
+
+    });
+});
+</script>
+
+
+<script type="text/javascript">
+
+    function agendarTareas() {
+
+        var txtStreet1 = $('#txtStreet1').val();
+        var txtInternal_number1 = $('#txtInternal_number1').val();
+        var External_number1 = $('#External_number1').val();
+        var txtZipcode1 = $('#txtZipcode1').val();
+        var cmbDelegations1 = $('#cmbDelegations1').val();
+        var cmbNeighborhood1 = $('#cmbNeighborhood1').val();
+        var txtCity1 = $('#txtCity1').val();
+        var txtState1 = $('#txtState1').val();
+        var txtCountry1 = $('#txtCountry1').val();
+        var fecha_recoleccion = $('#fecha_recoleccion').val();
+        var selHorario1 = $('#selHorario1').val();
+        var txtReferencias1 = $('#txtReferencias1').val();
+
+
+        var txtStreet2 = $('#txtStreet2').val();
+        var txtInternal_number2 = $('#txtInternal_number2').val();
+        var External_number2 = $('#External_number2').val();
+        var txtZipcode2 = $('#txtZipcode2').val();
+        var cmbDelegations2 = $('#cmbDelegations2').val();
+        var cmbNeighborhood2 = $('#cmbNeighborhood2').val();
+        var txtCity2 = $('#txtCity2').val();
+        var txtState2 = $('#txtState2').val();
+        var txtCountry2 = $('#txtCountry2').val();
+        var fecha_entrega = $('#fecha_entrega').val();
+        var selHorario2 = $('#selHorario2').val();
+        var txtReferencias2 = $('#txtReferencias2').val();
+
+        var data = { txtStreet1, txtInternal_number1, External_number1, txtZipcode1, cmbDelegations1, cmbNeighborhood1, txtCity1, txtState1, txtCountry1, fecha_recoleccion, selHorario1, txtRefrencias1, txtStreet2, txtInternal_number2, External_number2, txtZipcode2, cmbDelegations2, cmbNeighborhood2, txtCity2, txtState2, txtCountry2, fecha_entrega, selHorario2, txtReferencias2, }
+
+        var jsonOfLog = JSON.stringify(data);
+
+
+        $.ajax({
+            type: 'POST',
+            dataType: 'text',
+            url: @Url.Action("GuardaTempTasks", "Home"),
+            data: "jsonOfLog=" + jsonOfLog,
+            success: function (returnPayload) {
+                console && console.log("request succeeded");
+            },
+            error: function (emp) {
+                $('#Agendar-tareas').prepend(
+                    '<div class="alert alert-warning" role="alert" id="LoginFailAlert"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>error</div>');
+                window.setTimeout(function ()
+                { $("#LoginFailAlert").alert('close'); }, 50000);
+
+            },
+
+            processData: false,
+            async: false
+        });
+
+    };
+
+
+
+
+
+
+</script>
 
 

@@ -1,4 +1,6 @@
-﻿<div class="row mt10">
+﻿@model AntBoxFrontEnd.Models.AntBoxAddressViewModel
+
+<div class="row mt10">
     <div class="col-sm-12">
         <div class="irow-xs">
             <h3>Dirección de recolección</h3>
@@ -9,60 +11,72 @@
 <div class="row mt20">
     <div class="col-sm-6">
         <div class="form-group">
-            <label for="send-form-email">Calle</label>
-            <input type="text" name="email" id="Calle">
+            @Html.Label("Calle")
+            @Html.TextBoxFor(m=> m.Street, new { @id = "txtStreet1" })
         </div>
         <div class="row">
             <div class="col-sm-6">
                 <div class="form-group">
                     <label for="send-form-email">Núm. Int.</label>
-                    <input type="text" name="email" id="send-form-email">
+                    @Html.TextBoxFor(m => m.Internal_number, new { @id = "txtInternal_number1" })
+                    @*<label for="send-form-email">Núm. Int.</label>
+                    <input type="text"id="txtNumint">*@
                 </div>
             </div>
             <div class="col-sm-6">
                 <div class="form-group">
                     <label for="send-form-email">Núm. Ext.</label>
-                    <input type="text" name="email" id="send-form-email">
+                   @Html.TextBoxFor(m => m.External_number, new { @id = "External_number1" })
+                    @*<label for="send-form-email">Núm. Ext.</label>
+                    <input type="text" id="txtNumExt">*@
                 </div>
             </div>
         </div>
         <div class="form-group">
-            <label for="send-form-email">Código Postal</label>
-            <input type="text" name="email" id="send-form-email">
+            @Html.Label("Código Postal")
+           @Html.TextBoxFor(m => m.Zipcode,new{@id = "txtZipcode1" })
+            @Html.ValidationMessage("Código postal requerido", "*")
+
+
+            @*<label for="send-form-email">Código Postal</label>
+            <input type="text" id="txtZipCode">*@
         </div>
         <div class="form-group">
             <label for="form-select">Delegación o Municipio</label>
-            <select id="form-select">
+            @Html.DropDownListFor(m => m.Delegation, ViewData["DelegationList"] as SelectList, new { @id = "cmbDelegations1" })
+
+            @*<select id="form-select">
                 <option value>- Selecciona una opción -</option>
-                <option value="d1">Delegacion 1</option>
-                <option value="d2">Delegacion 2</option>
-                <option value="d3">Delegacion 3</option>
-                <option value="d4">Delegacion 4</option>
-            </select>
+                <option value="Delegacion 1">Delegacion 1</option>
+                <option value="Delegacion 2">Delegacion 2</option>
+                <option value="Delegacion 3">Delegacion 3</option>
+                <option value="Delegacion 4">Delegacion 4</option>
+            </select>*@
         </div>
         <div class="form-group">
             <label for="form-select">Colonia</label>
-            <select name="form_select" onchange="showOtraColonia1(this)">
+            @Html.DropDownListFor(m => m.Neighborhood, ViewData["ColoniasList"] as SelectList, new { @id = "cmbNeighborhood1" })
+            @*<select name="form_select" onchange="showOtraColonia1(this)">
                 <option value>- Selecciona una opción -</option>
-                <option value="c1">Colonia 1</option>
-                <option value="c2">Colonia 2</option>
-                <option value="c3">Colonia 3</option>
-                <option value="c4">Colonia 4</option>
-                <option value="otra">Otra</option>
-            </select>
+                <option value="Colonia 1">Colonia 1</option>
+                <option value="Colonia 2">Colonia 2</option>
+                <option value="Colonia 3">Colonia 3</option>
+                <option value="Colonia 4">Colonia 4</option>
+                <option value="Colonia 5">Otra</option>
+            </select>*@
         </div>
         <div id="hidden_div1" class="form-group">
             <label for="send-form-email">Nombre de la colonia*</label>
-            <input type="text" name="email" id="send-form-email">
+            <input type="text" id="txtColoniaOtra">
         </div>
 
         <div class="form-group">
             <label for="send-form-name">Ciudad</label>
-            <input type="text" name="name" id="send-form-name">
+            <input type="text" id="txtCity1">
         </div>
         <div class="form-group">
             <label for="send-form-name">Estado</label>
-            <input type="text" name="name" id="send-form-name">
+            <input type="text"id="txtState1">
         </div>
 
     </div>
@@ -70,7 +84,7 @@
     <div class="col-sm-6">
         <div class="form-group">
             <label for="send-form-email">País</label>
-            <input type="text" name="email" id="send-form-email">
+            <input type="text" id="txtCountry1">
         </div>
         <label for="textbox">Fecha de recolección (aaaa-mm-dd)</label>
         <div class="input-group">
@@ -81,7 +95,7 @@
         </div>
         <div class="form-group">
             <label for="form-select">Horario de recolección</label>
-            <select id="form-select">
+            <select id="selHorario1">
                 <option value>- Selecciona una opción -</option>
                 <option value="09-11">09:00 - 11:00 hrs.</option>
                 <option value="11-13">11:00 - 13:00 hrs.</option>
@@ -92,7 +106,7 @@
         </div>
         <div class="form-group">
             <label for="form-message">Referencias o comentarios</label>
-            <textarea name="message" id="form-message"></textarea>
+            <textarea name="message" id="txtReferencias1"></textarea>
         </div>
         <div class="checkbox">
             <label>
@@ -102,3 +116,31 @@
         </div>
     </div>
 </div>
+
+
+@Scripts.Render("~/bundles/jquery")
+<script type="text/jscript">
+    $(function () {
+        $('#txtZipcode').change(function () {
+
+            var zipcode = $('#txtZipcode').val();
+
+            $.ajax({
+                url: '@Url.Action("GetDelegation", "Home")',
+                type: "POST",
+                data: { "zipcode": zipcode },
+                "success": function (data) {
+                    $("#cmbDelegations").html("");
+                    var items = '<option>Seleccciona una delegacion</option>';
+                    $.each(data, function (i, delegation) {
+                        items += "<option value='" + delegation.Value + "'>" + delegation.Text + "</option>";
+                    });
+                    $('#cmbDelegations').html(items);
+                }
+                
+            
+            });
+
+        });
+    });
+</script>
