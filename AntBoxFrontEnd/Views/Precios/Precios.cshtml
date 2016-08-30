@@ -1,0 +1,155 @@
+﻿@{
+    ViewBag.Title = "Antbox";
+}
+
+@model AntBoxFrontEnd.Models.PriceViewModel
+
+
+
+
+
+
+
+<!-- WRAPPER -->
+<div class="wrapper precios">
+
+    <!-- PAGE TITLE -->
+    <header class="pagetitle pagetitle-sm">
+        <div class="container">
+            <div class="divtable irow">
+                <div class="divcell">
+                    <i class="fa fa-check-square-o"></i>
+                    <h1>Precios</h1>
+                    <div class="divider"></div>
+                    <span class="subtitle">Usa sin salir de casa y paga solo lo que usas</span>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- /.pagetitle -->
+    <!-- CONTENT -->
+    <div class="content no-pt">
+
+        <!-- CONTAINER -->
+        <div class="iwrap">
+            <section class="container">
+                <div class="row text-wrap text-center">
+                    <div class="col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1" data-animate="fadeInDown">
+                        <h1>Usa sin salir de casa y paga solo lo que usas</h1>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip retex tempor incididunea commodo consequat.</p>
+                        <div class="heading-divider heading-divider-xs"></div>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <!-- /.container -->
+        <!-- CONTAINER -->
+        <div class="container">
+            <div class="row irow-sm text-center ml0 mr0">
+                <div class="col-md-3 col-sm-6 card card-light card-border-top-3">
+                    <div class="icon icon-color icon-size-4">
+                        <i class="fa fa-archive"></i>
+                    </div>
+                    <h4>1. Agregar Antboxs</h4>
+                </div>
+                <div class="col-md-3 col-sm-6 card card-light card-lighter card-border-top-4">
+                    <div class="icon icon-color icon-size-4">
+                        <i class="fa fa-truck fa-flip-horizontal icon_grey"></i>
+                    </div>
+                    <h4>2. Agendar entregas</h4>
+                </div>
+                <div class="col-md-3 col-sm-6 card card-light card-darker card-border-top-4">
+                    <div class="icon icon-color icon-size-4">
+                        <i class="fa fa-user icon_grey"></i>
+                    </div>
+                    <h4>3. Crear nueva cuenta</h4>
+                </div>
+                <div class="col-md-3 col-sm-6 card card-light card-lighter card-border-top-4">
+                    <div class="icon icon-color icon-size-4">
+                        <i class="fa fa-thumbs-up icon_grey"></i>
+                    </div>
+                    <h4>4. ¡Orden completa!</h4>
+                </div>
+            </div>
+        </div>
+        <!-- /.container -->
+        <!-- CONTAINER -->
+        <div class="container">
+            <div class="row irow-xs cards">
+                <div class="col-sm-12">
+                    <h2>Agregar Antboxs</h2>
+                    <div class="heading-divider"></div>
+                </div>
+            </div>
+        </div>
+        <!-- /.container -->
+        <!-- CONTAINER -->
+        <div class="container mt30">
+            <form class="form-solid">
+                <div class="row">
+                    <div class="col-sm-6 col-md-7">
+                        <div class="irow-xs pb30">
+                            <p>Ordenar tus Antboxs es muy sencillo, solo indícanos cuántas Antboxs necesitas y a qué direcciones debemos enviártelas.</p>
+                            @if (Session["customer"] == null)
+                            {
+                                <div class="alert alert-warning">
+                                    <p><i class="fa fa-exclamation-triangle"></i> <strong>¿Ordenas por primera vez?</strong> Recuerda que el periodo mínimo de contratación es por tres meses, aunque si tú lo decides, podrás retirar tus Antboxs antes de ese tiempo.</p>
+                                </div>
+                            }
+                            
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-5">
+                        <div class="card card-image pt0 pb0">
+                            <figure class="figure ">
+                                <!--Agregar a clase para slider: "slider oneslider"-->
+                                <ul data-fx="crossfade" data-auto="true" data-timeout="4500">
+                                    <li>
+                                        <img src="~/Images/antboxs_chica.png" alt="">
+                                    </li>
+                                    <!--<li>
+                                        <a href="">
+                                            <img src="images/antboxs_chica.jpg" alt="">
+                                        </a>
+                                    </li>-->
+                                </ul>
+                                <!--<a class="slider-arrow slider-arrow-prev" href=""></a>
+                                <a class="slider-arrow slider-arrow-next" href=""></a>
+                                <nav class="slider-pagination pb70"></nav>-->
+                            </figure>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    @{ 
+                        Html.RenderPartial("~/Views/Precios/PricePartialView.cshtml", Model);
+                    }
+
+                   
+                    
+                </div>
+            </form>
+        </div>
+        <!-- /.container -->
+
+
+    </div>
+    <!-- /.content -->
+    <!-- PROMO-BOX -->
+    <div class="promo-box promo-box-light">
+        <div class="container">
+            <section class="row irow-xs page-header cols-border divtable mt30 mb30">
+                <div class="col-lg-10 col-md-9 col-sm-8 divcell promobox_txt">
+                    <h1>¿Tienes dudas sobre nuestro servicio?</h1>
+                    <p>Visita las preguntas frecuentes, probablemente ya hemos respondido tus dudas. Sino escríbenos o llámanos y con gusto te atendemos. </p>
+                </div>
+                <div class="col-lg-2 col-md-3 col-sm-4 text-right divcell">
+                    @Html.ActionLink("Preguntas Frecuentes", "PreguntasFrecuentes", "Home", new { @class = "btn btn-primary btn-md" })
+                </div>
+            </section>
+        </div>
+    </div>
+    <!-- /.promo-box -->
+
+</div>
+<!-- /.wrapper -->

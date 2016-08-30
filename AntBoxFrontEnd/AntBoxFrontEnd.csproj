@@ -237,13 +237,15 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AntBoxAddressesController.cs" />
-    <Compile Include="Controllers\AntBoxAddressController.cs" />
     <Compile Include="Controllers\CustomerAntBoxController.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\PreciosController.cs" />
+    <Compile Include="Controllers\PricePartialController.cs" />
     <Compile Include="Controllers\TasksController.cs" />
+    <Compile Include="Entities\AntBox.cs" />
     <Compile Include="Entities\Customer.cs" />
     <Compile Include="Entities\HovaAuthResponse.cs" />
     <Compile Include="Entities\HovaAuth.cs" />
@@ -530,7 +532,7 @@
     </Content>
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Tasks\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
@@ -559,20 +561,23 @@
     <Content Include="Views\Login\LoginView.cshtml" />
     <Content Include="Views\Home\ComoFunciona.cshtml" />
     <Content Include="Views\Home\QueDeboHacer.cshtml" />
-    <Content Include="Views\Home\Precios.cshtml" />
+    <Content Include="Views\Precios\Precios.cshtml" />
     <Content Include="Views\Shared\_PickupAddress.cshtml" />
     <Content Include="Views\Home\AgendarEntregas.cshtml" />
     <Content Include="Views\Home\Contacto.cshtml" />
     <Content Include="Views\Home\PreguntasFrecuentes.cshtml" />
     <Content Include="Views\Home\CrearCuenta.cshtml" />
     <Content Include="Views\Home\OrdenCompleta.cshtml" />
+    <Content Include="Views\Precios\PricePartialView.cshtml" />
+    <Content Include="Views\Home\_PickupAddressPartial.cshtml" />
+    <Content Include="Views\Home\_SentAddressPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Addresses\" />
     <Folder Include="Views\AntBoxAddress\" />
     <Folder Include="Views\CustomerAntBox\" />
     <Folder Include="Views\Customer\" />
-    <Folder Include="Views\Tasks\" />
+    <Folder Include="Views\PricePartial\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

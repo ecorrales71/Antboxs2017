@@ -1,0 +1,104 @@
+﻿<div class="row mt10">
+    <div class="col-sm-12">
+        <div class="irow-xs">
+            <h3>Dirección de recolección</h3>
+            <p>¿Dónde y cuándo debemos llevarte tus Antboxs vacías?</p>
+        </div>
+    </div>
+</div>
+<div class="row mt20">
+    <div class="col-sm-6">
+        <div class="form-group">
+            <label for="send-form-email">Calle</label>
+            <input type="text" name="email" id="Calle">
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="send-form-email">Núm. Int.</label>
+                    <input type="text" name="email" id="send-form-email">
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="send-form-email">Núm. Ext.</label>
+                    <input type="text" name="email" id="send-form-email">
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="send-form-email">Código Postal</label>
+            <input type="text" name="email" id="send-form-email">
+        </div>
+        <div class="form-group">
+            <label for="form-select">Delegación o Municipio</label>
+            <select id="form-select">
+                <option value>- Selecciona una opción -</option>
+                <option value="d1">Delegacion 1</option>
+                <option value="d2">Delegacion 2</option>
+                <option value="d3">Delegacion 3</option>
+                <option value="d4">Delegacion 4</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="form-select">Colonia</label>
+            <select name="form_select" onchange="showOtraColonia1(this)">
+                <option value>- Selecciona una opción -</option>
+                <option value="c1">Colonia 1</option>
+                <option value="c2">Colonia 2</option>
+                <option value="c3">Colonia 3</option>
+                <option value="c4">Colonia 4</option>
+                <option value="otra">Otra</option>
+            </select>
+        </div>
+        <div id="hidden_div1" class="form-group">
+            <label for="send-form-email">Nombre de la colonia*</label>
+            <input type="text" name="email" id="send-form-email">
+        </div>
+
+        <div class="form-group">
+            <label for="send-form-name">Ciudad</label>
+            <input type="text" name="name" id="send-form-name">
+        </div>
+        <div class="form-group">
+            <label for="send-form-name">Estado</label>
+            <input type="text" name="name" id="send-form-name">
+        </div>
+
+    </div>
+
+    <div class="col-sm-6">
+        <div class="form-group">
+            <label for="send-form-email">País</label>
+            <input type="text" name="email" id="send-form-email">
+        </div>
+        <label for="textbox">Fecha de recolección (aaaa-mm-dd)</label>
+        <div class="input-group">
+            <span class="input-group-btn">
+                <button type="button" id="recoleccion" class="btn btn-primary pull-right"><i class="fa fa-calendar"></i></button>
+            </span>
+            <input class="form-control" type="text" id="fecha_recoleccion" name="fecha_recoleccion">
+        </div>
+        <div class="form-group">
+            <label for="form-select">Horario de recolección</label>
+            <select id="form-select">
+                <option value>- Selecciona una opción -</option>
+                <option value="09-11">09:00 - 11:00 hrs.</option>
+                <option value="11-13">11:00 - 13:00 hrs.</option>
+                <option value="13-15">13:00 - 15:00 hrs.</option>
+                <option value="15-17">15:00 - 17:00 hrs.</option>
+                <option value="17-19">17:00 - 19:00 hrs.</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="form-message">Referencias o comentarios</label>
+            <textarea name="message" id="form-message"></textarea>
+        </div>
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" name="optionsCheckbox">
+                Quiero que el conductor me espere para que pueda llevar mis Antboxs de vuelta al almacén de forma inmediata. (Considere que los conductores solo pueden esperar hasta 20 minutos)
+            </label>
+        </div>
+    </div>
+</div>

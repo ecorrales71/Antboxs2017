@@ -276,7 +276,7 @@
                 } else if (el.hasClass('minus')) {
                     newVal = (oldValue > 1) ? parseFloat(oldValue) - 1 : 1;
                 }
-
+                
                 inpt.val(newVal);
             });
 

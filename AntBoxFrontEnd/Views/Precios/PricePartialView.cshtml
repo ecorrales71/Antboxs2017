@@ -1,0 +1,115 @@
+﻿@model AntBoxFrontEnd.Models.PriceViewModel
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        var modelDataJSON = '@Html.Raw(Json.Encode(Model))';
+
+        $('#txtQuantity').change(function () {
+            $.ajax({
+                url: "Precios/Calculate/",
+                type: "POST",
+                data: { modelPrice: modelDataJSON },
+                dataType: 'json' ,
+                
+            });
+        });
+    });
+
+
+</script>
+
+<div class="col-sm-12 pl5_pr5">
+    <div class="responsive">
+        <table class="table shop_table cart">
+            <thead>
+                <tr>
+                    <th class="product-name">Antboxs</th>
+                    <th class="product-price no_mobile">Precio</th>
+                    <th class="product-quantity">Cantidad</th>
+                    <th class="product-subtotal no_iphone_portrait">Total</th>
+                    <!--<th class="product-remove">&nbsp;</th>-->
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="cart_item">
+                    <td class="product-name">
+                        @*<h5>Antboxs Chica</h5>*@
+                        <h5>@Html.Raw(Model.SelectedAntBox.Model)</h5>
+                        <dl class="variation">
+                            <dt class="variation-Color">Medidas:</dt>
+                            <dd class="variation-Color">
+                                @Html.Raw(Model.SelectedAntBox.Sizes)
+                                @*<p>27" x 17" x 12"</p>*@
+                            </dd>
+                        </dl>
+                    </td>
+                    <td class="product-price no_mobile">
+                        <span class="amount">$ @Html.Raw(Model.SelectedAntBox.Price)</span>
+                    </td>
+                    <td class="product-quantity">
+                        <a href="" class="minus disabled">-</a>
+
+                        @Html.TextBoxFor(a => a.Quantity , new { @id = "txtQuantity"})
+                        @*<input type="text" value="1" id="txtQuantity">*@
+                        <a href="" class="plus">+</a>
+                    </td>
+                    <td class="product-subtotal no_iphone_portrait">
+                        <span class="amount">$ @Html.Raw(Model.LineSubtotal)</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="actions" colspan="6">
+                        <div class="coupon pull-right center_iphone_portrait">
+                            <input id="coupon_code" class="input-text pb10__iphone_portrait" type="text" placeholder="Código de cupón" value="" name="coupon_code">
+                            <input class="btn btn-primary pull-right floatr ml10 center_iphone_portrait" type="submit" value="Aplicar cupón">
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="row irow-xs cart-collaterals mt0">
+        <div class="col-md-5 col-sm-6">
+        </div>
+        <div class="col-md-offset-1 col-sm-6 cart_totals">
+            <table class="table">
+                <tbody>
+                    <tr class="cart-subtotal">
+                        <th>Descuento</th>
+                        <td>
+                            <span class="amount">$ @Html.Raw(Model.LineDiscount)</span>
+                        </td>
+                    </tr>
+                    <tr class="cart-subtotal">
+                        <th>Subtotal</th>
+                        <td>
+                            <span class="amount">$ @Html.Raw(Model.LineSubtotal)</span>
+                        </td>
+                    </tr>
+                    <tr class="shipping">
+                        <th>+ IVA</th>
+                        <td>
+                            <span class="amount">$ @Html.Raw(Model.LineFee)</span>
+                        </td>
+                    </tr>
+                    <tr class="order-total">
+                        <th>Total</th>
+                        <td>
+                            <strong>
+                                <span class="amount">$ @Html.Raw(Model.GrandTotal)</span>
+                            </strong>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            @Html.ActionLink("Agendar entregas", "AgendarEntregas", "Home", null,null,null,null, new { @class = "btn btn-primary pull-right" })
+            @*<input type="" class="btn btn-primary pull-right" value="btn btn-primary pull-right" onclick="window.location='agendar-entregas.php';" />*@
+            <p class="succs-msg">Мensaje enviado</p>
+        </div>
+    </div>
+</div>
+

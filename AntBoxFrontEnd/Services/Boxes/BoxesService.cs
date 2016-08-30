@@ -146,6 +146,21 @@ namespace AntBoxFrontEnd.Services.Boxes
         }
 
 
+        public decimal GetPrice(AntBoxTypeEnum type)
+        {
+            //TODO  Colocar logica para la obtención del precio de las cajas
+
+
+            return 100;
+        }
+
+        public decimal GetSecure(AntBoxTypeEnum type)
+        {
+            //TODO  Colocar logica para la obtención del precio de las cajas
+
+
+            return 0;
+        }
 
     }
 
