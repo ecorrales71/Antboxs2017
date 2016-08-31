@@ -333,16 +333,34 @@
     <Content Include="Content\calendar.css" />
     <Content Include="Content\custom-responsive.css" />
     <Content Include="Content\custom.css" />
+    <Content Include="Content\Customer\calendar.css" />
+    <Content Include="Content\Customer\custom-responsive.css" />
+    <Content Include="Content\Customer\custom.css" />
+    <Content Include="Content\Customer\font-awesome.min.css" />
+    <Content Include="Content\Customer\font.css" />
+    <Content Include="Content\Customer\preloader.css" />
+    <Content Include="Content\Customer\revolution.css" />
+    <Content Include="Content\Customer\style.css" />
     <Content Include="Content\flags.css" />
     <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\font.css" />
+    <Content Include="Content\fonts\fontawesome-webfont.svg" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Content\fonts\Nexa_Bold-webfont.svg" />
+    <Content Include="Content\fonts\Nexa_Light-webfont.svg" />
     <Content Include="Content\Gridmvc.css" />
     <Content Include="Content\Images\agenda_tu_entrega.png" />
     <Content Include="Content\Images\almacenamos.png" />
     <Content Include="Content\Images\antboxs_logo.png" />
     <Content Include="Content\Images\cajas_apiladas_antboxs.png" />
+    <Content Include="Content\Images\cuenta.png" />
+    <Content Include="Content\Images\direcciones.png" />
     <Content Include="Content\Images\guarda_tus_cosas.png" />
+    <Content Include="Content\Images\mis-antboxs.png" />
+    <Content Include="Content\Images\movimientos.png" />
+    <Content Include="Content\Images\ordenar.png" />
+    <Content Include="Content\Images\pagos.png" />
+    <Content Include="Content\Images\perfil.jpg" />
     <Content Include="Content\Images\pide_tus_antboxs.png" />
     <Content Include="Content\Site.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -381,6 +399,9 @@
     <Content Include="Global.asax" />
     <Content Include="Scripts\ai.0.22.9-build00167.js" />
     <Content Include="Scripts\ai.0.22.9-build00167.min.js" />
+    <Content Include="Scripts\antbox\calendar-es.js" />
+    <Content Include="Scripts\antbox\calendar-setup.js" />
+    <Content Include="Scripts\antbox\calendar.js" />
     <Content Include="Scripts\antbox\custom.js" />
     <Content Include="Scripts\antbox\fontawesome-markers.min.js" />
     <Content Include="Scripts\antbox\index.js" />
@@ -497,6 +518,18 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="Content\fonts\fontawesome-webfont.eot" />
+    <Content Include="Content\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Content\fonts\fontawesome-webfont.woff" />
+    <Content Include="Content\fonts\fontawesome-webfont.woff2" />
+    <Content Include="Content\fonts\Nexa_Bold-webfont.eot" />
+    <Content Include="Content\fonts\Nexa_Bold-webfont.ttf" />
+    <Content Include="Content\fonts\Nexa_Bold-webfont.woff" />
+    <Content Include="Content\fonts\Nexa_Bold-webfont.woff2" />
+    <Content Include="Content\fonts\Nexa_Light-webfont.eot" />
+    <Content Include="Content\fonts\Nexa_Light-webfont.ttf" />
+    <Content Include="Content\fonts\Nexa_Light-webfont.woff" />
+    <Content Include="Content\fonts\Nexa_Light-webfont.woff2" />
     <None Include="Properties\PublishProfiles\antbox - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\gridmvc.js" />
@@ -572,12 +605,14 @@
     <Content Include="Views\Precios\PricePartialView.cshtml" />
     <Content Include="Views\Home\_PickupAddressPartial.cshtml" />
     <Content Include="Views\Home\_SentAddressPartial.cshtml" />
+    <Content Include="Views\Customer\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\_CustomerLayout.cshtml" />
+    <Content Include="Views\Customer\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Addresses\" />
     <Folder Include="Views\AntBoxAddress\" />
     <Folder Include="Views\CustomerAntBox\" />
-    <Folder Include="Views\Customer\" />
     <Folder Include="Views\PricePartial\" />
   </ItemGroup>
   <ItemGroup>

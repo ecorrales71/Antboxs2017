@@ -50,6 +50,19 @@ namespace AntBoxFrontEnd
                       "~/Content/custom-responsive.css",
                       "~/Content/font.css"
                       ));
+            bundles.Add(new StyleBundle("~/Content/Customer").Include(
+                      "~/Content/Customer/preloader.css",
+                      "~/Content/bootstrap.css",
+                      "~/Content/Customer/font-awesome.min.css",
+                      "~/Content/animate.css",
+                      "~/Content/Customer/animate.css",
+                      "~/Content/Customer/revolution.css",
+                      "~/Content/Customer/style.css",
+                      "~/Content/Customer/calendar.css",
+                      "~/Content/Customer/custom.css",
+                      "~/Content/Customer/custom-responsive.css",
+                      "~/Content/Customer/font.css"
+                      ));
         }
     }
 }

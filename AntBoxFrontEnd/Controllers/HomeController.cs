@@ -129,7 +129,7 @@ namespace AntBoxFrontEnd.Controllers
             //guardamos de forma temporal las direcciones y tareas en la session
             Session["TasksTemp"] = form;
 
-            return View();
+            return View("CrearCuenta");
         }
 
 
@@ -225,7 +225,7 @@ namespace AntBoxFrontEnd.Controllers
 
         public JsonResult GetDelegation(string zipcode)
         {
-            var delegations = new List<SelectListItem>() { { new SelectListItem { Text = "Selecciona el código postal",Value=""} } };
+            var delegations = new List<SelectListItem>();
             if (zipcode == null)
                 zipcode = "";
 

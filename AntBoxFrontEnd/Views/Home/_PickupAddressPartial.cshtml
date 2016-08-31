@@ -121,26 +121,89 @@
 @Scripts.Render("~/bundles/jquery")
 <script type="text/jscript">
     $(function () {
-        $('#txtZipcode').change(function () {
+        $('#txtZipcode1').change(function () {
 
-            var zipcode = $('#txtZipcode').val();
+            var zipcode = $('#txtZipcode1').val();
 
             $.ajax({
                 url: '@Url.Action("GetDelegation", "Home")',
                 type: "POST",
                 data: { "zipcode": zipcode },
-                "success": function (data) {
-                    $("#cmbDelegations").html("");
+                success: function (data) {
+
+                    $("#cmbDelegations1").html("");
                     var items = '<option>Seleccciona una delegacion</option>';
-                    $.each(data, function (i, delegation) {
+                    $.each(data.result, function (i, delegation) {
                         items += "<option value='" + delegation.Value + "'>" + delegation.Text + "</option>";
                     });
-                    $('#cmbDelegations').html(items);
+                    $('#cmbDelegations1').html(items);
+                    $('#cmbDelegations1').trigger("chosen:updated");
                 }
-                
-            
+
+
+            });
+
+            $.ajax({
+                url: '@Url.Action("GetColonias", "Home")',
+                type: "POST",
+                data: { "zipcode": zipcode },
+                success: function (data) {
+
+                    $("#cmbNeighborhood1").html("");
+                    var items = '<option>Seleccciona una colonia</option>';
+                    $.each(data.result, function (i, delegation) {
+                        items += "<option value='" + delegation.Value + "'>" + delegation.Text + "</option>";
+                    });
+                    $('#cmbNeighborhood1').html(items);
+                    $('#cmbNeighborhood1').trigger("chosen:updated");
+                }
+
+
             });
 
         });
+
+        $('#txtZipcode2').change(function () {
+
+            var zipcode = $('#txtZipcode2').val();
+
+            $.ajax({
+                url: '@Url.Action("GetDelegation", "Home")',
+                type: "POST",
+                data: { "zipcode": zipcode },
+                success: function (data) {
+
+                    $("#cmbDelegations2").html("");
+                    var items = '<option>Seleccciona una delegacion</option>';
+                    $.each(data.result, function (i, delegation) {
+                        items += "<option value='" + delegation.Value + "'>" + delegation.Text + "</option>";
+                    });
+                    $('#cmbDelegations2').html(items);
+                    $('#cmbDelegations2').trigger("chosen:updated");
+                }
+
+
+            });
+            $.ajax({
+                url: '@Url.Action("GetColonias", "Home")',
+                type: "POST",
+                data: { "zipcode": zipcode },
+                success: function (data) {
+
+                    $("#cmbNeighborhood2").html("");
+                    var items = '<option>Seleccciona una colonia</option>';
+                    $.each(data.result, function (i, delegation) {
+                        items += "<option value='" + delegation.Value + "'>" + delegation.Text + "</option>";
+                    });
+                    $('#cmbNeighborhood2').html(items);
+                    $('#cmbNeighborhood2').trigger("chosen:updated");
+                }
+
+
+            });
+
+
+        });
+
     });
 </script>

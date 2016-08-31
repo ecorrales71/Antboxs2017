@@ -1,0 +1,179 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+    <title>@ViewBag.Title - Antboxs</title>
+
+    @Styles.Render("~/Content/Customer")
+
+    <meta name="description" content="">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic&amp;subset=latin,cyrillic" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Satisfy" rel="stylesheet">
+    
+</head>
+<body id="body-content">
+    <!-- Preloader -->
+    <div class="preloader"></div>
+
+    <!-- HEADER -->
+    <header class="header header-light">
+        <!-- NAVBAR -->
+        <nav class="navbar container">
+
+            <!-- NAVBAR BRAND -->
+            <a class="navbar-brand pull-left" href="index.php">
+                <img src="@Url.Content("~/Content/Images/antboxs_logo.png")" alt="Antboxs">
+            </a>
+            <!-- /.navbar-brand -->
+            <!-- NAVBAR ACCOUNT -->
+            <div class="nav_account pull-right">
+                <ul class="nav navbar-nav">
+                    <li class="dropdown">
+                        <a href="" class="dropdown-toggle" data-toggle="dropdown"><img src="@Url.Content("~/Content/Images/perfil.jpg")" alt="Raúl Pineda"> <span>Raúl Pineda</span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="cuenta.php"><i class="fa fa-user pull-right"></i>Cuenta</a></li>
+                            <li><a href="direcciones.php"><i class="fa fa-building pull-right"></i>Direcciones</a></li>
+                            <li><a href="mis-antboxs.php"><i class="fa fa-archive pull-right"></i>Mis Antboxs</a></li>
+                            <li><a href="movimientos.php"><i class="fa fa-history pull-right"></i>Movimientos</a></li>
+                            <li><a href="pagos.php"><i class="fa fa-credit-card pull-right"></i>Pagos</a></li>
+                            <li><a href="ordenar.php"><i class="fa fa-truck fa-flip-horizontal pull-right"></i>Ordenar</a></li>
+                            <li><a href=""><i class="fa fa-sign-out pull-right"></i>Cerrar Sesión</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-account -->
+
+        </nav>
+        <!-- /.navbar -->
+    </header>
+    <!-- /.header -->
+
+
+        @RenderBody()
+        <hr />
+    <!-- FOOTER -->
+    <footer class="footer">
+        <!-- FOOTER -->
+        <div class="pagetitle pagetitle-collapse">
+            <a data-toggle="collapse" href="#pagetitle-collapse" class="pagetitle-toggle collapsed"></a>
+            <div id="pagetitle-collapse" class="pagetitle-panel panel-collapse collapse">
+                <!-- FOOTER ROW -->
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-3 col-xs-6">
+                            <div class="widget widget_about">
+                                <h2><img class="mb10" src="@Url.Content("~/Content/Images/antboxs_logo.png")" alt="Antboxs"></h2>
+                                <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius.</p>
+                                <a href="#" class="btn btn-primary" data-toggle="modal">Contacto</a>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-xs-6">
+                            <div class="widget widget_links">
+                                <h2 class="widget-title">Categorías</h2>
+                                <ul>
+                                    <li><a href="cuenta.php"><i class="fa fa-angle-right"></i> Cuenta</a></li>
+                                    <li><a href="mis-antboxs.php"><i class="fa fa-angle-right"></i> Mis Antboxs</a></li>
+                                    <li><a href="direcciones.php"><i class="fa fa-angle-right"></i> Direcciones</a></li>
+                                    <li><a href="movimientos.php"><i class="fa fa-angle-right"></i> Movimientos</a></li>
+                                    <li><a href="pagos.php"><i class="fa fa-angle-right"></i> Pagos</a></li>
+                                    <li><a href="ordenar.php"><i class="fa fa-angle-right"></i> Ordenar</a></li>
+                                    <li><a href="#"><i class="fa fa-angle-right"></i> Contacto</a></li>
+                                    <li><a href="#"><i class="fa fa-angle-right"></i> Preguntas Frecuentes</a></li>
+                                    <li><a href="#"><i class="fa fa-angle-right"></i> Aviso de Privacidad</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-xs-6">
+                            <div class="widget widget_follow_us">
+                                <h2 class="widget-title">Redes Sociales</h2>
+                                <ul>
+                                    <li>
+                                        <a href="">
+                                            <i class="fa fa-facebook-square"></i>
+                                            Facebook
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="">
+                                            <i class="fa fa-twitter"></i>
+                                            Twitter
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="">
+                                            <i class="fa fa-instagram"></i>
+                                            Instagram
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-xs-6">
+                            <div class="widget widget_contact">
+                                <h2 class="widget-title">Contacto</h2>
+                                <ul class="widget_contact_list">
+                                    <li>
+                                        <i class="fa fa-map-marker"></i>
+                                        <address>
+                                            Vereda Santa Fe 26,<br>
+                                            Col. Lomas de Santa Fe<br>
+                                            Álvaro Obregón, Méx.<br>
+                                            01219, México
+                                        </address>
+                                    </li>
+                                    <li>
+                                        <i class="fa fa-phone"></i>
+                                        <address>
+                                            370 212 290 / 370 212 290</a>
+                                        </address>
+                                    </li>
+                                    <li>
+                                        <i class="fa fa-clock-o"></i>
+                                        <address>
+                                            Lunes a Viernes de 9:00 a 18:00.<br />
+                                            Sábados de 10:00 a 15:00 hrs.
+                                        </address>
+                                    </li>
+                                    <li>
+                                        <i class="fa fa-envelope"></i>
+                                        <address>
+                                            <a href="mailto:info@antboxs.mx"><strong>info@antboxs.mx</strong></a>
+                                        </address>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.footer row -->
+            </div>
+        </div>
+        <!-- /.pagetitle -->
+        <!-- FOOTER EXTRA -->
+        <div class="footer-extra">
+            <div class="container">
+                <nav class="contact-info pull-left">
+                    © Antboxs
+                    <script type="text/javascript"> document.write(new Date().getFullYear()); </script> | Todos los derechos reservados.
+                </nav>
+                <nav class="extra-menu pull-right">
+                    <a href="tel:+3706546340" class="phone"><i class="fa fa-phone"></i> +370 654 630 40</a>
+                    <a href="mailto:info@sample.com" class="email"><i class="fa fa-envelope-o"></i> info@antboxs.mx</a>
+                </nav>
+            </div>
+        </div>
+        <!-- /.footer-extra -->
+
+    </footer>
+</body>
+<!-- /.modal -->
+</html>
+
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/bootstrap")
+@Scripts.Render("~/bundles/antbox")
+@Scripts.Render("~/bundles/jqueryval")
+@RenderSection("scripts", required: false)

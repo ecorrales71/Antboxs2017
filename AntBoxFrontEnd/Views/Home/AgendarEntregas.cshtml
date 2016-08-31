@@ -114,6 +114,9 @@
 </div>
 <!-- /.wrapper -->
 
+
+@section Scripts
+{
 <script type="text/javascript">
 
 Calendar.setup({
@@ -206,7 +209,7 @@ $(document).ready(function(){
         $.ajax({
             type: 'POST',
             dataType: 'text',
-            url: @Url.Action("GuardaTempTasks", "Home"),
+            url:'@Url.Action("GuardaTempTasks", "Home")',
             data: "jsonOfLog=" + jsonOfLog,
             success: function (returnPayload) {
                 console && console.log("request succeeded");
@@ -233,3 +236,4 @@ $(document).ready(function(){
 </script>
 
 
+    }

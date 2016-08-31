@@ -1,0 +1,46 @@
+@font-face{ 
+    font-family: 'Nexa_Light';
+    src: url('../fonts/Nexa_Light-webfont.eot');
+    src: url('../fonts/Nexa_Light-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/Nexa_Light-webfont.woff') format('woff'),
+         url('../fonts/Nexa_Light-webfont.ttf') format('truetype'),
+         url('../fonts/Nexa_Light-webfont.svg#webfont') format('svg');
+}
+
+@font-face{ 
+    font-family: 'Nexa_Bold';
+    src: url('../fonts/Nexa_Bold-webfont.eot');
+    src: url('../fonts/Nexa_Bold-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/Nexa_Bold-webfont.woff') format('woff'),
+         url('../fonts/Nexa_Bold-webfont.ttf') format('truetype'),
+         url('../fonts/Nexa_Bold-webfont.svg#webfont') format('svg');
+}
+
+header, h1, h2, h3, h4, h5, h6, div, nav, .widget_tag_cloud .tagcloud a, .btn {
+    font-family: 'Nexa_Bold', FontAwesome !important;
+}
+
+p, a, address, input, textarea, .active-result, .contact-info, label{
+    font-family: 'Nexa_Light', FontAwesome !important; 
+}
+
+.pagetitle i, .pagetitle h1, .pagetitle span {
+    color: #fff !important;
+}
+
+.footer .pagetitle i, .footer  .pagetitle h1, .footer  .pagetitle span {
+    color: #666 !important;
+}
+
+
+p, input{
+    font-size: 100% !important;
+}
+
+label, .etiqueta {
+    color: #666 !important;
+}
+
+.iwrap h1 {
+    font-size: 210%;
+}
