@@ -28,7 +28,7 @@ namespace AntBoxFrontEnd.Infrastructure
 
             CreateMap<AntBoxAddressViewModel, AddressRequestOptions>();
 
-
+            CreateMap<AddressResponse, AntBoxAddressViewModel>();
 
 
 

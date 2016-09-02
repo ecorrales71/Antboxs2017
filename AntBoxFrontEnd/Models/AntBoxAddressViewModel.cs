@@ -19,6 +19,8 @@ namespace AntBoxFrontEnd.Models
 
         public string Customer_id { get; set; }
 
+        public string Id { get; set; }
+
         [Required]
         [StringLength(50, MinimumLength = 2)]
         [Display(Name = "Alias")]
@@ -71,4 +73,8 @@ namespace AntBoxFrontEnd.Models
         public virtual List<SelectListItem> Delegaciones { get; set; }
 
     }
+
+
+
+
 }

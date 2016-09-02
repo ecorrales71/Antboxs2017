@@ -260,6 +260,7 @@
     <Compile Include="Infrastructure\AutoMapperConfig.cs" />
     <Compile Include="Infrastructure\DateHelpers.cs" />
     <Compile Include="Infrastructure\LogManager.cs" />
+    <Compile Include="Infrastructure\ErrorHandlerAttribute.cs" />
     <Compile Include="Infrastructure\Requestor.cs" />
     <Compile Include="Infrastructure\ServiceConfiguration.cs" />
     <Compile Include="Infrastructure\MissingException.cs" />
