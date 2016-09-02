@@ -1,0 +1,113 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="wrapper">
+    <!-- CONTENT -->
+    <div class="content cuenta">
+        <!-- CONTAINER -->
+        <div class="container">
+            <div class="row irow-xs">
+                <div class="col-sm-12">
+                    <h1>Cuenta</h1>
+                    <div class="heading-divider"></div>
+                </div>
+            </div>
+        </div>
+        <!-- /.container -->
+        <!-- CONTAINER -->
+        <div class="container mt30">
+            <div class="row">
+                <div class="col-md-3 pr0 no_portrait">
+                    <aside>
+                        <div class="widget widget_tag_cloud">
+                            <ul class="tagcloud">
+                                <li><a href="cuenta.php" class="btn_active"><i class="fa fa-angle-right pull-right"></i>Cuenta</a></li>
+                                <li><a href="direcciones.php"><i class="fa fa-angle-right pull-right"></i>Direcciones</a></li>
+                                <li><a href="mis-antboxs.php"><i class="fa fa-angle-right pull-right"></i>Mis Antboxs</a></li>
+                                <li><a href="movimientos.php"><i class="fa fa-angle-right pull-right"></i>Movimientos</a></li>
+                                <li><a href="pagos.php"><i class="fa fa-angle-right pull-right"></i>Pagos</a></li>
+                                <li><a href="ordenar.php"><i class="fa fa-angle-right pull-right"></i>Ordenar</a></li>
+                            </ul>
+                        </div>
+                    </aside>
+                </div>
+                <div class="col-md-9">
+                    <div class="row pl30 pr30">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="irow-xs pb30">
+                                    <h3>Datos personales</h3>
+                                    <p>Completa los campos con tus datos personales y mantenlos actualizados. Recuerda guardar tu contraseña en un lugar seguro.</p>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 text-center">
+                                <a href="">
+                                    <img class="img-lg" src="images/perfil.jpg" width="200" height="200" alt="">
+                                </a>
+                            </div>
+                        </div>
+                        <div class="row pl30 pr30">
+                            <form action="../../php/email.php" method="post" class="contact-form form-solid" novalidate>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label for="send-form-name">Nombre(s)*</label>
+                                            <input type="text" name="name" id="send-form-name">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="send-form-email">Apellido Paterno*</label>
+                                            <input type="text" name="email" id="send-form-email">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="send-form-email">Apellido Materno*</label>
+                                            <input type="text" name="email" id="send-form-email">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="send-form-email">E-mail*</label>
+                                            <input type="text" name="email" id="send-form-email">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label for="send-form-email">Teléfono*</label>
+                                            <input type="text" name="email" id="send-form-email">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="send-form-name">Celular</label>
+                                            <input type="text" name="name" id="send-form-name">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="send-form-email">Contraseña*</label>
+                                            <input type="password" name="email" id="send-form-email">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="send-form-email">Confirmar Contraseña*</label>
+                                            <input type="password" name="email" id="send-form-email">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12 mt10">
+                                        <input type="submit" class="btn btn-primary btn-wide pull-right mt10" value="Guardar">
+                                        <p class="succs-msg">Мensaje enviado</p>
+                                    </div>
+                                </div>
+                            </form>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <hr class="hr-dashed mt0 mb30" />
+                                </div>
+                            </div>
+                            <button type="button" class="btn btn-primary btn-sm pull-right btn_blue pull-left" onclick="eliminarCuenta()">Eliminar Cuenta</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.container -->
+    </div>
+    <!-- /.content -->
+    <?php include 'includes/promobox.php';?>
+
+</div>
+<!-- /.wrapper -->

@@ -1,0 +1,450 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+<!-- WRAPPER -->
+<div class="wrapper">
+    <!-- CONTENT -->
+    <div class="content pagos">
+        <!-- CONTAINER -->
+        <div class="container">
+            <div class="row irow-xs">
+                <div class="col-sm-12">
+                    <h1>Pagos</h1>
+                    <div class="heading-divider"></div>
+                </div>
+            </div>
+        </div>
+        <!-- /.container -->
+        <!-- CONTAINER -->
+        <div class="container mt30">
+            <div class="row">
+                <div class="col-md-3 pr0 no_portrait">
+                    <aside>
+                        <div class="widget widget_tag_cloud">
+                            <ul class="tagcloud">
+                                <li><a href="cuenta.php"><i class="fa fa-angle-right pull-right"></i>Cuenta</a></li>
+                                <li><a href="direcciones.php"><i class="fa fa-angle-right pull-right"></i>Direcciones</a></li>
+                                <li><a href="mis-antboxs.php"><i class="fa fa-angle-right pull-right"></i>Mis Antboxs</a></li>
+                                <li><a href="movimientos.php"><i class="fa fa-angle-right pull-right"></i>Movimientos</a></li>
+                                <li><a href="pagos.php" class="btn_active"><i class="fa fa-angle-right pull-right"></i>Pagos</a></li>
+                                <li><a href="ordenar.php"><i class="fa fa-angle-right pull-right"></i>Ordenar</a></li>
+                            </ul>
+                        </div>
+                    </aside>
+                </div>
+                <div class="col-md-9">
+                    <div class="row pl30 pr30 recibos">
+                        <div class="irow-xs pb30">
+                            <h3>Recibos y facturación</h3>
+                            <p>Revisa tus recibos de pago y emite tus facturas del mes en curso. Recuerda que antes de facturar debes tener registrada tus datos fiscales en la parte inferior de esta página.</p>
+                        </div>
+                        <div class="col-sm-12 back_gris pt15 pb20 mb10">
+                            <div class="media-left">
+                                <div class="icon icon-color icon-size-4">
+                                    <i class="fa fa-file-text-o"></i>
+                                </div>
+                            </div>
+                            <div class="media-body w100 pt10">
+                                <h4>Pagado</h4>
+                                <div class="sticker_pay in_progress">Recibo Vencido</div>
+                                <p>15/Marzo/2016</p>
+                                <button type="button" class="btn btn-primary btn-sm pull-right pb10 ml10" onclick="verRecibo()">Ver Recibo</button>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 back_gris pt15 pb20 mb10">
+                            <div class="media-left">
+                                <div class="icon icon-color icon-size-4">
+                                    <i class="fa fa-file-text-o"></i>
+                                </div>
+                            </div>
+                            <div class="media-body w100 pt10">
+                                <h4>Pagado</h4>
+                                <div class="sticker_pay completed">Facturado</div>
+                                <p>22/Julio/2016</p>
+                                <button type="button" class="btn btn-primary btn-sm pull-right pb10 ml10" onclick="verRecibo()">Ver Recibo</button>
+                                <button type="button" class="btn btn-primary btn-sm btn_blue pull-right pb10 ml10" data-toggle="modal" data-target="#enviar_factura">Enviar Facturar</button>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 back_gris pt15 pb20 mb10">
+                            <div class="media-left">
+                                <div class="icon icon-color icon-size-4">
+                                    <i class="fa fa-file-text-o"></i>
+                                </div>
+                            </div>
+                            <div class="media-body w100 pt10">
+                                <h4>Pagado</h4>
+                                <p>01/Agosto/2016</p>
+                                <button type="button" class="btn btn-primary btn-sm pull-right pb10 ml10" onclick="verRecibo()">Ver Recibo</button>
+                                <button type="button" class="btn btn-primary btn-sm btn_blue pull-right pb10 ml10" data-toggle="modal" data-target="#facturar">Facturar</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class"row">
+                        <div class="col-sm-12 pl0 pr0 mt20 text-center">
+                            <!-- PAGINATION -->
+                            <ul class="pagination solid">
+                                <li class="pull-left"><a href="#" class="prev"><i class="fa fa-angle-left"></i></a></li>
+                                <li class="pull-right"><a href="#" class="next"><i class="fa fa-angle-right"></i></a></li>
+                                <li class="active"><a href="#">1</a></li>
+                                <li><a href="#">2</a></li>
+                                <li><a href="#">3</a></li>
+                                <li><a href="#">4</a></li>
+                                <li><a href="#">…</a></li>
+                                <li><a href="#">36</a></li>
+                            </ul>
+                            <!-- /.pagination -->
+                        </div>
+                    </div>
+                    <div class="row mt20">
+                        <div class="col-sm-12">
+                            <hr class="hr-dashed mt40 mb20" />
+                        </div>
+                    </div>
+
+                    <div class="row mt20 pl30 pr30 tarjetas">
+                        <div class="irow-xs pb30">
+                            <h3>Tarjetas registradas</h3>
+                            <p>Recuerda que tendrás que tener una tarjeta registrada como mínimo para realizar tu primer orden. Tu primer tarjeta se asignará de maner automática para los pagos recurrentes.</p>
+                        </div>
+                        <div class="col-sm-12 back_gris pt15 pb20 mb10">
+                            <div class="media-left">
+                                <div class="icon icon-color icon-size-4">
+                                    <i class="fa fa-credit-card"></i>
+                                </div>
+                            </div>
+                            <div class="media-body w100 pt10">
+                                <div class="sticker_credit_card completed">Activa para Pagos Recurrentes</div>
+                                <h4>****8593</h4>
+                                <p>Vencimiento: 02/2018</p>
+                                <!--<button type="button" class="btn btn-primary btn-sm btn_blue pull-right pb10" onclick="eliminarItem()">Eliminar</button>-->
+                            </div>
+                        </div>
+                        <div class="col-sm-12 back_gris pt15 pb20 mb10">
+                            <div class="media-left">
+                                <div class="icon icon-color icon-size-4">
+                                    <i class="fa fa-credit-card"></i>
+                                </div>
+                            </div>
+                            <div class="media-body w100 pt10">
+                                <h4>****2499</h4>
+                                <p>Vencimiento: 08/2016</p>
+                                <button type="button" class="btn btn-primary btn-sm pull-right pb10 ml10" onclick="pagosRecurrentes()">Asignar a Recurrentes</button>
+                                <button type="button" class="btn btn-primary btn-sm btn_blue pull-right pb10" onclick="eliminarItem()">Eliminar</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class"row">
+                        <div class="col-sm-12 pl0 pr0 mt20 text-center">
+                            <!-- PAGINATION -->
+                            <ul class="pagination solid">
+                                <li class="pull-left"><a href="#" class="prev"><i class="fa fa-angle-left"></i></a></li>
+                                <li class="pull-right"><a href="#" class="next"><i class="fa fa-angle-right"></i></a></li>
+                                <li class="active"><a href="#">1</a></li>
+                                <li><a href="#">2</a></li>
+                                <li><a href="#">3</a></li>
+                                <li><a href="#">4</a></li>
+                                <li><a href="#">…</a></li>
+                                <li><a href="#">36</a></li>
+                            </ul>
+                            <!-- /.pagination -->
+                        </div>
+                    </div>
+                    <div class="row mt20">
+                        <div class="col-sm-12">
+                            <hr class="hr-dashed mt40 mb30" />
+                        </div>
+                    </div>
+                    <div class="row mt10 pl30 pr30">
+                        <div class="irow-xs">
+                            <h3>Registrar una nueva tarjeta</h3>
+                            <p>Puedes registrar tantas tarjetas de crédito como tú decidas.</p>
+                        </div>
+                        <div class="col-sm-12 pl0 pr0">
+                            <form action="../../php/email.php" method="post" class="contact-form form-solid" novalidate>
+                                <div class="row mt20">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label for="send-form-name">Nombre de Tarjeta*</label>
+                                            <input type="text" name="name" id="send-form-name">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label for="send-form-email">Número de Tarjeta*</label>
+                                            <input type="email" name="email" id="send-form-email">
+                                        </div>
+                                    </div>
+                                </div>
+                                <p class="mb0 etiqueta">Expiración:</p>
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label for="send-form-email">MM*</label>
+                                            <input type="email" name="email" id="send-form-email">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label for="send-form-email">YY*</label>
+                                            <input type="email" name="email" id="send-form-email">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label for="send-form-email">CVC*</label>
+                                            <input type="email" name="email" id="send-form-email">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <input type="submit" class="btn btn-primary btn-wide pull-right mt10" value="Registrar">
+                                <p class="succs-msg">Мensaje enviado</p>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="row mt20">
+                        <div class="col-sm-12">
+                            <hr class="hr-dashed mt40 mb30" />
+                        </div>
+                    </div>
+                    <div class="row pl30 pr30 mt10">
+                        <div class="irow-xs pb30">
+                            <h3>Datos de Facturación</h3>
+                            <p>Registra tus datos fiscales de facturación para tus recibos.</p>
+                            <div class="alert alert-warning alert-dismissible fade in">
+                                <button type="button" class="close" data-dismiss="alert">
+                                    <i class="fa fa-times"></i>
+                                </button>
+                                <p><i class="fa fa-exclamation-triangle"></i> <strong>Regístra una dirección como mínimo.</strong><br />Recuerda que para realizar cualquier factura deberás tener por lo menos un dato de facturación.</p>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 back_gris pt30 pb20 mb30">
+                            <div class="media-left">
+                                <div class="icon icon-color icon-size-4">
+                                    <i class="fa fa-file-text"></i>
+                                </div>
+                            </div>
+                            <div class="media-body">
+                                <h4>Facturación Empresa A</h4>
+                                <p>Nombre o Razón Social: Empresa A, S.A de C.V.<br>RFC: IDRM852805IV6</p>
+                                <button type="button" class="btn btn-primary btn-sm pull-right ml10" data-toggle="modal" data-target="#editar_facturacion">Editar</button>
+                                <button type="button" class="btn btn-primary btn-sm pull-right btn_blue" onclick="eliminarItem()">Eliminar</button>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 back_gris pt30 pb20 mb30">
+                            <div class="media-left">
+                                <div class="icon icon-color icon-size-4">
+                                    <i class="fa fa-file-text"></i>
+                                </div>
+                            </div>
+                            <div class="media-body">
+                                <h4>Facturación Empresa B</h4>
+                                <p>Nombre o Razón Social: Empresa B, S.A de C.V.<br>RFC: GIWS810885IV3</p>
+                                <button type="button" class="btn btn-primary btn-sm pull-right ml10" data-toggle="modal" data-target="#editar_facturacion">Editar</button>
+                                <button type="button" class="btn btn-primary btn-sm pull-right btn_blue" onclick="eliminarItem()">Eliminar</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class"row">
+                        <div class="col-sm-12 pl0 pr0 text-center">
+                            <!-- PAGINATION -->
+                            <ul class="pagination solid">
+                                <li class="pull-left"><a href="#" class="prev"><i class="fa fa-angle-left"></i></a></li>
+                                <li class="pull-right"><a href="#" class="next"><i class="fa fa-angle-right"></i></a></li>
+                                <li class="active"><a href="#">1</a></li>
+                                <li><a href="#">2</a></li>
+                                <li><a href="#">3</a></li>
+                                <li><a href="#">4</a></li>
+                                <li><a href="#">…</a></li>
+                                <li><a href="#">36</a></li>
+                            </ul>
+                            <!-- /.pagination -->
+                        </div>
+                    </div>
+                    <div class="row mt20">
+                        <div class="col-sm-12">
+                            <hr id="registrar_nuevos_datos_facturacion" class="hr-dashed mt40 mb0" />
+                        </div>
+                    </div>
+                    <div class="row pl30 pr30">
+                        <div class="irow-xs pb30">
+                            <h3>Regístra nuevos datos de facturación</h3>
+                            <p>Registra tus datos de facturación para tus recibos. Asígnale un nombre para identificarla fácilmente más adelante.</p>
+                        </div>
+                        <form action="../../php/email.php" method="post" class="contact-form form-solid" novalidate>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="send-form-name">Nombre de Identificación*</label>
+                                        <input type="text" name="name" id="send-form-name">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="send-form-email">Nombre o Razón Social*</label>
+                                        <input type="text" name="email" id="send-form-email">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="send-form-email">RFC*</label>
+                                        <input type="text" name="email" id="send-form-email">
+                                    </div>
+
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="send-form-message">Referencias y Comentarios</label>
+                                        <textarea name="message" id="send-form-message"></textarea>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 mt10">
+                                    <input type="submit" class="btn btn-primary btn-wide pull-right" value="Guardar">
+                                    <p class="succs-msg">Мensaje enviado</p>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.container -->
+    </div>
+    <!-- /.content -->
+
+</div>
+<!-- /.wrapper -->
+
+<!-- Modal Small -->
+<div class="modal fade" id="facturar">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><i class="fa fa-times"></i></button>
+                <h6 class="modal-title">Facturar</h6>
+            </div>
+            <div class="modal-body">
+                <form action="../../php/email.php" method="post" class="contact-form form-solid" novalidate>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group mb0">
+                                <label for="form-select">Datos de facturación</label>
+                                <select id="form-select">
+                                    <option value>- Selecciona una opción -</option>
+                                    <option value="EmpresaA">Empresa A</option>
+                                    <option value="EmpresaB">Empresa B</option>
+                                </select>
+                                <a href="pagos.php#registrar_nuevos_datos_facturacion" onclick="goto_rndf();" class="pull-right">Nuevos datos de facturación</a>
+
+                            </div>
+                            <div class="form-group mb0">
+                                <label for="form-select">Dirección de facturación</label>
+                                <select id="form-select">
+                                    <option value>- Selecciona una opción -</option>
+                                    <option value="Casa">Casa</option>
+                                    <option value="Oficina">Oficina</option>
+                                    <option value="Facturación">Facturación</option>
+                                </select>
+                                <a href="direcciones.php#registrar_nueva_direccion" class="pull-right">Nueva dirección</a>
+                            </div>
+                            <div class="form-group">
+                                <label for="send-form-name">Email</label>
+                                <input type="email" name="name" id="send-form-name">
+                            </div>
+                            <div class="form-group">
+                                <label for="send-form-message">Descripción</label>
+                                <textarea name="message" id="send-form-message"></textarea>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 mt10">
+                            <input type="submit" class="btn btn-primary btn-wide pull-right" value="Facturar">
+                            <p class="succs-msg">Мensaje enviado</p>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /.modal -->
+<!-- Modal Small -->
+<div class="modal fade" id="enviar_factura">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><i class="fa fa-times"></i></button>
+                <h6 class="modal-title">Enviar factura por email</h6>
+            </div>
+            <div class="modal-body">
+                <form action="../../php/email.php" method="post" class="contact-form form-solid" novalidate>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label for="send-form-name">Email</label>
+                                <input type="email" name="name" id="send-form-name">
+                            </div>
+                            <div class="form-group">
+                                <label for="send-form-message">Descripción</label>
+                                <textarea name="message" id="send-form-message"></textarea>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 mt10">
+                            <input type="submit" class="btn btn-primary btn-wide pull-right" value="Enviar">
+                            <p class="succs-msg">Мensaje enviado</p>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /.modal -->
+<!-- Modal Medium -->
+<div class="modal fade" id="editar_facturacion">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><i class="fa fa-times"></i></button>
+                <h6 class="modal-title">Editar dirección</h6>
+            </div>
+            <div class="modal-body">
+                <form action="../../php/email.php" method="post" class="contact-form form-solid" novalidate>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="send-form-name">Nombre de Identificación*</label>
+                                <input type="text" name="name" id="send-form-name">
+                            </div>
+                            <div class="form-group">
+                                <label for="send-form-email">Nombre o Razón Social*</label>
+                                <input type="text" name="email" id="send-form-email">
+                            </div>
+                            <div class="form-group">
+                                <label for="send-form-email">RFC*</label>
+                                <input type="text" name="email" id="send-form-email">
+                            </div>
+
+                        </div>
+                        <div class="col-sm-6 pl0_modal">
+                            <div class="form-group">
+                                <label for="send-form-message">Referencias y Comentarios</label>
+                                <textarea name="message" id="send-form-message"></textarea>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 mt10">
+                            <input type="submit" class="btn btn-primary btn-wide pull-right" value="Guardar">
+                            <p class="succs-msg">Мensaje enviado</p>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /.modal -->
+
+<script type="text/javascript">
+function goto_rndf(reload)
+   {
+    window.location.hash = '#registrar_nuevos_datos_facturacion';
+    window.location.reload(true);
+   }
+</script>

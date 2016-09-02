@@ -1,0 +1,313 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<!-- WRAPPER -->
+<div class="wrapper">
+    <!-- CONTENT -->
+    <div class="content direcciones">
+        <!-- CONTAINER -->
+        <div class="container">
+            <div class="row irow-xs">
+                <div class="col-sm-12">
+                    <h1>Direcciones</h1>
+                    <div class="heading-divider"></div>
+                </div>
+            </div>
+        </div>
+        <!-- /.container -->
+        <!-- CONTAINER -->
+        <div class="container mt30">
+            <div class="row">
+                <div class="col-md-3 pr0 no_portrait">
+                    @Html.Partial("_LeftMenu")
+                </div>
+                <div class="col-md-9">
+                    <div class="row pl30 pr30">
+                        <div class="irow-xs pb30">
+                            <h3>Direcciones registradas</h3>
+                            <p>Registra tus direcciones para la recolección y entregas de tus Antboxs.</p>
+                            <div class="alert alert-warning alert-dismissible fade in">
+                                <button type="button" class="close" data-dismiss="alert">
+                                    <i class="fa fa-times"></i>
+                                </button>
+                                <p><i class="fa fa-exclamation-triangle"></i> <strong>Regístra una dirección como mínimo.</strong><br />Recuerda que para realizar cualquier orden que realices deberás tener por lo menos una dirección registrada.</p>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 back_gris pt30 pb20 mb30">
+                            <div class="media-left">
+                                <div class="icon icon-color icon-size-4">
+                                    <i class="fa fa-map-marker"></i>
+                                </div>
+                            </div>
+                            <div class="media-body">
+                                <h4>Dirección de oficina</h4>
+                                <p>Vereda Santa Fe 26, Col. Lomas de Santa Fe, Álvaro Obregón, Méx. C.P. 01219, México<br>Referencia: Fachada de color blanco con azul. </p>
+                                <button type="button" class="btn btn-primary btn-sm pull-right ml10" data-toggle="modal" data-target="#editar_direccion">Editar</button>
+                                <button type="button" class="btn btn-primary btn-sm pull-right btn_blue" onclick="eliminarItem()">Eliminar</button>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 back_gris pt30 pb20 mb30">
+                            <div class="media-left">
+                                <div class="icon icon-color icon-size-4">
+                                    <i class="fa fa-map-marker"></i>
+                                </div>
+                            </div>
+                            <div class="media-body">
+                                <h4>Dirección de casa</h4>
+                                <p>Vereda Santa Fe 26, Col. Lomas de Santa Fe, Álvaro Obregón, Méx. C.P. 01219, México<br>Referencia: Fachada de color blanco con azul. </p>
+                                <button type="button" class="btn btn-primary btn-sm pull-right ml10" data-toggle="modal" data-target="#editar_direccion">Editar</button>
+                                <button type="button" class="btn btn-primary btn-sm pull-right btn_blue" onclick="eliminarItem()">Eliminar</button>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 back_gris pt30 pb20 mb30">
+                            <div class="media-left">
+                                <div class="icon icon-color icon-size-4">
+                                    <i class="fa fa-map-marker"></i>
+                                </div>
+                            </div>
+                            <div class="media-body">
+                                <h4>Facturación</h4>
+                                <p>Vereda Santa Fe 26, Col. Lomas de Santa Fe, Álvaro Obregón, Méx. C.P. 01219, México<br>Referencia: Fachada de color blanco con azul. </p>
+                                <button type="button" class="btn btn-primary btn-sm pull-right ml10" data-toggle="modal" data-target="#editar_direccion">Editar</button>
+                                <button type="button" class="btn btn-primary btn-sm pull-right btn_blue" onclick="eliminarItem()">Eliminar</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class"row">
+                        <div class="col-sm-12 pl0 pr0 text-center">
+                            <!-- PAGINATION -->
+                            <ul class="pagination solid">
+                                <li class="pull-left"><a href="#" class="prev"><i class="fa fa-angle-left"></i></a></li>
+                                <li class="pull-right"><a href="#" class="next"><i class="fa fa-angle-right"></i></a></li>
+                                <li class="active"><a href="#">1</a></li>
+                                <li><a href="#">2</a></li>
+                                <li><a href="#">3</a></li>
+                                <li><a href="#">4</a></li>
+                                <li><a href="#">…</a></li>
+                                <li><a href="#">36</a></li>
+                            </ul>
+                            <!-- /.pagination -->
+                        </div>
+                    </div>
+                    <div class="row mt20">
+                        <div class="col-sm-12">
+                            <hr id="registrar_nueva_direccion" class="hr-dashed mt40 mb0" />
+                        </div>
+                    </div>
+                    <div class="row pl30 pr30">
+                        <div class="irow-xs pb30">
+                            <h3>Regístra una nueva dirección</h3>
+                            <p>Registra una dirección para después utilizarla como dirección de recolección, de entrega o facturación. Asígnale un nombre para identificarla fácilmente más adelante.</p>
+                        </div>
+                        <form action="" method="post" class="contact-form form-solid" novalidate id="frmNewAddress">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="send-form-name">Nombre de Identificación*</label>
+                                        <input type="text" name="alias" id="alias">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="send-form-email">Calle</label>
+                                        <input type="text" name="street" id="street">
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label for="send-form-email">Núm. Int.</label>
+                                                <input type="text" name="internal_number" id="internal_number">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label for="send-form-email">Núm. Ext.</label>
+                                                <input type="text" name="external_number" id="external_number">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="send-form-email">Código Postal</label>
+                                        <input type="text" name="zipcode" id="zipcode">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="form-select">Delegación o Municipio</label>
+                                        <select id="delegation" name="delegation">
+                                            <option value="">- Selecciona una opción -</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="form-select">Colonia</label>
+                                        <select id="neighborhood" name="neighborhood">
+                                            <option value="">- Selecciona una opción -</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="send-form-email">Ciudad</label>
+                                        <input type="text" name="city" id="city">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="send-form-name">Estado</label>
+                                        <input type="text" name="state" id="state">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="send-form-email">País</label>
+                                        <input type="text" name="country" id="country">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="send-form-message">Referencias y Comentarios</label>
+                                        <textarea name="references" id="references"></textarea>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 mt10">
+                                    <input type="button" class="btn btn-primary btn-wide pull-right" value="Guardar" id="btnCreateAddress">
+                                    <p class="succs-msg">Мensaje enviado</p>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.container -->
+    </div>
+    <!-- /.content -->
+</div>
+<!-- /.wrapper -->
+
+<!-- Modal Medium -->
+<div class="modal fade" id="editar_direccion">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><i class="fa fa-times"></i></button>
+                <h6 class="modal-title">Editar dirección</h6>
+            </div>
+            <div class="modal-body">
+                <form action="" method="post" class="contact-form form-solid" novalidate>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="send-form-name">Nombre de Identificación*</label>
+                                <input type="text" name="name" id="alias">
+                            </div>
+                            <div class="form-group">
+                                <label for="send-form-email">Calle</label>
+                                <input type="text" name="email" id="street">
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="send-form-email">Núm. Int.</label>
+                                        <input type="text" name="email" id="internal_number">
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="send-form-email">Núm. Ext.</label>
+                                        <input type="text" name="email" id="external_number">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="send-form-email">Código Postal</label>
+                                <input type="text" name="email" id="zipcode">
+                            </div>
+                            <div class="form-group">
+                                <label for="form-select">Delegación o Municipio</label>
+                                <select id="delegation">
+                                    <option value="">- Selecciona una opción -</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="form-select">Colonia</label>
+                                <select id="neighborhood" name="form_select">
+                                    <option value="">- Selecciona una opción -</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 pl0_modal">
+                            <div class="form-group">
+                                <label for="send-form-email">Ciudad</label>
+                                <input type="text" name="email" id="city">
+                            </div>
+                            <div class="form-group">
+                                <label for="send-form-name">Estado</label>
+                                <input type="text" name="name" id="state">
+                            </div>
+                            <div class="form-group">
+                                <label for="send-form-email">País</label>
+                                <input type="text" name="email" id="country">
+                            </div>
+                            <div class="form-group">
+                                <label for="send-form-message">Referencias y Comentarios</label>
+                                <textarea name="message" id="references"></textarea>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 mt10">
+                            <input type="submit" class="btn btn-primary btn-wide pull-right" value="Registrar">
+                            <p class="succs-msg">Мensaje enviado</p>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /.modal -->
+
+@section scripts {
+<script type="text/javascript">
+    $('#btnCreateAddress').click(function () {
+        $.ajax({
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            type: 'POST',
+            url: '@Url.Action("CreateAddress", "AntBoxAddresses")',
+            data: $('#frmNewAddress').serialize(),
+            success: function (result) {
+                if (result.success == false) {
+                    $('#body-content').prepend(
+                    '<div class="alert alert-warning" role="alert" id="LoginFailAlert">Usuario o Password no valido.</div>');
+                    window.setTimeout(function ()
+                    { $("#LoginFailAlert").alert('close'); }, 2000);
+
+
+                }
+                else {
+                    $('#login-info').html(result);
+                }
+
+
+            },
+            error: function (emp) {
+                $('#body-content').prepend(
+                    '<div class="alert alert-danger fade-in" role="alert" id="LoginErrorAlert">Error al realizar el login. Intente nuevamente.</div>'
+                    );
+                window.setTimeout(function ()
+                { $("#LoginErrorAlert").alert('close'); }, 2000);
+
+            }
+        });
+    });
+
+
+	function showOtraColonia1(elem){
+	if(elem.value == "otra")
+	document.getElementById('hidden_div1').style.display = "block";
+	else
+	document.getElementById('hidden_div1').style.display = "none";
+	}
+</script>
+<script type="text/javascript">
+	function showOtraColonia2(elem){
+	if(elem.value == "otra")
+	document.getElementById('hidden_div2').style.display = "block";
+	else
+	document.getElementById('hidden_div2').style.display = "none";
+	}
+</script>
+}

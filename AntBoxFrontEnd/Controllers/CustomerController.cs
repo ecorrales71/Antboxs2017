@@ -1,5 +1,6 @@
 ﻿using AntBoxFrontEnd.Infrastructure;
 using AntBoxFrontEnd.Services.Customer;
+using AntBoxFrontEnd.Services.Address;
 using AntBoxFrontEnd.Services.Login;
 using System;
 using System.Collections.Generic;
@@ -14,8 +15,52 @@ namespace AntBoxFrontEnd.Controllers
         // GET: Customer
         public ActionResult Index()
         {
+            if (Session["customer"] == null)
+            {
+                RedirectToAction("Index", "Home");
+            }
+
+            return View(Session["customer"]);
+        }
+
+        public ActionResult Cuenta()
+        {
             return View();
         }
+
+        public ActionResult Direcciones()
+        {
+            if (Session["customer"] == null)
+            {
+                RedirectToAction("Index", "Home");
+            }
+
+            CustomerResponse customer = (CustomerResponse)Session["customer"];
+
+            var l = new AddressService(ServiceConfiguration.GetApiKey());
+
+            var res = l.ListAddresses(customer.Id);
+
+            return View(res);
+        }
+
+        public ActionResult Antboxs()
+        {
+            return View();
+        }
+        public ActionResult Movimientos()
+        {
+            return View();
+        }
+        public ActionResult Ordenar()
+        {
+            return View();
+        }
+        public ActionResult Pagos()
+        {
+            return View();
+        }
+
 
         // GET: Customer/Details/5
         public ActionResult Details(int id)

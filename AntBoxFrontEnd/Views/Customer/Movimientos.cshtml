@@ -1,0 +1,116 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+<!-- WRAPPER -->
+<div class="wrapper">
+    <!-- CONTENT -->
+    <div class="content movimientos">
+        <!-- CONTAINER -->
+        <div class="container">
+            <div class="row irow-xs">
+                <div class="col-sm-12">
+                    <h1>Movimientos</h1>
+                    <div class="heading-divider"></div>
+                </div>
+            </div>
+        </div>
+        <!-- /.container -->
+        <!-- CONTAINER -->
+        <div class="container mt30">
+            <div class="row">
+                <div class="col-md-3 pr0 no_portrait">
+                    <aside>
+                        <div class="widget widget_tag_cloud">
+                            <ul class="tagcloud">
+                                <li><a href="cuenta.php"><i class="fa fa-angle-right pull-right"></i>Cuenta</a></li>
+                                <li><a href="direcciones.php"><i class="fa fa-angle-right pull-right"></i>Direcciones</a></li>
+                                <li><a href="mis-antboxs.php"><i class="fa fa-angle-right pull-right"></i>Mis Antboxs</a></li>
+                                <li><a href="movimientos.php" class="btn_active"><i class="fa fa-angle-right pull-right"></i>Movimientos</a></li>
+                                <li><a href="pagos.php"><i class="fa fa-angle-right pull-right"></i>Pagos</a></li>
+                                <li><a href="ordenar.php"><i class="fa fa-angle-right pull-right"></i>Ordenar</a></li>
+                            </ul>
+                        </div>
+                    </aside>
+                </div>
+                <div class="col-md-9">
+                    <div class="row pl30 pr30">
+                        <div class="irow-xs pb30">
+                            <h3>Historial de movimientos</h3>
+                            <p>Revisa el estatus de tus movimientos realizados y consulta el historial de movimientos anteriores.</p>
+                        </div>
+                        <div class="col-sm-12 back_gris pt30 pb20 mb30">
+                            <div class="media-left">
+                                <div class="icon icon-color icon-size-4">
+                                    <i class="fa fa-truck fa-flip-horizontal"></i>
+                                </div>
+                            </div>
+                            <div class="media-body">
+                                <h4>Recolección</h4>
+                                <p>Fecha: 26 / Abril / 2016<br />Lugar: Fachada de color blanco con azul. Fachada de color blanco con azul.</p>
+                                <div class="sticker_mov completed">Completado</div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 back_gris pt30 pb20 mb30">
+                            <div class="media-left">
+                                <div class="icon icon-color icon-size-4">
+                                    <i class="fa fa-archive"></i>
+                                </div>
+                            </div>
+                            <div class="media-body">
+                                <h4>Entrega</h4>
+                                <p>Fecha: 26 / Abril / 2016<br />Lugar: Fachada de color blanco con azul. Fachada de color blanco con azul. Lugar: Fachada de color blanco con azul. Fachada de color blanco con azul.</p>
+                                <div class="sticker_mov in_progress">En progreso</div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 back_gris pt30 pb20 mb30">
+                            <div class="media-left">
+                                <div class="icon icon-color icon-size-4">
+                                    <i class="fa fa-file-text"></i>
+                                </div>
+                            </div>
+                            <div class="media-body">
+                                <h4>Facturado</h4>
+                                <p>Fecha: 26 / Abril / 2016<br />Lugar: Fachada de color blanco con azul. Fachada de color blanco con azul.</p>
+                                <div class="sticker_mov completed">Completado</div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 back_gris pt30 pb20 mb30">
+                            <div class="media-left">
+                                <div class="icon icon-color icon-size-4">
+                                    <i class="fa fa-truck fa-flip-horizontal"></i>
+                                </div>
+                            </div>
+                            <div class="media-body">
+                                <h4>Recolección</h4>
+                                <p>Fecha: 26 / Abril / 2016<br />Lugar: Fachada de color blanco con azul. Fachada de color blanco con azul.</p>
+                                <div class="sticker_mov canceled">Canceldado</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class"row">
+                        <div class="col-sm-12 pl0 pr0 text-center">
+                            <!-- PAGINATION -->
+                            <ul class="pagination solid">
+                                <li class="pull-left"><a href="#" class="prev"><i class="fa fa-angle-left"></i></a></li>
+                                <li class="pull-right"><a href="#" class="next"><i class="fa fa-angle-right"></i></a></li>
+                                <li class="active"><a href="#">1</a></li>
+                                <li><a href="#">2</a></li>
+                                <li><a href="#">3</a></li>
+                                <li><a href="#">4</a></li>
+                                <li><a href="#">…</a></li>
+                                <li><a href="#">36</a></li>
+                            </ul>
+                            <!-- /.pagination -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.container -->
+    </div>
+    <!-- /.content -->
+    <?php include 'includes/promobox.php';?>
+
+</div>
+<!-- /.wrapper -->

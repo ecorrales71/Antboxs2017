@@ -5,21 +5,6 @@
 
 <!-- WRAPPER -->
 <div class="wrapper">
-
-    <!-- PAGE TITLE -->
-    <header class="pagetitle pagetitle-sm">
-        <div class="container">
-            <div class="divtable irow">
-                <div class="divcell">
-                    <i class="fa fa-user"></i>
-                    <h1>¡Bienvenido a Antboxs!</h1>
-                    <div class="divider"></div>
-                    <span class="subtitle">Almacenamiento Seguro, Fácil y Conveniente</span>
-                </div>
-            </div>
-        </div>
-    </header>
-    <!-- /.pagetitle -->
     <!-- CONTENT -->
     <div class="content inicio">
 
@@ -48,7 +33,7 @@
                             </div>
                             <div class="back card ">
                                 <p>Edita tu información personal<br>y cambia tu foto de perfil.</p>
-                                <a href="cuenta.php" class="btn btn-primary">Cuenta</a>
+                                @Html.ActionLink("Cuenta", "Cuenta", "Customer", new { }, new { @class = "btn btn-primary" })
                             </div>
                         </div>
                     </div>
@@ -62,7 +47,7 @@
                             </div>
                             <div class="back card">
                                 <p>Agrega direcciones para<br>recolecciones y entregas.</p>
-                                <a href="direcciones.php" class="btn btn-primary">Direcciones</a>
+                                @Html.ActionLink("Direcciones", "Direcciones", "Customer", new { }, new { @class = "btn btn-primary" })
                             </div>
                         </div>
                     </div>
@@ -76,7 +61,7 @@
                             </div>
                             <div class="back card">
                                 <p>Administra tus Antboxs<br>y programa tus entregas.</p>
-                                <a href="mis-antboxs.php" class="btn btn-primary">Mis Antboxs</a>
+                                @Html.ActionLink("Mis Antboxs", "Antboxs", "Customer", new { }, new { @class = "btn btn-primary" })
                             </div>
                         </div>
                     </div>
@@ -91,7 +76,7 @@
                             </div>
                             <div class="back card">
                                 <p>Revisa tus movimientos<br>y el estatus de los mismos.</p>
-                                <a href="movimientos.php" class="btn btn-primary">Movimientos</a>
+                                @Html.ActionLink("Movimientos", "Movimientos", "Customer", new { }, new { @class = "btn btn-primary" })
                             </div>
                         </div>
                     </div>
@@ -105,7 +90,7 @@
                             </div>
                             <div class="back card">
                                 <p>Agrega nuevas formas de<br>pago y revisa tus facturas</p>
-                                <a href="pagos.php" class="btn btn-primary">Pagos</a>
+                                @Html.ActionLink("Pagos", "Pagos", "Customer", new { }, new { @class = "btn btn-primary" })
                             </div>
                         </div>
                     </div>
@@ -119,7 +104,7 @@
                             </div>
                             <div class="back card">
                                 <p>Ordena tus Antboxs y<br>Programa la recolección</p>
-                                <a href="ordenar.php" class="btn btn-primary">Ordenar</a>
+                                @Html.ActionLink("Ordenar", "Ordenar", "Customer", new { }, new { @class = "btn btn-primary" })
                             </div>
                         </div>
                     </div>
@@ -132,21 +117,6 @@
 
 
     </div>
-    <!-- PROMO-BOX -->
-    <div class="promo-box promo-box-light">
-        <div class="container">
-            <section class="row irow-xs page-header cols-border divtable mt30 mb30">
-                <div class="col-lg-10 col-md-9 col-sm-8 divcell promobox_txt mb40">
-                    <h2>¿Tienes dudas sobre nuestro servicio?</h2>
-                    <p>Visita las preguntas frecuentes, probablemente ya hemos respondido tus dudas. Sino escríbenos o llámanos y con gusto te atendemos.</p>
-                </div>
-                <div class="col-lg-2 col-md-3 col-sm-4 text-right divcell">
-                    <a href="" class="btn btn-primary btn-md">Preguntas Frecuentes</a>
-                </div>
-            </section>
-        </div>
-    </div>
-    <!-- /.promo-box -->
 
 </div>
 <!-- /.wrapper -->
