@@ -1,4 +1,4 @@
-﻿
+﻿@model IEnumerable<AntBoxFrontEnd.Services.Payments.CardObject>
 @{
     ViewBag.Title = "Index";
 }
@@ -20,18 +20,7 @@
         <div class="container mt30">
             <div class="row">
                 <div class="col-md-3 pr0 no_portrait">
-                    <aside>
-                        <div class="widget widget_tag_cloud">
-                            <ul class="tagcloud">
-                                <li><a href="cuenta.php"><i class="fa fa-angle-right pull-right"></i>Cuenta</a></li>
-                                <li><a href="direcciones.php"><i class="fa fa-angle-right pull-right"></i>Direcciones</a></li>
-                                <li><a href="mis-antboxs.php"><i class="fa fa-angle-right pull-right"></i>Mis Antboxs</a></li>
-                                <li><a href="movimientos.php"><i class="fa fa-angle-right pull-right"></i>Movimientos</a></li>
-                                <li><a href="pagos.php" class="btn_active"><i class="fa fa-angle-right pull-right"></i>Pagos</a></li>
-                                <li><a href="ordenar.php"><i class="fa fa-angle-right pull-right"></i>Ordenar</a></li>
-                            </ul>
-                        </div>
-                    </aside>
+                    @Html.Partial("_LeftMenu")
                 </div>
                 <div class="col-md-9">
                     <div class="row pl30 pr30 recibos">
@@ -39,7 +28,7 @@
                             <h3>Recibos y facturación</h3>
                             <p>Revisa tus recibos de pago y emite tus facturas del mes en curso. Recuerda que antes de facturar debes tener registrada tus datos fiscales en la parte inferior de esta página.</p>
                         </div>
-                        <div class="col-sm-12 back_gris pt15 pb20 mb10">
+                        @*<div class="col-sm-12 back_gris pt15 pb20 mb10">
                             <div class="media-left">
                                 <div class="icon icon-color icon-size-4">
                                     <i class="fa fa-file-text-o"></i>
@@ -78,7 +67,7 @@
                                 <button type="button" class="btn btn-primary btn-sm pull-right pb10 ml10" onclick="verRecibo()">Ver Recibo</button>
                                 <button type="button" class="btn btn-primary btn-sm btn_blue pull-right pb10 ml10" data-toggle="modal" data-target="#facturar">Facturar</button>
                             </div>
-                        </div>
+                        </div>*@
                     </div>
                     <div class"row">
                         <div class="col-sm-12 pl0 pr0 mt20 text-center">
@@ -87,11 +76,11 @@
                                 <li class="pull-left"><a href="#" class="prev"><i class="fa fa-angle-left"></i></a></li>
                                 <li class="pull-right"><a href="#" class="next"><i class="fa fa-angle-right"></i></a></li>
                                 <li class="active"><a href="#">1</a></li>
-                                <li><a href="#">2</a></li>
+                                @*<li><a href="#">2</a></li>
                                 <li><a href="#">3</a></li>
                                 <li><a href="#">4</a></li>
                                 <li><a href="#">…</a></li>
-                                <li><a href="#">36</a></li>
+                                <li><a href="#">36</a></li>*@
                             </ul>
                             <!-- /.pagination -->
                         </div>
@@ -107,31 +96,8 @@
                             <h3>Tarjetas registradas</h3>
                             <p>Recuerda que tendrás que tener una tarjeta registrada como mínimo para realizar tu primer orden. Tu primer tarjeta se asignará de maner automática para los pagos recurrentes.</p>
                         </div>
-                        <div class="col-sm-12 back_gris pt15 pb20 mb10">
-                            <div class="media-left">
-                                <div class="icon icon-color icon-size-4">
-                                    <i class="fa fa-credit-card"></i>
-                                </div>
-                            </div>
-                            <div class="media-body w100 pt10">
-                                <div class="sticker_credit_card completed">Activa para Pagos Recurrentes</div>
-                                <h4>****8593</h4>
-                                <p>Vencimiento: 02/2018</p>
-                                <!--<button type="button" class="btn btn-primary btn-sm btn_blue pull-right pb10" onclick="eliminarItem()">Eliminar</button>-->
-                            </div>
-                        </div>
-                        <div class="col-sm-12 back_gris pt15 pb20 mb10">
-                            <div class="media-left">
-                                <div class="icon icon-color icon-size-4">
-                                    <i class="fa fa-credit-card"></i>
-                                </div>
-                            </div>
-                            <div class="media-body w100 pt10">
-                                <h4>****2499</h4>
-                                <p>Vencimiento: 08/2016</p>
-                                <button type="button" class="btn btn-primary btn-sm pull-right pb10 ml10" onclick="pagosRecurrentes()">Asignar a Recurrentes</button>
-                                <button type="button" class="btn btn-primary btn-sm btn_blue pull-right pb10" onclick="eliminarItem()">Eliminar</button>
-                            </div>
+                        <div id="CardList">
+                            @Html.Partial("_CustomerCards", Model)
                         </div>
                     </div>
                     <div class"row">
@@ -141,11 +107,11 @@
                                 <li class="pull-left"><a href="#" class="prev"><i class="fa fa-angle-left"></i></a></li>
                                 <li class="pull-right"><a href="#" class="next"><i class="fa fa-angle-right"></i></a></li>
                                 <li class="active"><a href="#">1</a></li>
-                                <li><a href="#">2</a></li>
+                                @*<li><a href="#">2</a></li>
                                 <li><a href="#">3</a></li>
                                 <li><a href="#">4</a></li>
                                 <li><a href="#">…</a></li>
-                                <li><a href="#">36</a></li>
+                                <li><a href="#">36</a></li>*@
                             </ul>
                             <!-- /.pagination -->
                         </div>
@@ -161,18 +127,18 @@
                             <p>Puedes registrar tantas tarjetas de crédito como tú decidas.</p>
                         </div>
                         <div class="col-sm-12 pl0 pr0">
-                            <form action="../../php/email.php" method="post" class="contact-form form-solid" novalidate>
+                            <form action="" method="post" class="contact-form form-solid" novalidate>
                                 <div class="row mt20">
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label for="send-form-name">Nombre de Tarjeta*</label>
-                                            <input type="text" name="name" id="send-form-name">
+                                            <input type="text" name="name" id="card-holder-name">
                                         </div>
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label for="send-form-email">Número de Tarjeta*</label>
-                                            <input type="email" name="email" id="send-form-email">
+                                            <input type="email" name="email" id="card-number">
                                         </div>
                                     </div>
                                 </div>
@@ -181,26 +147,27 @@
                                     <div class="col-sm-4">
                                         <div class="form-group">
                                             <label for="send-form-email">MM*</label>
-                                            <input type="email" name="email" id="send-form-email">
+                                            <input type="email" name="email" id="card-exp-month">
                                         </div>
                                     </div>
                                     <div class="col-sm-4">
                                         <div class="form-group">
                                             <label for="send-form-email">YY*</label>
-                                            <input type="email" name="email" id="send-form-email">
+                                            <input type="email" name="email" id="card-exp-year">
                                         </div>
                                     </div>
                                     <div class="col-sm-4">
                                         <div class="form-group">
                                             <label for="send-form-email">CVC*</label>
-                                            <input type="email" name="email" id="send-form-email">
+                                            <input type="email" name="email" id="card-cvv">
                                         </div>
                                     </div>
                                 </div>
 
-                                <input type="submit" class="btn btn-primary btn-wide pull-right mt10" value="Registrar">
+                                <input type="button" class="btn btn-primary btn-wide pull-right mt10" value="Registrar" onclick="generate_token()">
                                 <p class="succs-msg">Мensaje enviado</p>
                             </form>
+                            <div id="newCardResult"></div>
                         </div>
                     </div>
                     <div class="row mt20">
@@ -448,3 +415,93 @@ function goto_rndf(reload)
     window.location.reload(true);
    }
 </script>
+
+@section scripts {
+<script>
+    function generate_token() {
+        OpenPay.setId('miqwkvkewii1gqs4ifh2');
+        OpenPay.setApiKey('pk_e70b7a22c6c04239b10b7be3596a1f98');
+        OpenPay.setSandboxMode(true);
+
+        var deviceSessionId = OpenPay.deviceData.setup("payment-form", "deviceIdHiddenFieldName");
+
+        var sucess_callbak = function (response) {
+            var token_id = response.data.id;
+
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("RegisterCardAjax", "Payment")',
+                data: { deviceId: deviceSessionId, state: "inactive", token: token_id },
+                success: function (result) {
+                    if (result.success == true) {
+                        $('#newCardResult').prepend(
+                            '<div class="alert alert-success alert-dismissible fade in" id="RegisterCardSuccess"> <button type="button" class="close" data-dismiss="alert"> <i class="fa fa-times"></i></button><p><i class="fa fa-check"></i>Tarjeta registrada en OpenPay</p></div>');
+                        window.setTimeout(function ()
+                        { $("#RegisterCardSuccess").alert('close'); }, 10000);
+
+                        $.ajax({
+                            type: 'POST',
+                            url: '@Url.Action("GetCardsAjax", "Payment")',
+                            data: { deviceId: deviceSessionId, state: "inactive", token: token_id },
+                            success: function (result) {
+                                if (result.success == false) {
+                                    $('#newCardResult').prepend(
+                                    '<div class="alert alert-error alert-dismissible fade in" id="GetCardsError"> <button type="button" class="close" data-dismiss="alert"> <i class="fa fa-times"></i></button><p><i class="fa fa-exclamation-triangle"></i>' + 'ERROR al traer los datos de las tarjetas, intente refrescar la pagina.</p></div>');
+                                    window.setTimeout(function ()
+                                    { $("#GetCardsError").alert('close'); }, 10000);
+                                    
+                                }
+                                else {
+                                    $('#CardList').html(result);
+                                }
+                            },
+                            error: function (emp) {
+                                $('#newCardResult').prepend(
+                                    '<div class="alert alert-error alert-dismissible fade in" id="GetCardsError"> <button type="button" class="close" data-dismiss="alert"> <i class="fa fa-times"></i></button><p><i class="fa fa-exclamation-triangle"></i>' + '[ERROR ' + response.status + '] al traer los datos de las tarjetas, intente refrescar la pagina.</p></div>');
+                                window.setTimeout(function ()
+                                { $("#GetCardsError").alert('close'); }, 10000);
+
+                            }
+                        });
+                    }
+                    else {
+                        $('#newCardResult').prepend(
+                        '<div class="alert alert-error alert-dismissible fade in" id="RegisterCardError"> <button type="button" class="close" data-dismiss="alert"> <i class="fa fa-times"></i></button><p><i class="fa fa-exclamation-triangle"></i>' + 'ERROR al traer los datos de las tarjetas, intente refrescar la pagina.</p></div>');
+                        window.setTimeout(function ()
+                        { $("#RegisterCardError").alert('close'); }, 10000);
+                    }
+                },
+                error: function (emp) {
+                    $('#newCardResult').prepend(
+                        '<div class="alert alert-error alert-dismissible fade in" id="RegisterCardError"> <button type="button" class="close" data-dismiss="alert"> <i class="fa fa-times"></i></button><p><i class="fa fa-exclamation-triangle"></i>' + '[ERROR ' + response.status + '] al intentar registrar la tarjeta en Antbox.</p></div>');
+                    window.setTimeout(function ()
+                    { $("#RegisterCardError").alert('close'); }, 10000);
+
+                }
+            });
+            //$('#token_id').val(token_id);
+            //$('#deviceSessionId').val(deviceSessionId);
+        };
+
+        var error_callbak = function (response) {
+            var desc = response.data.description != undefined ? response.data.description : response.message;
+            //alert("ERROR [" + response.status + "] " + desc);
+            //$("#pay-button").prop("disabled", false);
+
+
+            $('#newCardResult').prepend(
+                '<div class="alert alert-error alert-dismissible fade in" id="LoginFailAlert"> <button type="button" class="close" data-dismiss="alert"> <i class="fa fa-times"></i></button><p><i class="fa fa-exclamation-triangle"></i>' + '[ERROR ' + response.status + '] ' + desc + '</p></div>');
+            window.setTimeout(function ()
+            { $("#LoginFailAlert").alert('close'); }, 10000);
+        };
+
+        OpenPay.token.create({
+            "card_number": $('#card-number').val(),
+            "holder_name": $('#card-holder-name').val(),
+            "expiration_year": $('#card-exp-year').val(),
+            "expiration_month": $('#card-exp-month').val(),
+            "cvv2": $('#card-cvv').val()
+        }, sucess_callbak, error_callbak);
+    };
+</script>
+    }

@@ -1,4 +1,4 @@
-﻿
+﻿@model AntBoxFrontEnd.Services.Customer.CustomerResponse
 @{
     ViewBag.Title = "Index";
 }
@@ -20,18 +20,7 @@
         <div class="container mt30">
             <div class="row">
                 <div class="col-md-3 pr0 no_portrait">
-                    <aside>
-                        <div class="widget widget_tag_cloud">
-                            <ul class="tagcloud">
-                                <li><a href="cuenta.php" class="btn_active"><i class="fa fa-angle-right pull-right"></i>Cuenta</a></li>
-                                <li><a href="direcciones.php"><i class="fa fa-angle-right pull-right"></i>Direcciones</a></li>
-                                <li><a href="mis-antboxs.php"><i class="fa fa-angle-right pull-right"></i>Mis Antboxs</a></li>
-                                <li><a href="movimientos.php"><i class="fa fa-angle-right pull-right"></i>Movimientos</a></li>
-                                <li><a href="pagos.php"><i class="fa fa-angle-right pull-right"></i>Pagos</a></li>
-                                <li><a href="ordenar.php"><i class="fa fa-angle-right pull-right"></i>Ordenar</a></li>
-                            </ul>
-                        </div>
-                    </aside>
+                    @Html.Partial("_LeftMenu")
                 </div>
                 <div class="col-md-9">
                     <div class="row pl30 pr30">
@@ -49,16 +38,16 @@
                             </div>
                         </div>
                         <div class="row pl30 pr30">
-                            <form action="../../php/email.php" method="post" class="contact-form form-solid" novalidate>
+                            <form action="" method="post" class="contact-form form-solid" novalidate>
                                 <div class="row">
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label for="send-form-name">Nombre(s)*</label>
-                                            <input type="text" name="name" id="send-form-name">
+                                            <input type="text" name="name" id="send-form-name" value="@Model.Name">
                                         </div>
                                         <div class="form-group">
                                             <label for="send-form-email">Apellido Paterno*</label>
-                                            <input type="text" name="email" id="send-form-email">
+                                            <input type="text" name="email" id="send-form-email" value="@Model.LastName">
                                         </div>
                                         <div class="form-group">
                                             <label for="send-form-email">Apellido Materno*</label>
@@ -66,17 +55,17 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="send-form-email">E-mail*</label>
-                                            <input type="text" name="email" id="send-form-email">
+                                            <input type="text" name="email" id="send-form-email"  value="@Model.Email">
                                         </div>
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label for="send-form-email">Teléfono*</label>
-                                            <input type="text" name="email" id="send-form-email">
+                                            <input type="text" name="email" id="send-form-email"  value="@Model.Phone">
                                         </div>
                                         <div class="form-group">
                                             <label for="send-form-name">Celular</label>
-                                            <input type="text" name="name" id="send-form-name">
+                                            <input type="text" name="name" id="send-form-name" value="@Model.Mobile_phone">
                                         </div>
                                         <div class="form-group">
                                             <label for="send-form-email">Contraseña*</label>
@@ -107,7 +96,6 @@
         <!-- /.container -->
     </div>
     <!-- /.content -->
-    <?php include 'includes/promobox.php';?>
 
 </div>
 <!-- /.wrapper -->

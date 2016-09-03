@@ -7,6 +7,9 @@
     {
         @Html.AntiForgeryToken()
         <nav>
+            @Html.ActionLink("Mis Antbox", "Index", "Customer", new { }, new { @class = "btn btn-link" });
+            &nbsp;
+
             <button type="button" class="btn-link">
                 <i class="fa fa-user"></i>
                 @Html.Label(((AntBoxFrontEnd.Services.Customer.CustomerResponse)Session["customer"]).Name + " " + ((AntBoxFrontEnd.Services.Customer.CustomerResponse)Session["customer"]).LastName)
