@@ -44,6 +44,8 @@ namespace AntBoxFrontEnd.Services.Login
         {
             [JsonProperty("id")]
             public string Id { get; set; }
+            [JsonProperty("worker_id")]
+            public string Worker_id { get; set; }
         }
 
 

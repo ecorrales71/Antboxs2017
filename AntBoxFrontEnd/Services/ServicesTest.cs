@@ -26,17 +26,17 @@ namespace AntBoxFrontEnd.Services
 
             // Debug.WriteLine(idcustomer);
 
-            //// CreateAddress(idcustomer,4);
+             CreateAddress(idcustomer,4);
 
 
-            CreateValidAddress(idcustomer);
+             CreateValidAddress(idcustomer);
 
-            var idAddress = ListAddresses(idcustomer)
-                                .Where(a=> a.Alias == "Dirección valida").FirstOrDefault();
+            var idAddress = ListAddresses(idcustomer, 1);
+                                //.Where(a=> a.Alias == "Dirección valida").FirstOrDefault();
 
             Debug.WriteLine(idAddress.ToString());
 
-            var address = SearchAddresses(idAddress.Id);
+            var address = SearchAddresses(idAddress.FirstOrDefault().Id);
 
             // Debug.WriteLine(address.ToString());
 
@@ -46,7 +46,7 @@ namespace AntBoxFrontEnd.Services
 
             // Debug.WriteLine(addressNew.ToString());
 
-            var restask = CreateTask(idcustomer, idAddress.Id);
+           // var restask = CreateTask(idcustomer, idAddress.Where(a=> a.Alias.Contains("Dirección valida")).FirstOrDefault().Id);
 
             //Debug.WriteLine("Se creo Tarea: " + restask);
 
@@ -84,8 +84,10 @@ namespace AntBoxFrontEnd.Services
 
             var usr = new AntBoxFrontEnd.Services.Login.LoginCreateOptions
             {
-                Email = "prueba4@prueba.com",
-                Password = "44abc"
+                //Email = "prueba4@prueba.com",
+                //Password = "44abc"
+                Email = "customer@antbox.com",
+                Password = "1234"
             };
 
 
@@ -183,7 +185,7 @@ namespace AntBoxFrontEnd.Services
                 Alias = "Dirección valida" ,
                 Customer_id = idcustomer,
                 Delegation = "GUSTAVO A. MADERO",
-                External_number = "6343" ,
+                External_number = "6333" ,
                 Neighborhood = "TRES ESTRELLAS ",
                 State = "CIUDAD DE MÉXICO",
                 Street = "ESPINELA",
@@ -239,11 +241,11 @@ namespace AntBoxFrontEnd.Services
 
         }
 
-        private List<AddressResponse> ListAddresses(string idcustomer)
+        private List<AddressResponse> ListAddresses(string idcustomer, int currentpage)
         {
             var l = new AddressService(ServiceConfiguration.GetApiKey());
 
-            var res = l.ListAddresses(idcustomer);
+            var res = l.ListAddresses(idcustomer, currentpage);
 
             return res;
 

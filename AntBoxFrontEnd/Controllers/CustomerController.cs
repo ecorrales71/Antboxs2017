@@ -8,6 +8,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using AntBoxFrontEnd.Services.Payments;
+using AntBoxFrontEnd.Models;
+using AutoMapper;
 
 namespace AntBoxFrontEnd.Controllers
 {
@@ -40,13 +42,33 @@ namespace AntBoxFrontEnd.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
-            CustomerResponse customer = (CustomerResponse)Session["customer"];
+            //CustomerResponse customer = (CustomerResponse)Session["customer"];
 
-            var l = new AddressService(ServiceConfiguration.GetApiKey());
+            //var addressService = new AddressService(ServiceConfiguration.GetApiKey());
 
-            var res = l.ListAddresses(customer.Id);
+            //if (customer == null)
+            //    return View();
 
-            return View(res);
+            ////var res = l.ListAddresses(customer.Id);
+
+            //var result = addressService.ListAddresses(customer.Id);
+
+            //var antBoxResult = new List<AntBoxAddressViewModel>();
+
+            //result.ForEach(r =>
+            //{
+            //    var dir = addressService.SearchAddress(r.Id);
+
+            //    var map = Mapper.Map<AddressResponse, AntBoxAddressViewModel>(dir);
+
+            //    antBoxResult.Add(map);
+            //});
+
+
+
+
+            //return View(antBoxResult);
+            return View();
         }
 
         public ActionResult Antboxs()
@@ -145,6 +167,36 @@ namespace AntBoxFrontEnd.Controllers
             {
                 return View();
             }
+        }
+
+        
+        public  JsonResult ListAddresses()
+        {
+
+            if (Session["customer"] == null)
+            {
+                return null;
+            }
+
+            CustomerResponse customer = (CustomerResponse)Session["customer"];
+
+
+            var addressService = new AddressService(ServiceConfiguration.GetApiKey());
+
+            var result = addressService.ListAddresses(customer.Id);
+
+            var antBoxResult = new List<AntBoxAddressViewModel>();
+
+            result.ForEach(r =>
+            {
+                var dir = addressService.SearchAddress(r.Id);
+
+                var map = Mapper.Map<AddressResponse, AntBoxAddressViewModel>(dir);
+
+                antBoxResult.Add(map);
+            });
+
+            return Json(antBoxResult, JsonRequestBehavior.AllowGet);
         }
     }
 }

@@ -1,7 +1,10 @@
 ﻿
+
 @{
     ViewBag.Title = "Index";
 }
+
+@model  AntBoxFrontEnd.Models.AntBoxAddressViewModel
 
 <!-- WRAPPER -->
 <div class="wrapper">
@@ -35,62 +38,12 @@
                                 <p><i class="fa fa-exclamation-triangle"></i> <strong>Regístra una dirección como mínimo.</strong><br />Recuerda que para realizar cualquier orden que realices deberás tener por lo menos una dirección registrada.</p>
                             </div>
                         </div>
-                        <div class="col-sm-12 back_gris pt30 pb20 mb30">
-                            <div class="media-left">
-                                <div class="icon icon-color icon-size-4">
-                                    <i class="fa fa-map-marker"></i>
-                                </div>
-                            </div>
-                            <div class="media-body">
-                                <h4>Dirección de oficina</h4>
-                                <p>Vereda Santa Fe 26, Col. Lomas de Santa Fe, Álvaro Obregón, Méx. C.P. 01219, México<br>Referencia: Fachada de color blanco con azul. </p>
-                                <button type="button" class="btn btn-primary btn-sm pull-right ml10" data-toggle="modal" data-target="#editar_direccion">Editar</button>
-                                <button type="button" class="btn btn-primary btn-sm pull-right btn_blue" onclick="eliminarItem()">Eliminar</button>
-                            </div>
+                        <div id="tblDirecciones">
+                          
+
+
                         </div>
-                        <div class="col-sm-12 back_gris pt30 pb20 mb30">
-                            <div class="media-left">
-                                <div class="icon icon-color icon-size-4">
-                                    <i class="fa fa-map-marker"></i>
-                                </div>
-                            </div>
-                            <div class="media-body">
-                                <h4>Dirección de casa</h4>
-                                <p>Vereda Santa Fe 26, Col. Lomas de Santa Fe, Álvaro Obregón, Méx. C.P. 01219, México<br>Referencia: Fachada de color blanco con azul. </p>
-                                <button type="button" class="btn btn-primary btn-sm pull-right ml10" data-toggle="modal" data-target="#editar_direccion">Editar</button>
-                                <button type="button" class="btn btn-primary btn-sm pull-right btn_blue" onclick="eliminarItem()">Eliminar</button>
-                            </div>
-                        </div>
-                        <div class="col-sm-12 back_gris pt30 pb20 mb30">
-                            <div class="media-left">
-                                <div class="icon icon-color icon-size-4">
-                                    <i class="fa fa-map-marker"></i>
-                                </div>
-                            </div>
-                            <div class="media-body">
-                                <h4>Facturación</h4>
-                                <p>Vereda Santa Fe 26, Col. Lomas de Santa Fe, Álvaro Obregón, Méx. C.P. 01219, México<br>Referencia: Fachada de color blanco con azul. </p>
-                                <button type="button" class="btn btn-primary btn-sm pull-right ml10" data-toggle="modal" data-target="#editar_direccion">Editar</button>
-                                <button type="button" class="btn btn-primary btn-sm pull-right btn_blue" onclick="eliminarItem()">Eliminar</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class"row">
-                        <div class="col-sm-12 pl0 pr0 text-center">
-                            <!-- PAGINATION -->
-                            <ul class="pagination solid">
-                                <li class="pull-left"><a href="#" class="prev"><i class="fa fa-angle-left"></i></a></li>
-                                <li class="pull-right"><a href="#" class="next"><i class="fa fa-angle-right"></i></a></li>
-                                <li class="active"><a href="#">1</a></li>
-                                <li><a href="#">2</a></li>
-                                <li><a href="#">3</a></li>
-                                <li><a href="#">4</a></li>
-                                <li><a href="#">…</a></li>
-                                <li><a href="#">36</a></li>
-                            </ul>
-                            <!-- /.pagination -->
-                        </div>
-                    </div>
+                   
                     <div class="row mt20">
                         <div class="col-sm-12">
                             <hr id="registrar_nueva_direccion" class="hr-dashed mt40 mb0" />
@@ -302,6 +255,9 @@
 	document.getElementById('hidden_div1').style.display = "none";
 	}
 </script>
+
+
+
 <script type="text/javascript">
 	function showOtraColonia2(elem){
 	if(elem.value == "otra")
@@ -310,4 +266,78 @@
 	document.getElementById('hidden_div2').style.display = "none";
 	}
 </script>
+
+    <script type="text/javascript">
+        $(document).ready(function RefrescaLista() {
+            listAddreses();
+           // alert("Se llamo a la funcion");
+
+        }
+
+            );
+
+
+    </script>
+
+    <script type="text/javascript">
+        function listAddreses() {
+
+            var maxPerPage = 3;
+           // alert("Entro la funcion");
+
+            $.ajax({
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                type: 'GET',
+                url: '/Customer/ListAddresses',
+               // url: '@Url.Action("ListAddresses", "Customer")',
+                success: function (data) {
+                    if (!data.success) {
+                       // alert("Error en la funcion " + data.ErrorMessage);
+                    }
+
+                    var limit = maxPerPage;
+                    var stage = 1;
+                   
+                    $("#tblDirecciones").html('');
+
+
+                    var div3Content = '';
+                    for (var i = 0; i < data.length; i++) {
+                       // alert(i);
+                        div3Content += '<div class="col-sm-12 back_gris pt30 pb20 mb30">';
+                        div3Content +=      '<div class="media-left">';
+                        div3Content +=            '<div class="icon icon-color icon-size-4">';
+                        div3Content +=                '<i class="fa fa-map-marker"></i>';
+                        div3Content +=                      '</div>';
+                        div3Content +=                  '</div>';
+                        div3Content +=                  '<div class="media-body">';
+                        div3Content +=                      '<h4>' + data[i].Alias + '</h4>';
+                        div3Content +=                      '<p>' + data[i].Street + ', ' + 'Num. Ext. ' +
+                                                                    data[i].External_number + ', ' +
+                                                                    data[i].Neighborhood + ', C.P. ' +
+                                                                    data[i].Zipcode + '' +
+                                                                    ' <br>Referencias: ' + data[i].References + '</p>';
+                        div3Content +=                        '<button type="button" class="btn btn-primary btn-sm pull-right ml10" data-toggle="modal" data-target="#editar_direccion">Editar</button>';
+                        div3Content +=                        '<button type="button" class="btn btn-primary btn-sm pull-right btn_blue" onclick="eliminarItem()">Eliminar</button>';
+                        div3Content +=                  '</div>';
+                        div3Content +=                  '</div>';
+
+
+                    }
+                    $("#tblDirecciones").append(div3Content);
+
+                },
+                fail: function (result) {
+                    alert("error en la funcion " );
+                }
+
+            })
+
+        }
+
+
+    </script>
+
+
 }

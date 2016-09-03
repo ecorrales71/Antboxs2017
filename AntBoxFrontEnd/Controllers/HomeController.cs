@@ -185,11 +185,23 @@ namespace AntBoxFrontEnd.Controllers
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 
+        [ErrorHandler]
         private JsonResult ListAddresses(string idcustomer)
         {
-            var addressService = new AddressService(ServiceConfiguration.GetApiKey());
+            var addressService = new AddressService(ServiceConfiguration.GetApiKey());   
 
             var result = addressService.ListAddresses(idcustomer);
+
+            var antBoxResult = new List<AntBoxAddressViewModel>();
+
+            result.ForEach(r =>
+            {
+                var dir = addressService.SearchAddress(r.Id);
+
+                var map = Mapper.Map<AddressResponse, AntBoxAddressViewModel>(dir);
+
+                antBoxResult.Add(map);
+            });
 
             return Json(result, JsonRequestBehavior.AllowGet);
         }
