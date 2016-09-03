@@ -1,10 +1,13 @@
-﻿
+﻿@model  AntBoxFrontEnd.Models.AntBoxAddressViewModel
 
 @{
     ViewBag.Title = "Index";
-}
+    ViewData.Model = new AntBoxFrontEnd.Models.AntBoxAddressViewModel();
+    ViewData.Model.Colonias = new List<SelectListItem>() { new SelectListItem { Text = "Selecciona un código postal"} };
+    ViewData.Model.Delegaciones = new List<SelectListItem>() { new SelectListItem { Text = "Selecciona un código postal" } };
+ }
 
-@model  AntBoxFrontEnd.Models.AntBoxAddressViewModel
+    
 
 <!-- WRAPPER -->
 <div class="wrapper">
@@ -143,60 +146,72 @@
                     <div class="row">
                         <div class="col-sm-6">
                             <div class="form-group">
-                                <label for="send-form-name">Nombre de Identificación*</label>
-                                <input type="text" name="name" id="alias">
+                                @Html.LabelFor(m => m.Alias)
+                                @Html.TextBoxFor(m => m.Alias, new { @id = "Alias" })
+                                @Html.ValidationMessageFor(m => m.Alias)
                             </div>
                             <div class="form-group">
-                                <label for="send-form-email">Calle</label>
-                                <input type="text" name="email" id="street">
+                                @Html.LabelFor(m => m.Street)
+                                @Html.TextBoxFor(m => m.Street, new { @id = "Street" })
+                                @Html.ValidationMessageFor(m => m.Street)
                             </div>
                             <div class="row">
                                 <div class="col-sm-6">
                                     <div class="form-group">
-                                        <label for="send-form-email">Núm. Int.</label>
-                                        <input type="text" name="email" id="internal_number">
+                                        @Html.LabelFor(m => m.Internal_number)
+                                        @Html.TextBoxFor(m => m.Internal_number, new { @id = "Internal_number" })
+                                        @Html.ValidationMessageFor(m => m.Internal_number)
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="form-group">
-                                        <label for="send-form-email">Núm. Ext.</label>
-                                        <input type="text" name="email" id="external_number">
+                                        @Html.LabelFor(m => m.External_number)
+                                        @Html.TextBoxFor(m => m.External_number, new { @id = "External_number" })
+                                        @Html.ValidationMessageFor(m => m.External_number)
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="send-form-email">Código Postal</label>
-                                <input type="text" name="email" id="zipcode">
+                                @Html.LabelFor(m => m.Zipcode)
+                                <input type="text" name="email" id="txtZipcode1">
+                                @*@Html.TextBoxFor(m => m.Zipcode, new { @id = "txtZipcode1" })*@
+                                @Html.ValidationMessageFor(m => m.Zipcode)
                             </div>
                             <div class="form-group">
                                 <label for="form-select">Delegación o Municipio</label>
-                                <select id="delegation">
+                                @Html.DropDownListFor(m => m.Delegation, Model.Delegaciones,"", new { @id = "cmbDelegations1" })
+                                @*<select id="delegation">
                                     <option value="">- Selecciona una opción -</option>
-                                </select>
+                                </select>*@
                             </div>
                             <div class="form-group">
                                 <label for="form-select">Colonia</label>
-                                <select id="neighborhood" name="form_select">
+                                @Html.DropDownListFor(m => m.Neighborhood, Model.Colonias,"", new { @id = "cmbNeighborhood1" })
+                                @*<select id="neighborhood" name="form_select">
                                     <option value="">- Selecciona una opción -</option>
-                                </select>
+                                </select>*@
                             </div>
                         </div>
                         <div class="col-sm-6 pl0_modal">
                             <div class="form-group">
-                                <label for="send-form-email">Ciudad</label>
-                                <input type="text" name="email" id="city">
+                                @Html.LabelFor(m => m.City)
+                                @Html.TextBoxFor(m => m.City, new { @id = "City" })
+                                @Html.ValidationMessageFor(m => m.City)
                             </div>
                             <div class="form-group">
-                                <label for="send-form-name">Estado</label>
-                                <input type="text" name="name" id="state">
+                                @Html.LabelFor(m => m.State)
+                                @Html.TextBoxFor(m => m.State, new { @id = "State" })
+                                @Html.ValidationMessageFor(m => m.State)
                             </div>
                             <div class="form-group">
-                                <label for="send-form-email">País</label>
-                                <input type="text" name="email" id="country">
+                                @Html.LabelFor(m => m.Country)
+                                @Html.TextBoxFor(m => m.Country, new { @id = "Country" })
+                                @Html.ValidationMessageFor(m => m.Country)
                             </div>
                             <div class="form-group">
-                                <label for="send-form-message">Referencias y Comentarios</label>
-                                <textarea name="message" id="references"></textarea>
+                                @Html.LabelFor(m => m.References)
+                                @Html.TextAreaFor(m => m.References, new { @id = "References" })
+                                @Html.ValidationMessageFor(m => m.References)
                             </div>
                         </div>
                         <div class="col-sm-12 mt10">
@@ -219,7 +234,7 @@
             contentType: 'application/json; charset=utf-8',
             dataType: 'json',
             type: 'POST',
-            url: '@Url.Action("CreateAddress", "AntBoxAddresses")',
+            url: '@Url.Action("CreateAddress", "Home")',
             data: $('#frmNewAddress').serialize(),
             success: function (result) {
                 if (result.success == false) {
@@ -283,14 +298,15 @@
         function listAddreses() {
 
             var maxPerPage = 3;
+            var pageNum;
            // alert("Entro la funcion");
 
             $.ajax({
                 contentType: 'application/json; charset=utf-8',
                 dataType: 'json',
                 type: 'GET',
-                url: '/Customer/ListAddresses',
-               // url: '@Url.Action("ListAddresses", "Customer")',
+               // url: '/Customer/ListAddresses',
+                url: '@Url.Action("ListAddresses", "Home")',
                 success: function (data) {
                     if (!data.success) {
                        // alert("Error en la funcion " + data.ErrorMessage);
@@ -311,7 +327,7 @@
                         div3Content +=                '<i class="fa fa-map-marker"></i>';
                         div3Content +=                      '</div>';
                         div3Content +=                  '</div>';
-                        div3Content +=                  '<div class="media-body">';
+                        div3Content +=                      '<div class="media-body" id="" value="' + data[i].Id + '">';
                         div3Content +=                      '<h4>' + data[i].Alias + '</h4>';
                         div3Content +=                      '<p>' + data[i].Street + ', ' + 'Num. Ext. ' +
                                                                     data[i].External_number + ', ' +
@@ -319,13 +335,35 @@
                                                                     data[i].Zipcode + '' +
                                                                     ' <br>Referencias: ' + data[i].References + '</p>';
                         div3Content +=                        '<button type="button" class="btn btn-primary btn-sm pull-right ml10" data-toggle="modal" data-target="#editar_direccion">Editar</button>';
-                        div3Content +=                        '<button type="button" class="btn btn-primary btn-sm pull-right btn_blue" onclick="eliminarItem()">Eliminar</button>';
+                        div3Content +=                        '<button type="button" class="btn btn-primary btn-sm pull-right btn_blue" onclick="EliminaDireccion(\'' + data[i].Id + '\')">Eliminar</button>';
                         div3Content +=                  '</div>';
                         div3Content +=                  '</div>';
 
 
                     }
+
+
+                    var divPagination = '';
+                    divPagination += '<div class"row">';
+                    divPagination += '    <div class="col-sm-12 pl0 pr0 text-center">';
+                    divPagination += '        <!-- PAGINATION -->';
+                    divPagination += '        <ul class="pagination solid">';
+                    divPagination += '            <li class="pull-left"><a href="#" class="prev"><i class="fa fa-angle-left"></i></a></li>';
+                    divPagination += '            <li class="pull-right"><a href="#" class="next"><i class="fa fa-angle-right"></i></a></li>';
+                    divPagination += '            <li class="active"><a href="#">1</a></li>';
+                    divPagination += '            <li><a href="#">2</a></li>';
+                    divPagination += '           <li><a href="#">3</a></li>';
+                    divPagination += '            <li><a href="#">4</a></li>';
+                    divPagination += '            <li><a href="#">…</a></li>';
+                    divPagination += '            <li><a href="#">36</a></li>';
+                    divPagination += '       </ul>';
+                    divPagination += '       <!-- /.pagination -->';
+                    divPagination += '    </div>';
+                    divPagination += '</div>';
+
+
                     $("#tblDirecciones").append(div3Content);
+                    $("#tblDirecciones").append(divPagination);
 
                 },
                 fail: function (result) {
@@ -337,6 +375,86 @@
         }
 
 
+    </script>
+
+    <script  type="text/javascript">
+        function EliminaDireccion(id) {
+
+            var data =  'idAddress=' +id ;
+            alert(data);
+
+            $.ajax({
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                type: 'GET',
+                
+                //url: ur,
+                url: '@Url.Action("DeleteAdress", "Home")',
+                data: data,
+
+                success: function (data) {
+                        alert(data);
+                        //recarga la lista de direcciones
+                        listAddreses();
+                    
+                },
+                error: function () {
+
+                }
+
+            })
+
+
+        }
+
+
+    </script>
+
+
+    <script type="text/jscript">
+    $(function () {
+        $('#txtZipcode1').change(function () {
+
+            var zipcode = $('#txtZipcode1').val();
+
+            $.ajax({
+                url: '@Url.Action("GetDelegation", "Home")',
+                type: "POST",
+                data: { "zipcode": zipcode },
+                success: function (data) {
+
+                    $("#cmbDelegations1").html("");
+                    var items = '<option>Seleccciona una delegacion</option>';
+                    $.each(data.result, function (i, delegation) {
+                        items += "<option value='" + delegation.Value + "'>" + delegation.Text + "</option>";
+                    });
+                    $('#cmbDelegations1').html(items);
+                    $('#cmbDelegations1').trigger("chosen:updated");
+                }
+            });
+
+            $.ajax({
+                url: '@Url.Action("GetColonias", "Home")',
+                type: "POST",
+                data: { "zipcode": zipcode },
+                success: function (data) {
+
+                    $("#cmbNeighborhood1").html("");
+                    var items = '<option>Seleccciona una colonia</option>';
+                    $.each(data.result, function (i, delegation) {
+                        items += "<option value='" + delegation.Value + "'>" + delegation.Text + "</option>";
+                    });
+                    $('#cmbNeighborhood1').html(items);
+                    $('#cmbNeighborhood1').trigger("chosen:updated");
+                }
+
+
+            });
+
+        });
+
+
+    });
     </script>
 
 

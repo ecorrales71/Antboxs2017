@@ -1,6 +1,7 @@
 ﻿using AntBoxFrontEnd.Infrastructure;
 using AntBoxFrontEnd.Models;
 using AntBoxFrontEnd.Services.Address;
+using AntBoxFrontEnd.Services.Customer;
 using AntBoxFrontEnd.Services.Zipcodes;
 using AutoMapper;
 using System;
@@ -166,7 +167,7 @@ namespace AntBoxFrontEnd.Controllers
         
 
 
-        private JsonResult CreateAddress(AddressRequestOptions address)
+        public JsonResult CreateAddress(AddressRequestOptions address)
         {
             var addresService = new AddressService(ServiceConfiguration.GetApiKey());
 
@@ -176,7 +177,7 @@ namespace AntBoxFrontEnd.Controllers
         }
 
 
-        private JsonResult UpdateAddress(string idAddress, AddressUpdateOptions address)
+        public JsonResult UpdateAddress(string idAddress, AddressUpdateOptions address)
         {
             var addressService = new AddressService(ServiceConfiguration.GetApiKey());
 
@@ -185,12 +186,20 @@ namespace AntBoxFrontEnd.Controllers
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 
-        [ErrorHandler]
-        private JsonResult ListAddresses(string idcustomer)
+        public JsonResult ListAddresses()
         {
-            var addressService = new AddressService(ServiceConfiguration.GetApiKey());   
 
-            var result = addressService.ListAddresses(idcustomer);
+            if (Session["customer"] == null)
+            {
+                return null;
+            }
+
+            CustomerResponse customer = (CustomerResponse)Session["customer"];
+
+
+            var addressService = new AddressService(ServiceConfiguration.GetApiKey());
+
+            var result = addressService.ListAddresses(customer.Id);
 
             var antBoxResult = new List<AntBoxAddressViewModel>();
 
@@ -203,11 +212,11 @@ namespace AntBoxFrontEnd.Controllers
                 antBoxResult.Add(map);
             });
 
-            return Json(result, JsonRequestBehavior.AllowGet);
+            return Json(antBoxResult, JsonRequestBehavior.AllowGet);
         }
 
 
-        private JsonResult GetAddress(string id)
+        public JsonResult GetAddress(string id)
         {
             var addressService = new AddressService(ServiceConfiguration.GetApiKey());
 
@@ -216,14 +225,18 @@ namespace AntBoxFrontEnd.Controllers
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 
-
-        private JsonResult DeleteAdress(string idAddress)
+        
+        public JsonResult DeleteAdress(string idAddress)
         {
             var addressService = new AddressService(ServiceConfiguration.GetApiKey());
 
             var result = addressService.DeleteAddress(idAddress);
 
-            return Json(result, JsonRequestBehavior.AllowGet);
+
+            if(result)
+                return Json(new { success = result, responseText = "Se borro exitósamente el registro" }, JsonRequestBehavior.AllowGet);
+
+            return Json(new { success = result, responseText = "Ocurrio un error al borrar el registro" }, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult SearchZip(string zipcode)

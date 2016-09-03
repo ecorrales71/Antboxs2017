@@ -16,9 +16,10 @@ namespace AntBoxFrontEnd.Models
             Colonias = new List<SelectListItem> { new SelectListItem { Value = "", Text = "CAPTURA EL CÓDIGO POSTAL" } };
             Delegaciones = new List<SelectListItem> { new SelectListItem { Value = "", Text = "CAPTURA EL CÓDIGO POSTAL" } };
         }
-
+        [HiddenInput(DisplayValue = false)]
         public string Customer_id { get; set; }
 
+        [HiddenInput(DisplayValue = false)]
         public string Id { get; set; }
 
         [Required]

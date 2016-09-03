@@ -155,33 +155,6 @@ namespace AntBoxFrontEnd.Controllers
         }
 
         
-        public  JsonResult ListAddresses()
-        {
-
-            if (Session["customer"] == null)
-            {
-                return null;
-            }
-
-            CustomerResponse customer = (CustomerResponse)Session["customer"];
-
-
-            var addressService = new AddressService(ServiceConfiguration.GetApiKey());
-
-            var result = addressService.ListAddresses(customer.Id);
-
-            var antBoxResult = new List<AntBoxAddressViewModel>();
-
-            result.ForEach(r =>
-            {
-                var dir = addressService.SearchAddress(r.Id);
-
-                var map = Mapper.Map<AddressResponse, AntBoxAddressViewModel>(dir);
-
-                antBoxResult.Add(map);
-            });
-
-            return Json(antBoxResult, JsonRequestBehavior.AllowGet);
-        }
+      
     }
 }
