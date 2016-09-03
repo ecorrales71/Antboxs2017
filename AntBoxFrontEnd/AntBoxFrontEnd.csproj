@@ -242,6 +242,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\PaymentController.cs" />
     <Compile Include="Controllers\PreciosController.cs" />
     <Compile Include="Controllers\PricePartialController.cs" />
     <Compile Include="Controllers\TasksController.cs" />
@@ -615,6 +616,7 @@
     <Content Include="Views\Customer\Cuenta.cshtml" />
     <Content Include="Views\Customer\Ordenar.cshtml" />
     <Content Include="Views\Customer\_LeftMenu.cshtml" />
+    <Content Include="Views\Shared\_CustomerCards.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Addresses\" />

@@ -1,0 +1,32 @@
+﻿@model IEnumerable<AntBoxFrontEnd.Services.Payments.CardObject>
+
+
+@foreach (var item in Model)
+{   
+    <div class="col-sm-12 back_gris pt15 pb20 mb10">
+        <div class="media-left">
+            <div class="icon icon-color icon-size-4">
+                <i class="fa fa-credit-card"></i>
+            </div>
+        </div>
+        <div class="media-body w100 pt10">
+            @*<div class="sticker_credit_card completed">Activa para Pagos Recurrentes</div>*@
+            <h4>@Html.DisplayFor(modelItem => item.Info.Card_number)</h4>
+            <p>Vencimiento: @Html.DisplayFor(modelItem => item.Info.expiration_month)/@Html.DisplayFor(modelItem => item.Info.Expiration_year)</p>
+            <!--<button type="button" class="btn btn-primary btn-sm btn_blue pull-right pb10" onclick="eliminarItem()">Eliminar</button>-->
+        </div>
+    </div>
+    @*<div class="col-sm-12 back_gris pt15 pb20 mb10">
+        <div class="media-left">
+            <div class="icon icon-color icon-size-4">
+                <i class="fa fa-credit-card"></i>
+            </div>
+        </div>
+        <div class="media-body w100 pt10">
+            <h4>****2499</h4>
+            <p>Vencimiento: 08/2016</p>
+            <button type="button" class="btn btn-primary btn-sm pull-right pb10 ml10" onclick="pagosRecurrentes()">Asignar a Recurrentes</button>
+            <button type="button" class="btn btn-primary btn-sm btn_blue pull-right pb10" onclick="eliminarItem()">Eliminar</button>
+        </div>
+    </div>*@
+}

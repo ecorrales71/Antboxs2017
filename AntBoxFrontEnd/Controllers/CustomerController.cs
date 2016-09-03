@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using AntBoxFrontEnd.Services.Payments;
 
 namespace AntBoxFrontEnd.Controllers
 {
@@ -17,7 +18,7 @@ namespace AntBoxFrontEnd.Controllers
         {
             if (Session["customer"] == null)
             {
-                RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Home");
             }
 
             return View(Session["customer"]);
@@ -25,14 +26,18 @@ namespace AntBoxFrontEnd.Controllers
 
         public ActionResult Cuenta()
         {
-            return View();
+            if (Session["customer"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            return View(Session["customer"]);
         }
 
         public ActionResult Direcciones()
         {
             if (Session["customer"] == null)
             {
-                RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Home");
             }
 
             CustomerResponse customer = (CustomerResponse)Session["customer"];
@@ -58,7 +63,17 @@ namespace AntBoxFrontEnd.Controllers
         }
         public ActionResult Pagos()
         {
-            return View();
+            if (Session["customer"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            var ps = new PaymentService(ServiceConfiguration.GetApiKey());
+
+            List<CardObject> result = new List<CardObject>();
+            result = ps.ListPaymetCards(((CustomerResponse)Session["customer"]).Id);
+            
+            return View(result);
         }
 
 

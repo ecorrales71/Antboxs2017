@@ -96,7 +96,7 @@ namespace AntBoxFrontEnd.Controllers
                 Charge c = new Charge()
                 {
                     Amount = 200,
-                    Customer_id = ""
+                    Customer_id = ((CustomerResponse)Session["customer"]).Id
                 };
                 if (ps.DoCharge(c))
                 {
