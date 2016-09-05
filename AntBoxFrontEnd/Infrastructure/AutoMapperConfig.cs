@@ -30,7 +30,7 @@ namespace AntBoxFrontEnd.Infrastructure
 
             CreateMap<AddressResponse, AntBoxAddressViewModel>();
 
-
+            CreateMap<AntBoxAddressViewModel, AddressUpdateOptions>();
 
         }
 

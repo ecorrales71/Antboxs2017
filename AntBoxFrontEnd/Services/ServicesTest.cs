@@ -26,51 +26,53 @@ namespace AntBoxFrontEnd.Services
 
             // Debug.WriteLine(idcustomer);
 
-             CreateAddress(idcustomer,4);
+           //  CreateAddress(idcustomer,4);
 
 
-             CreateValidAddress(idcustomer);
+           //  CreateValidAddress(idcustomer);
 
-            var idAddress = ListAddresses(idcustomer, 1);
-                                //.Where(a=> a.Alias == "Dirección valida").FirstOrDefault();
+
+
+            var idAddress = ListAddresses(idcustomer, 1)
+                                .Where(a=> a.Alias == "Calle 27").FirstOrDefault();
 
             Debug.WriteLine(idAddress.ToString());
 
-            var address = SearchAddresses(idAddress.FirstOrDefault().Id);
+                                 var address = SearchAddresses(idAddress.Id);
 
-            // Debug.WriteLine(address.ToString());
+                                 // Debug.WriteLine(address.ToString());
 
-            // UpdateAddress(idAddress);
+                                 // UpdateAddress(idAddress);
 
-            // var addressNew = SearchAddresses(idAddress);
+                                 // var addressNew = SearchAddresses(idAddress);
 
-            // Debug.WriteLine(addressNew.ToString());
+                                 // Debug.WriteLine(addressNew.ToString());
 
-           // var restask = CreateTask(idcustomer, idAddress.Where(a=> a.Alias.Contains("Dirección valida")).FirstOrDefault().Id);
+                                 // var restask = CreateTask(idcustomer, idAddress.Where(a=> a.Alias.Contains("Dirección valida")).FirstOrDefault().Id);
 
-            //Debug.WriteLine("Se creo Tarea: " + restask);
+                                 //Debug.WriteLine("Se creo Tarea: " + restask);
 
-            //var box = CreateBoxes(idcustomer,2);
-            //Debug.WriteLine(box);
+                                 //var box = CreateBoxes(idcustomer,2);
+                                 //Debug.WriteLine(box);
 
-            //var listabox = ListBoxes(idcustomer);
+                                 //var listabox = ListBoxes(idcustomer);
 
-            //var idbox = listabox
-            //            .OrderBy(a => a.Id)
-            //            .FirstOrDefault();
-            //Debug.WriteLine(idbox);
+                                 //var idbox = listabox
+                                 //            .OrderBy(a => a.Id)
+                                 //            .FirstOrDefault();
+                                 //Debug.WriteLine(idbox);
 
-            //var boxtest = SearchBox(idbox.Id);
-            //Debug.WriteLine(idbox);
+                                 //var boxtest = SearchBox(idbox.Id);
+                                 //Debug.WriteLine(idbox);
 
-            //Debug.WriteLine("Se actualizo box" + UpdateBox(idbox.Id));
+                                 //Debug.WriteLine("Se actualizo box" + UpdateBox(idbox.Id));
 
-            //SearchBox(idbox.Id);
+                                 //SearchBox(idbox.Id);
 
-            //var delbox = DeleteBox(idbox.Id);
+                                 //var delbox = DeleteBox(idbox.Id);
 
 
-            //CreateWorker(2);
+                                 //CreateWorker(2);
 
 
 
@@ -241,11 +243,11 @@ namespace AntBoxFrontEnd.Services
 
         }
 
-        private List<AddressResponse> ListAddresses(string idcustomer, int currentpage)
+        private List<AddressResponse> ListAddresses(string idcustomer, int currentpage, string idPagination = null)
         {
             var l = new AddressService(ServiceConfiguration.GetApiKey());
 
-            var res = l.ListAddresses(idcustomer, currentpage);
+            var res = l.ListAddresses(idcustomer, currentpage, idPagination);
 
             return res;
 

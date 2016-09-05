@@ -101,28 +101,6 @@ namespace AntBoxFrontEnd.Controllers
             return PartialView(vm);
 
         }
-        [HttpPost]
-        public ActionResult CreateAddress(AntBoxAddressViewModel model)
-        {
-            var id = ((AntBoxAddressViewModel)(Session["customer"])).Customer_id;
-
-            if (Session["customer"] == null)
-                return PartialView(model);
-
-            if (ModelState.IsValid)
-            {
-                AddressRequestOptions request = Mapper.Map<AddressRequestOptions>(model);
-
-                request.Customer_id = id;
-
-                return CreateAddress(request);
-
-            }
-
-
-            return View(model);
-
-        }
 
 
         public ActionResult GuardaTempTasks(string form)
@@ -166,27 +144,72 @@ namespace AntBoxFrontEnd.Controllers
 
         
 
-
-        public JsonResult CreateAddress(AddressRequestOptions address)
+        [HttpPost]
+        public JsonResult CreateAddress(AntBoxAddressViewModel address)
         {
-            var addresService = new AddressService(ServiceConfiguration.GetApiKey());
+            try
+            {
+                if (Session["customer"] == null)
+                {
+                    return Json(new { success = false, responseText = "Opción no permitida" }, JsonRequestBehavior.AllowGet);
+                }
 
-            var result = addresService.CreateAddress(address);
+                CustomerResponse customer = (CustomerResponse)Session["customer"];
 
-            return Json(result, JsonRequestBehavior.AllowGet);
+                
+
+                var requestOption = Mapper.Map<AntBoxAddressViewModel, AddressRequestOptions>(address);
+
+                var addresService = new AddressService(ServiceConfiguration.GetApiKey());
+
+
+                requestOption.Customer_id = customer.Id;
+
+                var result = addresService.CreateAddress(requestOption);
+
+                return Json(new { success = result, responseText = "DIRECCIÓN REGISTRADA" }, JsonRequestBehavior.AllowGet);
+            }
+            catch(Exception ex)
+            {
+                LogManager.Write(ex.Message, LogManager.Error);
+                return Json(new { success = false, responseText = "OCURRIO UN ERROR AL REGISTRAR LA DIRECCIÓN" }, JsonRequestBehavior.AllowGet);
+            }
         }
 
 
-        public JsonResult UpdateAddress(string idAddress, AddressUpdateOptions address)
+        public JsonResult UpdateAddress(AntBoxAddressViewModel address)
         {
-            var addressService = new AddressService(ServiceConfiguration.GetApiKey());
+            try
+            {
+                if (Session["customer"] == null)
+                {
+                    return Json(new { success = false, responseText = "Opción no permitida" }, JsonRequestBehavior.AllowGet);
+                }
 
-            var result = addressService.UpdateAddress(address, idAddress);
+                CustomerResponse customer = (CustomerResponse)Session["customer"];
 
-            return Json(result, JsonRequestBehavior.AllowGet);
+                var addressService = new AddressService(ServiceConfiguration.GetApiKey());
+
+                var requestOption = Mapper.Map<AntBoxAddressViewModel, AddressUpdateOptions>(address);
+
+
+                
+
+                var result = addressService.UpdateAddress(requestOption, address.Id);
+
+                return Json(new { success = result, responseText = "Dirección actualizada" }, JsonRequestBehavior.AllowGet);
+
+            }
+            catch(Exception ex)
+            {
+                LogManager.Write(ex.Message, LogManager.Error);
+                return Json(new { success = false, responseText = "OCURRIO UN ERROR AL ACTUALIZAR LA DIRECCIÓN" }, JsonRequestBehavior.AllowGet);
+            }
+
+           
         }
 
-        public JsonResult ListAddresses()
+        public JsonResult ListAddresses(int numPag = 1, string idPag = null)
         {
 
             if (Session["customer"] == null)
@@ -196,23 +219,31 @@ namespace AntBoxFrontEnd.Controllers
 
             CustomerResponse customer = (CustomerResponse)Session["customer"];
 
-
-            var addressService = new AddressService(ServiceConfiguration.GetApiKey());
-
-            var result = addressService.ListAddresses(customer.Id);
-
-            var antBoxResult = new List<AntBoxAddressViewModel>();
-
-            result.ForEach(r =>
+            try
             {
-                var dir = addressService.SearchAddress(r.Id);
+                var addressService = new AddressService(ServiceConfiguration.GetApiKey());
 
-                var map = Mapper.Map<AddressResponse, AntBoxAddressViewModel>(dir);
+                var result = addressService.ListAddresses(customer.Id, numPag, idPag);
 
-                antBoxResult.Add(map);
-            });
+                var antBoxResult = new List<AntBoxAddressViewModel>();
 
-            return Json(antBoxResult, JsonRequestBehavior.AllowGet);
+                result.ForEach(r =>
+                {
+                    var dir = addressService.SearchAddress(r.Id);
+
+                    var map = Mapper.Map<AddressResponse, AntBoxAddressViewModel>(dir);
+
+                    antBoxResult.Add(map);
+                });
+
+                return Json(antBoxResult, JsonRequestBehavior.AllowGet);
+            }
+            catch(Exception ex)
+            {
+                LogManager.Write(ex.Message, LogManager.Error);
+                return Json(new { success = false, responseText = "OCURRIO UN ERROR AL LISTAR LAS DIRECCIONES" }, JsonRequestBehavior.AllowGet);
+            }
+           
         }
 
 
@@ -254,19 +285,27 @@ namespace AntBoxFrontEnd.Controllers
             if (zipcode == null)
                 zipcode = "";
 
-            var service = new ZipcodeService(ServiceConfiguration.GetApiKey());
-
-            var results = service.SearchZipCode(zipcode);
-
-            results.ForEach(x =>
+            try
             {
-                delegations.Add(new SelectListItem
+                var service = new ZipcodeService(ServiceConfiguration.GetApiKey());
+
+                var results = service.SearchZipCode(zipcode);
+
+                results.ForEach(x =>
                 {
-                    Value = x.Delegation,
-                    Text = x.Delegation
-                   
+                    delegations.Add(new SelectListItem
+                    {
+                        Value = x.Delegation,
+                        Text = x.Delegation
+
+                    });
                 });
-            });
+            }
+            catch(Exception ex)
+            {
+                LogManager.Write(ex.Message + " " + ex.InnerException, LogManager.Error);
+            }
+           
 
             return Json(new { result = delegations }, JsonRequestBehavior.AllowGet);
 
@@ -276,26 +315,51 @@ namespace AntBoxFrontEnd.Controllers
         public JsonResult GetColonias(string zipcode = null)
         {
             var col = new List<SelectListItem>();
-          
 
-            var service = new ZipcodeService(ServiceConfiguration.GetApiKey());
-
-            var results = service.SearchZipCode(zipcode);
-
-            results.ForEach(x =>
+            try
             {
-                col.Add(new SelectListItem
+                var service = new ZipcodeService(ServiceConfiguration.GetApiKey());
+
+                var results = service.SearchZipCode(zipcode);
+
+                results.ForEach(x =>
                 {
-                    Text = x.Neighborhood,
-                    Value = x.Neighborhood
+                    col.Add(new SelectListItem
+                    {
+                        Text = x.Neighborhood,
+                        Value = x.Neighborhood
+                    });
                 });
-            });
+            }
+            catch(Exception ex)
+            {
+                LogManager.Write(ex.Message + " " + ex.InnerException, LogManager.Error);
+            }
+          
 
 
             return Json(new { result = col }, JsonRequestBehavior.AllowGet);
 
         }
+        public JsonResult GetState(string zipcode = null)
+        {
 
+            string state = "";
+
+            var service = new ZipcodeService(ServiceConfiguration.GetApiKey());
+
+            var results = service.SearchZipCode(zipcode);
+
+            try
+            {
+                state = results.FirstOrDefault().State;
+            }catch(Exception ex)
+            {
+                LogManager.Write(ex.Message + " " + ex.InnerException, LogManager.Error);
+            }
+            return Json(new { result = state }, JsonRequestBehavior.AllowGet);
+
+        }
 
         #endregion
 

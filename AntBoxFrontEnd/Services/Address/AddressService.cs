@@ -18,7 +18,7 @@ namespace AntBoxFrontEnd.Services.Address
     public class AddressService : Services
     {
 
-        const int itemPerPage = 3;
+        const int itemPerPage = 40;
         public int Page { get; set; }
 
 
@@ -114,7 +114,7 @@ namespace AntBoxFrontEnd.Services.Address
         /// <param name="id">Customer ID</param>
         /// <param name="requestOptions"></param>
         /// <returns></returns>
-        public virtual List<AddressResponse> ListAddresses(string id, int currentPage  = 1, RequestOptions requestOptions = null)
+        public virtual List<AddressResponse> ListAddresses(string id, int currentPage  = 1, string idPagination = null, RequestOptions requestOptions = null)
         {
             try
             {
@@ -124,6 +124,9 @@ namespace AntBoxFrontEnd.Services.Address
 
                 parameters.Add("items_per_page", itemPerPage.ToString());
                 parameters.Add("page_number", currentPage.ToString());
+
+                if(!string.IsNullOrEmpty(idPagination))
+                    parameters.Add("pagination_id", idPagination);
 
                 var encodedParams = Infrastructure.UrlHelper.BuildURLParametersString(parameters);
 
