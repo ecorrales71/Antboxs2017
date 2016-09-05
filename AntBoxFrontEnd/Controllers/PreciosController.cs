@@ -15,17 +15,7 @@ namespace AntBoxFrontEnd.Controllers
     public class PreciosController : Controller
     {
 
-
-
-        // GET: Precio
-        public ActionResult Index()
-        {
-
-            var model = new PriceViewModel().GetPriceViewModel();
-
-
-            return View("Precios", model);
-        }
+        
 
 
         //[HttpPost]
@@ -39,43 +29,6 @@ namespace AntBoxFrontEnd.Controllers
         //}
 
 
-        [HttpPost]
-        public ActionResult Calculate(PriceViewModel modelPrice)
-        {
-
-            var subTotal = modelPrice.LineTotal;
-
-            var pDisccount = this.GetDisccount(modelPrice.DisccountCode);
-
-
-
-            var disccount = subTotal * pDisccount;
-            modelPrice.LineDiscount = disccount;
-
-
-            var lineSubtotal = subTotal - disccount;
-            modelPrice.LineSubtotal = lineSubtotal;
-
-            int iva;
-            var isFeeOk = int.TryParse(WebConfigurationManager.AppSettings["Iva"], out iva);
-
-            decimal fee = 0;
-
-            if (isFeeOk)
-                fee = lineSubtotal * (iva / 100);
-
-            modelPrice.LineFee = fee;
-
-
-            var grandTotal = lineSubtotal + fee;
-            modelPrice.GrandTotal = grandTotal;
-
-            Session["AntBoxes"] = modelPrice;
-
-
-            return PartialView("PricePartialView", modelPrice);
-
-        }
 
 
         [HttpPost]

@@ -15,11 +15,7 @@ namespace AntBoxFrontEnd.Controllers
             return View();
         }
 
-        public ActionResult Index(PriceViewModel model)
-        {
-
-            return View( model);
-        }
+       
 
     }
 }

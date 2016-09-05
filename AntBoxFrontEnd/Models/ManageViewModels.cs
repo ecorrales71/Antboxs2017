@@ -85,47 +85,6 @@ namespace AntBoxFrontEnd.Models
         public ICollection<System.Web.Mvc.SelectListItem> Providers { get; set; }
     }
 
-    public class PriceViewModel
-    {
-
-        private void InitValues()
-        {
-            this.Line = 1;
-            this.Quantity = 1;
-
-            this.SelectedAntBox = new AntBox().GetAntBox(AntBoxTypeEnum.Little);
-
-
-            this.LineTotal = Quantity * SelectedAntBox.Price;
-
-            
-        }
-
-         
-        public PriceViewModel GetPriceViewModel()
-        {
-            InitValues();
-            return this;
-        }
-
-        public int Line { get; set; }
-        public int Quantity { get; set; }
-        public decimal LineTotal { get; set; }
-        public decimal LineDiscount { get; set; }
-        public decimal LineSubtotal { get; set; }
-        public decimal LineFee { get; set; }
-        public decimal GrandTotal { get; set; }
-        public string DisccountCode { get; set; }
-
-        public List<AntBox> GetAntBoxTypes()
-        {
-            return new List<AntBox> { new AntBox().GetAntBox(AntBoxTypeEnum.Big) };
-
-        }
-        
-        public AntBox SelectedAntBox { get; set; }
-
-
-    }
+   
 
 }

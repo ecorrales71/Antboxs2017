@@ -2,6 +2,7 @@
 using AntBoxFrontEnd.Services.Boxes;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 using System.Web.Configuration;
@@ -23,41 +24,20 @@ namespace AntBoxFrontEnd.Entities
 
         public string Label { get; set; }
 
-
-
-        public AntBox GetAntBox(AntBoxTypeEnum type)
-        {
-            var antBox = new AntBox();
-
-            var service = new BoxesService(ServiceConfiguration.GetApiKey());
-            antBox.Price = service.GetPrice(type);
-            antBox.Secure = service.GetSecure(type);
-
-            switch (type)
-            {
-                case AntBoxTypeEnum.Little:
-                    antBox.Description = WebConfigurationManager.AppSettings["abLitleModel"];
-                    antBox.Sizes = WebConfigurationManager.AppSettings["abLitleSize"];
-                    break;
-                case AntBoxTypeEnum.Big:
-                    antBox.Description = WebConfigurationManager.AppSettings["abBigModel"];
-                    antBox.Sizes = WebConfigurationManager.AppSettings["abBigSize"];
-                    break;
-                default:
-                    break;
-            }
-
-
-            return antBox;
-
-        }
+        public string Status { get; set; }
 
     }
 
-    public enum AntBoxTypeEnum
+    public class LineOrder
     {
-        Little,
-        Big
+
+        public AntBox Product { get; set; }
+
+        public int Quantity { get; set; }
+
+        [DataType(DataType.Currency)]
+        public decimal LineTotal { get; set; }
     }
+
 
 }

@@ -7,6 +7,7 @@ using AntBoxFrontEnd.Services.Customer;
 using static AutoMapper.Mapper;
 using AntBoxFrontEnd.Services.Address;
 using AntBoxFrontEnd.Models;
+using AntBoxFrontEnd.Services.Boxes;
 
 namespace AntBoxFrontEnd.Infrastructure
 {
@@ -31,6 +32,9 @@ namespace AntBoxFrontEnd.Infrastructure
             CreateMap<AddressResponse, AntBoxAddressViewModel>();
 
             CreateMap<AntBoxAddressViewModel, AddressUpdateOptions>();
+
+            CreateMap<BoxesResponse, AntBox>();
+            CreateMap<AntBox,BoxesResponse>();
 
         }
 

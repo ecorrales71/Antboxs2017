@@ -10,6 +10,9 @@ using System.Web.Mvc;
 using AntBoxFrontEnd.Services.Payments;
 using AntBoxFrontEnd.Models;
 using AutoMapper;
+using System.Dynamic;
+using AntBoxFrontEnd.Entities;
+using AntBoxFrontEnd.Services.Boxes;
 
 namespace AntBoxFrontEnd.Controllers
 {
@@ -79,10 +82,10 @@ namespace AntBoxFrontEnd.Controllers
         {
             return View();
         }
-        public ActionResult Ordenar()
-        {
-            return View();
-        }
+        //public ActionResult Ordenar()
+        //{
+        //    return View();
+        //}
         public ActionResult Pagos()
         {
             if (Session["customer"] == null)
@@ -169,7 +172,143 @@ namespace AntBoxFrontEnd.Controllers
             }
         }
 
-        
-      
+
+
+        #region Boxes
+
+        public ActionResult Ordenar()
+        {
+            var addresses = new List<AddressResponse>();
+
+            
+
+            try
+            {
+                if (Session["customer"] == null)
+                {
+                    return Json(new { success = false, responseText = "Opción no permitida" }, JsonRequestBehavior.AllowGet);
+                }
+
+                CustomerResponse customer = (CustomerResponse)Session["customer"];
+
+
+
+                var addressServ = new AddressService(ServiceConfiguration.GetApiKey());
+
+                addresses = addressServ.ListAddresses(customer.Id);
+
+                var availableAddresses = new List<AntBoxAddressViewModel>();
+                
+                addresses.ForEach(a=> {
+                    availableAddresses.Add(new AntBoxAddressViewModel
+                    {
+                        Id = a.Id,
+                        Alias = a.Alias
+
+                    });
+                });
+
+
+
+
+
+                var boxes = ListActiveAntBoxes();
+
+                var antboxes = new AntBoxesViewModel
+                {
+                    Discount = 0,
+                    Iva = 0,
+                    OrderTotal = 0,
+                    Subtotal = 0,
+                    Total = 0,
+                    ActiveAntBoxes = boxes
+                };
+
+
+
+                var cardServices = new PaymentService(ServiceConfiguration.GetApiKey());
+
+                var listCards = cardServices.ListPaymetCards(customer.Id);
+
+                ViewData["Boxes"] = boxes;
+                ViewData["Antboxes"] = antboxes;
+                ViewData["AvailableAddresses"] = availableAddresses;
+                ViewData["ListCards"] = listCards;
+
+                ViewData["AntBoxOrder"] = new AntBoxesViewModel()
+                {
+                    Iva = 0,
+                    Discount = 0,
+                    Subtotal = 0,
+                    Total = 0,
+                    OrderTotal = 0            
+                };
+
+
+            }
+            catch(Exception ex)
+            {
+                return View();
+            }           
+
+             return View();
+        }
+
+        public JsonResult getActiveAntBoxes()
+        {
+            var boxes = new List<AntBox>();
+
+            try
+            {
+                var service = new BoxesService(ServiceConfiguration.GetApiKey());
+
+                var results = service.ListBoxes(); //solo las activas
+
+                results.ForEach(b =>
+                {
+
+                    boxes.Add(Mapper.Map<BoxesResponse, AntBox>(b));
+
+                });
+
+            }
+            catch (Exception ex)
+            {
+                LogManager.Write(ex.Message + " " + ex.InnerException, LogManager.Error);
+            }
+
+            return Json(new { result = boxes }, JsonRequestBehavior.AllowGet);
+
+        }
+
+        private List<AntBox> ListActiveAntBoxes()
+        {
+            var boxes = new List<AntBox>();
+
+            try
+            {
+                var service = new BoxesService(ServiceConfiguration.GetApiKey());
+
+                var results = service.ListBoxes(); //solo las activas
+
+                results.ForEach(b =>
+                {
+
+                    boxes.Add(Mapper.Map<BoxesResponse, AntBox>(b));
+
+                });
+
+            }
+            catch (Exception ex)
+            {
+                LogManager.Write(ex.Message + " " + ex.InnerException, LogManager.Error);
+            }
+
+            return boxes;
+
+        }
+        #endregion
+
+
     }
 }

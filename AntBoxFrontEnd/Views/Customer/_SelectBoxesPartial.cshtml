@@ -1,0 +1,67 @@
+﻿
+@model  AntBoxFrontEnd.Models.AntBoxesViewModel
+
+@{ 
+    ViewData.Model = new AntBoxFrontEnd.Models.AntBoxesViewModel();
+    ViewData.Model.Order = new List<AntBoxFrontEnd.Entities.LineOrder>();
+}
+
+
+<div class="row" id="Precios">
+    <div class="col-sm-12">
+        <div class="responsive">
+            <table class="table shop_table cart">
+                <thead>
+                    <tr>
+                        <th class="product-name">Antboxs</th>
+                        <th class="product-price no_mobile">Precio</th>
+                        <th class="product-quantity">Cantidad</th>
+                        <th class="product-subtotal no_iphone_portrait">Total</th>
+                        <!--<th class="product-remove">&nbsp;</th>-->
+                    </tr>
+                </thead>
+                <tbody id="tblBoxes">
+
+
+                    
+                </tbody>
+            </table>
+        </div>
+        <div class="row irow-xs cart-collaterals mt0">
+            <div class="col-md-5 col-sm-6">
+            </div>
+            <div class="col-md-offset-1 col-sm-6 cart_totals">
+                <table class="table">
+                    <tbody>
+                        <tr class="cart-subtotal">
+                            <th>Descuento</th>
+                            <td>
+                                <span class="amount">$ @Html.DisplayTextFor(o => o.Discount)</span>
+                            </td>
+                        </tr>
+                        <tr class="cart-subtotal">
+                            <th>Subtotal</th>
+                            <td>
+                                <span class="amount">$ @Html.DisplayTextFor(o => o.Subtotal)</span>
+                            </td>
+                        </tr>
+                        <tr class="shipping">
+                            <th>+ IVA</th>
+                            <td>
+                                <span class="amount">$ @Html.DisplayTextFor(o => o.Iva)</span>
+                            </td>
+                        </tr>
+                        <tr class="order-total">
+                            <th>Total</th>
+                            <td>
+                                <strong>
+                                    <span class="amount">$ @Html.DisplayTextFor( o=> o.Total) </span>
+                                </strong>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

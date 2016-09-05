@@ -22,18 +22,16 @@ namespace AntBoxFrontEnd.Services.Boxes
         public string Label { get; set; }
 
         [JsonProperty("price")]
-        public string Price { get; set; }
+        public decimal Price { get; set; }
 
         [JsonProperty("secure")]
-        public string Secure { get; set; }
+        public decimal Secure { get; set; }
 
         [JsonProperty("status")]
-        public string Status { get; set; }
+        public bool Status { get; set; }
 
         [JsonProperty("registered_by")]
         public CustomerResponse Registered_by { get; set; }
-
-
 
 
     }

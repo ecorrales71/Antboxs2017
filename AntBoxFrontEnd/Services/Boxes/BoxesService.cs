@@ -94,7 +94,7 @@ namespace AntBoxFrontEnd.Services.Boxes
         }
 
 
-        public virtual List<BoxesResponse> ListBoxes(string id,string status =null , RequestOptions requestOptions = null)
+        public virtual List<BoxesResponse> ListBoxes(string status =null , RequestOptions requestOptions = null)
         {
             PaginationBoxesResponse boxes = new PaginationBoxesResponse();
 
@@ -105,7 +105,7 @@ namespace AntBoxFrontEnd.Services.Boxes
                 var parameters = new Dictionary<string, string> ();
 
                 if(string.IsNullOrEmpty(status))
-                    status = StatusBoxes.All;
+                    status = StatusBoxes.Active;  //por defaul trae las activas solamente
 
                 parameters.Add("status", status);
 
@@ -146,21 +146,7 @@ namespace AntBoxFrontEnd.Services.Boxes
         }
 
 
-        public decimal GetPrice(AntBoxTypeEnum type)
-        {
-            //TODO  Colocar logica para la obtención del precio de las cajas
-
-
-            return 100;
-        }
-
-        public decimal GetSecure(AntBoxTypeEnum type)
-        {
-            //TODO  Colocar logica para la obtención del precio de las cajas
-
-
-            return 0;
-        }
+       
 
     }
 
