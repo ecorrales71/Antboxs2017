@@ -272,12 +272,17 @@
                 }
                 else {
                     $('#login-info').html(result);
+                    $('#frmNewAddress').prepend(
+                   '<div class="alert alert-warning" role="alert" id="addressError">Dirección registrada.</div>');
+                    window.setTimeout(function ()
+                    { $("#addressError").alert('close'); }, 2000);
 
-                    $('#frmNewAddress').ready(function () {
-                        $("input").each(function () {
-                            $(this).val("");
-                        });
-                    });
+                    window.location.reload(true);
+                    //$('#frmNewAddress').ready(function () {
+                    //    $("input").each(function () {
+                    //        $(this).val("");
+                    //    });
+                    //});
                 }
             },
             error: function (emp) {
@@ -317,6 +322,8 @@
     <script type="text/javascript">
         $(document).ready(function RefrescaLista() {
             listAddreses();
+
+            
             }
         );
     </script>
@@ -359,12 +366,17 @@
                         div3Content +=                  '</div>';
                         div3Content +=                      '<div class="media-body" id="" value="' + data[i].Id + '">';
                         div3Content +=                      '<h4>' + data[i].Alias + '</h4>';
-                        div3Content +=                      '<p>' + data[i].Street + ', ' + 'Num. Ext. ' +
-                                                                    data[i].External_number + ', ' +
-                                                                    data[i].Neighborhood + ', C.P. ' +
+                        div3Content +=                      '<p>' + data[i].Street + ', ';
+                                                           
+                        if (data[i].Internal_number != '') div3Content += 'Núm. Ext. ' + data[i].External_number + ', ';
+
+                        if (data[i].Internal_number != '') div3Content += 'Núm. Int. ' + data[i].Internal_number + ', ';
+
+
+                        div3Content +=                              data[i].Neighborhood + ', C.P. ' +
                                                                     data[i].Zipcode + '' +
                                                                     ' <br>Referencias: ' + data[i].References + '</p>';
-                        div3Content +=                        '<button type="button" class="btn btn-primary btn-sm pull-right ml10" data-toggle="modal" data-target="#editar_direccion" data-id=\''+data[i].Id +'\' >Editar</button>';
+                        div3Content += '<button type="button"  class="btn btn-primary btn-sm pull-right ml10" data-toggle="modal" data-target="#editar_direccion" id="' + data[i].Id + '"  onclick="EditarEvent()" >Editar</button>';
                         div3Content +=                        '<button type="button" class="btn btn-primary btn-sm pull-right btn_blue" onclick="EliminaDireccion(\'' + data[i].Id + '\')">Eliminar</button>';
                         div3Content +=                  '</div>';
                         div3Content +=                  '</div>';
@@ -415,8 +427,11 @@
                
                 fail: function (result) {
                     pageLoading("false");
-                    alert("error en la funcion ");
+                  //  alert("error en la funcion ");
 
+                },
+                error: function () {
+                    pageLoading("false");
                 }
 
             })
@@ -426,17 +441,63 @@
 
     </script>
 
-    
-    <script  type="text/javascript">
-        //Esta función captura el evento de click en el botón de editar para pasar el id del elemento al modal
-        $(document).on("click", ".btn", function () {            
-            //alert("Inicia ");
-            var passedID = $(this).data('id');
-            $(".modal-content .hiddenid").val(passedID);
+    <script type="text/javascript">
 
-            //alert("Pasa el id del elemento " + passedID);
-        });
+        function EditarEvent(e) {
+
+           // alert("Entra editar");
+
+            var id = event.currentTarget.id;
+
+
+           // alert("Entra editar  id : " + id);
+
+            var data = 'id=' + id;
+
+            $('#id').val(id);
+
+            $.ajax({
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                type: 'GET',
+                url:'@Url.Action("GetAddress", "Home")',
+                data: data,
+                success: function (data) {
+
+                    $('#Alias').val(data.Alias);
+                    $('#Street').val(data.Street);
+                    $('#Internal_number').val(data.Internal_number);
+                    $('#External_number').val(data.External_number);
+                    $('#txtZipcode1').val(data.Zipcode);
+                    $('#City').val(data.City);
+                    $('#State').val(data.State);
+                    $('#Country').val(data.Country);
+                    $('#References').val(data.References);
+
+                    
+
+                    CambioZipModal();
+
+                },
+                error: function () {
+
+                 //   alert("Error al cargar dirección ")
+                }
+                
+
+            });
+
+
+
+
+
+
+        };
+
+
     </script>
+    
+ 
 
     <script  type="text/javascript">
         function EliminaDireccion(id) {
@@ -452,8 +513,9 @@
 
                 success: function (data) {
                         //alert(data);
-                        //recarga la lista de direcciones
-                        listAddreses();
+                    //recarga la lista de direcciones
+                    window.location.reload(true);
+                       
                     
                 },
                 error: function () {
@@ -523,6 +585,65 @@
 
     </script>
 
+
+    <script type="text/javascript">
+        function CambioZipModal() {
+            var zipcode = $('#txtZipcode1').val();
+            //alert(zipcode);
+
+            $.ajax({
+                url: '@Url.Action("GetDelegation", "Home")',
+                type: "POST",
+                data: { "zipcode": zipcode },
+                success: function (data) {
+
+                    $("#cmbDelegations1").html("");
+                    var items = '<option>Seleccciona una delegacion</option>';
+                    $.each(data.result, function (i, delegation) {
+                        items += "<option value='" + delegation.Value + "'>" + delegation.Text + "</option>";
+                    });
+                    $('#cmbDelegations1').html(items);
+                    $('#cmbDelegations1').trigger("chosen:updated");
+                }
+            });
+
+            $.ajax({
+                url: '@Url.Action("GetColonias", "Home")',
+                type: "POST",
+                data: { "zipcode": zipcode },
+                success: function (data) {
+
+                    $("#cmbNeighborhood1").html("");
+                    var items = '<option>Seleccciona una colonia</option>';
+                    $.each(data.result, function (i, delegation) {
+                        items += "<option value='" + delegation.Value + "'>" + delegation.Text + "</option>";
+                    });
+                    $('#cmbNeighborhood1').html(items);
+                    $('#cmbNeighborhood1').trigger("chosen:updated");
+                }
+
+
+            });
+
+            $.ajax({
+                url: '@Url.Action("GetState", "Home")',
+                type: "POST",
+                data: { "zipcode": zipcode },
+                success: function (data) {
+                    $('#State').val(data.result);
+                    $('#City').val(data.result);
+                    $('#Country').val('México');
+                }
+            });
+
+        }
+
+
+
+    </script>
+
+
+
     <script type="text/jscript">
         //CARGA LOS DATOS DE ESTADO Y COLONIA DEL CÓDIGO POSTAL DE ACTUALIZACIÓN
         $('#txtZipcode1').change(function () {
@@ -583,9 +704,9 @@
 
     <script type="text/javascript">
         $('#btnUpdateAddress').click(function () {
-            alert("Entra evento de acutalización");
+           // alert("Entra evento de acutalización");
             var idAddress = $(".modal-content .hiddenid").val();
-            alert(idAddress);
+           // alert(idAddress);
 
 
              $.ajax({
@@ -617,11 +738,17 @@
             
                 }
                 else {
-                    $('#login-info').html(result);
+                    $('#updateForm').prepend(
+                   '<div class="alert alert-danger fade-in" role="alert" id="LoginErrorAlert">Se ha actualizado la información.</div>'
+                   );
+                    window.setTimeout(function ()
+                    { $("#LoginErrorAlert").alert('close'); }, 2000);
 
-                    
+                    $('#modal-container').modal('hide');
 
-                    listAddreses();
+                    window.location.reload(true);
+
+                    //listAddreses();
 
                 }
             },
@@ -647,6 +774,20 @@
                 $("#loader").css('display', 'none');
             }
         }
+
+    </script>
+
+
+    <script type="text/javascript">
+
+        $('.btn-primary').on('click', function (e) {
+
+
+
+            //alert(id);
+
+        });
+     
 
     </script>
   
