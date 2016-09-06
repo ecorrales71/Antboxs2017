@@ -503,5 +503,61 @@ function goto_rndf(reload)
             "cvv2": $('#card-cvv').val()
         }, sucess_callbak, error_callbak);
     };
+
+
+    function test() {
+
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("DeleteCardAjax", "Payment")',
+                data: { id: 1 },
+                success: function (result) {
+                    if (result.success == true) {
+                        $('#newCardResult').prepend(
+                            '<div class="alert alert-success alert-dismissible fade in" id="RegisterCardSuccess"> <button type="button" class="close" data-dismiss="alert"> <i class="fa fa-times"></i></button><p><i class="fa fa-check"></i>Tarjeta registrada en OpenPay</p></div>');
+                        window.setTimeout(function ()
+                        { $("#RegisterCardSuccess").alert('close'); }, 10000);
+
+                        $.ajax({
+                            type: 'POST',
+                            url: '@Url.Action("GetCardsAjax", "Payment")',
+                            data: {},
+                            success: function (result) {
+                                if (result.success == false) {
+                                    $('#newCardResult').prepend(
+                                    '<div class="alert alert-error alert-dismissible fade in" id="GetCardsError"> <button type="button" class="close" data-dismiss="alert"> <i class="fa fa-times"></i></button><p><i class="fa fa-exclamation-triangle"></i>' + 'ERROR al traer los datos de las tarjetas, intente refrescar la pagina.</p></div>');
+                                    window.setTimeout(function ()
+                                    { $("#GetCardsError").alert('close'); }, 10000);
+
+                                }
+                                else {
+                                    $('#CardList').html(result);
+                                }
+                            },
+                            error: function (emp) {
+                                $('#newCardResult').prepend(
+                                    '<div class="alert alert-error alert-dismissible fade in" id="GetCardsError"> <button type="button" class="close" data-dismiss="alert"> <i class="fa fa-times"></i></button><p><i class="fa fa-exclamation-triangle"></i>' + '[ERROR ' + response.status + '] al traer los datos de las tarjetas, intente refrescar la pagina.</p></div>');
+                                window.setTimeout(function ()
+                                { $("#GetCardsError").alert('close'); }, 10000);
+
+                            }
+                        });
+                    }
+                    else {
+                        $('#newCardResult').prepend(
+                        '<div class="alert alert-error alert-dismissible fade in" id="RegisterCardError"> <button type="button" class="close" data-dismiss="alert"> <i class="fa fa-times"></i></button><p><i class="fa fa-exclamation-triangle"></i>' + 'ERROR al traer los datos de las tarjetas, intente refrescar la pagina.</p></div>');
+                        window.setTimeout(function ()
+                        { $("#RegisterCardError").alert('close'); }, 10000);
+                    }
+                },
+                error: function (emp) {
+                    $('#newCardResult').prepend(
+                        '<div class="alert alert-error alert-dismissible fade in" id="RegisterCardError"> <button type="button" class="close" data-dismiss="alert"> <i class="fa fa-times"></i></button><p><i class="fa fa-exclamation-triangle"></i>' + '[ERROR ' + response.status + '] al intentar registrar la tarjeta en Antbox.</p></div>');
+                    window.setTimeout(function ()
+                    { $("#RegisterCardError").alert('close'); }, 10000);
+
+                }
+            });
+    };
 </script>
     }

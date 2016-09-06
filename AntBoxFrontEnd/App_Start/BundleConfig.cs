@@ -50,7 +50,7 @@ namespace AntBoxFrontEnd
                       "~/Content/custom-responsive.css",
                       "~/Content/font.css"
                       ));
-            bundles.Add(new StyleBundle("~/Content/Customer").Include(
+            bundles.Add(new StyleBundle("~/Content/Customer2").Include(
                       "~/Content/Customer/preloader.css",
                       "~/Content/bootstrap.css",
                       "~/Content/Customer/font-awesome.min.css",

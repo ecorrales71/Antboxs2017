@@ -24,6 +24,42 @@ namespace AntBoxFrontEnd.Controllers
 
         [HttpPost]
         [AllowAnonymous]
+        public ActionResult AntBoxUpdateAccountAjax(string name, string lastname, string lastname2, string mail, string phone, string cellphone, string password)
+        {
+            var cus = new AntBoxFrontEnd.Services.Customer.CustomerUpdateOptions
+            {
+                Name=name,
+                LastName=lastname,
+                Lastname2=lastname2,
+                Email = mail,
+                Phone = phone,
+                Mobile_phone = cellphone,
+                Password = password
+            };
+
+            var ser = new CustomerServices(ServiceConfiguration.GetApiKey());
+
+            string tempid = ((CustomerResponse)Session["customer"]).Id;
+            var res = ser.UpdateCustomer(cus, tempid);
+            if (res)
+            {
+
+                CustomerServices cs = new CustomerServices(ServiceConfiguration.GetApiKey());
+
+                CustomerResponse customer = cs.SearchCustomer(tempid);
+
+                Session["customer"] = customer;
+
+                return RedirectToAction("Cuenta", "Customer");
+
+            }
+
+            return Json(new { success = false }, JsonRequestBehavior.AllowGet);
+            //AddErrors(result);
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
         public ActionResult AntBoxRegisterAjax(string email, string name, string lastname, string password)
         {
             var cus = new AntBoxFrontEnd.Services.Customer.CustomerRequestOptions

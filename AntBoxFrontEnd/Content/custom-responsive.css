@@ -18,12 +18,15 @@
 		padding: 0 0 15px;
 
 	}
+	.pagetitle .fa, .pagetitle.pagetitle-collapse .fa {
+		display: inline;
+	}
 }
 
 /*----------------------------- Marggin top en el promobox -----------------------------*/
 @media screen and (max-width: 767px){
 .promo-box .promobox_txt {
-	margin-bottom: 30px;
+	margin-bottom: 30px !important;
 	}
 	.no_portrait {
 		display: none;

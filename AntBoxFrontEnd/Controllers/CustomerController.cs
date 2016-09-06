@@ -96,8 +96,14 @@ namespace AntBoxFrontEnd.Controllers
             var ps = new PaymentService(ServiceConfiguration.GetApiKey());
 
             List<CardObject> result = new List<CardObject>();
-            result = ps.ListPaymetCards(((CustomerResponse)Session["customer"]).Id);
-            
+            try
+            {
+                result = ps.ListPaymetCards(((CustomerResponse)Session["customer"]).Id);
+            }
+            catch (Exception ex)
+            {
+            }
+
             return View(result);
         }
 

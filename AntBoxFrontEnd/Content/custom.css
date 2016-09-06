@@ -153,11 +153,7 @@ a:hover {
     padding: 0px;
 }
 
-/*----------------------------- Tamaño fuente de video-galería -----------------------------*/
-.bannercontainer p {
-	font-size: 1em !important;
-	line-height: 1.5em !important;
-}
+
 
 /*----------------------------- Cambio de color de barrita lateral izquierda en menú mobile -----------------------------*/
 .no-menu .header:not(.header-vertical) .navbar-collapse .navbar-nav > li:hover > a,

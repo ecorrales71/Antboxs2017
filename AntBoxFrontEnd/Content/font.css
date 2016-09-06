@@ -20,7 +20,7 @@ header, h1, h2, h3, h4, h5, h6, div, nav, .widget_tag_cloud .tagcloud a, .btn, .
     font-family: 'Nexa_Bold', FontAwesome !important;
 }
 
-p, a, address, input, textarea, .active-result, .contact-info, label, .table-responsive table, .countup-amount{
+p, a, address, input, textarea, .active-result, .contact-info, label, .table-responsive table, .countup-amount, .pagetitle .subtitle{
     font-family: 'Nexa_Light', FontAwesome !important; 
 }
 
@@ -31,8 +31,14 @@ p, a, address, input, textarea, .active-result, .contact-info, label, .table-res
 }
 
 
-p, input{
-    font-size: 105% !important;
+p, input, .page-header p {
+    font-size: 115% !important;
+}
+
+/*----------------------------- Tamaño fuente de video-galería -----------------------------*/
+.bannercontainer p {
+    font-size: 1.2em !important;
+    line-height: 1.5em !important;
 }
 
 label, .etiqueta {
@@ -49,16 +55,29 @@ label, .etiqueta {
 .shop_table tbody {
     font-size: 90% !important;
 }
-h2 {
+h1, h2 {
     font-size: 32px;
 }
 
+.pagetitle .subtitle {
+    font-size: 100% !important;
+}
+address  {
+    font-size: 110% !important;
+}
 
-p {
+p, address, .pagetitle .subtitle, .rs {
     color: #000 !important;
 }
 
 /*Color de fuente background image - Cómo funciona*/
 .inverse p, .inverse q, .banner p {
     color: #fff !important;
+}
+
+.footer  a, .footer .rs {
+    font-weight: 400 !important;
+    text-decoration: none;
+    color: #000;
+    font-size: 115% !important;
 }
