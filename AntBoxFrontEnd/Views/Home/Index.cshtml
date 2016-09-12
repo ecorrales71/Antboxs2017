@@ -9,10 +9,9 @@
     <div class="bannercontainer">
         <div class="banner" data-fullscreen="on" data-auto="true" data-hidetimerbar="off" data-fullscreenoffsetcontainer=".header">
             <ul>
-                <li data-transition="fade" data-slotamount="7" data-saveperformance="on" class="background overlay overlay-light" style="background-image: url(images/video_antboxs.jpg)">
-                    <div class="tp-caption sft large_bold_white" data-x="left" data-y="center" data-hoffset="100" data-voffset="-85" data-speed="700" data-start="700" data-easing="easeOutBack">Paga solo por lo que usas</div>
-                    <p class="tp-caption fade" data-x="left" data-y="center" data-hoffset="100" data-speed="500" data-start="900" data-easing="easeOutBack">Porque el mundo siempre tuvo que haber sido así.<br />Utiliza solo el espacio que necesitas.<br />Es lo justo.</p>
-                    <a href="como-funciona.php" class="tp-caption sfb btn btn-primary btn-md btn-wide" data-x="left" data-y="center" data-voffset="80" data-hoffset="100" data-speed="300" data-start="1000">Saber más</a>
+                <li data-transition="fade" data-slotamount="7" data-saveperformance="on" class="background" style="background-image: url(images/video_antboxs.jpg)">
+                    <div class="tp-caption sft large_bold_white portrait" data-x="left" data-y="center" data-hoffset="100" data-voffset="-85" data-speed="700" data-start="700" data-easing="easeOutBack">Paga solo por lo que usas</div>
+                    <p class="tp-caption fade portrait" data-x="left" data-y="center" data-hoffset="100" data-speed="500" data-start="900" data-easing="easeOutBack">Porque el mundo siempre tuvo que haber sido así.<br />Utiliza solo el espacio que necesitas.<br />Es lo justo.</p>
                     <div class="tp-caption tp-fade fadeout fullscreenvideo"
                          data-x="0"
                          data-y="0"
@@ -35,14 +34,15 @@
         </div>
     </div>
     <!-- /.video -->
+    <!-- CONTENT -->
     <div class="content no-pt">
 
         <!-- CONTAINER -->
         <div class="iwrap">
             <section class="container intro">
                 <div class="row text-wrap text-center">
-                    <div class="col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1" data-animate="fadeInDown">
-                        <h1>Almacenamiento Seguro, Fácil y Conveniente</h1>
+                    <div class="col-md-10 col-sm-10 col-sm-offset-1" data-animate="fadeInUp">
+                        <h1>Almacenamiento Seguro, Fácil y Conveniente en 4 pasos</h1>
                         <p>Más fácil imposible. Regístrate, pide tus Antboxs, empácalas y nosotros nos las llevamos a guardar.</p>
                         <p>Más seguro imposible, no sales de tu casa y no te arriesgas. Las guardamos en bodegas resguardadas, fumigadas, custodiadas 24/7, CCTV, Alarma y acceso restringido.</p>
                         <p>Más conveniente imposible, no las cargas ni las llevas a ningún lado, nosotros lo hacemos por ti y cuando las necesites, te las llevamos. </p>
@@ -51,36 +51,69 @@
             </section>
         </div>
         <!-- /.container -->
+
         <!-- CONTAINER -->
         <div class="container">
             <div class="row irow-sm text-center steps-2">
                 <div class="col-md-3 col-sm-6">
-                    <div><img class=" mb20" src="@Url.Content("~/Content/Images/pide_tus_antboxs.png")" width="180" height="130" alt=""></div>
-                    <div class="icon icon-step icon-inverse icon-size-3 icon-theme icon-rounded"><i>1.</i></div>
-                    <h4>Pide tu Antboxs</h4>
-                    <p>Calcula cuántas requieres, si te sobran no pasa nada solo te cobramos por las que llenes. Solo dinos a dónde te las llevamos.</p>
-                    <div class="heading-divider"></div>
+                    <figure class="figure">
+                        <a href="">
+                            <div><img class="mb20" src="@Url.Content("~/Content/Images/pide-tus-antboxs-icono.png")" width="180" height="130" alt=""></div>
+                            <div class="icon icon-step icon-inverse icon-size-3 icon-theme icon-rounded mt10"><i>1</i></div>
+                            <h4>Pide tu Antboxs</h4>
+                        </a>
+                        <div class="mask mask-info mask-light">
+                            <div class="mask-info">
+                                <p>Calcula cuántas requieres, si te sobran no pasa nada solo te cobramos por las que llenes. Solo dinos a dónde te las llevamos.</p>
+                                <div class="heading-divider"></div>
+                            </div>
+                        </div>
+                    </figure>
                 </div>
                 <div class="col-md-3 col-sm-6">
-                    <div><img class=" mb20" src="@Url.Content("~/Content/Images/guarda_tus_cosas.png")" width="180" height="130" alt=""></div>
-                    <div class="icon icon-step icon-inverse icon-size-3 icon-theme icon-rounded"><i>2.</i></div>
-                    <h4>Guarda tus cosas</h4>
-                    <p>Llénalas con tus cosas, puedes hacer un inventario y tomar fotos para que recuerdes qué hay en cada Antbox, así cuando nos las pidas sepas cuál quieres que te llevemos. </p>
-                    <div class="heading-divider"></div>
+                    <figure class="figure">
+                        <a href="">
+                            <div><img class="mb20" src="@Url.Content("~/Content/Images/guarda-tus-cosas-icono.png")" width="180" height="130" alt=""></div>
+                            <div class="icon icon-step icon-inverse icon-size-3 icon-theme icon-rounded mt10"><i>2</i></div>
+                            <h4>Guarda tus cosas</h4>
+                        </a>
+                        <div class="mask mask-info mask-light">
+                            <div class="mask-info">
+                                <p>Llénalas con tus cosas, puedes hacer un inventario y tomar fotos para que recuerdes qué hay en cada Antbox, así cuando nos las pidas sepas cuál quieres que te llevemos. </p>
+                                <div class="heading-divider"></div>
+                            </div>
+                        </div>
+                    </figure>
                 </div>
                 <div class="col-md-3 col-sm-6">
-                    <div><img class=" mb20" src="@Url.Content("~/Content/Images/almacenamos.png")" width="180" height="130" alt=""></div>
-                    <div class="icon icon-step icon-inverse icon-size-3 icon-theme icon-rounded"><i>3.</i></div>
-                    <h4>Almacenamos</h4>
-                    <p>Las almacenamos por ti, siempre estarán bien cuidadas y protegidas, vigiladas y aseguradas*. Cuidamos de tus cosas, cuidamos de tu vida.</p>
-                    <div class="heading-divider"></div>
+                    <figure class="figure">
+                        <a href="">
+                            <div><img class="mb20" src="@Url.Content("~/Content/Images/almacenamos-icono.png")" width="180" height="130" alt=""></div>
+                            <div class="icon icon-step icon-inverse icon-size-3 icon-theme icon-rounded mt10"><i>3</i></div>
+                            <h4>Almacenamos</h4>
+                        </a>
+                        <div class="mask mask-info mask-light">
+                            <div class="mask-info">
+                                <p>Las almacenamos por ti, siempre estarán bien cuidadas y protegidas, vigiladas y aseguradas*. Cuidamos de tus cosas, cuidamos de tu vida.</p>
+                                <div class="heading-divider"></div>
+                            </div>
+                        </div>
+                    </figure>
                 </div>
                 <div class="col-md-3 col-sm-6">
-                    <div><img class=" mb20" src="@Url.Content("~/Content/Images/agenda_tu_entrega.png")" width="180" height="130" alt=""></div>
-                    <div class="icon icon-step icon-inverse icon-size-3 icon-theme icon-rounded"><i>4.</i></div>
-                    <h4>Agenda tu entrega</h4>
-                    <p>¿Quieres tus cosas de regreso o solo algunas de tus Antboxs? Escoge de tu inventario qué Antboxs quieres y cuándo te gustaría recibirlas, para que te las llevemos*. ¿Así o más fácil?</p>
-                    <div class="heading-divider"></div>
+                    <figure class="figure">
+                        <a href="">
+                            <div><img class="mb20" src="@Url.Content("~/Content/Images/agenda-tu-entrega-icono.png")" width="180" height="130" alt=""></div>
+                            <div class="icon icon-step icon-inverse icon-size-3 icon-theme icon-rounded mt10"><i>4</i></div>
+                            <h4>Agenda tu entrega</h4>
+                        </a>
+                        <div class="mask mask-info mask-light">
+                            <div class="mask-info">
+                                <p>¿Quieres tus cosas de regreso o solo algunas de tus Antboxs? Escoge de tu inventario qué Antboxs quieres y cuándo te gustaría recibirlas, para que te las llevemos*. ¿Así o más fácil?</p>
+                                <div class="heading-divider"></div>
+                            </div>
+                        </div>
+                    </figure>
                 </div>
             </div>
         </div>
@@ -91,12 +124,12 @@
         <div class="container text-center">
             <div class="row irow-xs cols-border">
                 <div class="col-sm-6">
-                    <div class="countup countup-hg countup-color" data-increment="13" data-num="1240"></div>
+                    <div class="countup countup-hg countup-color" data-increment="8" data-num="1000"></div>
                     <h3>Antboxs Utilizados</h3>
                     <p>Hasta el momento tenemos estas Antboxs seguras, resguardadas en nuestra bodega y contando…</p>
                 </div>
                 <div class="col-sm-6">
-                    <div class="countup countup-hg countup-color" data-increment="1" data-num="94"></div>
+                    <div class="countup countup-hg countup-color" data-increment="2" data-num="250"></div>
                     <h3>Clientes Satisfechos</h3>
                     <p>Este es el número de personas que ha confiado su vida a nosotros y les agradecemos con el corazón, porque lo más importante son nuestros clientes. Te queremos ver pronto con nosotros. </p>
                 </div>
@@ -111,7 +144,7 @@
         <div class="iwrap iwrap-light">
             <div class="container">
                 <div class="row irow-xs">
-                    <div class="col-sm-7 text-wrap">
+                    <div class="col-sm-12 col-md-7 text-wrap">
                         <h2>¿Por qué elegir Antboxs?</h2>
                         <p>Porque cada vez hay más tráfico, menos tiempo, y los espacios son más reducidos. Olvídate del tráfico y de la inseguridad, ahorra tiempo y dinero y déjalo en manos de los expertos.</p>
                         <div class="heading-divider heading-divider-lg"></div>
@@ -136,13 +169,14 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-5 img-wrap img-wrap-right img-wrap-auto">
+                    <div class="col-sm-12 col-md-5 text-center">
                         <img src="@Url.Content("~/Content/Images/cajas_apiladas_antboxs.png")" alt="">
                     </div>
                 </div>
             </div>
         </div>
         <!-- /.container -->
+
         <!-- CONTAINER -->
         <div class="iwrap pt70 pb20">
             <div class="container">
@@ -155,7 +189,7 @@
                         <h1>Haz más espacio en tu hogar u oficina</h1>
                         <p>Todos necesitamos más espacio. Hay muchas cosas, mercancía, recuerdos, ornamenta, documentos, fotografías, libros, CD, ropa de invierno, de verano, adornos, que estorban y quitan espacio. ¿Necesitas facturar? ¡con gusto!</p>
                         <div class="heading-divider heading-divider-xs mb30"></div>
-                        <a href="" class="btn btn-primary">Comenzar ahora</a>
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#registro">Comenzar Ahora</button>
                     </div>
                 </div>
             </div>
@@ -164,21 +198,7 @@
 
     </div>
     <!-- /.content -->
-    <!-- PROMO-BOX -->
-    <div class="promo-box promo-box-light">
-        <div class="container">
-            <section class="row irow-xs page-header cols-border divtable mt30 mb30">
-                <div class="col-lg-10 col-md-9 col-sm-8 divcell promobox_txt">
-                    <h1>¿Tienes dudas sobre nuestro servicio?</h1>
-                    <p>Visita las preguntas frecuentes, probablemente ya hemos respondido tus dudas. Sino escríbenos o llámanos y con gusto te atendemos. </p>
-                </div>
-                <div class="col-lg-2 col-md-3 col-sm-4 text-right divcell">
-                    <a href="preguntas-frecuentes.php" class="btn btn-primary btn-md">Preguntas Frecuentes</a>
-                </div>
-            </section>
-        </div>
-    </div>
-    <!-- /.promo-box -->
+    
 </div>
 <!-- /.wrapper -->
 
