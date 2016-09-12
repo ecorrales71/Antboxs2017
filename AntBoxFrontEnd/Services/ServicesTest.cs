@@ -20,59 +20,66 @@ namespace AntBoxFrontEnd.Services
         
         public void Start()
         {
+            CreateCustomer();
+
             //SearchZip();
 
             var idcustomer = Login();
 
             // Debug.WriteLine(idcustomer);
 
-           //  CreateAddress(idcustomer,4);
+            //  CreateAddress(idcustomer,4);
 
 
-           //  CreateValidAddress(idcustomer);
+            //  CreateValidAddress(idcustomer);
 
 
 
-            var idAddress = ListAddresses(idcustomer, 1)
-                                .Where(a=> a.Alias == "Calle 27").FirstOrDefault();
+            //var idAddress = ListAddresses(idcustomer, 1)
+            //                    .Where(a=> a.Alias == "Calle 27").FirstOrDefault();
 
-            Debug.WriteLine(idAddress.ToString());
+            //Debug.WriteLine(idAddress.ToString());
 
-                                 var address = SearchAddresses(idAddress.Id);
+            //var address = SearchAddresses(idAddress.Id);
 
-                                 // Debug.WriteLine(address.ToString());
+            // Debug.WriteLine(address.ToString());
 
-                                 // UpdateAddress(idAddress);
+            // UpdateAddress(idAddress);
 
-                                 // var addressNew = SearchAddresses(idAddress);
+            // var addressNew = SearchAddresses(idAddress);
 
-                                 // Debug.WriteLine(addressNew.ToString());
+            // Debug.WriteLine(addressNew.ToString());
 
-                                 // var restask = CreateTask(idcustomer, idAddress.Where(a=> a.Alias.Contains("Dirección valida")).FirstOrDefault().Id);
+            // var restask = CreateTask(idcustomer, idAddress.Where(a=> a.Alias.Contains("Dirección valida")).FirstOrDefault().Id);
 
-                                 //Debug.WriteLine("Se creo Tarea: " + restask);
+            //Debug.WriteLine("Se creo Tarea: " + restask);
 
-                                 //var box = CreateBoxes(idcustomer,2);
-                                 //Debug.WriteLine(box);
+            //var box = CreateBoxes(idcustomer,2);
+            //Debug.WriteLine(box);
 
-                                 //var listabox = ListBoxes(idcustomer);
+            var listabox = ListBoxes(idcustomer);
 
-                                 //var idbox = listabox
-                                 //            .OrderBy(a => a.Id)
-                                 //            .FirstOrDefault();
-                                 //Debug.WriteLine(idbox);
+            var idbox = listabox
+                        .OrderBy(a => a.Id)
+                        .FirstOrDefault();
+            Debug.WriteLine(idbox);
 
-                                 //var boxtest = SearchBox(idbox.Id);
-                                 //Debug.WriteLine(idbox);
+            listabox.ForEach(x =>
+            {
+                DeleteBox(x.Id);
+            });
 
-                                 //Debug.WriteLine("Se actualizo box" + UpdateBox(idbox.Id));
+            //var boxtest = SearchBox(idbox.Id);
+            //Debug.WriteLine(idbox);
 
-                                 //SearchBox(idbox.Id);
+            //Debug.WriteLine("Se actualizo box" + UpdateBox(idbox.Id));
 
-                                 //var delbox = DeleteBox(idbox.Id);
+            //SearchBox(idbox.Id);
+
+            //var delbox = DeleteBox(idbox.Id);
 
 
-                                 //CreateWorker(2);
+            //CreateWorker(2);
 
 
 
@@ -88,8 +95,8 @@ namespace AntBoxFrontEnd.Services
             {
                 //Email = "prueba4@prueba.com",
                 //Password = "44abc"
-                Email = "customer@antbox.com",
-                Password = "1234"
+                Email = "emartinez@greenrivercg.com.mx",
+                Password = "87654321"
             };
 
 
@@ -106,12 +113,13 @@ namespace AntBoxFrontEnd.Services
         {
             var cus = new AntBoxFrontEnd.Services.Customer.CustomerRequestOptions
             {
-                Email = "prueba4@prueba.com",
-                Name = "Prueba nombre4",
-                LastName = "Prueba Apellido paterno4",
-                //Lastname2 = "Prueba Apellido materno4",
-                Mobile_phone = "55333333333",
-                Password = "44abc"
+                Email = "emartinez@greenrivercg.com.mx",
+                Name = "Eric",
+                LastName = "Martinez",
+                Lastname2 = "Castañeda",
+                Mobile_phone = "5543434343",
+                Phone = "5546464646",
+                Password = "87654321"
             };
 
             var ser = new CustomerServices(ServiceConfiguration.GetApiKey());

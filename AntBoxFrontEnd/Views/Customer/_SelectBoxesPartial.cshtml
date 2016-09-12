@@ -2,8 +2,8 @@
 @model  AntBoxFrontEnd.Models.AntBoxesViewModel
 
 @{ 
-    ViewData.Model = new AntBoxFrontEnd.Models.AntBoxesViewModel();
-    ViewData.Model.Order = new List<AntBoxFrontEnd.Entities.LineOrder>();
+    ViewData["i"] = 1;
+
 }
 
 
@@ -21,9 +21,44 @@
                     </tr>
                 </thead>
                 <tbody id="tblBoxes">
+                    @{int rowNo = 1;}
 
+                    @foreach (var item in Model.Order)
+                    {
+                        <tr class="cart_item" id=@rowNo>
+                            <td class="product-name">
+                                <h5>+ @item.Model + </h5>
+                                <dl class="variation">
+                                    <dt class="variation-Color">Medidas:</dt>
+                                    <dd class="variation-Color">
+                                        <p>+ @item.Sizes +</p>
+                                    </dd>
+                                </dl>
+                            </td>
+                            <td class="product-price no_mobile">
+                                <span class="amount">$ + @item.Price +</span>
+                            </td>
+                            <td class="product-quantity">
+                                <a href="" class="minus disabled">-</a>
+                                <input type="text" value=@item.Quantity) >
+                                <a href="" class="plus">+</a>
+                            </td>
+                            <td class="product-subtotal no_iphone_portrait">
+                                <span class="amount">$ @item.LineTotal </span>
+                            </td>
+                            @(rowNo += 1)
+                        </tr>
+                      
+                    }
 
-                    
+                    <tr>
+                        <td class="actions" colspan="6">
+                            <div class="coupon pull-right center_iphone_portrait">
+                                <input id="coupon_code" class="input-text pb10__iphone_portrait" type="text" placeholder="Código de cupón" value="" name="coupon_code">
+                                <input class="btn btn-primary pull-right floatr ml10 center_iphone_portrait" type="submit" value="Aplicar cupón">
+                            </div>
+                        </td>
+                    </tr>
                 </tbody>
             </table>
         </div>

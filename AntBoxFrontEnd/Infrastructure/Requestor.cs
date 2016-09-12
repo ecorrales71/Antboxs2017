@@ -60,6 +60,11 @@ namespace AntBoxFrontEnd.Infrastructure
                         throw new Exception(errMissing.Missing);
                 }
 
+                if(responseMessage.StatusCode == HttpStatusCode.Unauthorized)
+                {
+
+                }
+
                     throw new MissingException(responseMessage.StatusCode, new MissingError { Missing = responseString});
                 
             }

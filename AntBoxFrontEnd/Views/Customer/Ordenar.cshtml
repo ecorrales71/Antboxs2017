@@ -1,9 +1,11 @@
-﻿@using AntBoxFrontEnd.Models
+﻿@model AntBoxFrontEnd.Models.OrderViewModel
 
 @{
     ViewBag.Title = "Index";
-    AntBoxFrontEnd.Models.AntBoxesViewModel antBoxOrder = (AntBoxFrontEnd.Models.AntBoxesViewModel)@ViewData["AntBoxOrder"];
-    
+
+    ViewData["Order"] = new AntBoxFrontEnd.Models.OrderViewModel();
+
+
 
 
 }
@@ -62,60 +64,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="row" id="Precios">
-                                        <div class="col-sm-12">
-                                            <div class="responsive">
-                                                <table class="table shop_table cart">
-                                                    <thead>
-                                                        <tr>
-                                                            <th class="product-name">Antboxs</th>
-                                                            <th class="product-price no_mobile">Precio</th>
-                                                            <th class="product-quantity">Cantidad</th>
-                                                            <th class="product-subtotal no_iphone_portrait">Total</th>
-                                                            <!--<th class="product-remove">&nbsp;</th>-->
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody id="tblBoxes"></tbody>
-                                                </table>
-                                            </div>
-                                            <div class="row irow-xs cart-collaterals mt0">
-                                                <div class="col-md-5 col-sm-6">
-                                                </div>
-                                                <div class="col-md-offset-1 col-sm-6 cart_totals">
-                                                    <table class="table">
-                                                        <tbody>
-                                                            <tr class="cart-subtotal">
-                                                                <th>Descuento</th>
-                                                                <td>
-                                                                    <span class="amount">$  @antBoxOrder.Discount </span>
-                                                                </td>
-                                                            </tr>
-                                                            <tr class="cart-subtotal">
-                                                                <th>Subtotal</th>
-                                                                <td>
-                                                                    <span class="amount">$ @antBoxOrder.Subtotal </span>
-                                                                </td>
-                                                            </tr>
-                                                            <tr class="shipping">
-                                                                <th>+ IVA</th>
-                                                                <td>
-                                                                    <span class="amount">$ @antBoxOrder.Iva </span>
-                                                                </td>
-                                                            </tr>
-                                                            <tr class="order-total">
-                                                                <th>Total</th>
-                                                                <td>
-                                                                    <strong>
-                                                                        <span class="amount">$ @antBoxOrder.Total </span>
-                                                                    </strong>
-                                                                </td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                  @Html.Partial("_SelectBoxesPartial",Model.Boxes)
 
                                     <div class="row">
                                         <div class="col-sm-12">
@@ -514,8 +463,9 @@
                 </div>
             </div>
 
-
             @section scripts {
+
+
                 <!-- /.modal -->
                 <script type="text/javascript">
                     Calendar.setup({
@@ -548,71 +498,7 @@
                 </script>
 
 
-                <script type="text/javascript">
-                    $(document).ready(function CargaListaCajas () {
-                        alert("inicia ");
-
-                        alert("inicia busqueda");
-                        $.ajax({
-                            contentType: 'application/json; charset=utf-8',
-                            dataType: 'json',
-                            type: 'POST',
-                            url = '@Url.Action("getActiveAntBoxes", "Home")',
-                            success:function (data) {
-
-                                var div3Content = '';
-                                var pos = 1;
-
-                                for (var i = 0; i < data.length; i++) {
-
-                                    var box = data[i];
-                                    pos = i-1;
-
-                                    div3Content +='<tr class="cart_item">';
-                                    div3Content +='<td class="product-name">';
-                                    div3Content +='<h5>'+ data[i].Model + '</h5>';
-                                    div3Content +='<dl class="variation">';
-                                    div3Content +='<dt class="variation-Color">Medidas:</dt>';
-                                    div3Content +='<dd class="variation-Color">';
-                                    div3Content +='<p>'+ data[i].Sizes +'</p>';
-                                    div3Content +='</dd>';
-                                    div3Content +='</dl>';
-                                    div3Content +='</td>';
-                                    div3Content +='<td class="product-price no_mobile">';
-                                    div3Content +='<span class="amount">$ '+ data[i].Price +'</span>';
-                                    div3Content +='</td>';
-                                    div3Content +='<td class="product-quantity">';
-                                    div3Content +='a href="" class="minus disabled">-</a>';
-                                    div3Content +='<input type="text" value="1">';
-                                    div3Content +='<a href="" class="plus">+</a>';
-                                    div3Content +='</td>';
-                                    div3Content +='<td class="product-subtotal no_iphone_portrait">';
-                                    div3Content +='<span class="amount">$ 100.00</span>';
-                                    div3Content +='</td>';
-                                    div3Content +='</tr>';
-                                }
-
-                                div3Content +='<tr>';
-                                div3Content +='<td class="actions" colspan="6">';
-                                div3Content +='<div class="coupon pull-right center_iphone_portrait">';
-                                div3Content +='<input id="coupon_code" class="input-text pb10__iphone_portrait" type="text" placeholder="Código de cupón" value="" name="coupon_code">';
-                                div3Content +='<input class="btn btn-primary pull-right floatr ml10 center_iphone_portrait" type="submit" value="Aplicar cupón">';
-                                div3Content +='</div>';
-                                div3Content +='</td>';
-                                div3Content +='</tr>';
-
-
-
-                                $("#tblBoxes").append(div3Content);
-
-                            },
-
-
-                        });
-
-                    }
-                        );
-                </script>
+                
 
 
             }

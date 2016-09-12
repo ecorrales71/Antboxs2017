@@ -7,7 +7,10 @@ namespace AntBoxFrontEnd.Infrastructure
 {
     public static class UrlsConstants
     {
-        public static String BaseUrl { get { return "http://173.203.159.102:8081/v1"; } }
+        // public static String BaseUrl { get { return "http://173.203.159.102:8081/v1"; } }
+
+        public static String BaseUrl { get { return "http://173.203.159.101:8082/v1"; } }
+
 
         public static String CustomerAddress { get { return BaseUrl + "/customer-address"; } }
 
@@ -32,7 +35,7 @@ namespace AntBoxFrontEnd.Infrastructure
         public static String Worker { get { return BaseUrl + "/worker"; } }
 
 
-        public static string AuthUrl { get { return "http://173.203.159.102:8081/auth"; } }
+        public static string AuthUrl { get { return "http://173.203.159.101:8082/auth"; } }
         
 
 

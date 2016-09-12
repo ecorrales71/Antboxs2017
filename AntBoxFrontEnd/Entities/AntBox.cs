@@ -30,8 +30,15 @@ namespace AntBoxFrontEnd.Entities
 
     public class LineOrder
     {
+        public string Model { get; set; }
 
-        public AntBox Product { get; set; }
+        public string Description { get; set; }
+
+        public string Sizes { get; set; }
+
+        public decimal Price { get; set; }
+
+        public decimal Secure { get; set; }
 
         public int Quantity { get; set; }
 

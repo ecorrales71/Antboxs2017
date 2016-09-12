@@ -13,6 +13,7 @@ using AutoMapper;
 using System.Dynamic;
 using AntBoxFrontEnd.Entities;
 using AntBoxFrontEnd.Services.Boxes;
+using System.Web.Configuration;
 
 namespace AntBoxFrontEnd.Controllers
 {
@@ -184,81 +185,107 @@ namespace AntBoxFrontEnd.Controllers
 
         public ActionResult Ordenar()
         {
-            var addresses = new List<AddressResponse>();
 
-            
+            var order = GetNewOrder();
 
+
+
+
+
+
+
+
+
+
+            return View(order);
+        }
+
+
+        private OrderViewModel GetNewOrder()
+        {
             try
             {
                 if (Session["customer"] == null)
                 {
-                    return Json(new { success = false, responseText = "Opción no permitida" }, JsonRequestBehavior.AllowGet);
+                    return null;
                 }
 
                 CustomerResponse customer = (CustomerResponse)Session["customer"];
 
+                var servCajas = new BoxesService(ServiceConfiguration.GetApiKey());
 
+                var cajas = servCajas.ListBoxes(StatusBoxes.Active);
+                var cajasDTO = new List<AntBox>();
 
-                var addressServ = new AddressService(ServiceConfiguration.GetApiKey());
+                cajas.ForEach(x =>
+                {
+                    cajasDTO.Add(Mapper.Map<BoxesResponse, AntBox>(x));
+                });
 
-                addresses = addressServ.ListAddresses(customer.Id);
+                var lineOrders = new List<LineOrder>();
 
-                var availableAddresses = new List<AntBoxAddressViewModel>();
-                
-                addresses.ForEach(a=> {
-                    availableAddresses.Add(new AntBoxAddressViewModel
-                    {
-                        Id = a.Id,
-                        Alias = a.Alias
-
-                    });
+                cajasDTO.ForEach(x =>
+                {
+                    lineOrders.Add(Mapper.Map<AntBox, LineOrder>(x));
                 });
 
 
+                var orderModel = new OrderViewModel();
+
+                var BoxesModel = new AntBoxesViewModel();
 
 
 
-                var boxes = ListActiveAntBoxes();
+                BoxesModel.Order = lineOrders;
 
-                var antboxes = new AntBoxesViewModel
+                BoxesModel.ActiveAntBoxes = cajasDTO;
+
+
+
+
+                BoxesModel.Discount = 0;
+                BoxesModel.Iva = Convert.ToDecimal( WebConfigurationManager.AppSettings["Iva"]);
+                BoxesModel.Order = new List<LineOrder>() { new LineOrder {LineTotal=0,Quantity = 1 } };
+                BoxesModel.OrderTotal = 0;
+                BoxesModel.Subtotal = 0;
+                BoxesModel.Total = 0;
+
+
+                orderModel.Boxes = BoxesModel;
+
+                var addressService = new AddressService(ServiceConfiguration.GetApiKey());
+
+                var result = addressService.ListAddresses(customer.Id);
+
+                var antBoxResult = new List<AntBoxAddressViewModel>();
+
+                if (result.Count > 0)
                 {
-                    Discount = 0,
-                    Iva = 0,
-                    OrderTotal = 0,
-                    Subtotal = 0,
-                    Total = 0,
-                    ActiveAntBoxes = boxes
-                };
+                    result.ForEach(r =>
+                    {
+                        var map = Mapper.Map<AddressResponse, AntBoxAddressViewModel>(r);
 
+                        antBoxResult.Add(map);
+                    });
 
+                    orderModel.Addresses = antBoxResult;
+                }
+               
 
-                var cardServices = new PaymentService(ServiceConfiguration.GetApiKey());
-
-                var listCards = cardServices.ListPaymetCards(customer.Id);
-
-                ViewData["Boxes"] = boxes;
-                ViewData["Antboxes"] = antboxes;
-                ViewData["AvailableAddresses"] = availableAddresses;
-                ViewData["ListCards"] = listCards;
-
-                ViewData["AntBoxOrder"] = new AntBoxesViewModel()
-                {
-                    Iva = 0,
-                    Discount = 0,
-                    Subtotal = 0,
-                    Total = 0,
-                    OrderTotal = 0            
-                };
+                return orderModel;
 
 
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                return View();
-            }           
 
-             return View();
+                return null;
+
+            }           
         }
+
+
+
 
         public JsonResult getActiveAntBoxes()
         {

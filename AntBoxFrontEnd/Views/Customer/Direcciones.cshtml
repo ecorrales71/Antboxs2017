@@ -447,7 +447,9 @@
 
            // alert("Entra editar");
 
-            var id = event.currentTarget.id;
+            $('button').click(function () {
+                $(this).attr('disabled', 'disabled');
+            });
 
 
            // alert("Entra editar  id : " + id);
@@ -501,7 +503,10 @@
 
     <script  type="text/javascript">
         function EliminaDireccion(id) {
-            var data =  'idAddress=' +id ;           
+            var data = 'idAddress=' + id;
+
+            $("#ajaxStart").attr("disabled", true);
+
             $.ajax({
                 contentType: 'application/json; charset=utf-8',
                 dataType: 'json',

@@ -35,6 +35,9 @@ namespace AntBoxFrontEnd.Infrastructure
 
             CreateMap<BoxesResponse, AntBox>();
             CreateMap<AntBox,BoxesResponse>();
+            CreateMap<AntBox, LineOrder>();
+
+
 
         }
 

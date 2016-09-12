@@ -266,6 +266,7 @@
     <Compile Include="Infrastructure\ServiceConfiguration.cs" />
     <Compile Include="Infrastructure\MissingException.cs" />
     <Compile Include="Infrastructure\ServiceException.cs" />
+    <Compile Include="Infrastructure\Unauthorized.cs" />
     <Compile Include="Infrastructure\UrlHelper.cs" />
     <Compile Include="Infrastructure\UrlsConstants.cs" />
     <Compile Include="Migrations\201607270257118_AntboxDb.cs" />
@@ -282,6 +283,7 @@
     <Compile Include="Models\AntBoxesViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\OrderViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\Address\AddressResponse.cs" />
     <Compile Include="Services\Address\AddressUpdateOptions.cs" />

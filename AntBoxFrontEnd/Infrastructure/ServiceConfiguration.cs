@@ -23,9 +23,11 @@ namespace AntBoxFrontEnd.Infrastructure
 
         internal static string GetApiKey()
         {
-            if (string.IsNullOrEmpty(_apiKey))
-            {
+            //if (string.IsNullOrEmpty(_apiKey))
+            //{
+
                 string hovaus = WebConfigurationManager.AppSettings["hovaid"];
+
                 string hovapw = WebConfigurationManager.AppSettings["hovapw"];
 
                 HovaAuthResponse hovaAuth = null;
@@ -58,7 +60,6 @@ namespace AntBoxFrontEnd.Infrastructure
                         throw new Exception(response.StatusCode + " " + error);
                     }
 
-
                     var result = response.Content;
 
                     hovaAuth = JsonConvert.DeserializeObject<HovaAuthResponse>(result);
@@ -67,10 +68,7 @@ namespace AntBoxFrontEnd.Infrastructure
                     if (hovaAuth == null || String.IsNullOrEmpty(hovaAuth.Access_token))
                         return null;
 
-
                     _apiKey = hovaAuth.Access_token;
-
-
 
                 }
                 catch (Exception ex)
@@ -81,10 +79,13 @@ namespace AntBoxFrontEnd.Infrastructure
 
                 }
                 
-            }
+            //}
 
             return _apiKey;
         }
+
+
+   
 
         public static void SetApiKey(string newApiKey)
         {
