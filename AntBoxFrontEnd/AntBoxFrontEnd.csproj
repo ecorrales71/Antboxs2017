@@ -290,6 +290,10 @@
     <Compile Include="Services\Address\AddressRequestOptions.cs" />
     <Compile Include="Services\Address\AddressService.cs" />
     <Compile Include="Services\Address\PaginationAddresses.cs" />
+    <Compile Include="Services\AntBoxes\AntBoxesServices.cs" />
+    <Compile Include="Services\AntBoxes\AntBoxRequestOptions.cs" />
+    <Compile Include="Services\AntBoxes\AntBoxResponse.cs" />
+    <Compile Include="Services\AntBoxes\PaginationAntBoxes.cs" />
     <Compile Include="Services\BadRequestResponse.cs" />
     <Compile Include="Services\Boxes\BoxesRequestOptions.cs" />
     <Compile Include="Services\Boxes\BoxesResponse.cs" />

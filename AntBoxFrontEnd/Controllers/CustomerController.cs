@@ -214,20 +214,51 @@ namespace AntBoxFrontEnd.Controllers
 
                 var servCajas = new BoxesService(ServiceConfiguration.GetApiKey());
 
-                var cajas = servCajas.ListBoxes(StatusBoxes.Active);
+                var cajas = new List<BoxesResponse>();
+
+                cajas= servCajas.ListBoxes(StatusBoxes.Active);
+
                 var cajasDTO = new List<AntBox>();
-
-                cajas.ForEach(x =>
-                {
-                    cajasDTO.Add(Mapper.Map<BoxesResponse, AntBox>(x));
-                });
-
                 var lineOrders = new List<LineOrder>();
 
-                cajasDTO.ForEach(x =>
+                if(cajas != null)
                 {
-                    lineOrders.Add(Mapper.Map<AntBox, LineOrder>(x));
-                });
+                    cajas.ForEach(x =>
+                    {
+                        cajasDTO.Add(new AntBox
+                        {
+                            Sizes = x.Size,
+                            Secure = x.Secure,
+                            Description = x.Label,
+                            Label = x.Label,
+                            Model = x.Model,
+                            Price = x.Price
+                        });
+
+
+                       // cajasDTO.Add(Mapper.Map<BoxesResponse, AntBox>(x));
+                    });
+
+                    cajasDTO.ForEach(x =>
+                    {
+                        lineOrders.Add(
+                            new LineOrder {
+                                Description = x.Description,
+                                Label = x.Label,
+                                LineTotal = 0,
+                                Model = x.Model,
+                                Price = x.Price,
+                                Quantity = 0,
+                                Secure = x.Secure,
+                                Sizes = x.Sizes
+                            });
+                        
+                        
+                        
+                        //lineOrders.Add(Mapper.Map<AntBox, LineOrder>(x));
+                    });
+                }
+               
 
 
                 var orderModel = new OrderViewModel();
@@ -245,7 +276,6 @@ namespace AntBoxFrontEnd.Controllers
 
                 BoxesModel.Discount = 0;
                 BoxesModel.Iva = Convert.ToDecimal( WebConfigurationManager.AppSettings["Iva"]);
-                BoxesModel.Order = new List<LineOrder>() { new LineOrder {LineTotal=0,Quantity = 1 } };
                 BoxesModel.OrderTotal = 0;
                 BoxesModel.Subtotal = 0;
                 BoxesModel.Total = 0;
@@ -259,7 +289,7 @@ namespace AntBoxFrontEnd.Controllers
 
                 var antBoxResult = new List<AntBoxAddressViewModel>();
 
-                if (result.Count > 0)
+                if (result != null && result.Count > 0)
                 {
                     result.ForEach(r =>
                     {

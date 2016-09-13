@@ -9,7 +9,12 @@ namespace AntBoxFrontEnd.Infrastructure
     {
         // public static String BaseUrl { get { return "http://173.203.159.102:8081/v1"; } }
 
-        public static String BaseUrl { get { return "http://173.203.159.101:8082/v1"; } }
+        public static String Host { get { return "http://173.203.159.101:8082"; } }
+
+
+        public static String BaseUrl { get { return Host + "/v1"; } }
+
+        public static string AuthUrl { get { return Host + "/auth"; } }
 
 
         public static String CustomerAddress { get { return BaseUrl + "/customer-address"; } }
@@ -34,9 +39,13 @@ namespace AntBoxFrontEnd.Infrastructure
 
         public static String Worker { get { return BaseUrl + "/worker"; } }
 
+        public static String AntBoxOut { get { return BaseUrl + "/antboxs/out"; } }
 
-        public static string AuthUrl { get { return "http://173.203.159.101:8082/auth"; } }
-        
+        public static String AntBox { get { return BaseUrl + "/antboxs"; } }
+
+        public static String AntBoxList { get { return BaseUrl + "/antboxs/search"; } }
+
+
 
 
     }

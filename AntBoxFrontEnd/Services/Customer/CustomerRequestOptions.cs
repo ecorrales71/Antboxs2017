@@ -35,25 +35,9 @@ namespace AntBoxFrontEnd.Services.Customer
         [JsonProperty("status")]
         public Boolean Status { get; set; }
 
-        [JsonProperty("zipcode")]
-        int Zipcode { get; set; }
+        
+        [JsonProperty("username")]
+        public string Username { get; set; }
 
-        [JsonProperty("street")]
-        string Street { get; set; }
-
-        [JsonProperty("external_number")]
-        int External_number { get; set; }
-
-        [JsonProperty("internal_number")]
-        int Internal_number { get; set; }
-
-        [JsonProperty("neighborhood")]
-        string Neighborhood { get; set; }
-
-        [JsonProperty("state")]
-        string State { get; set; }
-
-        [JsonProperty("delegation")]
-        string Delegation { get; set; }
     }
 }

@@ -22,14 +22,22 @@ namespace AntBoxFrontEnd.Services.Customer
 
         public virtual Boolean CreateCustomer(CustomerRequestOptions createOptions, RequestOptions requestOptions = null)
         {
-            requestOptions = SetupRequestOptions(requestOptions);            
+            requestOptions = SetupRequestOptions(requestOptions);
+
+            if (createOptions.Status == null)
+                createOptions.Status = true;
+                      
 
             string serilizedObj = JsonConvert.SerializeObject(createOptions, new JsonSerializerSettings() { NullValueHandling = NullValueHandling.Ignore }).ToString();
             StringContent PostData = new StringContent(serilizedObj, Encoding.UTF8, "application/json");
 
             try
             {
-                var customerResponse = Requestor.Post<MissingResponse>(UrlsConstants.Customer, requestOptions, PostData);
+
+                var customerResponse = Requestor.Post<CustomerCreatedResponse>(UrlsConstants.Customer, requestOptions, PostData);
+                if (string.IsNullOrEmpty(customerResponse.Id))
+                    return false;
+
             }catch (Exception ex)
             {
                 //Todo log
@@ -94,5 +102,11 @@ namespace AntBoxFrontEnd.Services.Customer
 
 
 
+    }
+
+    public class CustomerCreatedResponse
+    {
+        [JsonProperty("id")]
+        public string Id { get; set; }
     }
 }

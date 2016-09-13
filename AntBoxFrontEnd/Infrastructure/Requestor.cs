@@ -1,16 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
 using System.Net;
-using System.Web;
 using System.Net.Http;
 using Newtonsoft.Json;
 using System.Net.Http.Headers;
 using AntBoxFrontEnd.Services;
 using AntBoxFrontEnd.Entities;
-using AntBoxFrontEnd.Models;
 using System.Web.Configuration;
 using RestSharp;
 using RestSharp.Authenticators;

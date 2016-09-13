@@ -3,10 +3,7 @@
 @{
     ViewBag.Title = "Index";
 
-    ViewData["Order"] = new AntBoxFrontEnd.Models.OrderViewModel();
-
-
-
+    Model.NewAddress = new AntBoxFrontEnd.Models.AntBoxAddressViewModel();
 
 }
 
@@ -84,10 +81,14 @@
                                             <div class="form-group mb0">
                                                 <label for="form-select">Dirección de recolección</label>
                                                 <select id="form-select">
-                                                    <option value>- Selecciona una opción -</option>
+                                                    @foreach(var item in Model.Addresses)
+                                                    {
+                                                        <option value='@item.Id.ToString()'> @item.Alias</option>
+                                                    }
+                                                    @*<option value>- Selecciona una opción -</option>
                                                     <option value="Casa">Casa</option>
                                                     <option value="Oficina">Oficina</option>
-                                                    <option value="Facturación">Facturación</option>
+                                                    <option value="Facturación">Facturación</option>*@
                                                 </select>
                                                 <button type="button" class="btn btn-primary btn-xs pull-right" data-toggle="modal" data-target="#nueva_direccion">Nueva dirección</button>
                                             </div>
@@ -116,8 +117,10 @@
                                                 <textarea name="message" id="form-message"></textarea>
                                             </div>
                                             <div class="checkbox">
+                                                
                                                 <label>
-                                                    <input type="checkbox" name="optionsCheckbox">
+                                                    @Html.EditorFor(m => m.Service_time_Pickup);
+                                                    @*<input type="checkbox" name="optionsCheckbox">*@
                                                     Quiero que el conductor me espere para que pueda llevar mis Antboxs de vuelta al almacén de forma inmediata. (Considere que los conductores solo pueden esperar hasta 20 minutos)
                                                 </label>
                                             </div>
@@ -147,10 +150,14 @@
                                             <div class="form-group mb0">
                                                 <label for="form-select">Dirección de entrega</label>
                                                 <select id="form-select">
-                                                    <option value>- Selecciona una opción -</option>
+                                                    @foreach (var item in Model.Addresses)
+                                                    {
+                                                        <option value='@item.Id.ToString()'> @item.Alias</option>
+                                                    }
+                                                    @*<option value>- Selecciona una opción -</option>
                                                     <option value="Casa">Casa</option>
                                                     <option value="Oficina">Oficina</option>
-                                                    <option value="Facturación">Facturación</option>
+                                                    <option value="Facturación">Facturación</option>*@
                                                 </select>
                                                 <button type="button" class="btn btn-primary btn-xs pull-right" data-toggle="modal" data-target="#nueva_direccion">Nueva dirección</button>
                                             </div>
@@ -286,220 +293,333 @@
                             <h6 class="modal-title">Registrar nueva dirección</h6>
                         </div>
                         <div class="modal-body">
-                            <form action="../../php/email.php" method="post" class="contact-form form-solid" novalidate>
+                            <form action="" method="post" class="contact-form form-solid" novalidate id="updateForm">
+                                @Html.Hidden("id", "", new { @class = "hiddenid" })
                                 <div class="row">
                                     <div class="col-sm-6">
                                         <div class="form-group">
-                                            <label for="send-form-name">Nombre de Identificación*</label>
-                                            <input type="text" name="name" id="send-form-name">
+                                            @Html.LabelFor(m => m.NewAddress.Alias)
+                                            @Html.TextBoxFor(m => m.NewAddress.Alias, Model.NewAddress.Alias, new { @id = "Alias" })
+                                            @Html.ValidationMessageFor(m => m.NewAddress.Alias)
                                         </div>
                                         <div class="form-group">
-                                            <label for="send-form-email">Calle</label>
-                                            <input type="text" name="email" id="send-form-email">
+                                            @Html.LabelFor(m => m.NewAddress.Street)
+                                            @Html.TextBoxFor(m => m.NewAddress.Street, Model.NewAddress.Street, new { @id = "Street" })
+                                            @Html.ValidationMessageFor(m => m.NewAddress.Street)
                                         </div>
                                         <div class="row">
                                             <div class="col-sm-6">
                                                 <div class="form-group">
-                                                    <label for="send-form-email">Núm. Int.</label>
-                                                    <input type="text" name="email" id="send-form-email">
+                                                    @Html.LabelFor(m => m.NewAddress.Internal_number)
+                                                    @Html.TextBoxFor(m => m.NewAddress.Internal_number, Model.NewAddress.Internal_number, new { @id = "Internal_number" })
+                                                    @Html.ValidationMessageFor(m => m.NewAddress.Internal_number)
                                                 </div>
                                             </div>
                                             <div class="col-sm-6">
                                                 <div class="form-group">
-                                                    <label for="send-form-email">Núm. Ext.</label>
-                                                    <input type="text" name="email" id="send-form-email">
+                                                    @Html.LabelFor(m => m.NewAddress.External_number)
+                                                    @Html.TextBoxFor(m => m.NewAddress.External_number, Model.NewAddress.External_number, new { @id = "External_number" })
+                                                    @Html.ValidationMessageFor(m => m.NewAddress.External_number)
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label for="send-form-email">Código Postal</label>
-                                            <input type="text" name="email" id="send-form-email">
+                                            @Html.LabelFor(m => m.NewAddress.Zipcode)
+                                            @*<input type="text" name="email" id="txtZipcode1">*@
+                                            @Html.TextBoxFor(m => m.NewAddress.Zipcode, new { @id = "txtZipcode1" })
+                                            @Html.ValidationMessageFor(m => m.NewAddress.Zipcode)
                                         </div>
                                         <div class="form-group">
                                             <label for="form-select">Delegación o Municipio</label>
-                                            <select id="form-select">
-                                                <option value>- Selecciona una opción -</option>
-                                                <option value="d1">Delegacion 1</option>
-                                                <option value="d2">Delegacion 2</option>
-                                                <option value="d3">Delegacion 3</option>
-                                                <option value="d4">Delegacion 4</option>
-                                            </select>
+                                            @Html.DropDownListFor(m => m.NewAddress.Delegation, Model.NewAddress.Delegaciones, "", new { @id = "cmbDelegations1" })
+                                            @*<select id="delegation">
+                                    <option value="">- Selecciona una opción -</option>
+                                </select>*@
                                         </div>
                                         <div class="form-group">
                                             <label for="form-select">Colonia</label>
-                                            <select id="test" name="form_select" onchange="showOtraColonia3(this)">
-                                                <option value>- Selecciona una opción -</option>
-                                                <option value="c1">Colonia 1</option>
-                                                <option value="c2">Colonia 2</option>
-                                                <option value="c3">Colonia 3</option>
-                                                <option value="c4">Colonia 4</option>
-                                                <option value="otra">Otra</option>
-                                            </select>
-                                        </div>
-                                        <div id="hidden_div3" class="form-group">
-                                            <label for="send-form-email">Nombre de la colonia*</label>
-                                            <input type="text" name="email" id="send-form-email">
+                                            @Html.DropDownListFor(m => m.NewAddress.Neighborhood, Model.NewAddress.Colonias, "", new { @id = "cmbNeighborhood1" })
+                                            @*<select id="neighborhood" name="form_select">
+                                    <option value="">- Selecciona una opción -</option>
+                                </select>*@
                                         </div>
                                     </div>
                                     <div class="col-sm-6 pl0_modal">
                                         <div class="form-group">
-                                            <label for="send-form-name">Ciudad</label>
-                                            <input type="text" name="name" id="send-form-name">
+                                            @Html.LabelFor(m => m.NewAddress.City)
+                                            @Html.TextBoxFor(m => m.NewAddress.City, new { @id = "City" })
+                                            @Html.ValidationMessageFor(m => m.NewAddress.City)
                                         </div>
                                         <div class="form-group">
-                                            <label for="send-form-name">Estado</label>
-                                            <input type="text" name="name" id="send-form-name">
+                                            @Html.LabelFor(m => m.NewAddress.State)
+                                            @Html.TextBoxFor(m => m.NewAddress.State, Model.NewAddress.State, new { @id = "State" })
+                                            @Html.ValidationMessageFor(m => m.NewAddress.State)
                                         </div>
                                         <div class="form-group">
-                                            <label for="send-form-email">País</label>
-                                            <input type="text" name="email" id="send-form-email">
+                                            @Html.LabelFor(m => m.NewAddress.Country)
+                                            @Html.TextBoxFor(m => m.NewAddress.Country, Model.NewAddress.Country, new { @id = "Country" })
+                                            @Html.ValidationMessageFor(m => m.NewAddress.Country)
                                         </div>
-                                        <div class="form-group">
-                                            <label for="send-form-message">Referencias y Comentarios</label>
-                                            <textarea name="message" id="send-form-message"></textarea>
-                                        </div>
+
                                     </div>
                                     <div class="col-sm-12 mt10">
-                                        <input type="submit" class="btn btn-primary btn-wide pull-right" value="Registrar">
+                                        <input type="submit" class="btn btn-primary btn-wide pull-right" id="btnCreateAddress1">
                                         <p class="succs-msg">Мensaje enviado</p>
                                     </div>
                                 </div>
-                            </form>
                         </div>
-                    </div>
-                </div>
-            </div>
-            <!-- /.modal -->
-            <!-- Modal Medium -->
-            <div class="modal fade" id="nueva_tarjeta">
-                <div class="modal-dialog modal-md">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal"><i class="fa fa-times"></i></button>
-                            <h6 class="modal-title">Registrar nueva tarjeta</h6>
-                        </div>
-                        <div class="modal-body">
-                            <form action="../../php/email.php" method="post" class="contact-form form-solid" novalidate>
-                                <div class="row">
-                                    <div class="col-sm-6">
-                                        <div class="form-group">
-                                            <label for="send-form-name">Nombre de Tarjeta*</label>
-                                            <input type="text" name="name" id="send-form-name">
-                                        </div>
+                        <!-- /.modal -->
+                        <!-- Modal Medium -->
+                        <div class="modal fade" id="nueva_tarjeta">
+                            <div class="modal-dialog modal-md">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal"><i class="fa fa-times"></i></button>
+                                        <h6 class="modal-title">Registrar nueva tarjeta</h6>
                                     </div>
-                                    <div class="col-sm-6">
-                                        <div class="form-group">
-                                            <label for="send-form-email">Número de Tarjeta*</label>
-                                            <input type="email" name="email" id="send-form-email">
-                                        </div>
+                                    <div class="modal-body">
+                                        <form action="../../php/email.php" method="post" class="contact-form form-solid" novalidate>
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <label for="send-form-name">Nombre de Tarjeta*</label>
+                                                        <input type="text" name="name" id="send-form-name">
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <label for="send-form-email">Número de Tarjeta*</label>
+                                                        <input type="email" name="email" id="send-form-email">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <p class="mb0 etiqueta">Expiración:</p>
+                                            <div class="row">
+                                                <div class="col-sm-4">
+                                                    <div class="form-group">
+                                                        <label for="send-form-email">MM*</label>
+                                                        <input type="email" name="email" id="send-form-email">
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <div class="form-group">
+                                                        <label for="send-form-email">YY*</label>
+                                                        <input type="email" name="email" id="send-form-email">
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <div class="form-group">
+                                                        <label for="send-form-email">CVC*</label>
+                                                        <input type="email" name="email" id="send-form-email">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row ml0 mr0 mt10">
+                                                <input type="submit" class="btn btn-primary btn-wide pull-right" value="Registrar">
+                                                <p class="succs-msg">Мensaje enviado</p>
+                                            </div>
+                                        </form>
                                     </div>
                                 </div>
-                                <p class="mb0 etiqueta">Expiración:</p>
-                                <div class="row">
-                                    <div class="col-sm-4">
-                                        <div class="form-group">
-                                            <label for="send-form-email">MM*</label>
-                                            <input type="email" name="email" id="send-form-email">
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <div class="form-group">
-                                            <label for="send-form-email">YY*</label>
-                                            <input type="email" name="email" id="send-form-email">
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <div class="form-group">
-                                            <label for="send-form-email">CVC*</label>
-                                            <input type="email" name="email" id="send-form-email">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row ml0 mr0 mt10">
-                                    <input type="submit" class="btn btn-primary btn-wide pull-right" value="Registrar">
-                                    <p class="succs-msg">Мensaje enviado</p>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- /.modal -->
-            <!-- Modal Medium -->
-            <div class="modal fade" id="restricciones_uso">
-                <div class="modal-dialog modal-md">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal"><i class="fa fa-times"></i></button>
-                            <h6 class="modal-title">Restricciones de uso</h6>
-                        </div>
-                        <div class="modal-body">
-                            <div class="modal-body-inside">
-                                <h4>Respeta las siguientes condiciones de uso:</h4>
-                                <div class="heading-divider"></div>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
                             </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-            <!-- /.modal -->
-            <!-- Modal Large -->
-            <div class="modal fade" id="terminos_condiciones">
-                <div class="modal-dialog modal-lg">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal"><i class="fa fa-times"></i></button>
-                            <h6 class="modal-title">Términos y condiciones</h6>
-                        </div>
-                        <div class="modal-body">
-                            <div class="modal-body-inside">
-                                <h4>Términos y condiciones</h4>
-                                <div class="heading-divider"></div>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                        <!-- /.modal -->
+                        <!-- Modal Medium -->
+                        <div class="modal fade" id="restricciones_uso">
+                            <div class="modal-dialog modal-md">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal"><i class="fa fa-times"></i></button>
+                                        <h6 class="modal-title">Restricciones de uso</h6>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="modal-body-inside">
+                                            <h4>Respeta las siguientes condiciones de uso:</h4>
+                                            <div class="heading-divider"></div>
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-            </div>
+                        <!-- /.modal -->
+                        <!-- Modal Large -->
+                        <div class="modal fade" id="terminos_condiciones">
+                            <div class="modal-dialog modal-lg">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal"><i class="fa fa-times"></i></button>
+                                        <h6 class="modal-title">Términos y condiciones</h6>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="modal-body-inside">
+                                            <h4>Términos y condiciones</h4>
+                                            <div class="heading-divider"></div>
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
-            @section scripts {
+@section scripts {
 
 
-                <!-- /.modal -->
-                <script type="text/javascript">
-                    Calendar.setup({
-                        inputField     :    "fecha_recoleccion",      // id del campo de texto
-                        ifFormat       :    "%Y-%m-%d",       // formato de la fecha, cuando se escriba en el campo de texto
-                        button         :    "recoleccion"   // el id del botón que lanzará el calendario
+    <!-- /.modal -->
+    <script type="text/javascript">
+        Calendar.setup({
+            inputField: "fecha_recoleccion",      // id del campo de texto
+            ifFormat: "%Y-%m-%d",       // formato de la fecha, cuando se escriba en el campo de texto
+            button: "recoleccion"   // el id del botón que lanzará el calendario
+        });
+    </script>
+    <script type="text/javascript">
+        Calendar.setup({
+            inputField: "fecha_entrega",      // id del campo de texto
+            ifFormat: "%Y-%m-%d",       // formato de la fecha, cuando se escriba en el campo de texto
+            button: "entrega"   // el id del botón que lanzará el calendario
+        });
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('[data-toggle="popover"]').popover({ html: true });
+        });
+    </script>
+
+    <script type="text/javascript">
+        // Script para el campo de colonia
+        function showOtraColonia3(elem) {
+            if (elem.value == "otra")
+                document.getElementById('hidden_div3').style.display = "block";
+            else
+                document.getElementById('hidden_div3').style.display = "none";
+        }
+    </script>
+
+    <script type="text/javascript">
+        function CambioZipModal() {
+            var zipcode = $('#txtZipcode1').val();
+            //alert(zipcode);
+
+            $.ajax({
+                url: '@Url.Action("GetDelegation", "Home")',
+                type: "POST",
+                data: { "zipcode": zipcode },
+                success: function (data) {
+
+                    $("#cmbDelegations1").html("");
+                    var items = '<option>Seleccciona una delegacion</option>';
+                    $.each(data.result, function (i, delegation) {
+                        items += "<option value='" + delegation.Value + "'>" + delegation.Text + "</option>";
                     });
-                </script>
-                <script type="text/javascript">
-                    Calendar.setup({
-                        inputField     :    "fecha_entrega",      // id del campo de texto
-                        ifFormat       :    "%Y-%m-%d",       // formato de la fecha, cuando se escriba en el campo de texto
-                        button         :    "entrega"   // el id del botón que lanzará el calendario
+                    $('#cmbDelegations1').html(items);
+                    $('#cmbDelegations1').trigger("chosen:updated");
+                }
+            });
+
+            $.ajax({
+                url: '@Url.Action("GetColonias", "Home")',
+                type: "POST",
+                data: { "zipcode": zipcode },
+                success: function (data) {
+
+                    $("#cmbNeighborhood1").html("");
+                    var items = '<option>Seleccciona una colonia</option>';
+                    $.each(data.result, function (i, delegation) {
+                        items += "<option value='" + delegation.Value + "'>" + delegation.Text + "</option>";
                     });
-                </script>
-                <script type="text/javascript">
-                    $(document).ready(function(){
-                        $('[data-toggle="popover"]').popover({ html : true });
-                    });
-                </script>
-
-                <script type="text/javascript">
-                    // Script para el campo de colonia
-                    function showOtraColonia3(elem){
-                        if(elem.value == "otra")
-                            document.getElementById('hidden_div3').style.display = "block";
-                        else
-                            document.getElementById('hidden_div3').style.display = "none";
-                    }
-                </script>
+                    $('#cmbNeighborhood1').html(items);
+                    $('#cmbNeighborhood1').trigger("chosen:updated");
+                }
 
 
-                
+            });
 
+            $.ajax({
+                url: '@Url.Action("GetState", "Home")',
+                type: "POST",
+                data: { "zipcode": zipcode },
+                success: function (data) {
+                    $('#State').val(data.result);
+                    $('#City').val(data.result);
+                    $('#Country').val('México');
+                }
+            });
+
+        }
+
+
+
+    </script>
+
+                        <script type="text/javascript">
+    $('#btnCreateAddress').click(function () {
+       // alert('Entro la acción');
+        $.ajax({
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            type: 'POST',
+            url: '@Url.Action("CreateAddress", "Home")',
+           // data: $('#frmNewAddress').serialize(),
+            data: JSON.stringify({
+                                    "Alias": $("#Alias").val(),
+                                    "Street": $("#Street").val(),
+                                    "Internal_number": $("#Internal_number").val(),
+                                    "External_number": $("#External_number").val(),
+                                    "Zipcode": $("#txtZipcode1").val(),
+                                    "Delegation": $("#cmbDelegations1").val(),
+                                    "Neighborhood": $("#cmbNeighborhood1").val(),
+                                    "City": $("#City").val(),
+                                    "State": $("#State").val(),
+                                    "Country": $("#Country").val(),
+                                    "References": $("#References").val()
+                                }),
+            success: function (result) {
+                if (result.success == false) {
+                    $('#nueva_direccion').prepend(
+                    '<div class="alert alert-warning" role="alert" id="addressError">Error al registrar dirección, intentelo de nuevo.</div>');
+                    window.setTimeout(function ()
+                    { $("#addressError").alert('close'); }, 2000);
+
+                }
+                else {
+                    $('#login-info').html(result);
+                    $('#nueva_direccion').prepend(
+                   '<div class="alert alert-warning" role="alert" id="addressError">Dirección registrada.</div>');
+                    window.setTimeout(function ()
+                    { $("#addressError").alert('close'); }, 2000);
+
+                    window.location.reload(true);
+                    //$('#frmNewAddress').ready(function () {
+                    //    $("input").each(function () {
+                    //        $(this).val("");
+                    //    });
+                    //});
+                }
+            },
+            error: function (emp) {
+                $('#frmNewAddress').prepend(
+                    '<div class="alert alert-danger fade-in" role="alert" id="LoginErrorAlert">Error al registrar dirección, intentelo de nuevo.</div>'
+                    );
+                window.setTimeout(function ()
+                { $("#LoginErrorAlert").alert('close'); }, 2000);
 
             }
+        });
+    });
+
+
+
+	function showOtraColonia1(elem){
+	if(elem.value == "otra")
+	document.getElementById('hidden_div1').style.display = "block";
+	else
+	document.getElementById('hidden_div1').style.display = "none";
+	}
+                        </script>
+
+
+
+
+}
 

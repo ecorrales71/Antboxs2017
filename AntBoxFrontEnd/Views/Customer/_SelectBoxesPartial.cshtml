@@ -1,8 +1,15 @@
 ﻿
 @model  AntBoxFrontEnd.Models.AntBoxesViewModel
 
-@{ 
+@{
     ViewData["i"] = 1;
+    int rowNo = 1;
+
+    var quantity = Model.Order[1].Quantity;
+    var price = Model.Order[1].Price;
+
+    var calculated = quantity * price;
+
 
 }
 
@@ -21,34 +28,34 @@
                     </tr>
                 </thead>
                 <tbody id="tblBoxes">
-                    @{int rowNo = 1;}
 
                     @foreach (var item in Model.Order)
                     {
-                        <tr class="cart_item" id=@rowNo>
+                        
+                        <tr class="cart_item" >
                             <td class="product-name">
-                                <h5>+ @item.Model + </h5>
+                                <h5> @item.Label </h5>
                                 <dl class="variation">
                                     <dt class="variation-Color">Medidas:</dt>
                                     <dd class="variation-Color">
-                                        <p>+ @item.Sizes +</p>
+                                        <p> @item.Sizes </p>
                                     </dd>
                                 </dl>
                             </td>
                             <td class="product-price no_mobile">
-                                <span class="amount">$ + @item.Price +</span>
+                                <span class="amount"  id='Price_@rowNo'>$  @item.Price </span>
                             </td>
                             <td class="product-quantity">
                                 <a href="" class="minus disabled">-</a>
-                                <input type="text" value=@item.Quantity) >
-                                <a href="" class="plus">+</a>
+                                <input type="text" id='quantity_@rowNo' value=@item.Quantity  onchange="QuantityChange()">
+                                <a href="" class="plus" onclick='AddBox(@rowNo)' >+</a>
                             </td>
                             <td class="product-subtotal no_iphone_portrait">
-                                <span class="amount">$ @item.LineTotal </span>
+                                <span class="amount" id=@rowNo>$    @calculated </span>
                             </td>
-                            @(rowNo += 1)
+                            
                         </tr>
-                      
+                       rowNo++;
                     }
 
                     <tr>
@@ -100,3 +107,54 @@
         </div>
     </div>
 </div>
+
+    
+<script type="text/javascript">
+    function AddBox(ide) {
+            
+        alert("Entro la accion " + ide);
+
+        var p = '#Price_' + ide;
+        var q = '#quantity_' + ide;
+        alert(p + " " + q);
+
+        var price = $(p).val;
+        var quantity = $(q).val;
+        
+        alert(price);
+        alert(quantity);
+
+        lineSub = price * quantity;
+
+        alert(lineSub);
+
+        var ii = '#' + ide;
+
+        $(ii).val = lineSub;
+
+        
+
+    }
+
+    var CartLine = function () {
+        var self = this;
+
+        
+
+    }
+
+</script>
+    
+
+
+<script type="text/javascript">
+    function QuantityChange() {
+        alert("Entro al on change");
+
+
+
+    }
+
+
+
+</script>

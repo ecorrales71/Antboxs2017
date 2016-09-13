@@ -42,6 +42,8 @@ namespace AntBoxFrontEnd.Entities
 
         public int Quantity { get; set; }
 
+        public string Label { get; set; }
+
         [DataType(DataType.Currency)]
         public decimal LineTotal { get; set; }
     }

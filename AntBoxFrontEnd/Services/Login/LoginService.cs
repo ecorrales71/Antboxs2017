@@ -29,6 +29,7 @@ namespace AntBoxFrontEnd.Services.Login
                 var encodedContent = Infrastructure.UrlHelper.BuildURLParametersString(parameters);
 
                 var response = Requestor.Get<LoginResponse>(UrlsConstants.Login + encodedContent, requestOptions);
+
                 id = response.Id;
             }catch(Exception ex)
             {

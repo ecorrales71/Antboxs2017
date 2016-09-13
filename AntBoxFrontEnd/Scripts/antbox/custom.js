@@ -268,6 +268,7 @@
 
                 var el = $(this),
                     inpt = el.parent().find('input'),
+                    subtotal = el.parent().find('input'),
                     oldValue = inpt.val(),
                     newVal;
 
@@ -278,6 +279,8 @@
                 }
                 
                 inpt.val(newVal);
+
+
             });
 
             $('.single-product-page-cart-form select').on('change', function () {

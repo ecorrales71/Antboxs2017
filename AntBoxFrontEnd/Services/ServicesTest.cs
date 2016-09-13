@@ -20,7 +20,7 @@ namespace AntBoxFrontEnd.Services
         
         public void Start()
         {
-            CreateCustomer();
+           //CreateCustomer();
 
             //SearchZip();
 
@@ -54,20 +54,21 @@ namespace AntBoxFrontEnd.Services
 
             //Debug.WriteLine("Se creo Tarea: " + restask);
 
-            //var box = CreateBoxes(idcustomer,2);
+            //var box = CreateBoxes(idcustomer, 2);
             //Debug.WriteLine(box);
 
             var listabox = ListBoxes(idcustomer);
 
-            var idbox = listabox
-                        .OrderBy(a => a.Id)
-                        .FirstOrDefault();
-            Debug.WriteLine(idbox);
+            //var idbox = listabox
+            //            .OrderBy(a => a.Id)
+            //            .FirstOrDefault();
+            //Debug.WriteLine(idbox);
 
-            listabox.ForEach(x =>
-            {
-                DeleteBox(x.Id);
-            });
+            //listabox.ForEach(x =>
+            //{
+            //    Debug.WriteLine(x.Id);
+            //    DeleteBox(x.Id);
+            //});
 
             //var boxtest = SearchBox(idbox.Id);
             //Debug.WriteLine(idbox);
@@ -93,9 +94,9 @@ namespace AntBoxFrontEnd.Services
 
             var usr = new AntBoxFrontEnd.Services.Login.LoginCreateOptions
             {
-                //Email = "prueba4@prueba.com",
+               // Email = "prueba4@prueba.com",
                 //Password = "44abc"
-                Email = "emartinez@greenrivercg.com.mx",
+                Email = "emcastaneda@greenrivercg.com.mx",
                 Password = "87654321"
             };
 
@@ -113,13 +114,16 @@ namespace AntBoxFrontEnd.Services
         {
             var cus = new AntBoxFrontEnd.Services.Customer.CustomerRequestOptions
             {
-                Email = "emartinez@greenrivercg.com.mx",
+                Email = "emcastaneda@greenrivercg.com.mx",
                 Name = "Eric",
                 LastName = "Martinez",
                 Lastname2 = "Castañeda",
                 Mobile_phone = "5543434343",
                 Phone = "5546464646",
-                Password = "87654321"
+                Password = "87654321",
+                Username = "emcastaneda",
+                Status = true
+                
             };
 
             var ser = new CustomerServices(ServiceConfiguration.GetApiKey());
@@ -333,23 +337,33 @@ namespace AntBoxFrontEnd.Services
 
         private bool CreateBoxes(string id,int num)
         {
-            for (int i = 0; i < num; i++)
+            var caja1 = new BoxesRequestOptions
             {
-                var cus = new BoxesRequestOptions
-                {
-                    Label = "ALIAS " +i,
-                    Model = "modelo " + i,
-                    Price = 300,
-                    Secure = 1500,
-                    Registered_by = id,
-                    Size = "Size " + i,
-                    Status = true
-                };
+                Label = "Antboxs Chica",
+                Model = "antboxch",
+                Price = 150,
+                Secure = 1500,
+                Registered_by = id,
+                Size = "27\" x 17\" x 12\"",
+                Status = true
+            };
+
+            var caja2 = new BoxesRequestOptions
+            {
+                Label = "Antboxs Mediana",
+                Model = "antboxmd",
+                Price = 200,
+                Secure = 1500,
+                Registered_by = id,
+                Size = "27\" x 17\" x 12\"",
+                Status = true
+            };
+
 
                 var ser = new BoxesService(ServiceConfiguration.GetApiKey());
 
-                var res = ser.CreateBoxes(cus);
-            }
+            var res = ser.CreateBoxes(caja1);
+            var res2 = ser.CreateBoxes(caja2);
 
             return true;
         }
@@ -360,7 +374,7 @@ namespace AntBoxFrontEnd.Services
         {
             var l = new BoxesService(ServiceConfiguration.GetApiKey());
 
-            var res = l.ListBoxes(idcustomer);
+            var res = l.ListBoxes(StatusBoxes.Active);
 
             return res;
 

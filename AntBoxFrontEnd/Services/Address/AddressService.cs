@@ -19,6 +19,9 @@ namespace AntBoxFrontEnd.Services.Address
     {
 
         const int itemPerPage = 40;
+
+        const int Max = 3;
+
         public int Page { get; set; }
 
 
@@ -123,10 +126,15 @@ namespace AntBoxFrontEnd.Services.Address
                 var parameters = new Dictionary<string, string>();
 
                 parameters.Add("items_per_page", itemPerPage.ToString());
-                parameters.Add("page_number", currentPage.ToString());
 
-                if(!string.IsNullOrEmpty(idPagination))
+
+                if (!string.IsNullOrEmpty(idPagination))
+                {
+                    parameters.Add("page_number", currentPage.ToString());
                     parameters.Add("pagination_id", idPagination);
+                }else
+                    parameters.Add("page_number", "1");
+
 
                 var encodedParams = Infrastructure.UrlHelper.BuildURLParametersString(parameters);
 
@@ -134,6 +142,33 @@ namespace AntBoxFrontEnd.Services.Address
 
                 return addresses.Addresses;
             }catch(Exception ex)
+            {
+                LogManager.Write(ex.Message + " " + ex.InnerException, LogManager.Error);
+                return null;
+            }
+        }
+
+
+        public virtual PaginationAddresses ListAddressesPagination(string id, int currentPage , string idPagination, RequestOptions requestOptions = null)
+        {
+            try
+            {
+                requestOptions = SetupRequestOptions(requestOptions);
+
+                var parameters = new Dictionary<string, string>();
+
+                parameters.Add("items_per_page", Max.ToString());
+                parameters.Add("page_number", currentPage.ToString());
+
+                parameters.Add("pagination_id", idPagination);
+
+                var encodedParams = Infrastructure.UrlHelper.BuildURLParametersString(parameters);
+
+                var addresses = Requestor.Get<PaginationAddresses>(UrlsConstants.CustomerAddressSearch + "/" + id + encodedParams, requestOptions);
+
+                return addresses;
+            }
+            catch (Exception ex)
             {
                 LogManager.Write(ex.Message + " " + ex.InnerException, LogManager.Error);
                 return null;
