@@ -33,19 +33,19 @@ namespace AntBoxFrontEnd.Services.Customer
         public string Rfc_id { get; set; }
 
         [JsonProperty("status")]
-        public Boolean Status { get; set; }
+        public Boolean? Status { get; set; }
 
         [JsonProperty("zipcode")]
-        int Zipcode { get; set; }
+        int? Zipcode { get; set; }
 
         [JsonProperty("street")]
         string Street { get; set; }
 
         [JsonProperty("external_number")]
-        int External_number { get; set; }
+        int? External_number { get; set; }
 
         [JsonProperty("internal_number")]
-        int Internal_number { get; set; }
+        int? Internal_number { get; set; }
 
         [JsonProperty("neighborhood")]
         string Neighborhood { get; set; }
