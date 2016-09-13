@@ -12,13 +12,10 @@ namespace AntBoxFrontEnd
                         "~/Scripts/jquery-{version}.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/antbox").Include(
-                        "~/Scripts/antbox/plugins.js",
-                        "~/Scripts/antbox/fontawesome-markers.min.js",
-                        "~/Scripts/antbox/custom.js",
-                        "~/Scripts/antbox/plugins.js",
-                        "~/Scripts/antbox/fontawesome-markers.min.js",
-                        "~/Scripts/antbox/custom.js",
                         "~/Scripts/antbox/jquery-2.1.4.min.js",
+                        "~/Scripts/antbox/plugins.js",
+                        "~/Scripts/antbox/fontawesome-markers.min.js",
+                        "~/Scripts/antbox/custom.js",
                         "~/Scripts/antbox/calendar.js",
                         "~/Scripts/antbox/calendar-es.js",
                         "~/Scripts/antbox/calendar-setup.js",
@@ -39,13 +36,13 @@ namespace AntBoxFrontEnd
                       "~/Scripts/respond.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.css",
-                      "~/Content/site.css",
                       "~/Content/preloader.css",
+                      "~/Content/bootstrap.css",
                       "~/Content/font-awesome.min.css",
                       "~/Content/animate.css",
                       "~/Content/revolution.css",
                       "~/Content/style.css",
+                      "~/Content/calendar.css",
                       "~/Content/custom.css",
                       "~/Content/custom-responsive.css",
                       "~/Content/font.css"

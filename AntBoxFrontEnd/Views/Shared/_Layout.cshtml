@@ -109,7 +109,21 @@
 
 
         @RenderBody()
-        
+    <!-- PROMO-BOX -->
+    <div class="promo-box promo-box-light">
+        <div class="container">
+            <section class="row irow-xs page-header cols-border divtable mt30 mb30">
+                <div class="col-lg-10 col-md-9 col-sm-8 divcell promobox_txt">
+                    <h1>¿Tienes dudas sobre nuestro servicio?</h1>
+                    <p>Visita las preguntas frecuentes, probablemente ya hemos respondido tus dudas. Sino escríbenos o llámanos y con gusto te atendemos. </p>
+                </div>
+                <div class="col-lg-2 col-md-3 col-sm-4 text-right divcell">
+                    <a href='@Url.Action("PreguntasFrecuentes", "Home")' class="btn btn-primary btn-md">Preguntas Frecuentes</a>
+                </div>
+            </section>
+        </div>
+    </div>
+    <!-- /.promo-box -->
     <!-- FOOTER -->
     <footer class="footer">
         <!-- FOOTER -->
@@ -121,7 +135,7 @@
                     <div class="row">
                         <div class="col-md-3 col-xs-6">
                             <div class="widget widget_about">
-                                <h2><img class="mb10" src="images/antboxs_logo.png" alt="Antboxs"></h2>
+                                <h2><img class="mb10" src="@Url.Content("~/Content/Images/antboxs_logo.png")" alt="Antboxs"></h2>
                                 <p>Antboxs cuida de tu vida y espacio, al ofrecerte una solución de fácil uso, para el almacenamiento de tus artículos, con servicio a domicilio; pagando solamente el espacio que realmente necesitas, a través de una Infraestructura Logística y plataforma tecnológica de clase Mundial.</p>
                                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#registro">Crear Cuenta</button>
                             </div>
@@ -130,15 +144,15 @@
                             <div class="widget widget_links">
                                 <h2 class="widget-title">Categorías</h2>
                                 <ul>
-                                    <li><a href="index.php">Antboxs es...</a></li>
-                                    <li><a href="como-funciona.php">¿Cómo funciona?</a></li>
-                                    <li><a href="que-debo-hacer.php">¿Qué debo hacer?</a></li>
-                                    <li><a href="precios.php">Precios</a></li>
-                                    <li><a href="preguntas-frecuentes.php">Preguntas Frecuentes</a></li>
-                                    <li><a href="contacto.php">Contacto</a></li>
-                                    <li><a href="docs/aviso-de-privacidad.pdf" target="_blank">Aviso de Privacidad</a></li>
-                                    <li><a href="docs/terminos-y-condiciones.pdf" target="_blank">Términos y Condiciones</a></li>
-                                    <li><a href="docs/codigo-de-etica.pdf" target="_blank">Código de Ética</a></li>
+                                    <li><a href='@Url.Action("Index", "Home")'>Antboxs es...</a></li>
+                                    <li><a href='@Url.Action("ComoFunciona", "Home")'>¿Cómo funciona?</a></li>
+                                    <li><a href='@Url.Action("QueDeboHacer", "Home")'>¿Qué debo hacer?</a></li>
+                                    <li><a href='@Url.Action("Precios", "Home")'>Precios</a></li>
+                                    <li><a href='@Url.Action("PreguntasFrecuentes", "Home")'>Preguntas Frecuentes</a></li>
+                                    <li><a href='@Url.Action("Contacto", "Home")'>Contacto</a></li>
+                                    <li><a href="@Url.Content("~/Content/docs/aviso-de-privacidad.pdf")" target="_blank">Aviso de Privacidad</a></li>
+                                    <li><a href="@Url.Content("~/Content/docs/terminos-y-condiciones.pdf")" target="_blank">Términos y Condiciones</a></li>
+                                    <li><a href="@Url.Content("~/Content/docs/codigo-de-etica.pdf")" target="_blank">Código de Ética</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -274,10 +288,14 @@
                                 <label for="email">Email</label>
                                 <input type="email" name="email" id="email">
                             </div>
-                            @*<div class="form-group">
+                            <div class="form-group">
+                                <label for="email">Confirmar Email</label>
+                                <input type="email" name="email2" id="email2">
+                            </div>
+                            <div class="form-group">
                                 <label for="email">Códio Postal de Recolección</label>
-                                <input type="text" name="email" id="email">
-                            </div>*@
+                                <input type="text" name="zipCode" id="zipCode">
+                            </div>
                             @*<div class="alert alert-warning">
                                 <p><i class="fa fa-exclamation-triangle"></i> <strong>Prueba con otro código postal.</strong> Por el momento nuestro servicio no llega a este domicilio pero te mantendremos informado de las próximas zonas de cobertura.</p>
                             </div>*@
