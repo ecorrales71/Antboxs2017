@@ -122,7 +122,7 @@ namespace AntBoxFrontEnd.Controllers
 
             return Json(result, JsonRequestBehavior.AllowGet);
         }
-
+        
         public ActionResult SearchZip(string zipcode)
         {
             var service = new ZipcodeService(ServiceConfiguration.GetApiKey());
@@ -130,6 +130,19 @@ namespace AntBoxFrontEnd.Controllers
             var result = service.SearchZipCode(zipcode);
 
             return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult ValidateZipCodeAjax(string zipcode)
+        {
+            var service = new ZipcodeService(ServiceConfiguration.GetApiKey());
+
+            var result = service.SearchZipCode(zipcode);
+            if (result.Count <1)
+            {
+                return Json(new { success = false }, JsonRequestBehavior.AllowGet);
+            }
+            return Json(new { success = true }, JsonRequestBehavior.AllowGet);
         }
 
         public IEnumerable<SelectListItem> GetStates(string zipcode = null)

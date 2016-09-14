@@ -96,6 +96,7 @@
                             <h3>Tarjetas registradas</h3>
                             <p>Recuerda que tendrás que tener una tarjeta registrada como mínimo para realizar tu primer orden. Tu primer tarjeta se asignará de maner automática para los pagos recurrentes.</p>
                         </div>
+                        <div id="editCardResult"></div>
                         <div id="CardList">
                             @Html.Partial("_CustomerCards", Model)
                         </div>
@@ -431,14 +432,21 @@ function goto_rndf(reload)
             $.ajax({
                 type: 'POST',
                 url: '@Url.Action("RegisterCardAjax", "Payment")',
-                data: { deviceId: deviceSessionId, state: "inactive", token: token_id },
+                data: { deviceId: deviceSessionId, state: "main", token: token_id },
                 success: function (result) {
+
                     if (result.success == true) {
+                        $('#card-number').val("")
+                        $('#card-holder-name').val("")
+                        $('#card-exp-year').val("")
+                        $('#card-exp-month').val("")
+                        $('#card-cvv').val("")
+
                         $('#newCardResult').prepend(
                             '<div class="alert alert-success alert-dismissible fade in" id="RegisterCardSuccess"> <button type="button" class="close" data-dismiss="alert"> <i class="fa fa-times"></i></button><p><i class="fa fa-check"></i>Tarjeta registrada</p></div>');
                         window.setTimeout(function ()
                         { $("#RegisterCardSuccess").alert('close'); }, 10000);
-
+                        window.setTimeout(function () {
                         $.ajax({
                             type: 'POST',
                             url: '@Url.Action("GetCardsAjax", "Payment")',
@@ -463,6 +471,7 @@ function goto_rndf(reload)
 
                             }
                         });
+                    }, 1000);
                     }
                     else {
                         $('#newCardResult').prepend(
@@ -514,18 +523,18 @@ function goto_rndf(reload)
             data: { id: cardId, status: "main" },
             success: function (result) {
                 if (result.success == true) {
-                    $('#newCardResult').prepend(
+                    $('#editCardResult').prepend(
                         '<div class="alert alert-success alert-dismissible fade in" id="RegisterCardSuccess"> <button type="button" class="close" data-dismiss="alert"> <i class="fa fa-times"></i></button><p><i class="fa fa-check"></i>Tarjeta actualizada</p></div>');
                     window.setTimeout(function ()
                     { $("#RegisterCardSuccess").alert('close'); }, 10000);
-
+                    window.setTimeout(function () {
                     $.ajax({
                         type: 'POST',
                         url: '@Url.Action("GetCardsAjax", "Payment")',
                         data: {},
                         success: function (result) {
                             if (result.success == false) {
-                                $('#newCardResult').prepend(
+                                $('#editCardResult').prepend(
                                 '<div class="alert alert-error alert-dismissible fade in" id="GetCardsError"> <button type="button" class="close" data-dismiss="alert"> <i class="fa fa-times"></i></button><p><i class="fa fa-exclamation-triangle"></i>' + 'ERROR al traer los datos de las tarjetas, intente refrescar la pagina.</p></div>');
                                 window.setTimeout(function ()
                                 { $("#GetCardsError").alert('close'); }, 10000);
@@ -536,23 +545,24 @@ function goto_rndf(reload)
                             }
                         },
                         error: function (emp) {
-                            $('#newCardResult').prepend(
+                            $('#editCardResult').prepend(
                                 '<div class="alert alert-error alert-dismissible fade in" id="GetCardsError"> <button type="button" class="close" data-dismiss="alert"> <i class="fa fa-times"></i></button><p><i class="fa fa-exclamation-triangle"></i>' + '[ERROR ' + response.status + '] al traer los datos de las tarjetas, intente refrescar la pagina.</p></div>');
                             window.setTimeout(function ()
                             { $("#GetCardsError").alert('close'); }, 10000);
 
                         }
                     });
+                    }, 1000);
                 }
                 else {
-                    $('#newCardResult').prepend(
-                    '<div class="alert alert-error alert-dismissible fade in" id="RegisterCardError"> <button type="button" class="close" data-dismiss="alert"> <i class="fa fa-times"></i></button><p><i class="fa fa-exclamation-triangle"></i>' + 'ERROR al traer los datos de las tarjetas, intente refrescar la pagina.</p></div>');
+                    $('#editCardResult').prepend(
+                    '<div class="alert alert-error alert-dismissible fade in" id="RegisterCardError"> <button type="button" class="close" data-dismiss="alert"> <i class="fa fa-times"></i></button><p><i class="fa fa-exclamation-triangle"></i>' + 'ERROR al actualizar la tarjeta.</p></div>');
                     window.setTimeout(function ()
                     { $("#RegisterCardError").alert('close'); }, 10000);
                 }
             },
             error: function (emp) {
-                $('#newCardResult').prepend(
+                $('#editCardResult').prepend(
                     '<div class="alert alert-error alert-dismissible fade in" id="RegisterCardError"> <button type="button" class="close" data-dismiss="alert"> <i class="fa fa-times"></i></button><p><i class="fa fa-exclamation-triangle"></i>' + '[ERROR ' + response.status + '] al intentar actualizar la tarjeta en Antbox.</p></div>');
                 window.setTimeout(function ()
                 { $("#RegisterCardError").alert('close'); }, 10000);
@@ -568,45 +578,48 @@ function goto_rndf(reload)
                 data: { id: cardId },
                 success: function (result) {
                     if (result.success == true) {
-                        $('#newCardResult').prepend(
-                            '<div class="alert alert-success alert-dismissible fade in" id="RegisterCardSuccess"> <button type="button" class="close" data-dismiss="alert"> <i class="fa fa-times"></i></button><p><i class="fa fa-check"></i>Tarjeta registrada</p></div>');
+                        $('#editCardResult').prepend(
+                            '<div class="alert alert-success alert-dismissible fade in" id="RegisterCardSuccess"> <button type="button" class="close" data-dismiss="alert"> <i class="fa fa-times"></i></button><p><i class="fa fa-check"></i>Tarjeta eliminada</p></div>');
                         window.setTimeout(function ()
                         { $("#RegisterCardSuccess").alert('close'); }, 10000);
 
-                        $.ajax({
-                            type: 'POST',
-                            url: '@Url.Action("GetCardsAjax", "Payment")',
-                            data: {},
-                            success: function (result) {
-                                if (result.success == false) {
-                                    $('#newCardResult').prepend(
-                                    '<div class="alert alert-error alert-dismissible fade in" id="GetCardsError"> <button type="button" class="close" data-dismiss="alert"> <i class="fa fa-times"></i></button><p><i class="fa fa-exclamation-triangle"></i>' + 'ERROR al traer los datos de las tarjetas, intente refrescar la pagina.</p></div>');
+                        window.setTimeout(function () {
+                            $.ajax({
+                                type: 'POST',
+                                url: '@Url.Action("GetCardsAjax", "Payment")',
+                                data: {},
+                                success: function (result) {
+                                    if (result.success == false) {
+                                        $('#editCardResult').prepend(
+                                        '<div class="alert alert-error alert-dismissible fade in" id="GetCardsError"> <button type="button" class="close" data-dismiss="alert"> <i class="fa fa-times"></i></button><p><i class="fa fa-exclamation-triangle"></i>' + 'ERROR al traer los datos de las tarjetas, intente refrescar la pagina.</p></div>');
+                                        window.setTimeout(function ()
+                                        { $("#GetCardsError").alert('close'); }, 10000);
+
+                                    }
+                                    else {
+                                        $('#CardList').html(result);
+                                    }
+                                },
+                                error: function (emp) {
+                                    $('#editCardResult').prepend(
+                                        '<div class="alert alert-error alert-dismissible fade in" id="GetCardsError"> <button type="button" class="close" data-dismiss="alert"> <i class="fa fa-times"></i></button><p><i class="fa fa-exclamation-triangle"></i>' + '[ERROR ' + response.status + '] al traer los datos de las tarjetas, intente refrescar la pagina.</p></div>');
                                     window.setTimeout(function ()
                                     { $("#GetCardsError").alert('close'); }, 10000);
 
                                 }
-                                else {
-                                    $('#CardList').html(result);
-                                }
-                            },
-                            error: function (emp) {
-                                $('#newCardResult').prepend(
-                                    '<div class="alert alert-error alert-dismissible fade in" id="GetCardsError"> <button type="button" class="close" data-dismiss="alert"> <i class="fa fa-times"></i></button><p><i class="fa fa-exclamation-triangle"></i>' + '[ERROR ' + response.status + '] al traer los datos de las tarjetas, intente refrescar la pagina.</p></div>');
-                                window.setTimeout(function ()
-                                { $("#GetCardsError").alert('close'); }, 10000);
-
-                            }
-                        });
+                            });
+                        }, 1000);
+                        
                     }
                     else {
-                        $('#newCardResult').prepend(
-                        '<div class="alert alert-error alert-dismissible fade in" id="RegisterCardError"> <button type="button" class="close" data-dismiss="alert"> <i class="fa fa-times"></i></button><p><i class="fa fa-exclamation-triangle"></i>' + 'ERROR al traer los datos de las tarjetas, intente refrescar la pagina.</p></div>');
+                        $('#editCardResult').prepend(
+                        '<div class="alert alert-error alert-dismissible fade in" id="RegisterCardError"> <button type="button" class="close" data-dismiss="alert"> <i class="fa fa-times"></i></button><p><i class="fa fa-exclamation-triangle"></i>' + 'ERROR al eliminar la tarjeta.</p></div>');
                         window.setTimeout(function ()
                         { $("#RegisterCardError").alert('close'); }, 10000);
                     }
                 },
                 error: function (emp) {
-                    $('#newCardResult').prepend(
+                    $('#editCardResult').prepend(
                         '<div class="alert alert-error alert-dismissible fade in" id="RegisterCardError"> <button type="button" class="close" data-dismiss="alert"> <i class="fa fa-times"></i></button><p><i class="fa fa-exclamation-triangle"></i>' + '[ERROR ' + response.status + '] al intentar registrar la tarjeta en Antbox.</p></div>');
                     window.setTimeout(function ()
                     { $("#RegisterCardError").alert('close'); }, 10000);
