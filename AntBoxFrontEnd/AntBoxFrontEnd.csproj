@@ -560,7 +560,11 @@
     <Content Include="Content\fonts\Nexa_Light-webfont.ttf" />
     <Content Include="Content\fonts\Nexa_Light-webfont.woff" />
     <Content Include="Content\fonts\Nexa_Light-webfont.woff2" />
+    <Content Include="Content\docs\aviso-de-privacidad.pdf" />
+    <Content Include="Content\docs\codigo-de-etica.pdf" />
+    <Content Include="Content\docs\terminos-y-condiciones.pdf" />
     <None Include="Properties\PublishProfiles\antbox - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\AntBoxs - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\gridmvc.js" />
     <Content Include="Scripts\gridmvc.lang.ru.js" />

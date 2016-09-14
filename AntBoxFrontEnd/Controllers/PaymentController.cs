@@ -39,15 +39,11 @@ namespace AntBoxFrontEnd.Controllers
         public ActionResult DeleteCardAjax(string id)
         {
             var ps = new PaymentService(ServiceConfiguration.GetApiKey());
-
-            PaymentRequestOptions updateOptions = new PaymentRequestOptions()
-            {
-                //status = status
-            };
+            
             bool result = false;
             try
             {
-                result = ps.UpdatePayment(updateOptions, id);
+                result = ps.DeletePayment(id);
                 return Json(new { success = result }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)

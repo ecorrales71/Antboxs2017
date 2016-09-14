@@ -60,7 +60,7 @@ namespace AntBoxFrontEnd.Controllers
 
         [HttpPost]
         [AllowAnonymous]
-        public ActionResult AntBoxRegisterAjax(string email, string name, string lastname, string password)
+        public ActionResult AntBoxRegisterAjax(string email, string name, string lastname, string password, string username)
         {
             var cus = new AntBoxFrontEnd.Services.Customer.CustomerRequestOptions
             {
@@ -69,7 +69,9 @@ namespace AntBoxFrontEnd.Controllers
                 LastName = lastname,
                 //Lastname2 = "Prueba Apellido materno4",
                 Mobile_phone = "",
-                Password = password
+                Password = password,
+                Username=username,
+                Status=true
             };
 
             var ser = new CustomerServices(ServiceConfiguration.GetApiKey());

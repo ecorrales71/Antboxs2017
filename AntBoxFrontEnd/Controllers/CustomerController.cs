@@ -212,6 +212,7 @@ namespace AntBoxFrontEnd.Controllers
 
                 CustomerResponse customer = (CustomerResponse)Session["customer"];
 
+                //boxes
                 var servCajas = new BoxesService(ServiceConfiguration.GetApiKey());
 
                 var cajas = new List<BoxesResponse>();
@@ -261,18 +262,13 @@ namespace AntBoxFrontEnd.Controllers
                
 
 
+                //order
                 var orderModel = new OrderViewModel();
-
                 var BoxesModel = new AntBoxesViewModel();
-
-
-
+                
                 BoxesModel.Order = lineOrders;
-
                 BoxesModel.ActiveAntBoxes = cajasDTO;
-
-
-
+                
 
                 BoxesModel.Discount = 0;
                 BoxesModel.Iva = Convert.ToDecimal( WebConfigurationManager.AppSettings["Iva"]);
@@ -283,6 +279,7 @@ namespace AntBoxFrontEnd.Controllers
 
                 orderModel.Boxes = BoxesModel;
 
+                //addresss
                 var addressService = new AddressService(ServiceConfiguration.GetApiKey());
 
                 var result = addressService.ListAddresses(customer.Id);
@@ -293,7 +290,9 @@ namespace AntBoxFrontEnd.Controllers
                 {
                     result.ForEach(r =>
                     {
-                        var map = Mapper.Map<AddressResponse, AntBoxAddressViewModel>(r);
+                        var dir = addressService.SearchAddress(r.Id);
+
+                        var map = Mapper.Map<AddressResponse, AntBoxAddressViewModel>(dir);
 
                         antBoxResult.Add(map);
                     });

@@ -68,6 +68,27 @@ namespace AntBoxFrontEnd.Services.Payments
             return true;
         }
 
+        public virtual Boolean DeletePayment(string id, RequestOptions requestOptions = null)
+        {
+            requestOptions = SetupRequestOptions(requestOptions);
+
+            var parameters = new Dictionary<string, string> { { "id", id } };
+
+            var encodedParams = Infrastructure.UrlHelper.BuildURLParametersString(parameters);
+
+            try
+            {
+                Requestor.Delete(UrlsConstants.PaymentCard + "/" + id, requestOptions);
+            }
+            catch (Exception ex)
+            {
+                //Todo log
+                LogManager.Write(ex.Message + " " + ex.InnerException, LogManager.Error);
+                return false;
+            }
+            return true;
+        }
+
 
         /// <summary>
         /// 
