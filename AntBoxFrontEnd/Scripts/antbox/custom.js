@@ -275,7 +275,7 @@
                 if (el.hasClass('plus')) {
                     newVal = parseFloat(oldValue) + 1;
                 } else if (el.hasClass('minus')) {
-                    newVal = (oldValue > 1) ? parseFloat(oldValue) - 1 : 1;
+                    newVal = (oldValue > 0) ? parseFloat(oldValue) - 1 : 0;
                 }
                 
                 inpt.val(newVal);

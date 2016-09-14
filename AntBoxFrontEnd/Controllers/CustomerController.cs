@@ -14,6 +14,7 @@ using System.Dynamic;
 using AntBoxFrontEnd.Entities;
 using AntBoxFrontEnd.Services.Boxes;
 using System.Web.Configuration;
+using AntBoxFrontEnd.Services.Tasks;
 
 namespace AntBoxFrontEnd.Controllers
 {
@@ -299,7 +300,14 @@ namespace AntBoxFrontEnd.Controllers
 
                     orderModel.Addresses = antBoxResult;
                 }
-               
+
+                //CARDS
+
+                var ps = new PaymentService(ServiceConfiguration.GetApiKey());
+
+                var cards = ps.ListPaymetCards(customer.Id);
+
+                orderModel.Cards = cards;
 
                 return orderModel;
 
@@ -313,6 +321,48 @@ namespace AntBoxFrontEnd.Controllers
             }           
         }
 
+        public JsonResult getSchedules(string date)
+        {
+
+            try
+            {
+
+                var srvice = new TaskService(ServiceConfiguration.GetApiKey());
+
+                var schedules = srvice.ListSchedules(date);
+
+                return Json(schedules, JsonRequestBehavior.AllowGet);
+
+            }
+            catch(Exception ex)
+            {
+                LogManager.Write(ex.Message, LogManager.Error);
+                return Json(new { success = false, responseText = "OCURRIO UN ERROR AL LISTAR LOS HORARIOS DISPONIBLES" }, JsonRequestBehavior.AllowGet);
+            }
+
+
+        }
+
+
+        [HttpPost]
+        public JsonResult GetCardsAjax()
+        {
+            var ps = new PaymentService(ServiceConfiguration.GetApiKey());
+
+            List<CardObject> result = new List<CardObject>();
+            try
+            {
+                result = ps.ListPaymetCards(((CustomerResponse)Session["customer"]).Id);
+
+                return Json(result, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                LogManager.Write(ex.Message, LogManager.Error);
+                return Json(new { success = false, responseText = "OCURRIO UN ERROR AL LISTAR LAS TARJETAS DISPONIBLES" }, JsonRequestBehavior.AllowGet);
+
+            }
+        }
 
 
 

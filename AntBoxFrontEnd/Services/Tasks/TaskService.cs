@@ -92,6 +92,64 @@ namespace AntBoxFrontEnd.Services.Tasks
             }
         }
 
+        public virtual List<Schedules> ListSchedules(DateTime date, RequestOptions requestOptions = null)
+        {
+            try
+            {
+
+                var dateString = date.ToString("YYYY-MM-dd");
+
+
+                requestOptions = SetupRequestOptions(requestOptions);
+
+                var parameters = new Dictionary<string, string> { { "date", dateString } };
+
+                var encodedParams = Infrastructure.UrlHelper.BuildURLParametersString(parameters);
+
+                var schedules = Requestor.Get<List<Schedules>>(UrlsConstants.Schedules + encodedParams, requestOptions);
+
+                if (schedules.Count > 0)
+                {
+                    schedules.ForEach(x => {
+                        x.worker = x.Workers.FirstOrDefault();
+                    });
+                }
+                return schedules;
+            }
+            catch (Exception ex)
+            {
+                LogManager.Write(ex.Message + " " + ex.InnerException, LogManager.Error);
+                return null;
+            }
+        }
+
+
+        public virtual List<Schedules> ListSchedules(string dateString, RequestOptions requestOptions = null)
+        {
+            try
+            {
+                requestOptions = SetupRequestOptions(requestOptions);
+
+                var parameters = new Dictionary<string, string> { { "date", dateString } };
+
+                var encodedParams = Infrastructure.UrlHelper.BuildURLParametersString(parameters);
+
+                var schedules = Requestor.Get<List<Schedules>>(UrlsConstants.Schedules + encodedParams, requestOptions);
+
+                if (schedules.Count > 0)
+                {
+                    schedules.ForEach(x => {
+                        x.worker = x.Workers.FirstOrDefault();
+                    });
+                }
+                return schedules;
+            }
+            catch (Exception ex)
+            {
+                LogManager.Write(ex.Message + " " + ex.InnerException, LogManager.Error);
+                return null;
+            }
+        }
 
 
     }

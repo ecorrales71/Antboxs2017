@@ -33,7 +33,7 @@ namespace AntBoxFrontEnd.Services.Customer
         public string Rfc_id { get; set; }
 
         [JsonProperty("status")]
-        public Boolean Status { get; set; }
+        public bool? Status { get; set; }
 
         
         [JsonProperty("username")]
