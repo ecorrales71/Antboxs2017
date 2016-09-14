@@ -25,6 +25,8 @@ namespace AntBoxFrontEnd.Infrastructure
 
         public static String Task { get { return BaseUrl + "/tasks"; } }
 
+        public static String Schedules { get { return BaseUrl + "/schedules"; } }
+
         public static String Login { get { return BaseUrl + "/login"; } }
 
         public static String ZipCode { get { return BaseUrl + "/zipcode"; } }

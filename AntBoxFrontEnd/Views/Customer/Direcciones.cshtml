@@ -376,7 +376,7 @@
                         div3Content +=                              data[i].Neighborhood + ', C.P. ' +
                                                                     data[i].Zipcode + '' +
                                                                     ' <br>Referencias: ' + data[i].References + '</p>';
-                        div3Content += '<button type="button"  class="btn btn-primary btn-sm pull-right ml10" data-toggle="modal" data-target="#editar_direccion" id="' + data[i].Id + '"  onclick="EditarEvent()" >Editar</button>';
+                        div3Content += '<button type="button"  class="btn btn-primary btn-sm pull-right ml10" data-toggle="modal" data-target="#editar_direccion" id="' + data[i].Id + '"  onclick="EditarEvent(this)" >Editar</button>';
                         div3Content +=                        '<button type="button" class="btn btn-primary btn-sm pull-right btn_blue" onclick="EliminaDireccion(\'' + data[i].Id + '\')">Eliminar</button>';
                         div3Content +=                  '</div>';
                         div3Content +=                  '</div>';
@@ -445,16 +445,9 @@
 
         function EditarEvent(e) {
 
-           // alert("Entra editar");
+            var id = e.id;          
 
-            $('button').click(function () {
-                $(this).attr('disabled', 'disabled');
-            });
-
-
-           // alert("Entra editar  id : " + id);
-
-            var data = 'id=' + id;
+            var data = 'id=' + id;            
 
             $('#id').val(id);
 
@@ -474,9 +467,7 @@
                     $('#City').val(data.City);
                     $('#State').val(data.State);
                     $('#Country').val(data.Country);
-                    $('#References').val(data.References);
-
-                    
+                    $('#References').val(data.References);                                       
 
                     CambioZipModal();
 
