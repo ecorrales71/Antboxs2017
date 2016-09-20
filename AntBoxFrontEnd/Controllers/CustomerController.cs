@@ -300,16 +300,19 @@ namespace AntBoxFrontEnd.Controllers
 
                     orderModel.Addresses = antBoxResult;
                 }
+                else
+                {
+                    orderModel.Addresses = new List<AntBoxAddressViewModel>();
+
+                }
 
                 //CARDS
 
                 var ps = new PaymentService(ServiceConfiguration.GetApiKey());
-                var cards = new List<CardObject>();
 
-                cards = ps.ListPaymetCards(customer.Id);
-
-
-                orderModel.Cards = cards != null ? cards : new List<CardObject>();
+                List<CardObject> cards =  ps.ListPaymetCards(customer.Id);
+                
+                orderModel.Cards = cards==null?new List<CardObject>():cards;
 
                 return orderModel;
 
@@ -318,14 +321,7 @@ namespace AntBoxFrontEnd.Controllers
             catch (Exception ex)
             {
 
-                return new OrderViewModel {
-                    Addresses = new List<AntBoxAddressViewModel>(),
-                    Boxes = new AntBoxesViewModel(),
-                    Cards = new List<CardObject>()
-                    
-
-
-                };
+                return null;
 
             }           
         }
@@ -335,6 +331,7 @@ namespace AntBoxFrontEnd.Controllers
 
             try
             {
+
                 var srvice = new TaskService(ServiceConfiguration.GetApiKey());
 
                 var schedules = srvice.ListSchedules(date);
@@ -427,14 +424,6 @@ namespace AntBoxFrontEnd.Controllers
             return boxes;
 
         }
-
-
-
-
-
-
-
-
         #endregion
 
 

@@ -137,11 +137,20 @@ namespace AntBoxFrontEnd.Controllers
         {
             var service = new ZipcodeService(ServiceConfiguration.GetApiKey());
 
+            try
+            {
             var result = service.SearchZipCode(zipcode);
-            if (result.Count <1)
+                        if (result.Count <1)
+                        {
+                            return Json(new { success = false }, JsonRequestBehavior.AllowGet);
+                        }
+
+            }
+            catch(Exception ex)
             {
                 return Json(new { success = false }, JsonRequestBehavior.AllowGet);
             }
+
             return Json(new { success = true }, JsonRequestBehavior.AllowGet);
         }
 
