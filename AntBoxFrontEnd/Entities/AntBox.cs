@@ -12,6 +12,8 @@ namespace AntBoxFrontEnd.Entities
     public class AntBox
     {
 
+        public string Id { get; set; }
+
         public string Model { get; set; }
 
         public string Description { get; set; }
@@ -30,6 +32,8 @@ namespace AntBoxFrontEnd.Entities
 
     public class LineOrder
     {
+        public string Id { get; set; }
+
         public string Model { get; set; }
 
         public string Description { get; set; }

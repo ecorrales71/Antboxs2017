@@ -5,12 +5,13 @@
     ViewData["i"] = 1;
     int rowNo = 1;
 
-
+    int TotalBoxes = Model.Order.Count;
 
 }
 
 
 <div class="row" id="Precios">
+    <input name='TotalBoxes' type="hidden" value='@TotalBoxes' />
     <div class="col-sm-12">
         <div class="responsive">
             <table class="table shop_table cart">
@@ -27,11 +28,14 @@
 
                     @foreach (var item in Model.Order)
                     {
+
                         
                         <tr class="cart_item" >
+                            <input name='box_@rowNo' type="hidden" value=@item.Id />
                             <td class="product-name">
                                 <h5> @item.Label </h5>
                                 <dl class="variation">
+
                                     <dt class="variation-Color">Medidas:</dt>
                                     <dd class="variation-Color">
                                         <p> @item.Sizes </p>

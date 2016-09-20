@@ -234,7 +234,9 @@ namespace AntBoxFrontEnd.Controllers
                             Description = x.Label,
                             Label = x.Label,
                             Model = x.Model,
-                            Price = x.Price
+                            Price = x.Price,
+                            Id = x.Id
+                            
                         });
 
 
@@ -245,6 +247,7 @@ namespace AntBoxFrontEnd.Controllers
                     {
                         lineOrders.Add(
                             new LineOrder {
+                                Id = x.Id,
                                 Description = x.Description,
                                 Label = x.Label,
                                 LineTotal = 0,

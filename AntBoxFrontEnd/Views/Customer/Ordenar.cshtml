@@ -83,7 +83,7 @@
                                                 <select id="AddressPickup">
                                                     @if (Model.Addresses != null)
                                                     {
-                                                        @foreach (var item in Model.Addresses)
+                                                        foreach (var item in Model.Addresses)
                                                         {
                                                             <option value='@item.Id.ToString()'> @item.Alias</option>
                                                         }
