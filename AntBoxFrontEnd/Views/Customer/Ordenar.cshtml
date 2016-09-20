@@ -81,9 +81,12 @@
                                             <div class="form-group mb0">
                                                 <label for="form-select">Dirección de recolección</label>
                                                 <select id="AddressPickup">
-                                                    @foreach (var item in Model.Addresses)
+                                                    @if (Model.Addresses != null)
                                                     {
-                                                        <option value='@item.Id.ToString()'> @item.Alias</option>
+                                                        @foreach (var item in Model.Addresses)
+                                                        {
+                                                            <option value='@item.Id.ToString()'> @item.Alias</option>
+                                                        }
                                                     }
                                                     @*<option value>- Selecciona una opción -</option>
                                                     <option value="Casa">Casa</option>
@@ -560,6 +563,13 @@
 
     <script type="text/javascript">
         function CompletarOrden() {
+
+            //antboxes
+
+            var quantity = $("");
+
+
+
 
             var dirRecolId = $("#AddressPickup").val();
             var dirEntlId = $("#AddressDelivery").val();

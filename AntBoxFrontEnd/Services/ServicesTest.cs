@@ -36,16 +36,16 @@ namespace AntBoxFrontEnd.Services
 
             //  CreateValidAddress(idcustomer);
 
+            ListaAntBoxes(idcustomer);
 
+            //var idAddress = ListAddresses(idcustomer, 1)
+            //                    .Where(a => a.Alias.ToUpper().Contains("VALIDA")).FirstOrDefault();
 
-            var idAddress = ListAddresses(idcustomer, 1)
-                                .Where(a => a.Alias.ToUpper().Contains("VALIDA")).FirstOrDefault();
+            //Debug.WriteLine(idAddress.ToString());
 
-            Debug.WriteLine(idAddress.ToString());
+            //var address = SearchAddresses(idAddress.Id);
 
-            var address = SearchAddresses(idAddress.Id);
-
-             Debug.WriteLine(address.Street);
+            // Debug.WriteLine(address.Street);
 
             // UpdateAddress(idAddress);
 
@@ -63,9 +63,9 @@ namespace AntBoxFrontEnd.Services
 
             Debug.WriteLine(AntBox.Id);
 
-            var orderid = CreateAntBoxesOrder(AntBox.Id, idcustomer, worker);
+            //var orderid = CreateAntBoxesOrder(AntBox.Id, idcustomer, worker);
 
-            var restask = CreateTask(idcustomer, address.Id, orderid, worker);
+            //var restask = CreateTask(idcustomer, address.Id, orderid, worker);
 
 
             var tasks = ListarTareas(worker);
@@ -143,6 +143,16 @@ namespace AntBoxFrontEnd.Services
 
             var res = ser.CreateCustomer(cus);
 
+        }
+
+        public PaginationAntBoxes ListaAntBoxes(string customerid)
+        {
+            var service = new AntBoxesServices(ServiceConfiguration.GetApiKey());
+
+
+            var res = service.ListAntBoxes(customerid, AntBoxStatusEnum.Defualt, 1);
+
+            return res;
         }
 
 

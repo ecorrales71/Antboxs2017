@@ -66,7 +66,7 @@ namespace AntBoxFrontEnd.Services.AntBoxes
         }
 
 
-        public virtual PaginationAntBoxes ListAntBoxes(string id, AntBoxStatusEnum status, int currentPage, string idPagination,  RequestOptions requestOptions = null)
+        public virtual PaginationAntBoxes ListAntBoxes(string id, AntBoxStatusEnum status, int currentPage, string idPagination = null,  RequestOptions requestOptions = null)
         {
             try
             {
@@ -84,7 +84,8 @@ namespace AntBoxFrontEnd.Services.AntBoxes
                     parameters.Add("page_number", currentPage.ToString());
                 } 
 
-                parameters.Add("status", status.ToString());
+                if(status.ToString() != AntBoxStatusEnum.Defualt.ToString())
+                    parameters.Add("status", status.ToString());
 
                 var encodedParams = Infrastructure.UrlHelper.BuildURLParametersString(parameters);
 
@@ -118,7 +119,7 @@ namespace AntBoxFrontEnd.Services.AntBoxes
         public static readonly AntBoxStatusEnum Delivering = new AntBoxStatusEnum(0, "delivering");
         public static readonly AntBoxStatusEnum Stored = new AntBoxStatusEnum(0, "stored");
         public static readonly AntBoxStatusEnum Free = new AntBoxStatusEnum(0, "free");
-
+        public static readonly AntBoxStatusEnum Defualt = new AntBoxStatusEnum(0, "Defualt");
 
         public override string ToString()
         {

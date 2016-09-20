@@ -17,7 +17,7 @@ namespace AntBoxFrontEnd.Services.AntBoxes
         [JsonProperty("pages")]
         public int Pages { get; set; }
 
-        [JsonProperty("addresses")]
-        public List<AntBoxResponse> Addresses { get; set; }
+        [JsonProperty("antboxs")]
+        public List<AntBoxResponse> Antboxs { get; set; }
     }
 }
