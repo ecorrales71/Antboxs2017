@@ -81,10 +81,15 @@
                                             <div class="form-group mb0">
                                                 <label for="form-select">Dirección de recolección</label>
                                                 <select id="form-select">
-                                                    @foreach (var item in Model.Addresses)
+                                                    @if (Model.Addresses != null)
                                                     {
-                                                        <option value='@item.Id.ToString()'> @item.Alias</option>
+                                                        foreach (var item in Model.Addresses)
+                                                        {
+                                                            <option value='@item.Id.ToString()'> @item.Alias</option>
+                                                        }
                                                     }
+
+
                                                     @*<option value>- Selecciona una opción -</option>
                                                     <option value="Casa">Casa</option>
                                                     <option value="Oficina">Oficina</option>
@@ -103,12 +108,12 @@
                                             <div class="form-group">
                                                 <label for="form-select">Horario de recolección</label>
                                                 <select id="Horario_recoleccion">
-                                                    @*<option value>- Selecciona una opción -</option>
+                                                    <option value>- Selecciona una opción -</option>
                                                     <option value="09-11">09:00 - 11:00 hrs.</option>
                                                     <option value="11-13">11:00 - 13:00 hrs.</option>
                                                     <option value="13-15">13:00 - 15:00 hrs.</option>
                                                     <option value="15-17">15:00 - 17:00 hrs.</option>
-                                                    <option value="17-19">17:00 - 19:00 hrs.</option>*@
+                                                    <option value="17-19">17:00 - 19:00 hrs.</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -256,7 +261,7 @@
                                             <div class="checkbox">
                                                 <button type="button" class="btn-link" data-toggle="modal" data-target="#restricciones_uso">restricciones de uso</button>
                                                 <label class="pull-left pr5">
-                                                    <input type="checkbox" name="preferencia_contacto">
+                                                    <input type="checkbox" name="chkRestricciones" id="chkRestricciones">
                                                     Entiendo las
                                                 </label>
                                             </div>
@@ -269,14 +274,14 @@
                                             <div class="checkbox">
                                                 <button type="button" class="btn-link" data-toggle="modal" data-target="#terminos_condiciones">términos y condiciones</button>
                                                 <label class="pull-left pr5">
-                                                    <input type="checkbox" name="preferencia_contacto">
+                                                    <input type="checkbox" name="chkCondiciones" id="chkCondiciones">
                                                     Entiendo los
                                                 </label>
                                             </div>
                                         </div>
                                         <div class="row mr0">
                                             <div class="col-sm-12 mt30">
-                                                <input type="submit" class="btn btn-primary btn-wide pull-right mt10" value="Completar mi orden">
+                                                <input type="button" class="btn btn-primary btn-wide pull-right mt10" value="Completar mi orden" onclick="CompletarOrden();">
                                                 <p class="succs-msg">Мensaje enviado</p>
                                             </div>
                                         </div>
@@ -485,6 +490,17 @@
 
         }
 
+        function CompletarOrden()
+        {
+            if (!$("#chkRestricciones").is(':checked') || !$("#chkCondiciones").is(':checked'))
+            {
+                alert("Debes aceptar los terminos y condiciones antes de continuar.");
+            }
+            else
+            {
+                window.location.reload(true);
+            }
+        }
 
     </script>
 

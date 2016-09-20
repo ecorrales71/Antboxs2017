@@ -432,7 +432,7 @@ function goto_rndf(reload)
             $.ajax({
                 type: 'POST',
                 url: '@Url.Action("RegisterCardAjax", "Payment")',
-                data: { deviceId: deviceSessionId, state: "main", token: token_id },
+                data: { deviceId: deviceSessionId, state: "inactive", token: token_id },
                 success: function (result) {
 
                     if (result.success == true) {
