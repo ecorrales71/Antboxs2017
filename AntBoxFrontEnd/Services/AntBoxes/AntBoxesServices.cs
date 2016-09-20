@@ -43,7 +43,7 @@ namespace AntBoxFrontEnd.Services.AntBoxes
             }            
         }
 
-        public virtual Boolean UpdateAntBox(AntBoxRequestOptions createOptions, string id, RequestOptions requestOptions = null)
+        public virtual Boolean UpdateAntBox(AntBoxUpdateRequest createOptions, string id, RequestOptions requestOptions = null)
         {
             requestOptions = SetupRequestOptions(requestOptions);
 

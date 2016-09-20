@@ -12,6 +12,7 @@ using AntBoxFrontEnd.Services.Zipcodes;
 using System.Diagnostics;
 using AntBoxFrontEnd.Services.Worker;
 using AntBoxFrontEnd.Services.Boxes;
+using AntBoxFrontEnd.Services.AntBoxes;
 
 namespace AntBoxFrontEnd.Services
 {
@@ -26,6 +27,8 @@ namespace AntBoxFrontEnd.Services
 
             var idcustomer = Login();
 
+            //getSchedules();
+
             // Debug.WriteLine(idcustomer);
 
             //  CreateAddress(idcustomer,4);
@@ -35,14 +38,14 @@ namespace AntBoxFrontEnd.Services
 
 
 
-            //var idAddress = ListAddresses(idcustomer, 1)
-            //                    .Where(a=> a.Alias == "Calle 27").FirstOrDefault();
+            var idAddress = ListAddresses(idcustomer, 1)
+                                .Where(a => a.Alias.ToUpper().Contains("VALIDA")).FirstOrDefault();
 
-            //Debug.WriteLine(idAddress.ToString());
+            Debug.WriteLine(idAddress.ToString());
 
-            //var address = SearchAddresses(idAddress.Id);
+            var address = SearchAddresses(idAddress.Id);
 
-            // Debug.WriteLine(address.ToString());
+             Debug.WriteLine(address.Street);
 
             // UpdateAddress(idAddress);
 
@@ -50,19 +53,29 @@ namespace AntBoxFrontEnd.Services
 
             // Debug.WriteLine(addressNew.ToString());
 
-            // var restask = CreateTask(idcustomer, idAddress.Where(a=> a.Alias.Contains("Dirección valida")).FirstOrDefault().Id);
+            var worker = GetWorker();
+
+            var listabox = ListBoxes(idcustomer);
+
+            var AntBox = listabox
+                        .OrderBy(a => a.Id)
+                        .FirstOrDefault();
+
+            Debug.WriteLine(AntBox.Id);
+
+            var orderid = CreateAntBoxesOrder(AntBox.Id, idcustomer, worker);
+
+            var restask = CreateTask(idcustomer, address.Id, orderid, worker);
+
+
+            var tasks = ListarTareas(worker);
 
             //Debug.WriteLine("Se creo Tarea: " + restask);
 
             //var box = CreateBoxes(idcustomer, 2);
             //Debug.WriteLine(box);
 
-            var listabox = ListBoxes(idcustomer);
-
-            //var idbox = listabox
-            //            .OrderBy(a => a.Id)
-            //            .FirstOrDefault();
-            //Debug.WriteLine(idbox);
+           
 
             //listabox.ForEach(x =>
             //{
@@ -196,18 +209,19 @@ namespace AntBoxFrontEnd.Services
         {
             var address = new AddressRequestOptions
             {
-                Alias = "Dirección valida" ,
+                Alias = "Calle alicia" ,
                 Customer_id = idcustomer,
-                Delegation = "GUSTAVO A. MADERO",
-                External_number = "6333" ,
-                Neighborhood = "TRES ESTRELLAS ",
-                State = "CIUDAD DE MÉXICO",
-                Street = "ESPINELA",
-                City = "CIUDAD DE MÉXICO",
-                Country = "MÉXICO",
+                Delegation = "Álvaro Obregon",
+                External_number = "105",
+                Internal_number = "402",
+                Neighborhood = "Sears Roebuck",
+                State = "Ciudad de México",
+                Street = "Alicia",
+                City = "Ciudad de México",
+                Country = "México",
                 Rfc_id = "RFC" ,
-                References = "referencias direccion " ,
-                Zipcode = "07820"
+                References = "Portón Blanco, sin número visble",
+                Zipcode = "01120"
             };
             var a = new AddressService(ServiceConfiguration.GetApiKey());
 
@@ -284,20 +298,57 @@ namespace AntBoxFrontEnd.Services
 
         }
 
-
-        public bool CreateTask(string idcustomer, string idAddress)
+        public string GetWorker()
         {
-            var t = new TaskRequestOption
-            {
-                Address_id = idAddress
-                ,customer_id = idcustomer
-                ,from = DateHelpers.ToUnixTime(DateTime.Now)
-                ,To = DateHelpers.ToUnixTime(DateTime.Now)
-            };
-
             var ts = new TaskService(ServiceConfiguration.GetApiKey());
 
+            var worker = ts.ListSchedules(DateTime.Now).FirstOrDefault().worker;
+            return worker;
+        }
+
+
+        public bool CreateTask(string idcustomer, string idAddress, string folio, string worker)
+        {
+            var from = new DateTime(2016, 9, 25, 11, 0, 0);
+            var to = from.AddHours(2);
+
+            var ts = new TaskService(ServiceConfiguration.GetApiKey());
+            var t = new TaskRequestOption
+            {
+                Address_id = idAddress,
+                customer_id = idcustomer,
+                from = DateHelpers.ToUnixTime(from),
+                To = DateHelpers.ToUnixTime(to),
+                Worker_id = worker,
+                Folio = folio,
+                Type = ts.Type_Pickup,
+                Service_time = true
+            };
+
+            
+
             return ts.CreateTask(t);
+        }
+
+        public string CreateAntBoxesOrder(string idbox, string customer, string worker)
+        {
+            var order = new AntBoxRequestOptions()
+            {
+                Box_id = idbox,
+                Customer_id = customer,
+                Quantity = 3,
+                Worker_id = worker
+
+            };
+
+            var serv = new AntBoxesServices(ServiceConfiguration.GetApiKey());
+
+            var res = serv.CreateAntBoxes(order);
+
+
+            return res;
+
+
         }
 
 
@@ -415,6 +466,33 @@ namespace AntBoxFrontEnd.Services
 
             return res;
         }
+
+
+        public void getSchedules()
+        {
+            var serv = new TaskService(ServiceConfiguration.GetApiKey());
+
+            DateTime d = DateTime.Now;
+
+            var dd = d.ToString("yyyy-MM-dd");
+
+            var sc = serv.ListSchedules(dd) ;
+
+
+        }
+
+
+        public ListTask ListarTareas(string workerid)
+        {
+            var servicio = new TaskService(ServiceConfiguration.GetApiKey());
+
+            var res = servicio.ListTaskByWorker(workerid);
+
+            return res;
+
+        }
+
+
 
 
     }

@@ -26,5 +26,28 @@ namespace AntBoxFrontEnd.Infrastructure
             DateTime combine = date.Add(time);
             return combine;
         }
+
+
+        public static TimeSpan? GetTimeFromString(string time)
+        {
+            try
+            {
+                var hours = Int32.Parse(time.Split(':')[0]);
+                var minutes = Int32.Parse(time.Split(':')[1]);
+
+                var ts = new TimeSpan(hours, minutes, 0);
+
+                return ts;
+
+            }
+            catch(Exception ex)
+            {
+                LogManager.Write("Error al convertir cadena: " + time + " a timestamp", LogManager.Error);
+                LogManager.Write("Exception: " + ex.Message, LogManager.Error);
+                return null;
+            }
+        }
+
+
     }
 }

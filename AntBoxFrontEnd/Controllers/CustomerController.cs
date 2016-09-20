@@ -304,10 +304,12 @@ namespace AntBoxFrontEnd.Controllers
                 //CARDS
 
                 var ps = new PaymentService(ServiceConfiguration.GetApiKey());
+                var cards = new List<CardObject>();
 
-                var cards = ps.ListPaymetCards(customer.Id);
+                cards = ps.ListPaymetCards(customer.Id);
 
-                orderModel.Cards = cards;
+
+                orderModel.Cards = cards != null ? cards : new List<CardObject>();
 
                 return orderModel;
 
@@ -316,7 +318,14 @@ namespace AntBoxFrontEnd.Controllers
             catch (Exception ex)
             {
 
-                return null;
+                return new OrderViewModel {
+                    Addresses = new List<AntBoxAddressViewModel>(),
+                    Boxes = new AntBoxesViewModel(),
+                    Cards = new List<CardObject>()
+                    
+
+
+                };
 
             }           
         }
@@ -326,7 +335,6 @@ namespace AntBoxFrontEnd.Controllers
 
             try
             {
-
                 var srvice = new TaskService(ServiceConfiguration.GetApiKey());
 
                 var schedules = srvice.ListSchedules(date);
@@ -419,6 +427,14 @@ namespace AntBoxFrontEnd.Controllers
             return boxes;
 
         }
+
+
+
+
+
+
+
+
         #endregion
 
 

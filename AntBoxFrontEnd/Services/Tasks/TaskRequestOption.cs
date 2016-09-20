@@ -18,9 +18,19 @@ namespace AntBoxFrontEnd.Services.Tasks
         [JsonProperty("to")]
         public long To { get; set; }
 
+        [JsonProperty("type")]
+        public string Type { get; set; }
+
+        [JsonProperty("service_time")]
+        public bool? Service_time { get; set; }
+
+        [JsonProperty("folio")]
+        public string Folio { get; set; }
+
+        [JsonProperty("worker_id")]
+        public string Worker_id { get; set; }
 
 
-             
 
     }
 }

@@ -16,6 +16,9 @@ namespace AntBoxFrontEnd.Services.Tasks
 {
     public class TaskService : Services
     {
+        public readonly string Type_Delivery = "delivery";
+        public readonly string Type_Pickup = "pickup";
+
         public TaskService(string apiKey) : base(apiKey)
         {
         }
@@ -72,23 +75,24 @@ namespace AntBoxFrontEnd.Services.Tasks
         }
 
 
-        public virtual TaskResponse ListTaskByWorker(string id, RequestOptions requestOptions = null)
+        public virtual ListTask ListTaskByWorker(string id, RequestOptions requestOptions = null)
         {
             try
             {
                 requestOptions = SetupRequestOptions(requestOptions);
 
-                var parameters = new Dictionary<string, string> { { "id", id } };
+                //var parameters = new Dictionary<string, string> { { "id", id } };
 
-                var encodedParams = Infrastructure.UrlHelper.BuildURLParametersString(parameters);
+               // var encodedParams = Infrastructure.UrlHelper.BuildURLParametersString(parameters);
 
-                var task = Requestor.Get<TaskResponse>(UrlsConstants.Task + "/" + id, requestOptions);
+                var task = Requestor.Get<ListTask>(UrlsConstants.Task + "/" + id, requestOptions);
 
                 return task;
             }catch(Exception ex)
             {
                 LogManager.Write(ex.Message + " " + ex.InnerException, LogManager.Error);
-                return null;
+                var empty = new ListTask();
+                return empty;
             }
         }
 
@@ -97,7 +101,7 @@ namespace AntBoxFrontEnd.Services.Tasks
             try
             {
 
-                var dateString = date.ToString("YYYY-MM-dd");
+                var dateString = date.ToString("yyyy-MM-dd");
 
 
                 requestOptions = SetupRequestOptions(requestOptions);
@@ -106,15 +110,15 @@ namespace AntBoxFrontEnd.Services.Tasks
 
                 var encodedParams = Infrastructure.UrlHelper.BuildURLParametersString(parameters);
 
-                var schedules = Requestor.Get<List<Schedules>>(UrlsConstants.Schedules + encodedParams, requestOptions);
+                var schedules = Requestor.Get<ScheduleResponse>(UrlsConstants.Schedules + encodedParams, requestOptions);
 
-                if (schedules.Count > 0)
+                if (schedules.Schedules.Count > 0)
                 {
-                    schedules.ForEach(x => {
+                    schedules.Schedules.ForEach(x => {
                         x.worker = x.Workers.FirstOrDefault();
                     });
                 }
-                return schedules;
+                return schedules.Schedules;
             }
             catch (Exception ex)
             {
@@ -134,15 +138,15 @@ namespace AntBoxFrontEnd.Services.Tasks
 
                 var encodedParams = Infrastructure.UrlHelper.BuildURLParametersString(parameters);
 
-                var schedules = Requestor.Get<List<Schedules>>(UrlsConstants.Schedules + encodedParams, requestOptions);
+                var schedules = Requestor.Get<ScheduleResponse>(UrlsConstants.Schedules + encodedParams, requestOptions);
 
-                if (schedules.Count > 0)
+                if (schedules.Schedules.Count > 0)
                 {
-                    schedules.ForEach(x => {
+                    schedules.Schedules.ForEach(x => {
                         x.worker = x.Workers.FirstOrDefault();
                     });
                 }
-                return schedules;
+                return schedules.Schedules;
             }
             catch (Exception ex)
             {

@@ -293,6 +293,7 @@
     <Compile Include="Services\AntBoxes\AntBoxesServices.cs" />
     <Compile Include="Services\AntBoxes\AntBoxRequestOptions.cs" />
     <Compile Include="Services\AntBoxes\AntBoxResponse.cs" />
+    <Compile Include="Services\AntBoxes\AntBoxUpdateRequest.cs" />
     <Compile Include="Services\AntBoxes\PaginationAntBoxes.cs" />
     <Compile Include="Services\BadRequestResponse.cs" />
     <Compile Include="Services\Boxes\BoxesRequestOptions.cs" />
@@ -319,6 +320,7 @@
     <Compile Include="Services\Response.cs" />
     <Compile Include="Services\Services.cs" />
     <Compile Include="Services\ServicesTest.cs" />
+    <Compile Include="Services\Tasks\ScheduleResponse.cs" />
     <Compile Include="Services\Tasks\Schedules.cs" />
     <Compile Include="Services\Tasks\TaskRequestOption.cs" />
     <Compile Include="Services\Tasks\TaskResponse.cs" />
@@ -652,6 +654,7 @@
     <Content Include="Views\Customer\_LeftMenu.cshtml" />
     <Content Include="Views\Shared\_CustomerCards.cshtml" />
     <Content Include="Views\Customer\_SelectBoxesPartial.cshtml" />
+    <Content Include="Views\Shared\_CreateNewAddress.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Addresses\" />

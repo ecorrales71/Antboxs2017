@@ -1,0 +1,87 @@
+﻿@model  AntBoxFrontEnd.Models.AntBoxAddressViewModel
+
+<div class="modal-dialog modal-md">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"><i class="fa fa-times"></i></button>
+            <h6 class="modal-title">Registrar nueva dirección</h6>
+        </div>
+        <div class="modal-body">
+            <form action="" method="post" class="contact-form form-solid" novalidate id="updateForm">
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Alias)
+                            @Html.TextBoxFor(m => m.Alias, Model.Alias, new { @id = "Alias" })
+                            @Html.ValidationMessageFor(m => m.Alias)
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Street)
+                            @Html.TextBoxFor(m => m.Street, Model.Street, new { @id = "Street" })
+                            @Html.ValidationMessageFor(m => m.Street)
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.Internal_number)
+                                    @Html.TextBoxFor(m => m.Internal_number, Model.Internal_number, new { @id = "Internal_number" })
+                                    @Html.ValidationMessageFor(m => m.Internal_number)
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.External_number)
+                                    @Html.TextBoxFor(m => m.External_number, Model.External_number, new { @id = "External_number" })
+                                    @Html.ValidationMessageFor(m => m.External_number)
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Zipcode)
+                            @*<input type="text" name="email" id="txtZipcode1">*@
+                            @Html.TextBoxFor(m => m.Zipcode, new { @id = "txtZipcode1" })
+                            @Html.ValidationMessageFor(m => m.Zipcode)
+                        </div>
+                        <div class="form-group">
+                            <label for="form-select">Delegación o Municipio</label>
+                            @Html.DropDownListFor(m => m.Delegation, Model.Delegaciones, "", new { @id = "cmbDelegations1" })
+                            @*<select id="delegation">
+                                    <option value="">- Selecciona una opción -</option>
+                                </select>*@
+                        </div>
+                        <div class="form-group">
+                            <label for="form-select">Colonia</label>
+                            @Html.DropDownListFor(m => m.Neighborhood, Model.Colonias, "", new { @id = "cmbNeighborhood1" })
+                            @*<select id="neighborhood" name="form_select">
+                                    <option value="">- Selecciona una opción -</option>
+                                </select>*@
+                        </div>
+                    </div>
+                    <div class="col-sm-6 pl0_modal">
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.City)
+                            @Html.TextBoxFor(m => m.City, new { @id = "City" })
+                            @Html.ValidationMessageFor(m => m.City)
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.State)
+                            @Html.TextBoxFor(m => m.State, Model.State, new { @id = "State" })
+                            @Html.ValidationMessageFor(m => m.State)
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Country)
+                            @Html.TextBoxFor(m => m.Country, Model.Country, new { @id = "Country" })
+                            @Html.ValidationMessageFor(m => m.Country)
+                        </div>
+
+                    </div>
+                    <div class="col-sm-12 mt10">
+                        <input type="submit" class="btn btn-primary btn-wide pull-right" id="btnCreateAddress1">
+                        <p class="succs-msg">Мensaje enviado</p>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

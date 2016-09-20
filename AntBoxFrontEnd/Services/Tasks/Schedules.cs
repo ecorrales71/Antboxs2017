@@ -21,12 +21,10 @@ namespace AntBoxFrontEnd.Services.Tasks
         [JsonProperty("end")]
         public string End { get; set; }
 
-        
-
         [JsonProperty("workers")]
         public List<string> Workers { get; set; }
 
-
+        [JsonIgnore]
         public string worker { get; set; }
 
     }

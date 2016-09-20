@@ -15,6 +15,8 @@ namespace AntBoxFrontEnd.Services.Payments
 
 
         const int itemPerPage = 10;
+
+        const int Max = 3;
         public int Page { get; set; }
 
         public PaymentService(string apiKey) : base(apiKey)
@@ -98,13 +100,49 @@ namespace AntBoxFrontEnd.Services.Payments
         /// <returns></returns>
         public virtual List<CardObject> ListPaymetCards(string id, RequestOptions requestOptions = null)
         {
-            requestOptions = SetupRequestOptions(requestOptions);
+            try
+            {
+                requestOptions = SetupRequestOptions(requestOptions);
 
-            var payments = Requestor.Get<PaginationListCards>(UrlsConstants.PaymentCard + "/" + id, requestOptions);
 
-            return payments.Cards;
+
+                var payments = Requestor.Get<PaginationListCards>(UrlsConstants.PaymentCard + "/" + id, requestOptions);
+
+                return payments.Cards;
+            }
+            catch (Exception ex)
+            {
+                LogManager.Write(ex.Message + " " + ex.InnerException, LogManager.Error);
+                return new List<CardObject>();
+            }           
         }
 
+
+        public virtual PaginationListCards ListPaymetCardsPagination(string id, string paginationId, int page ,RequestOptions requestOptions = null)
+        {
+            try
+            {
+                requestOptions = SetupRequestOptions(requestOptions);
+
+                var parameters = new Dictionary<string, string>();
+
+                parameters.Add("items_per_page", Max.ToString());
+                parameters.Add("page_number", page.ToString());
+
+                parameters.Add("pagination_id", paginationId);
+
+                var encodedParams = Infrastructure.UrlHelper.BuildURLParametersString(parameters);
+
+                var payments = Requestor.Get<PaginationListCards>(UrlsConstants.PaymentCard + "/" + id + encodedParams, requestOptions);
+
+                return payments;
+            }
+            catch (Exception ex)
+            {
+                LogManager.Write(ex.Message + " " + ex.InnerException, LogManager.Error);
+                return new PaginationListCards();
+            }
+        }
 
         public virtual bool DoCharge(Charge charge, RequestOptions requestOptions = null)
         {

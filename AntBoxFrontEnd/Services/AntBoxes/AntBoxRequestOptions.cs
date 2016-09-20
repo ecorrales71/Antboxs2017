@@ -16,7 +16,7 @@ namespace AntBoxFrontEnd.Services.AntBoxes
         public string Worker_id { get; set; }
 
         [JsonProperty("quantity")]
-        public string Quantity { get; set; }
+        public int Quantity { get; set; }
 
         [JsonProperty("box_id")]
         public string Box_id { get; set; }
@@ -24,11 +24,6 @@ namespace AntBoxFrontEnd.Services.AntBoxes
         [JsonProperty("antboxs")]
         public string[] Antboxs { get; set; }
 
-        [JsonProperty("name")]
-        public string[] name { get; set; }
-
-        [JsonProperty("description")]
-        public string[] Description { get; set; }
 
     }
 }

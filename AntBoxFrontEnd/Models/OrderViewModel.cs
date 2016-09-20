@@ -18,9 +18,20 @@ namespace AntBoxFrontEnd.Models
 
         public bool Service_time_Pickup { get; set; }
 
+        public string HoraRecoleccionString { get; set ; }
+
+        public string HoraEntregaString { get; set; }
+        
+        public string AddressIdPickup { get; set; }
+
+        public string AddressIdDelivery { get; set; }             
+
         public string WorkerIdPickup { get; set; }
 
         public string WorkerIdDelivery { get; set; }
+
+        public string CardId { get; set; }
+             
 
         public List<Schedules> HorariosEntrega { get; set; }
 
