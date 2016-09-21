@@ -427,6 +427,35 @@ namespace AntBoxFrontEnd.Controllers
             return boxes;
 
         }
+
+
+        public JsonResult TempUpdateAntboxes(string boxid, int quantity)
+        {
+            try
+            {
+                var boxes = new Dictionary<string, int>();
+
+
+                if (Session["AntBoxesOrder"] == null)
+                    Session["AntBoxesOrder"] = boxes;
+
+
+                boxes = Session["AntBoxesOrder"] as Dictionary<string, int>;
+
+                boxes[boxid] = quantity;
+                
+                Session["AntBoxesOrder"] = boxes;
+
+                return Json(true, JsonRequestBehavior.AllowGet);
+            }
+            catch(Exception ex)
+            {
+                LogManager.Write(ex.Message, LogManager.Error);
+                return Json(new { success = false, responseText = "OCURRIO UN ERROR AL LISTAR LAS TARJETAS DISPONIBLES" }, JsonRequestBehavior.AllowGet);
+
+            }
+        }
+
         #endregion
 
 

@@ -31,7 +31,7 @@
 
                         
                         <tr class="cart_item" >
-                            <input name='box_@rowNo' type="hidden" value=@item.Id />
+                            <input name='box_@rowNo' id='box_@rowNo' type="hidden" value='@item.Id' />
                             <td class="product-name">
                                 <h5> @item.Label </h5>
                                 <dl class="variation">
@@ -126,6 +126,26 @@
 
         $( '#LineTotal_' + ide).html(lineSub);
         recalculateTotal();
+
+        
+        var boxobj = $('#box_' + ide);
+
+        var boxid = boxobj.val();
+
+        var data = JSON.stringify({ "boxid": boxid, "quantity": quantity })
+
+        $.ajax({
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            type: 'POST',
+            url: '@Url.Action("TempUpdateAntboxes", "Customer")',            
+            // data: $('#frmNewAddress').serialize(),
+            data: data,
+            success: function (d) {
+
+            }
+
+        });
     }
 
     function RemoveBox(ide) {
@@ -146,7 +166,31 @@
             $( '#LineTotal_' + ide).html(lineSub);
         } 
         recalculateTotal();
+        var boxobj = $('#box_' + ide);
+
+        var boxid = boxobj.val();
+
+        var data = JSON.stringify({ "boxid": boxid, "quantity": quantity })
+
+        $.ajax({
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            type: 'POST',
+            url: '@Url.Action("TempUpdateAntboxes", "Customer")',
+            // data: $('#frmNewAddress').serialize(),
+            data: data,
+            success: function (d) {
+
+            }
+
+        });
     }
+
+
+    function ActualizaCajas() {
+
+    }
+
 
     function recalculateTotal()
     {
@@ -167,6 +211,11 @@
         subtotalObj.text(subtotal.toFixed(2));
         taxObj.text(tax.toFixed(2));
         totalObj.text(total.toFixed(2));
+
+
+
+
+
     }
 
     var CartLine = function () {

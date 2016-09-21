@@ -119,13 +119,13 @@
                                         <div class="col-sm-6">
                                             <div class="form-group">
                                                 <label for="form-message">Referencias o comentarios</label>
-                                                <textarea name="message" id="form-message"></textarea>
+                                                <textarea name="message" id="txtReferenciaRecoleccion"></textarea>
                                             </div>
                                             <div class="checkbox">
                                                 
                                                 <label>
-                                                    @Html.EditorFor(m => m.Service_time_Pickup)
-                                                    @*<input type="checkbox" name="optionsCheckbox">*@
+                                                    @*@Html.EditorFor(m => m.Service_time_Pickup)*@
+                                                    <input type="checkbox" name="chkEsperar" id="chkEsperar">
                                                     Quiero que el conductor me espere para que pueda llevar mis Antboxs de vuelta al almacén de forma inmediata. (Considere que los conductores solo pueden esperar hasta 20 minutos)
                                                 </label>
                                             </div>
@@ -191,7 +191,7 @@
                                         <div class="col-sm-6">
                                             <div class="form-group">
                                                 <label for="form-message">Referencias o comentarios</label>
-                                                <textarea name="message" id="form-message"></textarea>
+                                                <textarea name="message" id="txtReferenciaEntrega"></textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -208,7 +208,7 @@
                                             </div>
                                             <div class="form-group mt20">
                                                 <label for="form-select">Forma de pago</label>
-                                                <select id="form-select">
+                                                <select id="CardsList">
                                                     @foreach (var card in Model.Cards)
                                                     {
                                                         <option value='@card.Id'>@card.Info.Card_number</option>
@@ -231,8 +231,8 @@
                                                 <div class="col-sm-6">
                                                     <div class="checkbox">
                                                         <label>
-                                                            @Html.EditorFor(m => m.ContactByTel)
-                                                            @*<input type="checkbox" name="preferencia_contacto" checked>*@
+                                                            @*@Html.EditorFor(m => m.ContactByTel)*@
+                                                            <input type="checkbox" name="preferencia_contacto_Tel" checked>
                                                             Teléfono
                                                         </label>
                                                     </div>
@@ -240,8 +240,8 @@
                                                 <div class="col-sm-6">
                                                     <div class="checkbox">
                                                         <label>
-                                                            @Html.EditorFor(m => m.ContactByEmail)
-                                                            @*<input type="checkbox" name="preferencia_contacto" checked>*@
+                                                            @*@Html.EditorFor(m => m.ContactByEmail)*@
+                                                            <input type="checkbox" name="preferencia_contacto_mail" checked>
                                                             E-mail
                                                         </label>
                                                     </div>
@@ -564,11 +564,6 @@
     <script type="text/javascript">
         function CompletarOrden() {
 
-            //antboxes
-
-            var quantity = $("");
-
-
 
 
             var dirRecolId = $("#AddressPickup").val();
@@ -576,15 +571,41 @@
 
             var fecRec = $("#fecha_recoleccion").val();
             var fecEnt = $("#fecha_entrega").val();
-            var workerRec = $("#Horario_recoleccion").val();  
-            var workerEnt = $("#horario_entrega").val();
+            var workerRec = jQuery("#Horario_recoleccion  option:selected").val();   //worker id de recoleccion
+            var workerEnt = jQuery("#horario_entrega  option:selected").val();        //de entrega
+
+            var esperar = $("#chkEsperar").is(':checked');
 
 
             var horaRec = $("#HoraRecoleccionString").val();
             var horaEnt = $("#HoraEntregaString").val();
 
 
+            var contactoTel = $("#preferencia_contacto_Tel").is(':checked');
+            var contactoMail = $("#preferencia_contacto_mail").is(':checked');
 
+            var referenciasRec = $("#txtReferenciaRecoleccion").val();
+            var referenciasEnt = $("#txtReferenciaEntrega").val();
+
+
+            var cardid = jQuery("#CardsList  option:selected").val();
+            
+            var monto = $('#Total').val();
+
+
+            alert("dirreco " + dirRecolId + " \n dir entr" + dirEntlId + "  \n fec rec"
+                + fecRec + "  \n fec ent" + fecEnt + "  \n weid"
+                + workerEnt + "  \n wrid" + workerRec + "  \n he" + horaEnt
+                + "  \n hr" + horaRec + " \n" + esperar
+                + "\n telcon" + contactoTel + "\nmailcon" + contactoMail
+                + "\ntexto" + referenciasRec
+                + "\texton" + referenciasEnt
+                + "\n id tarjeta" + cardid
+                + "\ntotal" + monto
+
+
+
+                );
 
 
 
@@ -609,7 +630,7 @@
 
 
 
-                window.location.reload(true);
+//              window.location.reload(true);
             }
         }
 
