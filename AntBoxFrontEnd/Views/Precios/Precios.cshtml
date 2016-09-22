@@ -1,8 +1,10 @@
-﻿@{
+﻿@model AntBoxFrontEnd.Models.OrderViewModel
+
+@{
     ViewBag.Title = "Antbox";
 }
 
-@model AntBoxFrontEnd.Models.PriceViewModel
+
 
 
 
@@ -122,10 +124,9 @@
                 </div>
                 <div class="row">
                     @{ 
-                        Html.RenderPartial("~/Views/Precios/PricePartialView.cshtml", Model);
+                        Html.RenderPartial("PricePartialView.cshtml", Model.Boxes);
                     }
 
-                   
                     
                 </div>
             </form>
