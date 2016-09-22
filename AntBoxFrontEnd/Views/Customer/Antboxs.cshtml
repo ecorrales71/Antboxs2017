@@ -1,4 +1,4 @@
-﻿
+﻿@model AntBoxFrontEnd.Services.AntBoxes.PaginationAntBoxes
 @{
     ViewBag.Title = "Index";
 }
@@ -28,80 +28,7 @@
                             <h3>Mis Antboxs almacenados</h3>
                             <p>Programa la solicitud de tus Antboxs en el momento que tú decidas. Agrega una descripción que te permita identificar su contenido fácilmente.</p>
                         </div>
-                        <div class="col-sm-12 mb20">
-                            <div class="card card-border-dashed card-border-color magnific-wrap">
-                                <div class="row">
-                                    <div class="col-sm-4 col-xs-12">
-                                        <figure class="figure">
-                                            <img src="images/antboxs_3.jpg" alt="">
-                                            <div class="sticker_mov completed">Solicitado</div>
-                                            <div class="mask mask-dark">
-                                                <nav>
-                                                    <a class="icon icon-inverse icon-size-1 icon-theme icon-rounded magnific" title="Antboxs 1" href="images/antboxs_3.jpg">
-                                                        <i class="fa fa-search"></i>
-                                                    </a>
-                                                </nav>
-                                            </div>
-                                        </figure>
-                                    </div>
-                                    <div class="col-sm-8 col-xs-12 antboxs_txt">
-                                        <h4>Antboxs 1 - 110968</h4>
-                                        <p>Camisas a cuadros, botas, pantalones, revistas y documentos importantes de la familia.</p>
-                                        <button type="button" class="btn btn-primary btn-sm pull-right ml20" data-toggle="modal" data-target="#solicitar">Solicitar</button>
-                                        <button type="button" class="btn btn-primary btn-sm pull-right btn_blue" data-toggle="modal" data-target="#editar">Editar</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-12 mb20">
-                            <div class="card card-border-dashed card-border-color magnific-wrap">
-                                <div class="row">
-                                    <div class="col-sm-4 col-xs-12">
-                                        <figure class="figure">
-                                            <img src="images/antboxs_4.jpg" alt="">
-                                            <div class="sticker_mov completed">Solicitado</div>
-                                            <div class="mask mask-dark">
-                                                <nav>
-                                                    <a class="icon icon-inverse icon-size-1 icon-theme icon-rounded magnific" title="Antboxs 2" href="images/antboxs_4.jpg">
-                                                        <i class="fa fa-search"></i>
-                                                    </a>
-                                                </nav>
-                                            </div>
-                                        </figure>
-                                    </div>
-                                    <div class="col-sm-8 col-xs-12 antboxs_txt">
-                                        <h4>Antboxs 2 - 110968</h4>
-                                        <p>Libros, frasados, dos pares de tenis, ropa para dama de temporara de invierno.</p>
-                                        <button type="button" class="btn btn-primary btn-sm pull-right ml20" data-toggle="modal" data-target="#solicitar">Solicitar</button>
-                                        <button type="button" class="btn btn-primary btn-sm pull-right btn_blue" data-toggle="modal" data-target="#editar">Editar</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-12 mb20">
-                            <div class="card card-border-dashed card-border-color magnific-wrap">
-                                <div class="row">
-                                    <div class="col-sm-4 col-xs-12">
-                                        <figure class="figure">
-                                            <img src="images/antboxs_3.jpg" alt="">
-                                            <div class="mask mask-dark">
-                                                <nav>
-                                                    <a class="icon icon-inverse icon-size-1 icon-theme icon-rounded magnific" title="Antboxs 3" href="images/antboxs_3.jpg">
-                                                        <i class="fa fa-search"></i>
-                                                    </a>
-                                                </nav>
-                                            </div>
-                                        </figure>
-                                    </div>
-                                    <div class="col-sm-8 col-xs-12 antboxs_txt">
-                                        <h4>Antboxs 3 - 110968</h4>
-                                        <p>Ropa de temporada, adornos navideños, papelería, recuerdos y fotografías familiares.</p>
-                                        <button type="button" class="btn btn-primary btn-sm pull-right ml20" data-toggle="modal" data-target="#solicitar">Solicitar</button>
-                                        <button type="button" class="btn btn-primary btn-sm pull-right btn_blue" data-toggle="modal" data-target="#editar">Editar</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        @Html.Partial("_CustomerAntboxs", Model.Antboxs)
                     </div>
                     <div class"row">
                         <div class="col-sm-12 pl0 pr0 pt20 text-center">
@@ -110,11 +37,6 @@
                                 <li class="pull-left"><a href="#" class="prev"><i class="fa fa-angle-left"></i></a></li>
                                 <li class="pull-right"><a href="#" class="next"><i class="fa fa-angle-right"></i></a></li>
                                 <li class="active"><a href="#">1</a></li>
-                                <li><a href="#">2</a></li>
-                                <li><a href="#">3</a></li>
-                                <li><a href="#">4</a></li>
-                                <li><a href="#">…</a></li>
-                                <li><a href="#">36</a></li>
                             </ul>
                             <!-- /.pagination -->
                         </div>

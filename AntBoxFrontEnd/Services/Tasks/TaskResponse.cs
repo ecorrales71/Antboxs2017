@@ -37,11 +37,29 @@ namespace AntBoxFrontEnd.Services.Tasks
         [JsonProperty("customer")]
         public CustomerResponse Customer { get; set; }
 
+        public DateTime completeAfterDate {
+            get {
+                var epoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+                return epoch.AddMilliseconds(completeAfter);
+            }
+        }
+
     }
 
     public class ListTask
     {
         public ListTask()
+        {
+            Tasks = new List<TaskResponse>();
+        }
+
+        [JsonProperty("tasks")]
+        public List<TaskResponse> Tasks { get; set; }
+    }
+
+    public class ListCustomerTask
+    {
+        public ListCustomerTask()
         {
             Tasks = new List<TaskResponse>();
         }

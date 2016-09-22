@@ -15,6 +15,7 @@ using AntBoxFrontEnd.Entities;
 using AntBoxFrontEnd.Services.Boxes;
 using System.Web.Configuration;
 using AntBoxFrontEnd.Services.Tasks;
+using AntBoxFrontEnd.Services.AntBoxes;
 
 namespace AntBoxFrontEnd.Controllers
 {
@@ -78,11 +79,45 @@ namespace AntBoxFrontEnd.Controllers
 
         public ActionResult Antboxs()
         {
-            return View();
+            if (Session["customer"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            var servicio = new AntBoxesServices(ServiceConfiguration.GetApiKey());
+
+
+            PaginationAntBoxes result = new PaginationAntBoxes();
+            try
+            {
+                result = servicio.ListAntBoxes(((CustomerResponse)Session["customer"]).Id, AntBoxStatusEnum.Defualt, 1);
+            }
+            catch (Exception ex)
+            {
+            }
+
+            return View(result);
         }
         public ActionResult Movimientos()
         {
-            return View();
+            if (Session["customer"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            var servicio = new TaskService(ServiceConfiguration.GetApiKey());
+
+
+            ListCustomerTask result = new ListCustomerTask();
+            try
+            {
+                result = servicio.ListTaskByCustomer(((CustomerResponse)Session["customer"]).Id);
+            }
+            catch (Exception ex)
+            {
+            }
+
+            return View(new AntBoxTasksViewModel() { Tareas = result });
         }
         //public ActionResult Ordenar()
         //{

@@ -1,0 +1,58 @@
+﻿@model IEnumerable<AntBoxFrontEnd.Services.Tasks.TaskResponse>
+
+
+@foreach (var item in Model)
+{
+            <div class="col-sm-12 back_gris pt30 pb20 mb30">
+                <div class="media-left">
+                    <div class="icon icon-color icon-size-4">
+                        @if (item.Type == "pickup")
+                        {
+                            <i class="fa fa-truck fa-flip-horizontal"></i>
+                        }
+                        else
+                        {
+                            <i class="fa fa-archive"></i>
+                        }
+                    </div>
+                </div>
+                <div class="media-body">
+                    @if (item.Type == "pickup")
+                    {
+                        <h4>Recolección</h4>
+                    }
+                    else
+                    {
+                        <h4>Entrega</h4>
+                    }
+                    <p>Fecha: @Html.DisplayFor(modelItem => item.completeAfterDate);<br />Lugar: @Html.DisplayFor(modelItem => item.Address.Street) @Html.DisplayFor(modelItem => item.Address.External_number), @Html.DisplayFor(modelItem => item.Address.Neighborhood), @Html.DisplayFor(modelItem => item.Address.City), C.P. @Html.DisplayFor(modelItem => item.Address.Zipcode). </p>
+                    @*<div class="sticker_mov completed">Completado</div>*@
+                </div>
+            </div>
+
+
+            @*<div class="col-sm-12 back_gris pt30 pb20 mb30">
+                <div class="media-left">
+                    <div class="icon icon-color icon-size-4">
+                        <i class="fa fa-truck fa-flip-horizontal"></i>
+                    </div>
+                </div>
+                <div class="media-body">
+                    <h4>Recolección</h4>
+                    <p>Fecha: 26 / Abril / 2016<br />Lugar: Fachada de color blanco con azul. Fachada de color blanco con azul.</p>
+                    <div class="sticker_mov completed">Completado</div>
+                </div>
+            </div>
+            <div class="col-sm-12 back_gris pt30 pb20 mb30">
+                <div class="media-left">
+                    <div class="icon icon-color icon-size-4">
+                        <i class="fa fa-archive"></i>
+                    </div>
+                </div>
+                <div class="media-body">
+                    <h4>Entrega</h4>
+                    <p>Fecha: 26 / Abril / 2016<br />Lugar: Fachada de color blanco con azul. Fachada de color blanco con azul. Lugar: Fachada de color blanco con azul. Fachada de color blanco con azul.</p>
+                    <div class="sticker_mov in_progress">En progreso</div>
+                </div>
+            </div>*@
+}

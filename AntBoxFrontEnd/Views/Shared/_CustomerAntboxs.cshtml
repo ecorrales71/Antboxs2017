@@ -1,0 +1,82 @@
+﻿@model IEnumerable<AntBoxFrontEnd.Services.AntBoxes.AntBoxResponse>
+
+
+@foreach (var item in Model)
+{
+            
+
+            <div class="col-sm-12 mb20">
+                <div class="card card-border-dashed card-border-color magnific-wrap">
+                    <div class="row">
+                        <div class="col-sm-4 col-xs-12">
+                            <figure class="figure">
+                                <img src="~/images/antboxs_3.jpg" alt="">
+                                @*<div class="sticker_mov completed">Solicitado</div>*@
+                                <div class="mask mask-dark">
+                                    <nav>
+                                        <a class="icon icon-inverse icon-size-1 icon-theme icon-rounded magnific" title="Antboxs 1" href="images/antboxs_3.jpg">
+                                            <i class="fa fa-search"></i>
+                                        </a>
+                                    </nav>
+                                </div>
+                            </figure>
+                        </div>
+                        <div class="col-sm-8 col-xs-12 antboxs_txt">
+                            <h4>@Html.DisplayFor(modelItem => item.Name) - @Html.DisplayFor(modelItem => item.Folio)</h4>
+                            <p>@Html.DisplayFor(modelItem => item.Description)</p>
+                            <button type="button" class="btn btn-primary btn-sm pull-right ml20" data-toggle="modal" data-target="#solicitar">Solicitar</button>
+                            @*<button type="button" class="btn btn-primary btn-sm pull-right btn_blue" data-toggle="modal" data-target="#editar">Editar</button>*@
+                        </div>
+                    </div>
+                </div>
+            </div>
+                        @*<div class="col-sm-12 mb20">
+                            <div class="card card-border-dashed card-border-color magnific-wrap">
+                                <div class="row">
+                                    <div class="col-sm-4 col-xs-12">
+                                        <figure class="figure">
+                                            <img src="images/antboxs_4.jpg" alt="">
+                                            <div class="sticker_mov completed">Solicitado</div>
+                                            <div class="mask mask-dark">
+                                                <nav>
+                                                    <a class="icon icon-inverse icon-size-1 icon-theme icon-rounded magnific" title="Antboxs 2" href="images/antboxs_4.jpg">
+                                                        <i class="fa fa-search"></i>
+                                                    </a>
+                                                </nav>
+                                            </div>
+                                        </figure>
+                                    </div>
+                                    <div class="col-sm-8 col-xs-12 antboxs_txt">
+                                        <h4>Antboxs 2 - 110968</h4>
+                                        <p>Libros, frasados, dos pares de tenis, ropa para dama de temporara de invierno.</p>
+                                        <button type="button" class="btn btn-primary btn-sm pull-right ml20" data-toggle="modal" data-target="#solicitar">Solicitar</button>
+                                        <button type="button" class="btn btn-primary btn-sm pull-right btn_blue" data-toggle="modal" data-target="#editar">Editar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 mb20">
+                            <div class="card card-border-dashed card-border-color magnific-wrap">
+                                <div class="row">
+                                    <div class="col-sm-4 col-xs-12">
+                                        <figure class="figure">
+                                            <img src="images/antboxs_3.jpg" alt="">
+                                            <div class="mask mask-dark">
+                                                <nav>
+                                                    <a class="icon icon-inverse icon-size-1 icon-theme icon-rounded magnific" title="Antboxs 3" href="images/antboxs_3.jpg">
+                                                        <i class="fa fa-search"></i>
+                                                    </a>
+                                                </nav>
+                                            </div>
+                                        </figure>
+                                    </div>
+                                    <div class="col-sm-8 col-xs-12 antboxs_txt">
+                                        <h4>Antboxs 3 - 110968</h4>
+                                        <p>Ropa de temporada, adornos navideños, papelería, recuerdos y fotografías familiares.</p>
+                                        <button type="button" class="btn btn-primary btn-sm pull-right ml20" data-toggle="modal" data-target="#solicitar">Solicitar</button>
+                                        <button type="button" class="btn btn-primary btn-sm pull-right btn_blue" data-toggle="modal" data-target="#editar">Editar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>*@
+}
