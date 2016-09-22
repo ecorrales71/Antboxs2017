@@ -294,6 +294,7 @@
     <Compile Include="Services\AntBoxes\AntBoxRequestOptions.cs" />
     <Compile Include="Services\AntBoxes\AntBoxResponse.cs" />
     <Compile Include="Services\AntBoxes\AntBoxUpdateRequest.cs" />
+    <Compile Include="Services\AntBoxes\CheckOut.cs" />
     <Compile Include="Services\AntBoxes\PaginationAntBoxes.cs" />
     <Compile Include="Services\BadRequestResponse.cs" />
     <Compile Include="Services\Boxes\BoxesRequestOptions.cs" />

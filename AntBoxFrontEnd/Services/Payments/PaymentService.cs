@@ -166,6 +166,29 @@ namespace AntBoxFrontEnd.Services.Payments
             return true;
         }
 
+
+        public virtual ChargeResponse DoChargeToCustomer(Charge charge, RequestOptions requestOptions = null)
+        {
+            requestOptions = SetupRequestOptions(requestOptions);
+
+            string serilizedObj = JsonConvert.SerializeObject(charge, new JsonSerializerSettings() { NullValueHandling = NullValueHandling.Ignore }).ToString();
+            StringContent PostData = new StringContent(serilizedObj, Encoding.UTF8, "application/json");
+
+            try
+            {
+                var paymentResponse = Requestor.Post<ChargeResponse>(UrlsConstants.Payment, requestOptions, PostData);
+
+                return paymentResponse;
+
+            }
+            catch (Exception ex)
+            {
+                //Todo log
+                LogManager.Write(ex.Message + " " + ex.InnerException, LogManager.Error);
+                return null;
+            }
+        }
+
         /// <summary>
         /// 
         /// </summary>

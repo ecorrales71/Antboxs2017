@@ -344,9 +344,15 @@ namespace AntBoxFrontEnd.Services
         {
             var order = new AntBoxRequestOptions()
             {
-                Box_id = idbox,
+                Checkouts =  new CheckOut[] {new CheckOut ()
+                    {
+                        Box_id = idbox,
+                        Quantity = 3
+                    }
+                },
+                
                 Customer_id = customer,
-                Quantity = 3,
+                
                 Worker_id = worker
 
             };

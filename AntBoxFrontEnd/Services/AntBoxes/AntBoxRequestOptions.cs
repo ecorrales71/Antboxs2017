@@ -15,11 +15,8 @@ namespace AntBoxFrontEnd.Services.AntBoxes
         [JsonProperty("worker_id")]
         public string Worker_id { get; set; }
 
-        [JsonProperty("quantity")]
-        public int Quantity { get; set; }
-
-        [JsonProperty("box_id")]
-        public string Box_id { get; set; }
+        [JsonProperty("checkouts")]
+        public CheckOut[] Checkouts { get; set; }
 
         [JsonProperty("antboxs")]
         public string[] Antboxs { get; set; }
