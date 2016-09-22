@@ -1,0 +1,251 @@
+﻿
+@model  AntBoxFrontEnd.Models.AntBoxesViewModel
+
+
+@{
+    ViewData["i"] = 1;
+    int rowNo = 1;
+
+    int TotalBoxes = Model.Order.Count;
+
+}
+
+
+<div class="row" id="Precios">
+    <input name='TotalBoxes' type="hidden" value='@TotalBoxes' />
+    <div class="col-sm-12">
+        <div class="responsive">
+            <table class="table shop_table cart">
+                <thead>
+                    <tr>
+                        <th class="product-name">Antboxs</th>
+                        <th class="product-price no_mobile">Precio</th>
+                        <th class="product-quantity">Cantidad</th>
+                        <th class="product-subtotal no_iphone_portrait">Total</th>
+                        <!--<th class="product-remove">&nbsp;</th>-->
+                    </tr>
+                </thead>
+                <tbody id="tblBoxes">
+
+                    @foreach (var item in Model.Order)
+                    {
+
+
+                        <tr class="cart_item">
+                            <input name='box_@rowNo' id='box_@rowNo' type="hidden" value='@item.Id' />
+                            <td class="product-name">
+                                <h5> @item.Label </h5>
+                                <dl class="variation">
+
+                                    <dt class="variation-Color">Medidas:</dt>
+                                    <dd class="variation-Color">
+                                        <p> @item.Sizes </p>
+                                    </dd>
+                                </dl>
+                            </td>
+                            <td class="product-price no_mobile">
+                                $<span class="amount" id='Price_@rowNo'> @item.Price </span>
+                            </td>
+                            <td class="product-quantity">
+                                <a href="" class="minus disabled" onclick='RemoveBox(@rowNo)'>-</a>
+                                <input type="text" id='quantity_@rowNo' value='@item.Quantity'>
+                                <a href="" class="plus" onclick='AddBox(@rowNo)'>+</a>
+                            </td>
+                            <td class="product-subtotal no_iphone_portrait">
+                                $ <span class="amount toSum" id='LineTotal_@rowNo'> @item.LineTotal</span>
+                            </td>
+
+                        </tr>
+                        rowNo++;
+                    }
+
+                    <tr>
+                        <td class="actions" colspan="6">
+                            <div class="coupon pull-right center_iphone_portrait">
+                                <input id="coupon_code" class="input-text pb10__iphone_portrait" type="text" placeholder="Código de cupón" value="" name="coupon_code">
+                                <input class="btn btn-primary pull-right floatr ml10 center_iphone_portrait" type="submit" value="Aplicar cupón">
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="row irow-xs cart-collaterals mt0">
+            <div class="col-md-5 col-sm-6">
+            </div>
+            <div class="col-md-offset-1 col-sm-6 cart_totals">
+                <table class="table">
+                    <tbody>
+                        <tr class="cart-subtotal">
+                            <th>Descuento</th>
+                            <td>
+                                $ <span class="amount" id="Discount">@Html.DisplayTextFor(o => o.Discount)</span>
+                            </td>
+                        </tr>
+                        <tr class="cart-subtotal">
+                            <th>Subtotal</th>
+                            <td>
+                                $ <span class="amount" id="Subtotal">@Html.DisplayTextFor(o => o.Subtotal)</span>
+                            </td>
+                        </tr>
+                        <tr class="shipping">
+                            <th>+ IVA</th>
+                            <td>
+                                $ <span class="amount" id="Tax">@Html.DisplayTextFor(o => o.Iva)</span>
+                            </td>
+                        </tr>
+                        <tr class="order-total">
+                            <th>Total</th>
+                            <td>
+                                <strong>
+                                    $ <span class="amount" id="Total">@Html.DisplayTextFor(o => o.Total) </span>
+                                </strong>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            @Html.ActionLink("Agendar entregas", "AgendarEntregas", "Home", null, null, null, null, new { @class = "btn btn-primary pull-right" })
+            @*<input type="" class="btn btn-primary pull-right" value="btn btn-primary pull-right" onclick="window.location='agendar-entregas.php';" />*@
+            <p class="succs-msg">Мensaje enviado</p>
+        </div>
+    </div>
+
+</div>
+
+
+<script type="text/javascript">
+    function AddBox(ide) {
+        var p = '#Price_' + ide;
+        var q = '#quantity_' + ide;
+
+        var priceObj = $('#Price_' + ide)
+        var quantityObj = $('#quantity_' + ide)
+
+        var price = priceObj.html();
+        var quantity = quantityObj.val();
+
+        quantity++;
+
+        lineSub = price * quantity;
+
+        $( '#LineTotal_' + ide).html(lineSub);
+        recalculateTotal();
+
+
+        var boxobj = $('#box_' + ide);
+
+        var boxid = boxobj.val();
+
+        var data = JSON.stringify({ "boxid": boxid, "quantity": quantity })
+
+        $.ajax({
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            type: 'POST',
+            url: '@Url.Action("TempUpdateAntboxes", "Customer")',
+            // data: $('#frmNewAddress').serialize(),
+            data: data,
+            success: function (d) {
+
+            }
+
+        });
+    }
+
+    function RemoveBox(ide) {
+        var p = '#Price_' + ide;
+        var q = '#quantity_' + ide;
+
+        var priceObj = $('#Price_' + ide)
+        var quantityObj = $('#quantity_' + ide)
+
+        var price = priceObj.html();
+        var quantity = quantityObj.val();
+
+        quantity--;
+        if (quantity>=0)
+        {
+            lineSub = price * quantity;
+
+            $( '#LineTotal_' + ide).html(lineSub);
+        }
+        recalculateTotal();
+        var boxobj = $('#box_' + ide);
+
+        var boxid = boxobj.val();
+
+        var data = JSON.stringify({ "boxid": boxid, "quantity": quantity })
+
+        $.ajax({
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            type: 'POST',
+            url: '@Url.Action("TempUpdateAntboxes", "Customer")',
+            // data: $('#frmNewAddress').serialize(),
+            data: data,
+            success: function (d) {
+
+            }
+
+        });
+    }
+
+
+    function ActualizaCajas() {
+
+    }
+
+
+    function recalculateTotal()
+    {
+        var discountObj =  $( '#Discount' );
+        var subtotalObj =  $( '#Subtotal' );
+        var taxObj =  $( '#Tax' );
+        var totalObj =  $( '#Total' );
+
+        var subtotal = 0;
+        $( ".toSum" ).each(function( i ) {
+            subtotal += parseFloat($(this).text());
+
+        });
+
+        var tax = (subtotal*0.16);
+        var total = parseFloat(subtotal+tax);
+
+        subtotalObj.text(subtotal.toFixed(2));
+        taxObj.text(tax.toFixed(2));
+        totalObj.text(total.toFixed(2));
+
+
+
+
+
+    }
+
+    var CartLine = function () {
+        var self = this;
+
+
+
+    }
+
+</script>
+
+
+
+<script type="text/javascript">
+    function QuantityChange() {
+        alert("Entro al on change");
+
+
+
+    }
+
+
+
+</script>

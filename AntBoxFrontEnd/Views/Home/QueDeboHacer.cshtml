@@ -109,7 +109,8 @@
                         Administrar tu inventario adecuadamente te ayudará a tener la máxima experiencia de servicio.
                     </p>
                     <div class="heading-divider heading-divider-xs mb30"></div>
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#registro">Comenzar Ahora</button>
+                    @*<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#registro">Comenzar Ahora</button>*@
+                    @Html.ActionLink("Comenzar Ahora", "Index", "Precios", new { }, new { @class = "btn btn-primary" })
                 </div>
             </div>
         </div>

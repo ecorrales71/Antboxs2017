@@ -267,11 +267,10 @@
                                                 <p>Revisa las condiciones de uso antes de continuar.</p>
                                             </div>
                                             <div class="checkbox">
-                                                <a href="@Url.Content("~/Content/docs/aviso-de-privacidad.pdf")" target="_blank" class="btn-link"><b>restricciones de uso</b>
-                                                </a>
+                                                <button type="button" class="btn-link" data-toggle="modal" data-target="#restricciones_uso">restricciones de uso</button>
 
                                                 <label class="pull-left pr5">
-                                                    <input type="checkbox" name="preferencia_contacto">
+                                                    <input type="checkbox" name="chkRestricciones" id="chkRestricciones">
                                                     Entiendo y acepto las
                                                 </label>
                                             </div>
@@ -286,7 +285,7 @@
                                                     <b>términos y condiciones</b>
                                                 </a>
                                                 <label class="pull-left pr5">
-                                                    <input type="checkbox" name="preferencia_contacto">
+                                                    <input type="checkbox" name="chkCondiciones" id="chkCondiciones">
                                                     Entiendo y acepto los
                                                 </label>
                                             </div>
@@ -460,7 +459,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal"><i class="fa fa-times"></i></button>
-                <h6 class="modal-title">Restricciones de uso</h6>
+                <h6 class="modal-title">Restricciones de uso</h6>e
             </div>
             <div class="modal-body">
                 <div class="modal-body-inside">
@@ -603,22 +602,7 @@
             var monto = $('#Total').text();
 
 
-            
 
-
-            alert("dirreco " + dirRecolId + " \n dir entr" + dirEntlId + "  \n fec rec"
-                + fecRec + "  \n fec ent" + fecEnt + "  \n weid"
-                + workerEnt + "  \n wrid" + workerRec + "  \n he" + horaEnt
-                + "  \n hr" + horaRec + " \n esperar: " + esperar
-                + "\n telcon" + contactoTel + "\nmailcon" + contactoMail
-                + "\ntexto" + referenciasRec
-                + "\texton" + referenciasEnt
-                + "\n id tarjeta" + cardid
-                + "\ntotal" + monto
-
-
-
-                );
 
 
             var data =
@@ -640,7 +624,6 @@
                         monto: monto
                     };
 
-            alert(data);
 
 
 
@@ -654,13 +637,19 @@
                     type: "POST",
                     data: data,
                     success: function (data) {
-
-                        alert(data);
+                        if (data.success)
+                        {
+                            alert(data.responseText);
+                            window.location.reload(true);
+                        }
+                        else
+                        { alert(data.responseText); }
+                        
                        
                     }
                 });
                 
-//              window.location.reload(true);
+              
             }
         }
 

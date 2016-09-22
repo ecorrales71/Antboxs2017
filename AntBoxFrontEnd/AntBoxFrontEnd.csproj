@@ -641,7 +641,7 @@
     <Content Include="Views\Home\PreguntasFrecuentes.cshtml" />
     <Content Include="Views\Home\CrearCuenta.cshtml" />
     <Content Include="Views\Home\OrdenCompleta.cshtml" />
-    <Content Include="Views\Precios\PricePartialView.cshtml" />
+    <Content Include="Views\Shared\PricePartialView.cshtml" />
     <Content Include="Views\Home\_PickupAddressPartial.cshtml" />
     <Content Include="Views\Home\_SentAddressPartial.cshtml" />
     <Content Include="Views\Customer\_ViewStart.cshtml" />
@@ -660,6 +660,7 @@
     <Content Include="Video\video_antboxs.webm" />
     <Content Include="Views\Shared\_CustomerTasks.cshtml" />
     <Content Include="Views\Shared\_CustomerAntboxs.cshtml" />
+    <Content Include="Views\Precios\_BoxesPartialView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Addresses\" />

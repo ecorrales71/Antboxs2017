@@ -8,6 +8,10 @@ namespace AntBoxFrontEnd.Services.AntBoxes
 {
     public class PaginationAntBoxes
     {
+        public  PaginationAntBoxes()
+        {
+            Antboxs = new List<AntBoxResponse>(); 
+        }
         [JsonProperty("pagination_id")]
         public string Pagination_id { get; set; }
 

@@ -99,6 +99,10 @@ namespace AntBoxFrontEnd.Controllers
             catch (Exception ex)
             {
             }
+            if (result == null)
+                {
+                result = new PaginationAntBoxes();
+            }
 
             return View(result);
         }
@@ -576,17 +580,16 @@ namespace AntBoxFrontEnd.Controllers
                // var status = DoCharge(Convert.ToDecimal(monto));
 
                 var status = DoCharge(Convert.ToDecimal(VALOR_TEST));
-
-                if (string.IsNullOrEmpty(status.Status))
+                if (status == null || string.IsNullOrEmpty(status.Status))
                     return Json(new { success = false, responseText = "OCURRIO UN ERROR Al REALIZAR EL CARGO" }, JsonRequestBehavior.AllowGet);
 
-                result += "Cargo realizado: " + status.Status +" el día " + status.Creation_date;
+                result += "Cargo realizado: " + status.Status;// +" el día " + status.Creation_date;
 
-                return Json(result, JsonRequestBehavior.AllowGet);
+                return Json(new { success = true, responseText = "Tu pedido ha sido registrado con éxito y llegará en la fecha solicitada. A continuación te llegará un correo electrónico confirmando tu(s) Antboxs. En caso de que no te llegue el correo, no te preocupes el mismo ya fue registrado en nuestro sistema." }, JsonRequestBehavior.AllowGet);
             }
             catch(Exception ex)
             {
-                return Json(new { success = false, responseText = "OCURRIO UN ERROR AL LISTAR LAS TARJETAS DISPONIBLES" }, JsonRequestBehavior.AllowGet);
+                return Json(new { success = false, responseText = "OCURRIO UN ERROR AL PROCESAR LA ORDEN" }, JsonRequestBehavior.AllowGet);
             }
         }
 

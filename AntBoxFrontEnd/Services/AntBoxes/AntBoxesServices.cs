@@ -39,7 +39,7 @@ namespace AntBoxFrontEnd.Services.AntBoxes
             {
                 //Todo log
                 LogManager.Write(ex.Message + " " + ex.InnerException, LogManager.Error);
-                return "ERROR:" +ex.Message;
+                return String.Empty;
             }            
         }
 
