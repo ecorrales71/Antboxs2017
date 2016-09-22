@@ -1,4 +1,4 @@
-﻿
+﻿@model AntBoxFrontEnd.Models.AntBoxTasksViewModel
 @{
     ViewBag.Title = "Index";
 }
@@ -28,53 +28,9 @@
                             <h3>Historial de movimientos</h3>
                             <p>Revisa el estatus de tus movimientos realizados y consulta el historial de movimientos anteriores.</p>
                         </div>
-                        <div class="col-sm-12 back_gris pt30 pb20 mb30">
-                            <div class="media-left">
-                                <div class="icon icon-color icon-size-4">
-                                    <i class="fa fa-truck fa-flip-horizontal"></i>
-                                </div>
-                            </div>
-                            <div class="media-body">
-                                <h4>Recolección</h4>
-                                <p>Fecha: 26 / Abril / 2016<br />Lugar: Fachada de color blanco con azul. Fachada de color blanco con azul.</p>
-                                <div class="sticker_mov completed">Completado</div>
-                            </div>
-                        </div>
-                        <div class="col-sm-12 back_gris pt30 pb20 mb30">
-                            <div class="media-left">
-                                <div class="icon icon-color icon-size-4">
-                                    <i class="fa fa-archive"></i>
-                                </div>
-                            </div>
-                            <div class="media-body">
-                                <h4>Entrega</h4>
-                                <p>Fecha: 26 / Abril / 2016<br />Lugar: Fachada de color blanco con azul. Fachada de color blanco con azul. Lugar: Fachada de color blanco con azul. Fachada de color blanco con azul.</p>
-                                <div class="sticker_mov in_progress">En progreso</div>
-                            </div>
-                        </div>
-                        <div class="col-sm-12 back_gris pt30 pb20 mb30">
-                            <div class="media-left">
-                                <div class="icon icon-color icon-size-4">
-                                    <i class="fa fa-file-text"></i>
-                                </div>
-                            </div>
-                            <div class="media-body">
-                                <h4>Facturado</h4>
-                                <p>Fecha: 26 / Abril / 2016<br />Lugar: Fachada de color blanco con azul. Fachada de color blanco con azul.</p>
-                                <div class="sticker_mov completed">Completado</div>
-                            </div>
-                        </div>
-                        <div class="col-sm-12 back_gris pt30 pb20 mb30">
-                            <div class="media-left">
-                                <div class="icon icon-color icon-size-4">
-                                    <i class="fa fa-truck fa-flip-horizontal"></i>
-                                </div>
-                            </div>
-                            <div class="media-body">
-                                <h4>Recolección</h4>
-                                <p>Fecha: 26 / Abril / 2016<br />Lugar: Fachada de color blanco con azul. Fachada de color blanco con azul.</p>
-                                <div class="sticker_mov canceled">Canceldado</div>
-                            </div>
+
+                        <div id="TasksList">
+                            @Html.Partial("_CustomerTasks", Model.Tareas.Tasks)
                         </div>
                     </div>
                     <div class"row">
@@ -84,11 +40,6 @@
                                 <li class="pull-left"><a href="#" class="prev"><i class="fa fa-angle-left"></i></a></li>
                                 <li class="pull-right"><a href="#" class="next"><i class="fa fa-angle-right"></i></a></li>
                                 <li class="active"><a href="#">1</a></li>
-                                <li><a href="#">2</a></li>
-                                <li><a href="#">3</a></li>
-                                <li><a href="#">4</a></li>
-                                <li><a href="#">…</a></li>
-                                <li><a href="#">36</a></li>
                             </ul>
                             <!-- /.pagination -->
                         </div>

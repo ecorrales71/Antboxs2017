@@ -96,6 +96,24 @@ namespace AntBoxFrontEnd.Services.Tasks
             }
         }
 
+        public virtual ListCustomerTask ListTaskByCustomer(string id, RequestOptions requestOptions = null)
+        {
+            try
+            {
+                requestOptions = SetupRequestOptions(requestOptions);
+                
+                var task = Requestor.Get<ListCustomerTask>(UrlsConstants.CustomerTask + "/" + id, requestOptions);
+
+                return task;
+            }
+            catch (Exception ex)
+            {
+                LogManager.Write(ex.Message + " " + ex.InnerException, LogManager.Error);
+                var empty = new ListCustomerTask();
+                return empty;
+            }
+        }
+
         public virtual List<Schedules> ListSchedules(DateTime date, RequestOptions requestOptions = null)
         {
             try

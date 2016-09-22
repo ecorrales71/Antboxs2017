@@ -279,6 +279,7 @@
     <Compile Include="Models\abTask.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\abAddress.cs" />
+    <Compile Include="Models\AntBoxTasksViewModel.cs" />
     <Compile Include="Models\AntBoxAddressViewModel.cs" />
     <Compile Include="Models\AntBoxesViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -656,6 +657,9 @@
     <Content Include="Views\Shared\_CustomerCards.cshtml" />
     <Content Include="Views\Customer\_SelectBoxesPartial.cshtml" />
     <Content Include="Views\Shared\_CreateNewAddress.cshtml" />
+    <Content Include="Video\video_antboxs.webm" />
+    <Content Include="Views\Shared\_CustomerTasks.cshtml" />
+    <Content Include="Views\Shared\_CustomerAntboxs.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Addresses\" />
@@ -694,7 +698,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>50089</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>https://localhost:44345/</IISUrl>
+          <IISUrl>https://localhost:44347/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
