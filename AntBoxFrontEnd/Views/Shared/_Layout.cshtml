@@ -48,12 +48,19 @@
     <!-- HEADER EXTRA TOP -->
     <div class="header-extra-top">
         <div class="container">
-            <!-- NAVBAR ACCOUNT -->
-            <div class="navbar-account pull-right" id="login-info">
-                @Html.Partial("_LoginPartial")
+            <div class="navbar-account pull-left">
+                <nav>
+                    <span style="font-size:large">Almacenamiento Seguro, Fácil y Conveniente</span>
+                </nav>
             </div>
-            <!-- /.navbar-account -->
-        </div>
+
+                <!-- NAVBAR ACCOUNT -->
+                <div class="navbar-account pull-right" id="login-info">
+
+                    @Html.Partial("_LoginPartial")
+                </div>
+                <!-- /.navbar-account -->
+            </div>
     </div>
     <!-- /.header-extra-top -->
 
@@ -312,7 +319,7 @@
                             </div>
                             <hr class="hr-sm hr-stroke" />
                             <div class="form-group">
-                                <input type="button" class="btn btn-primary" data-dismiss="modal" value="Regristrarme" id="btnRegister">
+                                <input type="button" class="btn btn-primary" data-dismiss="modal" value="Registrarme" id="btnRegister">
                             </div>
                         </form>
                     </div>

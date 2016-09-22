@@ -10,7 +10,7 @@
         <div class="banner" data-fullscreen="on" data-auto="true" data-hidetimerbar="off" data-fullscreenoffsetcontainer=".header">
             <ul>
                 <li data-transition="fade" data-slotamount="7" data-saveperformance="on" class="background" style="background-image: url(images/video_antboxs.jpg)">
-                    <div class="tp-caption sft large_bold_white portrait" data-x="left" data-y="center" data-hoffset="100" data-voffset="-85" data-speed="700" data-start="700" data-easing="easeOutBack">Paga solo por lo que usas</div>
+                    <div class="tp-caption sft large_bold_white portrait" data-x="left" data-y="center" data-hoffset="100" data-voffset="200" data-speed="700" data-start="700" data-easing="easeOutBack">Paga solo por lo que usas</div>
                     <p class="tp-caption fade portrait" data-x="left" data-y="center" data-hoffset="100" data-speed="500" data-start="900" data-easing="easeOutBack">Porque el mundo siempre tuvo que haber sido así.<br />Utiliza solo el espacio que necesitas.<br />Es lo justo.</p>
                     <div class="tp-caption tp-fade fadeout fullscreenvideo"
                          data-x="0"
@@ -189,7 +189,8 @@
                         <h1>Haz más espacio en tu hogar u oficina</h1>
                         <p>Todos necesitamos más espacio. Hay muchas cosas, mercancía, recuerdos, ornamenta, documentos, fotografías, libros, CD, ropa de invierno, de verano, adornos, que estorban y quitan espacio. ¿Necesitas facturar? ¡con gusto!</p>
                         <div class="heading-divider heading-divider-xs mb30"></div>
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#registro">Comenzar Ahora</button>
+                        @*<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#registro">Comenzar Ahora</button>*@
+                        @Html.ActionLink("Comenzar Ahora", "Precios", "Index", new { }, new { @class = "btn btn-primary" })
                     </div>
                 </div>
             </div>

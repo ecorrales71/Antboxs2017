@@ -493,15 +493,77 @@ function goto_rndf(reload)
         };
 
         var error_callbak = function (response) {
-            var desc = response.data.description != undefined ? response.data.description : response.message;
+            var desc = "ERROR [" + response.status + "] " + response.data.description != undefined ? response.data.description : response.message;
             //alert("ERROR [" + response.status + "] " + desc);
             //$("#pay-button").prop("disabled", false);
-
+            switch (response.status)
+            {
+                case 2001:
+                    desc = "La cuenta de banco con esta CLABE ya se encuentra registrada en el cliente.";
+                    break;
+                case 2002:
+                    desc = "La tarjeta con este número ya se encuentra registrada en el cliente.";
+                    break;
+                case 2003:
+                    desc = "El cliente con este identificador externo (External ID) ya existe.";
+                    break;
+                case 2004:
+                    desc = "El dígito verificador del número de tarjeta es inválido de acuerdo al algoritmo Luhn.";
+                    break;
+                case 2005:
+                    desc = "La fecha de expiración de la tarjeta es anterior a la fecha actual.";
+                    break;
+                case 2006:
+                    desc = "El código de seguridad de la tarjeta (CVV2) no fue proporcionado.";
+                    break;
+                case 2007:
+                    desc = "El número de tarjeta es de prueba, solamente puede usarse en Sandbox.";
+                    break;
+                case 2008:
+                    desc = "La tarjeta no es valida para puntos Santander.";
+                    break;
+                case 3001:
+                    desc = "La tarjeta fue declinada.";
+                    break;
+                case 3002:
+                    desc = "La tarjeta ha expirado.";
+                    break;
+                case 3003:
+                    desc = "La tarjeta no tiene fondos suficientes.";
+                    break;
+                case 3004:
+                    desc = "La tarjeta ha sido identificada como una tarjeta robada.";
+                    break;
+                case 3005:
+                    desc = "La tarjeta ha sido rechazada por el sistema antifraudes.";
+                    break;
+                case 3006:
+                    desc = "La operación no esta permitida para este cliente o esta transacción.";
+                    break;
+                case 3007:
+                    desc = "Deprecado. La tarjeta fue declinada.";
+                    break;
+                case 3008:
+                    desc = "La tarjeta no es soportada en transacciones en línea.";
+                    break;
+                case 3009:
+                    desc = "La tarjeta fue reportada como perdida.";
+                    break;
+                case 3010:
+                    desc = "El banco ha restringido la tarjeta.";
+                    break;
+                case 3011:
+                    desc = "El banco ha solicitado que la tarjeta sea retenida. Contacte al banco.";
+                    break;
+                case 3012:
+                    desc = "Se requiere solicitar al banco autorización para realizar este pago.";
+                    break;
+            }
 
             $('#newCardResult').prepend(
-                '<div class="alert alert-error alert-dismissible fade in" id="LoginFailAlert"> <button type="button" class="close" data-dismiss="alert"> <i class="fa fa-times"></i></button><p><i class="fa fa-exclamation-triangle"></i>' + '[ERROR ' + response.status + '] ' + desc + '</p></div>');
+                '<div class="alert alert-error alert-dismissible fade in" id="LoginFailAlert"> <button type="button" class="close" data-dismiss="alert"> <i class="fa fa-times"></i></button><p><i class="fa fa-exclamation-triangle"></i>' + desc + '</p></div>');
             window.setTimeout(function ()
-            { $("#LoginFailAlert").alert('close'); }, 10000);
+            { $("#LoginFailAlert").alert('close'); }, 100000);
         };
 
         OpenPay.token.create({

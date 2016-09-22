@@ -655,6 +655,7 @@
     <Content Include="Views\Shared\_CustomerCards.cshtml" />
     <Content Include="Views\Customer\_SelectBoxesPartial.cshtml" />
     <Content Include="Views\Shared\_CreateNewAddress.cshtml" />
+    <Content Include="Video\video_antboxs.webm" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Addresses\" />

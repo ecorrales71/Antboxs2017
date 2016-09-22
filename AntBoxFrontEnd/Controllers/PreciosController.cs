@@ -18,15 +18,15 @@ namespace AntBoxFrontEnd.Controllers
 
 
 
-        //[HttpPost]
-        //public ActionResult Index(PriceViewModel model)
-        //{
-        //    if (model == null)
-        //        model = new PriceViewModel().GetPriceViewModel();
+        [HttpPost]
+        public ActionResult Index(/*PriceViewModel model*/)
+        {
+            //if (model == null)
+            //    model = new PriceViewModel().GetPriceViewModel();
 
 
-        //    return View("Precios", model);
-        //}
+            return View("Precios"/*, model*/);
+        }
 
 
 
