@@ -163,7 +163,7 @@
                                                     {
                                                         if (item != null)
                                                         {
-                                                        <option value='@item.Id.ToString()'> @item.Alias</option>
+                                                            <option value='@item.Id.ToString()'> @item.Alias</option>
                                                         }
                                                     }
                                                     @*<option value>- Selecciona una opción -</option>
@@ -217,7 +217,14 @@
                                                 <select id="CardsList">
                                                     @foreach (var card in Model.Cards)
                                                     {
-                                                        <option value='@card.Id'>@card.Info.Card_number</option>
+                                                        if (card.State != "main")
+                                                        {
+                                                            <option value='@card.Id'>@card.Info.Card_number</option>
+                                                        }
+                                                        else
+                                                        {
+                                                            <option value='@card.Id' selected>@card.Info.Card_number</option>
+                                                        }
                                                     }
 
                                                     @*<option value>- Selecciona una opción -</option>

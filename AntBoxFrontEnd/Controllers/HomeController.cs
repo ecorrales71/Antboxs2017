@@ -79,8 +79,12 @@ namespace AntBoxFrontEnd.Controllers
             return View();
         }
 
-        public ActionResult CrearCuenta()
+        public ActionResult CrearCuenta(AgendTaskModel modelagend)
         {
+            if (modelagend.Zipcode1 != null)
+            {
+                Session["TasksTemp"] = modelagend;
+            }
             ViewBag.Message = "Agendar entregas.";
 
             return View();
@@ -105,10 +109,10 @@ namespace AntBoxFrontEnd.Controllers
         }
 
 
-        public ActionResult GuardaTempTasks(string form)
+        public ActionResult GuardaTempTasks(AgendTaskModel modelagend)
         {
             //guardamos de forma temporal las direcciones y tareas en la session
-            Session["TasksTemp"] = form;
+            Session["TasksTemp"] = modelagend;
 
             return View("CrearCuenta");
         }

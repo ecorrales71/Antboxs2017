@@ -72,30 +72,31 @@
                                     </div>
                                     <div class="form-group">
                                         @Html.LabelFor(m => m.Street)
-                                        @Html.TextBoxFor(m => m.Street, Model.Street, new { @id = "NStreet" })
+                                        @Html.TextBoxFor(m => m.Street, Model.Street, new { @id = "NStreet", @maxlength = "250" })
                                         @Html.ValidationMessageFor(m => m.Street)
                                     </div>
                                     <div class="row">
                                         <div class="col-sm-6">
                                             <div class="form-group">
                                                 @Html.LabelFor(m => m.External_number)
-                                                @Html.TextBoxFor(m => m.External_number, Model.External_number, new { @id = "NExternal_number" })
+                                                @Html.TextBoxFor(m => m.External_number, Model.External_number, new { @id = "NExternal_number", @maxlength = "50" })
                                                 @Html.ValidationMessageFor(m => m.External_number)
                                             </div>
                                         </div>
                                         <div class="col-sm-6">
                                             <div class="form-group">
                                                 @Html.LabelFor(m => m.Internal_number)
-                                                @Html.TextBoxFor(m => m.Internal_number, Model.Internal_number, new { @id = "NInternal_number" })
+                                                @Html.TextBoxFor(m => m.Internal_number, Model.Internal_number, new { @id = "NInternal_number", @maxlength = "50" })
                                                 @Html.ValidationMessageFor(m => m.Internal_number)
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         @Html.LabelFor(m => m.Zipcode)
-                                        @Html.TextBoxFor(m => m.Zipcode, new { @id = "NZipcode" })
+                                        @Html.TextBoxFor(m => m.Zipcode, new { @id = "NZipcode", @onchange = "validateZipCode(true)" })
                                         @Html.ValidationMessageFor(m => m.Zipcode)
                                     </div>
+                                    <div id="zipCodeError"></div>
                                     <div class="form-group">
                                         <label for="form-select">Delegación o Municipio</label>
                                         @Html.DropDownListFor(m => m.Delegation, Model.Delegaciones, "", new { @id = "NcmbDelegations1" })
@@ -108,17 +109,17 @@
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         @Html.LabelFor(m => m.City)
-                                        @Html.TextBoxFor(m => m.City, new { @id = "NCity" })
+                                        @Html.TextBoxFor(m => m.City, new { @id = "NCity", @maxlength = "100" })
                                         @Html.ValidationMessageFor(m => m.City)
                                     </div>
                                     <div class="form-group">
                                         @Html.LabelFor(m => m.State)
-                                        @Html.TextBoxFor(m => m.State, Model.State, new { @id = "NState" })
+                                        @Html.TextBoxFor(m => m.State, Model.State, new { @id = "NState", @maxlength = "100" })
                                         @Html.ValidationMessageFor(m => m.State)
                                     </div>
                                     <div class="form-group">
                                         @Html.LabelFor(m => m.Country)
-                                        @Html.TextBoxFor(m => m.Country, Model.Country, new { @id = "NCountry" })
+                                        @Html.TextBoxFor(m => m.Country, Model.Country, new { @id = "NCountry", @maxlength = "100" })
                                         @Html.ValidationMessageFor(m => m.Country)
                                     </div>
                                     <div class="form-group">
@@ -163,21 +164,21 @@
                             </div>
                             <div class="form-group">
                                 @Html.LabelFor(m => m.Street)
-                                @Html.TextBoxFor(m => m.Street, Model.Street, new { @id = "Street" })
+                                @Html.TextBoxFor(m => m.Street, Model.Street, new { @id = "Street", @maxlength = "250" })
                                 @Html.ValidationMessageFor(m => m.Street)
                             </div>
                             <div class="row">
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         @Html.LabelFor(m => m.External_number)
-                                        @Html.TextBoxFor(m => m.External_number, Model.External_number, new { @id = "External_number" })
+                                        @Html.TextBoxFor(m => m.External_number, Model.External_number, new { @id = "External_number", @maxlength = "50" })
                                         @Html.ValidationMessageFor(m => m.External_number)
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         @Html.LabelFor(m => m.Internal_number)
-                                        @Html.TextBoxFor(m => m.Internal_number, Model.Internal_number, new { @id = "Internal_number" })
+                                        @Html.TextBoxFor(m => m.Internal_number, Model.Internal_number, new { @id = "Internal_number", @maxlength = "50" })
                                         @Html.ValidationMessageFor(m => m.Internal_number)
                                     </div>
                                 </div>
@@ -186,9 +187,10 @@
                             <div class="form-group">
                                 @Html.LabelFor(m => m.Zipcode)
                                 @*<input type="text" name="email" id="txtZipcode1">*@
-                                @Html.TextBoxFor(m => m.Zipcode, new { @id = "txtZipcode1" })
+                                @Html.TextBoxFor(m => m.Zipcode, new { @id = "txtZipcode1", @onchange = "validateZipCode(false)" })
                                 @Html.ValidationMessageFor(m => m.Zipcode)
                             </div>
+                            <div id="zipCodeErrorModal"></div>
                             <div class="form-group">
                                 <label for="form-select">Delegación o Municipio</label>
                                 @Html.DropDownListFor(m => m.Delegation, Model.Delegaciones,"", new { @id = "cmbDelegations1" })
@@ -207,17 +209,17 @@
                         <div class="col-sm-6 pl0_modal">
                             <div class="form-group">
                                 @Html.LabelFor(m => m.City)
-                                @Html.TextBoxFor(m => m.City, new { @id = "City" })
+                                @Html.TextBoxFor(m => m.City, new { @id = "City", @maxlength = "100" })
                                 @Html.ValidationMessageFor(m => m.City)
                             </div>
                             <div class="form-group">
                                 @Html.LabelFor(m => m.State)
-                                @Html.TextBoxFor(m => m.State,Model.State, new { @id = "State" })
+                                @Html.TextBoxFor(m => m.State, Model.State, new { @id = "State", @maxlength = "100" })
                                 @Html.ValidationMessageFor(m => m.State)
                             </div>
                             <div class="form-group">
                                 @Html.LabelFor(m => m.Country)
-                                @Html.TextBoxFor(m => m.Country, Model.Country, new { @id = "Country" })
+                                @Html.TextBoxFor(m => m.Country, Model.Country, new { @id = "Country", @maxlength = "100" })
                                 @Html.ValidationMessageFor(m => m.Country)
                             </div>
                             <div class="form-group">
@@ -242,6 +244,29 @@
 
 @section scripts {
     <script type="text/javascript">
+    $(function () {
+        //Validar letras numeros y signos de puntuacion
+        $('#Street, #NStreet').keypress(function (e) {
+            var txt = String.fromCharCode(e.which);
+            if (!txt.match(/[A-Za-z0-9ñÑáéíóúÁÉÍÓÚ\s\-_&,'.]/)) {
+                return false;
+            }
+        });
+        //Validar letras numeros, signos de puntuacion y /
+        $('#Internal_number, #NInternal_number, #External_number, #NExternal_number').keypress(function (e) {
+            var txt = String.fromCharCode(e.which);
+            if (!txt.match(/[A-Za-z0-9ñÑáéíóúÁÉÍÓÚ\/\s\-_&,'.]/)) {
+                return false;
+            }
+        });
+        //Validar letras numeros y punto
+        $('#City, #NCity, #State, #NState #Country #NCountry').keypress(function (e) {
+            var txt = String.fromCharCode(e.which);
+            if (!txt.match(/[A-Za-z0-9ñÑáéíóúÁÉÍÓÚ.]/)) {
+                return false;
+            }
+        });
+    });
     $('#btnCreateAddress').click(function () {
        // alert('Entro la acción');
         $.ajax({
@@ -297,7 +322,11 @@
         });
     });
 
-
+    function validateZipCode(verif) {
+        var zipcode = $('#txtZipcode1').val();
+        if (verif) zipcode = $('#NZipcode').val();
+        
+    }
 
 	function showOtraColonia1(elem){
 	if(elem.value == "otra")
@@ -386,42 +415,12 @@
                     }
 
 
-                    var divPagination = '';
-                    divPagination += '<div class"row">';
-                    divPagination += '    <div class="col-sm-12 pl0 pr0 text-center">';
-                    
                     var firts = 1;
                     var last = data.length;
                     var current = $("#PageNum").value;
                     if (current == null) current = 1;
 
-                    if (data.length > 0) {
-                        divPagination += '        <ul class="pagination solid" id="PAginationid" vauel =' + data[current] + ' >';
-
-
-                        divPagination += '            <li class="pull-left"><a href="#" class="prev"><i class="fa fa-angle-left"></i></a></li>';
-                        divPagination += '            <li class="pull-right"><a href="#" class="next"><i class="fa fa-angle-right"></i></a></li>';
-
-                        for (var i = 0; i < data.length; i++) {
-
-                        }
-
-                        divPagination += '            <li class="active"><a href="#">1</a></li>';
-                        divPagination += '            <li><a href="#">2</a></li>';
-                        divPagination += '           <li><a href="#">3</a></li>';
-                        divPagination += '            <li><a href="#">4</a></li>';
-                        divPagination += '            <li><a href="#">…</a></li>';
-                        divPagination += '            <li><a href="#">36</a></li>';
-                        divPagination += '       </ul>';
-                        divPagination += '       <!-- /.pagination -->';
-                    }
-                    divPagination += '        <!-- PAGINATION -->';
-                    divPagination += '    </div>';
-                    divPagination += '</div>';
-
-
                     $("#tblDirecciones").append(div3Content);
-                    $("#tblDirecciones").append(divPagination);
 
                     pageLoading("false");
                 },
@@ -470,7 +469,7 @@
                     $('#Country').val(data.Country);
                     $('#References').val(data.References);                                       
 
-                    CambioZipModal();
+                    CambioZipModal(data);
 
                 },
                 error: function () {
@@ -481,18 +480,11 @@
 
             });
 
-
-
-
-
-
         };
 
 
     </script>
     
- 
-
     <script  type="text/javascript">
         function EliminaDireccion(id) {
             var data = 'idAddress=' + id;
@@ -531,51 +523,77 @@
             //alert(zipcode);
 
             $.ajax({
-                url: '@Url.Action("GetDelegation", "Home")',
-                type: "POST",
-                data: { "zipcode": zipcode },
-                success: function (data) {
+                type: 'POST',
+                url: '@Url.Action("ValidateZipCodeAjax", "AntBoxAddresses")',
+                data: { zipCode: zipcode },
+                success: function (result) {
+                    if (result.success == false) {
+                        if (!$('.error-zipcode').length) {
+                            $('#zipCodeError').prepend(
+                                '<div class="alert alert-warning" id="zipCodeError"><p class="error-zipcode"><i class="fa fa-exclamation-triangle"></i> <strong>Prueba con otro código postal.</strong> Por el momento nuestro servicio no llega a este domicilio pero te mantendremos informado de las próximas zonas de cobertura.</p></div>'
+                            );
+                        }
+                    }
+                    else {
+                        $('#zipCodeError').html('');
+                        $.ajax({
+                            url: '@Url.Action("GetDelegation", "Home")',
+                            type: "POST",
+                            data: { "zipcode": zipcode },
+                            success: function (data) {
 
-                    $("#NcmbDelegations1").html("");
-                    var items = '<option>Seleccciona una delegacion</option>';
-                    $.each(data.result, function (i, delegation) {
-                        items += "<option value='" + delegation.Value + "'>" + delegation.Text + "</option>";
-                    });
-                    $('#NcmbDelegations1').html(items);
-                    $('#NcmbDelegations1').trigger("chosen:updated");
+                                $("#NcmbDelegations1").html("");
+                                var items = '<option>Seleccciona una delegacion</option>';
+                                $.each(data.result, function (i, delegation) {
+                                    items += "<option value='" + delegation.Value + "'>" + delegation.Text + "</option>";
+                                });
+                                $('#NcmbDelegations1').html(items);
+                                $('#NcmbDelegations1').trigger("chosen:updated");
+
+                            }
+                        });
+
+                        $.ajax({
+                            url: '@Url.Action("GetColonias", "Home")',
+                            type: "POST",
+                            data: { "zipcode": zipcode },
+                            success: function (data) {
+
+                                $("#NcmbNeighborhood1").html("");
+                                var items = '<option>Seleccciona una colonia</option>';
+                                $.each(data.result, function (i, delegation) {
+                                    items += "<option value='" + delegation.Value + "'>" + delegation.Text + "</option>";
+                                });
+                                $('#NcmbNeighborhood1').html(items);
+                                $('#NcmbNeighborhood1').trigger("chosen:updated");
+                            }
+
+
+                        });
+
+                        $.ajax({
+                            url: '@Url.Action("GetState", "Home")',
+                            type: "POST",
+                            data: { "zipcode": zipcode },
+                            success: function (data) {
+                                $('#NState').val(data.result);
+                                $('#NCity').val(data.result);
+                                $('#NCountry').val('México');
+                            }
+
+
+                        });
+                    }
+
+
+                },
+                error: function (emp) {
+                    $('#zipCodeError').html('Error al validar Codigo Postal.');
+
                 }
             });
 
-            $.ajax({
-                url: '@Url.Action("GetColonias", "Home")',
-                type: "POST",
-                data: { "zipcode": zipcode },
-                success: function (data) {
-
-                    $("#NcmbNeighborhood1").html("");
-                    var items = '<option>Seleccciona una colonia</option>';
-                    $.each(data.result, function (i, delegation) {
-                        items += "<option value='" + delegation.Value + "'>" + delegation.Text + "</option>";
-                    });
-                    $('#NcmbNeighborhood1').html(items);
-                    $('#NcmbNeighborhood1').trigger("chosen:updated");
-                }
-
-
-            });
-
-            $.ajax({
-                url: '@Url.Action("GetState", "Home")',
-                type: "POST",
-                data: { "zipcode": zipcode },
-                success: function (data) {
-                    $('#NState').val(data.result);
-                    $('#NCity').val(data.result);
-                    $('#NCountry').val('México');
-                }
-
-
-            });
+            
 
 
         });
@@ -584,54 +602,75 @@
 
 
     <script type="text/javascript">
-        function CambioZipModal() {
+        function CambioZipModal(data) {
             var zipcode = $('#txtZipcode1').val();
             //alert(zipcode);
 
             $.ajax({
-                url: '@Url.Action("GetDelegation", "Home")',
-                type: "POST",
-                data: { "zipcode": zipcode },
-                success: function (data) {
+                type: 'POST',
+                url: '@Url.Action("ValidateZipCodeAjax", "AntBoxAddresses")',
+                data: { zipCode: zipcode },
+                success: function (result) {
+                    if (result.success == false) {
+                        if (!$('.error-zipcodemodal').length) {
+                            $('#zipCodeErrorModal').prepend(
+                                '<div class="alert alert-warning" id="zipCodeErrormodal"><p class="error-zipcodemodal"><i class="fa fa-exclamation-triangle"></i> <strong>Prueba con otro código postal.</strong> Por el momento nuestro servicio no llega a este domicilio pero te mantendremos informado de las próximas zonas de cobertura.</p></div>'
+                            );
+                        }
+                    }
+                    else {
+                        $('#zipCodeErrorModal').html('');
 
-                    $("#cmbDelegations1").html("");
-                    var items = '<option>Seleccciona una delegacion</option>';
-                    $.each(data.result, function (i, delegation) {
-                        items += "<option value='" + delegation.Value + "'>" + delegation.Text + "</option>";
-                    });
-                    $('#cmbDelegations1').html(items);
-                    $('#cmbDelegations1').trigger("chosen:updated");
+                        $.ajax({
+                            url: '@Url.Action("GetDelegation", "Home")',
+                            type: "POST",
+                            data: { "zipcode": zipcode },
+                            success: function (data) {
+
+                                $("#cmbDelegations1").html("");
+                                var items = '<option>Seleccciona una delegacion</option>';
+                                $.each(data.result, function (i, delegation) {
+                                    items += "<option value='" + delegation.Value + "'>" + delegation.Text + "</option>";
+                                });
+                                $('#cmbDelegations1').html(items);
+                                $('#cmbDelegations1').trigger("chosen:updated");
+                                $('#cmbDelegations1').val(data.Delegation);
+                            }
+                        });
+
+                        $.ajax({
+                            url: '@Url.Action("GetColonias", "Home")',
+                            type: "POST",
+                            data: { "zipcode": zipcode },
+                            success: function (data) {
+
+                                $("#cmbNeighborhood1").html("");
+                                var items = '<option>Seleccciona una colonia</option>';
+                                $.each(data.result, function (i, delegation) {
+                                    items += "<option value='" + delegation.Value + "'>" + delegation.Text + "</option>";
+                                });
+                                $('#cmbNeighborhood1').html(items);
+                                $('#cmbNeighborhood1').trigger("chosen:updated");
+
+                                $('#cmbNeighborhood1').val(data.Neighborhood);
+                            }
+
+
+                        });
+
+                        $.ajax({
+                            url: '@Url.Action("GetState", "Home")',
+                            type: "POST",
+                            data: { "zipcode": zipcode },
+                            success: function (data) {
+                                $('#State').val(data.result);
+                                $('#City').val(data.result);
+                                $('#Country').val('México');
+                            }
+                        });
+                    }
                 }
-            });
-
-            $.ajax({
-                url: '@Url.Action("GetColonias", "Home")',
-                type: "POST",
-                data: { "zipcode": zipcode },
-                success: function (data) {
-
-                    $("#cmbNeighborhood1").html("");
-                    var items = '<option>Seleccciona una colonia</option>';
-                    $.each(data.result, function (i, delegation) {
-                        items += "<option value='" + delegation.Value + "'>" + delegation.Text + "</option>";
-                    });
-                    $('#cmbNeighborhood1').html(items);
-                    $('#cmbNeighborhood1').trigger("chosen:updated");
-                }
-
-
-            });
-
-            $.ajax({
-                url: '@Url.Action("GetState", "Home")',
-                type: "POST",
-                data: { "zipcode": zipcode },
-                success: function (data) {
-                    $('#State').val(data.result);
-                    $('#City').val(data.result);
-                    $('#Country').val('México');
-                }
-            });
+            })
 
         }
 
@@ -649,54 +688,72 @@
             //alert(zipcode);
 
             $.ajax({
-                url: '@Url.Action("GetDelegation", "Home")',
-                type: "POST",
-                data: { "zipcode": zipcode },
-                success: function (data) {
+                type: 'POST',
+                url: '@Url.Action("ValidateZipCodeAjax", "AntBoxAddresses")',
+                data: { zipCode: zipcode },
+                success: function (result) {
+                    if (result.success == false) {
+                        if (!$('.error-zipcodemodal').length) {
+                            $('#zipCodeErrorModal').prepend(
+                                '<div class="alert alert-warning" id="zipCodeErrormodal"><p class="error-zipcodemodal"><i class="fa fa-exclamation-triangle"></i> <strong>Prueba con otro código postal.</strong> Por el momento nuestro servicio no llega a este domicilio pero te mantendremos informado de las próximas zonas de cobertura.</p></div>'
+                            );
+                        }
+                    }
+                    else {
+                        $('#zipCodeErrorModal').html('');
 
-                    $("#cmbDelegations1").html("");
-                    var items = '<option>Seleccciona una delegacion</option>';
-                    $.each(data.result, function (i, delegation) {
-                        items += "<option value='" + delegation.Value + "'>" + delegation.Text + "</option>";
-                    });
-                    $('#cmbDelegations1').html(items);
-                    $('#cmbDelegations1').trigger("chosen:updated");
+
+                        $.ajax({
+                            url: '@Url.Action("GetDelegation", "Home")',
+                            type: "POST",
+                            data: { "zipcode": zipcode },
+                            success: function (data) {
+
+                                $("#cmbDelegations1").html("");
+                                var items = '<option>Seleccciona una delegacion</option>';
+                                $.each(data.result, function (i, delegation) {
+                                    items += "<option value='" + delegation.Value + "'>" + delegation.Text + "</option>";
+                                });
+                                $('#cmbDelegations1').html(items);
+                                $('#cmbDelegations1').trigger("chosen:updated");
+                            }
+                        });
+
+                        $.ajax({
+                            url: '@Url.Action("GetColonias", "Home")',
+                            type: "POST",
+                            data: { "zipcode": zipcode },
+                            success: function (data) {
+
+                                $("#cmbNeighborhood1").html("");
+                                var items = '<option>Seleccciona una colonia</option>';
+                                $.each(data.result, function (i, delegation) {
+                                    items += "<option value='" + delegation.Value + "'>" + delegation.Text + "</option>";
+                                });
+                                $('#cmbNeighborhood1').html(items);
+                                $('#cmbNeighborhood1').trigger("chosen:updated");
+                            }
+
+
+                        });
+
+                        $.ajax({
+                            url: '@Url.Action("GetState", "Home")',
+                            type: "POST",
+                            data: { "zipcode": zipcode },
+                            success: function (data) {
+                                $('#State').val(data.result);
+                                $('#City').val(data.result);
+                                $('#Country').val('México');
+                            }
+                        });
+                    }
                 }
             });
-
-            $.ajax({
-                url: '@Url.Action("GetColonias", "Home")',
-                type: "POST",
-                data: { "zipcode": zipcode },
-                success: function (data) {
-
-                    $("#cmbNeighborhood1").html("");
-                    var items = '<option>Seleccciona una colonia</option>';
-                    $.each(data.result, function (i, delegation) {
-                        items += "<option value='" + delegation.Value + "'>" + delegation.Text + "</option>";
-                    });
-                    $('#cmbNeighborhood1').html(items);
-                    $('#cmbNeighborhood1').trigger("chosen:updated");
-                }
-
-
-            });
-
-            $.ajax({
-                url: '@Url.Action("GetState", "Home")',
-                type: "POST",
-                data: { "zipcode": zipcode },
-                success: function (data) {
-                    $('#State').val(data.result);
-                    $('#City').val(data.result);
-                    $('#Country').val('México');
-                }
-            });
-
 
         });
 
-    </script>
+</script>
 
 
     <script type="text/javascript">

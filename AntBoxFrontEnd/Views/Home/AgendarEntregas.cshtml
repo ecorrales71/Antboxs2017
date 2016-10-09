@@ -68,8 +68,8 @@
         <!-- /.container -->
         <!-- CONTAINER -->
         <div class="container mt30">
-            <form class="form-solid" id="Tareas">
-              
+            <form class="form-solid" id="Tareas" action="/Home/CrearCuenta" method="post">
+
                 @{
                     Html.RenderPartial("~/Views/Home/_PickupAddressPartial.cshtml", Model);
                 }
@@ -78,17 +78,19 @@
                     Html.RenderPartial("~/Views/Home/_SentAddressPartial.cshtml", Model);
                 }
 
-                <div class="row"  id="Agendar-tareas">
+                <div class="row" id="Agendar-tareas">
                     <div class="col-sm-12">
                         @Html.ActionLink("Precios", "Index", "Precios", new { @class = "btn btn-primary btn-wide btn_blue pull-left" })
                         @*<input type="" class="btn btn-primary btn-wide btn_blue pull-left" value="Regresar" onclick="window.location='precios.php';" />*@
-                        @Html.ActionLink("Agendar", "CrearCuenta", "Home", new { onclick = "agendarTareas();" , @class = "btn btn-primary btn-wide pull-right" })
+                        <input type="submit" name="name" class="btn btn-primary btn-wide pull-right" value="Agendar" />
+                        @* @Html.ActionLink("Agendar", "CrearCuenta", "Home", new { onclick = "agendarTareas();", @class = "" }) *@
                         @*<input type="" class="btn btn-primary btn-wide pull-right" value="Agendar" onclick="agendarTareas()" />*@
                         <p class="succs-msg">Мensaje enviado</p>
                     </div>
                 </div>
-                
+
             </form>
+
         </div>
         <!-- /.container -->
 
@@ -151,14 +153,10 @@ $(document).ready(function(){
             $('.todisplay').fadeIn('slow');
 
     });
-});
-</script>
-
-
-<script type="text/javascript">
-
-    function agendarTareas() {
-
+    var element = {};
+    $('.agendarentrega').click(function(event){
+        event.preventDefault();
+        element = $(this);
         var txtStreet1 = $('#txtStreet1').val();
         var txtInternal_number1 = $('#txtInternal_number1').val();
         var External_number1 = $('#External_number1').val();
@@ -186,7 +184,7 @@ $(document).ready(function(){
         var selHorario2 = $('#selHorario2').val();
         var txtReferencias2 = $('#txtReferencias2').val();
 
-        var data = { txtStreet1, txtInternal_number1, External_number1, txtZipcode1, cmbDelegations1, cmbNeighborhood1, txtCity1, txtState1, txtCountry1, fecha_recoleccion, selHorario1, txtRefrencias1, txtStreet2, txtInternal_number2, External_number2, txtZipcode2, cmbDelegations2, cmbNeighborhood2, txtCity2, txtState2, txtCountry2, fecha_entrega, selHorario2, txtReferencias2, }
+        var data = { txtStreet1, txtInternal_number1, External_number1, txtZipcode1, cmbDelegations1, cmbNeighborhood1, txtCity1, txtState1, txtCountry1, fecha_recoleccion, selHorario1, txtReferencias1, txtStreet2, txtInternal_number2, External_number2, txtZipcode2, cmbDelegations2, cmbNeighborhood2, txtCity2, txtState2, txtCountry2, fecha_entrega, selHorario2, txtReferencias2, }
 
         var jsonOfLog = JSON.stringify(data);
 
@@ -198,6 +196,7 @@ $(document).ready(function(){
             data: "jsonOfLog=" + jsonOfLog,
             success: function (returnPayload) {
                 console && console.log("request succeeded");
+                location.href = element.attr('href');
             },
             error: function (emp) {
                 $('#Agendar-tareas').prepend(
@@ -210,6 +209,16 @@ $(document).ready(function(){
             processData: false,
             async: false
         });
+    })
+});
+</script>
+
+
+<script type="text/javascript">
+
+    function agendarTareas() {
+
+        
 
     };
 

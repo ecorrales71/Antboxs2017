@@ -21,10 +21,13 @@ namespace AntBoxFrontEnd
                         "~/Scripts/antbox/calendar-setup.js",
                         "~/Scripts/antbox/openpay.v1.js",
                         "~/Scripts/antbox/openpay-data.v1.js"
-                        ));
+            ));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
+
+            bundles.Add(new ScriptBundle("~/bundles/simplepaginationjs").Include(
+                        "~/Scripts/jquery.simplePagination.js*"));
 
             // Use the development version of Modernizr to develop with and learn from. Then, when you're
             // ready for production, use the build tool at http://modernizr.com to pick only the tests you need.
@@ -47,6 +50,8 @@ namespace AntBoxFrontEnd
                       "~/Content/custom-responsive.css",
                       "~/Content/font.css"
                       ));
+            bundles.Add(new ScriptBundle("~/Content/simplepaginationcss").Include(
+                        "~/Content/simplePagination.css*"));
             bundles.Add(new StyleBundle("~/Content/Customer2").Include(
                       "~/Content/Customer/preloader.css",
                       "~/Content/bootstrap.css",

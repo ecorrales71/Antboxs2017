@@ -237,6 +237,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AntBoxAddressesController.cs" />
+    <Compile Include="Controllers\AntBoxController.cs" />
     <Compile Include="Controllers\CustomerAntBoxController.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -397,6 +398,7 @@
     <Content Include="Content\Images\que-debo-hacer-toma-fotografias.png" />
     <Content Include="Content\Images\solicita_tus_antboxs.png" />
     <Content Include="Content\Images\video_antboxs.jpg" />
+    <Content Include="Content\simplePagination.css" />
     <Content Include="Content\Site.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Images\agenda-tu-entrega-icono.png" />
@@ -570,6 +572,9 @@
     <Content Include="Content\docs\terminos-y-condiciones.pdf" />
     <None Include="Properties\PublishProfiles\antbox - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\AntBoxs - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\antboxstest.pubxml" />
+    <None Include="Properties\PublishProfiles\AntBoxTest - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\localhost.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\gridmvc.js" />
     <Content Include="Scripts\gridmvc.lang.ru.js" />
@@ -577,6 +582,7 @@
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.simplePagination.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -665,6 +671,7 @@
   <ItemGroup>
     <Folder Include="Views\Addresses\" />
     <Folder Include="Views\AntBoxAddress\" />
+    <Folder Include="Views\Antbox\" />
     <Folder Include="Views\CustomerAntBox\" />
     <Folder Include="Views\PricePartial\" />
   </ItemGroup>

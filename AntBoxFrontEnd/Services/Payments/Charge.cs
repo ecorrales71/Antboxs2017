@@ -14,5 +14,11 @@ namespace AntBoxFrontEnd.Services.Payments
         [JsonProperty("amount")]
         public decimal Amount { get; set; }
 
+        [JsonProperty("folio")]
+        public string Folio { get; set; }
+
+        [JsonProperty("type")]
+        public string Type { get; set; }
+
     }
 }

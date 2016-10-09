@@ -259,7 +259,7 @@
                         @Html.ActionLink("Regresar", "AgendarEntregas", "Home", new { @class = "btn btn-primary btn-wide btn_blue pull-left" })
                         @*<input type="" class="btn btn-primary btn-wide btn_blue pull-left" value="Regresar" onclick="window.location='agendar-entregas.php';" />*@
                         @*@Html.ActionLink("¡Completar Orden!", "OrdenCompleta", "Home", new { @class = "btn btn-primary btn-wide pull-right" })*@
-                         <input type="" class="btn btn-primary btn-wide pull-right" value="¡Completar Orden!" onclick="generate_token()" />
+                         <input type="button" class="btn btn-primary btn-wide pull-right completarorden" value="¡Completar Orden!" />
                         <p class="succs-msg">Мensaje enviado</p>
                     </div>
                 </div>
@@ -330,7 +330,14 @@
 </div>
 <!-- /.modal -->
 
+@section scripts {
 <script>
+    $(function () {
+        $('.completarorden').click(function (event) {
+            $('#registro').find('#verifoption').val(2);
+            $('#registro').modal('show');
+        });
+    })
     function generate_token() {
         OpenPay.setId('miqwkvkewii1gqs4ifh2');
         OpenPay.setApiKey('pk_e70b7a22c6c04239b10b7be3596a1f98');
@@ -393,3 +400,4 @@
         }, sucess_callbak, error_callbak);
     };
 </script>
+}

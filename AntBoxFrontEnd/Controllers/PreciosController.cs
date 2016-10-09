@@ -371,7 +371,7 @@ namespace AntBoxFrontEnd.Controllers
 
                 // var status = DoCharge(Convert.ToDecimal(monto));
 
-                var status = DoCharge(Convert.ToDecimal(VALOR_TEST));
+                var status = DoCharge(Convert.ToDecimal(VALOR_TEST), folioRecoleccion);
 
                 if (string.IsNullOrEmpty(status.Status))
                     return Json(new { success = false, responseText = "OCURRIO UN ERROR Al REALIZAR EL CARGO" }, JsonRequestBehavior.AllowGet);
@@ -512,11 +512,11 @@ namespace AntBoxFrontEnd.Controllers
         }
 
 
-        private ChargeResponse DoCharge(decimal total)
+        private ChargeResponse DoCharge(decimal total, string folio)
         {
             var service = new PaymentService(ServiceConfiguration.GetApiKey());
 
-            var response = service.DoChargeToCustomer(new Charge() { Customer_id = ((CustomerResponse)Session["customer"]).Id, Amount = total });
+            var response = service.DoChargeToCustomer(new Charge() { Customer_id = ((CustomerResponse)Session["customer"]).Id, Amount = total, Folio = folio });
 
             return response;
         }

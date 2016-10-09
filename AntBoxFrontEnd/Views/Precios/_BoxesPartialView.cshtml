@@ -47,7 +47,7 @@
                             </td>
                             <td class="product-quantity">
                                 <a href="" class="minus disabled" onclick='RemoveBox(@rowNo)'>-</a>
-                                <input type="text" id='quantity_@rowNo' value='@item.Quantity'>
+                                <input type="text" class="quantityvalue" id='quantity_@rowNo' value='@item.Quantity'>
                                 <a href="" class="plus" onclick='AddBox(@rowNo)'>+</a>
                             </td>
                             <td class="product-subtotal no_iphone_portrait">
@@ -118,6 +118,16 @@
 
 
 <script type="text/javascript">
+
+    $(function () {
+        $('#quantityvalue').keypress(function (e) {
+            var txt = String.fromCharCode(e.which);
+            if (!txt.match(/[0-9]/)) {
+                return false;
+            }
+        });
+    })
+
     function AddBox(ide) {
         var p = '#Price_' + ide;
         var q = '#quantity_' + ide;

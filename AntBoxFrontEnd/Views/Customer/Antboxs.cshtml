@@ -18,6 +18,9 @@
         <!-- /.container -->
         <!-- CONTAINER -->
         <div class="container mt30">
+            @Html.Hidden("idpagination", @Model.Pagination_id)
+            @Html.Hidden("total", @Model.Total)
+            @Html.Hidden("pages", @Model.Pages)
             <div class="row">
                 <div class="col-md-3 pr0 no_portrait">
                     @Html.Partial("_LeftMenu")
@@ -30,14 +33,11 @@
                         </div>
                         @Html.Partial("_CustomerAntboxs", Model.Antboxs)
                     </div>
+                    <div class="pagination solid text-center"></div>
                     <div class"row">
                         <div class="col-sm-12 pl0 pr0 pt20 text-center">
                             <!-- PAGINATION -->
-                            <ul class="pagination solid">
-                                <li class="pull-left"><a href="#" class="prev"><i class="fa fa-angle-left"></i></a></li>
-                                <li class="pull-right"><a href="#" class="next"><i class="fa fa-angle-right"></i></a></li>
-                                <li class="active"><a href="#">1</a></li>
-                            </ul>
+                            
                             <!-- /.pagination -->
                         </div>
                     </div>
@@ -62,20 +62,20 @@
                 <h6 class="modal-title">Editar mi Antboxs</h6>
             </div>
             <div class="modal-body">
-                <form action="../../php/email.php" method="post" class="contact-form form-solid" novalidate>
+                <form action="../../php/email.php" method="post" class="contact-form form-solid form-editar-antbox" novalidate>
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label for="send-form-name">Nombre de mi Antboxs</label>
-                                <input type="text" name="name" id="send-form-name">
+                                <label for="mname-antbox">Nombre de mi Antboxs</label>
+                                <input type="text" name="mname-antbox" id="mname-antbox" placeholder="Mi Antbox">
                             </div>
                             <div class="form-group">
-                                <label for="send-form-message">Descripción</label>
-                                <textarea name="message" id="send-form-message"></textarea>
+                                <label for="mdescription-antbox">Descripción</label>
+                                <textarea name="mdescription-antbox" id="mdescription-antbox"></textarea>
                             </div>
                         </div>
                         <div class="col-sm-12 mt10">
-                            <input type="submit" class="btn btn-primary btn-wide pull-right" value="Guardar">
+                            <input type="submit" class="btn btn-primary btn-wide pull-right guardar-antbox" value="Guardar">
                             <p class="succs-msg">Мensaje enviado</p>
                         </div>
                     </div>
@@ -133,7 +133,7 @@
                             </div>
                         </div>
                         <div class="col-sm-12 mt10">
-                            <input type="submit" class="btn btn-primary btn-wide pull-right" value="Solicitar">
+                            <input type="button" class="btn btn-primary btn-wide pull-right" value="Solicitar">
                             <p class="succs-msg">Мensaje enviado</p>
                         </div>
                     </div>
@@ -144,11 +144,86 @@
 </div>
 <!-- /.modal -->
 
+@section css {
+    @Styles.Render("~/Content/simplepaginationcss")
+}
 
+@section scripts {
+@Scripts.Render("~/bundles/simplepaginationjs")
 <script type="text/javascript">
-Calendar.setup({
-inputField     :    "fecha_entrega",      // id del campo de texto
-ifFormat       :    "%Y-%m-%d",       // formato de la fecha, cuando se escriba en el campo de texto
-button         :    "entrega"   // el id del botón que lanzará el calendario
-});
+    Calendar.setup({
+        inputField     :    "fecha_entrega",      // id del campo de texto
+        ifFormat       :    "%Y-%m-%d",       // formato de la fecha, cuando se escriba en el campo de texto
+        button         :    "entrega"   // el id del botón que lanzará el calendario
+    });
+    $(function () {
+        //editar andbox
+        var element = null;
+        var ideditar = null;
+        $('.editar').click(function () {
+            element = $(this);
+            var name = element.parent().find('.name-antbox').text();
+            var description = element.parent().find('.description-antbox').text();
+            var ideditar = element.attr('data-id');
+
+            if (name != "Mi Antbox") $('#mname-antbox').val(name);
+            else $('#mname-antbox').val('');
+
+            if (description != "" || description != "Descripci�n") $('#mdescription-antbox').val(description);
+            else $('#mdescription-antbox').val('');
+        });
+
+        $('.guardar-antbox').click(function (event) {
+            event.preventDefault();
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("UpdateAjax", "AntBox")',
+            data: { id: element.attr('data-id'), name: $('#mname-antbox').val(), description: $('#mdescription-antbox').val() },
+            success: function (result) {
+                if (result.success == true) {
+                    //antbox editado
+                    if (!$('#UpdateAntBoxSuccess').length)
+                    {
+                        $('.form-editar-antbox').prepend('<div class="alert alert-success alert-dismissible fade in" id="UpdateAntBoxSuccess"> <button type="button" class="close" data-dismiss="alert"> <i class="fa fa-times"></i></button><p><i class="fa fa-check"></i>Se ha actualizado la información.</p></div>');
+                        window.setTimeout(function () {
+                            $('#UpdateAntBoxSuccess').hide();
+                        }, 3000);
+                        window.setTimeout(function () {
+                            $('#mname-antbox').val('');
+                            $('#mdescription-antbox').val('');
+                            $('#editar').modal('hide');
+                        }, 500);
+                    }
+                    element.parent().find('.name-antbox').text($('#mname-antbox').val());
+                    element.parent().find('.description-antbox').text($('#mdescription-antbox').val());
+                } else {
+
+                }
+            }
+        });
+    });
+
+    $('.pagination').pagination({
+        items: $('#total').val(),
+        itemsOnPage: 20,
+        cssStyle: 'light-theme',
+        onPageClick: function (pageNumber, event) {
+            event.preventDefault();
+            alert(pageNumber);
+
+            var formData = { idPagination : $('#idpagination').val(), page: pageNumber };
+
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("PaginationAjax", "AntBox")',
+                data: formData,
+                success: function (result) {
+                    console.log(result);
+                }
+            });
+
+        }
+    });
+})
 </script>
+}
