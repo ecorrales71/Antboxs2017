@@ -58,7 +58,7 @@ namespace AntBoxFrontEnd.Services.AntBoxes
 
             var customerResponse = Requestor.Put<AntBoxResponse>(UrlsConstants.AntBox + "/" + id, requestOptions, PostData);
 
-            if (string.IsNullOrEmpty(customerResponse.Folio))
+            if ( customerResponse == null )
                 return true;
 
             return false;
