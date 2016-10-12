@@ -48,7 +48,7 @@ namespace AntBoxFrontEnd.Infrastructure
 
         public static String AntBoxList { get { return BaseUrl + "/antboxs/search"; } }
 
-
+        public static String ValidateAddress { get { return "https://maps.googleapis.com/maps/api/geocode/json?address="; } }
 
 
     }

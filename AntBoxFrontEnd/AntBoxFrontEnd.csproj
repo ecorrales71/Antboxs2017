@@ -243,6 +243,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\MovimientosController.cs" />
     <Compile Include="Controllers\PaymentController.cs" />
     <Compile Include="Controllers\PreciosController.cs" />
     <Compile Include="Controllers\PricePartialController.cs" />
@@ -292,6 +293,7 @@
     <Compile Include="Services\Address\AddressRequestOptions.cs" />
     <Compile Include="Services\Address\AddressService.cs" />
     <Compile Include="Services\Address\PaginationAddresses.cs" />
+    <Compile Include="Services\Address\ValidationAddressResponse.cs" />
     <Compile Include="Services\AntBoxes\AntBoxesServices.cs" />
     <Compile Include="Services\AntBoxes\AntBoxRequestOptions.cs" />
     <Compile Include="Services\AntBoxes\AntBoxResponse.cs" />
@@ -323,6 +325,7 @@
     <Compile Include="Services\Response.cs" />
     <Compile Include="Services\Services.cs" />
     <Compile Include="Services\ServicesTest.cs" />
+    <Compile Include="Services\Tasks\PaginationCustomerTask.cs" />
     <Compile Include="Services\Tasks\ScheduleResponse.cs" />
     <Compile Include="Services\Tasks\Schedules.cs" />
     <Compile Include="Services\Tasks\TaskRequestOption.cs" />
@@ -330,6 +333,7 @@
     <Compile Include="Services\Tasks\TaskService.cs" />
     <Compile Include="Services\Tasks\TaskUpdateOptions.cs" />
     <Compile Include="Services\Tasks\TaskUpdateResponse.cs" />
+    <Compile Include="Services\Util\InsertResponse.cs" />
     <Compile Include="Services\Worker\Vehicle.cs" />
     <Compile Include="Services\Worker\WorkerRequestOption.cs" />
     <Compile Include="Services\Worker\WorkerResponse.cs" />
@@ -405,6 +409,7 @@
     <Content Include="Images\agenda-tu-entrega.png" />
     <Content Include="Images\almacenamos-icono.png" />
     <Content Include="Images\almacenamos-y-protegemos.png" />
+    <Content Include="Images\antboxs_3.jpg" />
     <Content Include="Images\antboxs_chica.jpg" />
     <Content Include="Images\antboxs_chica.png" />
     <Content Include="Images\antboxs_logo.png" />
@@ -673,6 +678,7 @@
     <Folder Include="Views\AntBoxAddress\" />
     <Folder Include="Views\Antbox\" />
     <Folder Include="Views\CustomerAntBox\" />
+    <Folder Include="Views\Movimientos\" />
     <Folder Include="Views\PricePartial\" />
   </ItemGroup>
   <ItemGroup>

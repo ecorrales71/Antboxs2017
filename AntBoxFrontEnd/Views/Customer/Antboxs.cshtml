@@ -26,15 +26,21 @@
                     @Html.Partial("_LeftMenu")
                 </div>
                 <div class="col-md-9">
+
                     <div class="row">
                         <div class="irow-xs pb30 pl30 pr30">
                             <h3>Mis Antboxs almacenados</h3>
                             <p>Programa la solicitud de tus Antboxs en el momento que tú decidas. Agrega una descripción que te permita identificar su contenido fácilmente.</p>
                         </div>
-                        @Html.Partial("_CustomerAntboxs", Model.Antboxs)
+                        <div id="antboxs-container">
+                            @Html.Partial("_CustomerAntboxs", Model.Antboxs)
+                        </div>
+                    </div>
+                    <div id="loader" role="alert" style="display: none;">
+                        <img src="@Url.Content("~/Images/preloader.gif")" />   Cargando antboxs... &nbsp;
                     </div>
                     <div class="pagination solid text-center"></div>
-                    <div class"row">
+                    <div class="row">
                         <div class="col-sm-12 pl0 pr0 pt20 text-center">
                             <!-- PAGINATION -->
                             
@@ -94,18 +100,24 @@
                 <h6 class="modal-title">Solicitar mi Antboxs</h6>
             </div>
             <div class="modal-body">
-                <form action="../../php/email.php" method="post" class="contact-form form-solid" novalidate>
+                <form method="post" class="contact-form form-solid form-solicitar-antbox" novalidate>
                     <div class="row">
                         <div class="col-sm-6">
                             <div class="form-group mb0">
-                                <label for="form-select">Dirección de entrega</label>
-                                <select id="form-select">
-                                    <option value>- Selecciona una opción -</option>
-                                    <option value="Casa">Casa</option>
-                                    <option value="Oficina">Oficina</option>
-                                    <option value="Facturación">Facturación</option>
+                                <label for="address">Dirección de entrega</label>
+                                <select id="address" name="address">
+                                    @if (Model.Addresses != null)
+                                    {
+                                        foreach (var item in Model.Addresses)
+                                        {
+                                            if (item != null)
+                                            {
+                                                <option value='@item.Id.ToString()'> @item.Alias</option>
+                                            }
+                                        }
+                                    }
                                 </select>
-                                <a href="direcciones.php" class="pull-right">Nueva dirección</a>
+                                @Html.ActionLink("Nueva direción", "Direcciones", "Customer", new { @class = "pull-right" })
                             </div>
                             <label for="textbox">Fecha</label>
                             <div class="input-group">
@@ -115,25 +127,21 @@
                                 <input class="form-control" type="text" id="fecha_entrega" name="fecha_entrega" disabled="disable">
                             </div>
                             <div class="form-group">
-                                <label for="form-select">Horario de entrega</label>
-                                <select id="form-select">
+                                <input type="hidden" name="horariostring" id="horariostring" value="" />
+                                <label for="horario">Horario de entrega</label>
+                                <select id="horario" name="horario" >
                                     <option value>- Selecciona una opción -</option>
-                                    <option value="09-11">09:00 - 11:00 hrs.</option>
-                                    <option value="11-13">11:00 - 13:00 hrs.</option>
-                                    <option value="13-15">13:00 - 15:00 hrs.</option>
-                                    <option value="15-17">15:00 - 17:00 hrs.</option>
-                                    <option value="17-19">17:00 - 19:00 hrs.</option>
                                 </select>
                             </div>
                         </div>
                         <div class="col-sm-6 pl0_modal">
                             <div class="form-group">
-                                <label for="form-message">Referencias o comentarios</label>
-                                <textarea name="message" id="form-message"></textarea>
+                                <label for="referencia">Referencias o comentarios</label>
+                                <textarea name="referencia" id="referencia"></textarea>
                             </div>
                         </div>
                         <div class="col-sm-12 mt10">
-                            <input type="button" class="btn btn-primary btn-wide pull-right" value="Solicitar">
+                            <input type="button" class="btn btn-primary btn-wide pull-right solicitar-antbox" value="Solicitar">
                             <p class="succs-msg">Мensaje enviado</p>
                         </div>
                     </div>
@@ -154,13 +162,31 @@
     Calendar.setup({
         inputField     :    "fecha_entrega",      // id del campo de texto
         ifFormat       :    "%Y-%m-%d",       // formato de la fecha, cuando se escriba en el campo de texto
-        button         :    "entrega"   // el id del botón que lanzará el calendario
+        button: "entrega",   // el id del botón que lanzará el calendario
+        onUpdate: function() {
+            var date = $("#fecha_entrega").val();
+            $.ajax({
+                url: '@Url.Action("getSchedules", "Customer")',
+                type: "GET",
+                data: { "date": date },
+                success: function (schedules) {
+                    // alert("<option value='" + schedules[0].worker + "'>" + schedules[0].Start + " - " + schedules[0].End + " hrs.</option>");
+                    $("#horario").html("");
+                    var items = '<option>Seleccciona un horario disponible</option>';
+                    for (var i = 0; i < schedules.length ; i++) {
+                        items += "<option value='" + schedules[i].worker + "'>" + schedules[i].Start + " - " + schedules[i].End + " hrs.</option>";
+                    }
+                    $('#horario').html(items);
+                    $('#horario').trigger("chosen:updated");
+                }
+            });
+        }
     });
     $(function () {
         //editar andbox
         var element = null;
         var ideditar = null;
-        $('.editar').click(function () {
+        $(document).on("click", ".editar", function () {
             element = $(this);
             var name = element.parent().find('.name-antbox').text();
             var description = element.parent().find('.description-antbox').text();
@@ -169,8 +195,12 @@
             if (name != "Mi Antbox") $('#mname-antbox').val(name);
             else $('#mname-antbox').val('');
 
-            if (description != "" || description != "Descripci�n") $('#mdescription-antbox').val(description);
+            if (description != "" || description != "undefined") $('#mdescription-antbox').val(description);
             else $('#mdescription-antbox').val('');
+        });
+
+        $(document).on("click", ".solicitar", function () {
+            element = $(this);
         });
 
         $('.guardar-antbox').click(function (event) {
@@ -200,30 +230,128 @@
 
                 }
             }
+            });
         });
-    });
 
-    $('.pagination').pagination({
-        items: $('#total').val(),
-        itemsOnPage: 20,
-        cssStyle: 'light-theme',
-        onPageClick: function (pageNumber, event) {
+        $('.solicitar-antbox').click(function (event) {
             event.preventDefault();
-            alert(pageNumber);
 
-            var formData = { idPagination : $('#idpagination').val(), page: pageNumber };
-
+            var formData = {
+                worker: $("#horario").val(),
+                address: $("#address").val(),
+                fecha: $("#fecha_entrega").val(),
+                hora: $('#horariostring').val(),
+                referencia: $('#referencia').val(),
+                folioEntrega: element.attr('data-folio')
+            };
+            
             $.ajax({
                 type: 'POST',
-                url: '@Url.Action("PaginationAjax", "AntBox")',
+                url: '@Url.Action("SolicitarAntbox", "AntBox")',
                 data: formData,
                 success: function (result) {
-                    console.log(result);
+                    if (result.success == true) {
+                        //antbox editado
+                        if (!$('#SolicitarAntBoxSuccess').length) {
+                            $('.form-solicitar-antbox').prepend('<div class="alert alert-success alert-dismissible fade in" id="SolicitarAntBoxSuccess"> <button type="button" class="close" data-dismiss="alert"> <i class="fa fa-times"></i></button><p><i class="fa fa-check"></i>Se ha actualizado la información.</p></div>');
+                            window.setTimeout(function () {
+                                $('#SolicitarAntBoxSuccess').hide();
+                            }, 3000);
+                            window.setTimeout(function () {
+                                $('#solicitar').modal('hide');
+                            }, 500);
+                        }
+                        element.parent().find('.name-antbox').text($('#mname-antbox').val());
+                        element.parent().find('.description-antbox').text($('#mdescription-antbox').val());
+                    } else {
+
+                    }
                 }
             });
+        });
 
+        $(document).on('change', '#horario', function () {
+            console.log("change horario");
+            var horario = $("#horario").val();
+            var t = $("#horario option:selected").text();
+            $("#horariostring").val(t);
+        })
+
+        $('.pagination').pagination({
+            items: $('#total').val(),
+            itemsOnPage: 20,
+            cssStyle: 'light-theme',
+            onPageClick: function (pageNumber, event) {
+                event.preventDefault();
+
+                $("#antboxs-container").html('');
+                pageLoading(true);
+                var formData = { idPagination : $('#idpagination').val(), page: pageNumber };
+                var cadhtml = "";
+                var antboxsresult = "";
+
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("PaginationAjax", "AntBox")',
+                    data: formData,
+                    success: function (result) {
+
+                        antboxsresult = "";
+
+                        for (var i = 0; i < result.Antboxs.length; i++)
+                        {
+
+                            var antboxv = result.Antboxs[i];
+
+                            cadhtml = "";
+                            cadhtml += "<div class=\"col-sm-12 mb20\">";
+                            cadhtml += "                <div class=\"card card-border-dashed card-border-color magnific-wrap\">";
+                            cadhtml += "                    <div class=\"row\">";
+                            cadhtml += "                        <div class=\"col-sm-4 col-xs-12\">";
+                            cadhtml += "                            <figure class=\"figure\">";
+                            cadhtml += "                                <img src=\"\/images\/antboxs_3.jpg\" alt=\"\">";
+                            cadhtml += "                                <div class=\"mask mask-dark\">";
+                            cadhtml += "                                    <nav>";
+                            cadhtml += "                                        <a class=\"icon icon-inverse icon-size-1 icon-theme icon-rounded magnific\" title=\"Antboxs 1\" href=\"\/images\/antboxs_3.jpg\">";
+                            cadhtml += "                                            <i class=\"fa fa-search\"><\/i>";
+                            cadhtml += "                                        <\/a>";
+                            cadhtml += "                                    <\/nav>";
+                            cadhtml += "                                <\/div>";
+                            cadhtml += "                            <\/figure>";
+                            cadhtml += "                        <\/div>";
+                            cadhtml += "                        <div class=\"col-sm-8 col-xs-12 antboxs_txt\" >";
+                            cadhtml += "                            <h4><span class=\"name-antbox\">"+ antboxv.Name +" - "+ antboxv.Folio +"<\/h4>";
+                            cadhtml += "                            <p class=\"description-antbox\">" + antboxv.Descriptionv + "<\/p>";
+                            cadhtml += "                            <button type=\"button\" class=\"btn btn-primary btn-sm pull-right ml20 solicitar\" data-toggle=\"modal\" data-folio=\"" + antboxv.Folio + "\" data-id=\"" + antboxv.Id + "\" data-target=\"#solicitar\">Solicitar<\/button>";
+                            cadhtml += "                            <button type=\"button\" class=\"btn btn-primary btn-sm pull-right btn_blue editar\" data-toggle=\"modal\" data-id=\"" + antboxv.Id + "\" data-target=\"#editar\">Editar<\/button>";
+                            cadhtml += "                        <\/div>";
+                            cadhtml += "                    <\/div>";
+                            cadhtml += "                <\/div>";
+                            cadhtml += "            <\/div>";
+
+                            antboxsresult += cadhtml;
+                        }
+
+                        $("#antboxs-container").html( antboxsresult );
+
+                        console.log(result);
+                        pageLoading(false);
+                   
+                    }
+                });
+
+            }
+        });
+
+    function pageLoading(status) {
+        if (status) {
+            $("#loader").css('display', 'block');
         }
-    });
+        else {
+            $("#loader").css('display', 'none');
+        }
+    }
+
 })
 </script>
 }

@@ -18,6 +18,7 @@ namespace AntBoxFrontEnd.Services.Tasks
     {
         public readonly string Type_Delivery = "delivery";
         public readonly string Type_Pickup = "pickup";
+        const int itemPerPage = 20;
 
         public TaskService(string apiKey) : base(apiKey)
         {
@@ -96,20 +97,32 @@ namespace AntBoxFrontEnd.Services.Tasks
             }
         }
 
-        public virtual ListCustomerTask ListTaskByCustomer(string id, RequestOptions requestOptions = null)
+        public virtual PaginationCustomerTask ListTaskByCustomer(string id, int currentPage, string idPagination = null, RequestOptions requestOptions = null)
         {
             try
             {
                 requestOptions = SetupRequestOptions(requestOptions);
+
+                var parameters = new Dictionary<string, string>();
+
+                parameters.Add("items_per_page", itemPerPage.ToString());
+                    
+                if (!string.IsNullOrEmpty(idPagination))
+                {
+                    parameters.Add("pagination_id", idPagination);
+                    parameters.Add("page_number", currentPage.ToString());
+                };
+
+                var encodedParams = Infrastructure.UrlHelper.BuildURLParametersString(parameters);
                 
-                var task = Requestor.Get<ListCustomerTask>(UrlsConstants.CustomerTask + "/" + id, requestOptions);
+                var task = Requestor.Get<PaginationCustomerTask>(UrlsConstants.CustomerTask + "/" + id + encodedParams, requestOptions);
 
                 return task;
             }
             catch (Exception ex)
             {
                 LogManager.Write(ex.Message + " " + ex.InnerException, LogManager.Error);
-                var empty = new ListCustomerTask();
+                var empty = new PaginationCustomerTask();
                 return empty;
             }
         }

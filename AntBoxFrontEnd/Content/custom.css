@@ -229,6 +229,32 @@ a:hover {
 .coupon .input-text {
     max-width: 155px;
 }
+
+.link_red {
+    color: #ba2025;
+}
+.link_red:hover {
+    color: #ba2025;
+    text-decoration: underline;
+}
+
+.todisplay {
+    display: none;
+}
+
+.check_deposito {
+    text-align: left !important;
+    padding-left: 0px !important;
+}
+
+.hr_ordenar {
+    margin: 10px auto;
+}
+.cant_antboxs {
+    font-weight: 600;
+
+}
+
 /*----------------------------------- QUE DEBO HACER -------------------------------------*/
 .height-300 {
     height: 100%;

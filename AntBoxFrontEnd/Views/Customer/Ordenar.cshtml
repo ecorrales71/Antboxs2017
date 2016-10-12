@@ -140,73 +140,6 @@
                                         </div>
                                     </div>
                                     <div class="row mt10">
-                                        <div class="col-sm-12">
-                                            <div class="irow-xs">
-                                                <h3>Dirección de entrega</h3>
-                                                <p>¿Dónde y cuándo debemos entregar tus Antboxs con tus artículos?</p>
-                                                <div class="alert alert-warning alert-dismissible fade in">
-                                                    <button type="button" class="close" data-dismiss="alert">
-                                                        <i class="fa fa-times"></i>
-                                                    </button>
-                                                    <p><i class="fa fa-exclamation-triangle"></i> <strong>Si aún no sabes cuándo podrás necesitar tus Antboxs de vuelta, no te preocupes.</strong><br />Podrás agendar la entrega en el momento que tú lo decidas desde la opción "Mis Antboxs", solo deja los campos de esta sección vacíos.</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row mt20">
-                                        <div class="col-sm-6">
-                                            <div class="form-group mb0">
-                                                <label for="form-select">Dirección de entrega</label>
-                                                
-                                                <select id="AddressDelivery">
-                                                    @foreach (var item in Model.Addresses)
-                                                    {
-                                                        if (item != null)
-                                                        {
-                                                            <option value='@item.Id.ToString()'> @item.Alias</option>
-                                                        }
-                                                    }
-                                                    @*<option value>- Selecciona una opción -</option>
-                                                    <option value="Casa">Casa</option>
-                                                    <option value="Oficina">Oficina</option>
-                                                    <option value="Facturación">Facturación</option>*@
-                                                </select>
-                                                <button type="button" class="btn btn-primary btn-xs pull-right" data-toggle="modal" data-target="#nueva_direccion">Nueva dirección</button>
-                                            </div>
-                                            <label for="textbox">Fecha</label>
-                                            <div class="input-group">
-                                                <span class="input-group-btn">
-                                                    <button type="button" id="entrega" class="btn btn-primary pull-right"><i class="fa fa-calendar"></i></button>
-                                                </span>
-                                                <input class="form-control" type="text" id="fecha_entrega" name="fecha_entrega" disabled="disable">
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="form-select">Horario de entrega</label>
-                                                @Html.HiddenFor(m => m.HoraEntregaString)                                                
-                                                @Html.DropDownListFor(m => m.WorkerIdDelivery, new List<SelectListItem> { new SelectListItem {Value="",Text = "Selecciona una fecha" } } ,"",new { @id = "horario_entrega" , onchange = "HorarioEntrega()"})
-                                                @*<select id="horario_entrega">
-                                                    <option value>- Selecciona una opción -</option>
-                                                    <option value="09-11">09:00 - 11:00 hrs.</option>
-                                                    <option value="11-13">11:00 - 13:00 hrs.</option>
-                                                    <option value="13-15">13:00 - 15:00 hrs.</option>
-                                                    <option value="15-17">15:00 - 17:00 hrs.</option>
-                                                    <option value="17-19">17:00 - 19:00 hrs.</option>
-                                                </select>*@
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <div class="form-group">
-                                                <label for="form-message">Referencias o comentarios</label>
-                                                <textarea name="message" id="txtReferenciaEntrega"></textarea>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-sm-12">
-                                            <hr class="hr-dashed mt0 mb40" />
-                                        </div>
-                                    </div>
-                                    <div class="row mt10">
                                         <div class="col-sm-6">
                                             <div class="irow-xs">
                                                 <h3>Formas de Pago</h3>
@@ -526,32 +459,16 @@
                 });
             }
         });
-    </script>
-    <script type="text/javascript">
-        Calendar.setup({
-            inputField: "fecha_entrega",      // id del campo de texto
-            ifFormat: "%Y-%m-%d",       // formato de la fecha, cuando se escriba en el campo de texto
-            button: "entrega",  // el id del botón que lanzará el calendario
-            onUpdate: function () {
-                var date = $("#fecha_entrega").val();
 
-                $.ajax({
-                    url: '@Url.Action("getSchedules", "Customer")',
-                    type: "GET",
-                    data: { "date": date },
-                    success: function (schedules) {
-                      //  alert("<option value='" + schedules[0].worker + "'>" + schedules[0].Start + " - " + schedules[0].End + " hrs.</option>");
-                        $("#horario_entrega").html("");
-                        var items = '<option>Seleccciona un horario disponible</option>';
-                        for (var i = 0; i < schedules.length ; i++) {
-                            items += "<option value='" + schedules[i].worker + "'>" + schedules[i].Start + " - " + schedules[i].End + " hrs.</option>";
-                        }
-                        $('#horario_entrega').html(items);
-                        $('#horario_entrega').trigger("chosen:updated");
-                    }
-                });
-            }
-        });
+        $(function () {
+            $('.checkdisplay').change(function () {
+                if (this.checked)
+                    $('.todisplay').fadeIn('slow');
+                else
+                    $('.todisplay').fadeOut('slow');
+
+            });
+        })
     </script>
 
     <script type="text/javascript">
@@ -566,79 +483,40 @@
 
     </script>
 
-<script type="text/javascript">
-         function HorarioEntrega() {
-             var horario = $("#horario_entrega").val();
-             var t = $("#horario_entrega option:selected").text();
-             $("#HoraEntregaString").val(t);
-             
-             //alert(horario + " " + t);
-         };
-
-</script>
-
     <script type="text/javascript">
         function CompletarOrden() {
-
-
-
             var dirRecolId = $("#AddressPickup").val();
-            var dirEntlId = $("#AddressDelivery").val();
 
             var fecRec = $("#fecha_recoleccion").val();
-            var fecEnt = $("#fecha_entrega").val();
             var workerRec = jQuery("#Horario_recoleccion  option:selected").val();   //worker id de recoleccion
-            var workerEnt = jQuery("#horario_entrega  option:selected").val();        //de entrega
 
             var esperar = $("#chkEsperar").is(':checked');
-
-
             var horaRec = $("#HoraRecoleccionString").val();
-            var horaEnt = $("#HoraEntregaString").val();
-
-
             var contactoTel = $("#preferencia_contacto_Tel").is(':checked');
             var contactoMail = $("#preferencia_contacto_mail").is(':checked');
-
             var referenciasRec = $("#txtReferenciaRecoleccion").val();
-            var referenciasEnt = $("#txtReferenciaEntrega").val();
-
 
             var cardid = jQuery("#CardsList  option:selected").val();
-            
             var monto = $('#Total').text();
-
-
-
-
 
             var data =
                     {
-                        dirEntlId: dirEntlId,
                         dirRecolId: dirRecolId,
                         fecRec: fecRec,
-                        fecEnt: fecEnt,
-                        workerEnt: workerEnt,
                         workerRec: workerRec,
-                        horaEnt: horaEnt,
                         horaRec: horaRec,
                         esperar: esperar,
                         contactoTel: contactoTel,
                         contactoMail: contactoMail,
                         referenciasRec: referenciasRec,
-                        referenciasEnt: referenciasEnt,
                         cardid: cardid,
                         monto: monto
                     };
-
-
-
 
             if (!$("#chkRestricciones").is(':checked') || !$("#chkCondiciones").is(':checked')) {
                 alert("Debes aceptar los terminos y condiciones antes de continuar.");
             }
             else {
-                
                 $.ajax({
                     url: '@Url.Action("DoOrder", "Customer")',
                     type: "POST",
@@ -651,17 +529,10 @@
                         }
                         else
                         { alert(data.responseText); }
-                        
-                       
                     }
                 });
-                
-              
             }
         }
-
-
-
     </script>
 
     <script type="text/javascript">

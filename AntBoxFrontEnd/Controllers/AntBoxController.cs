@@ -2,6 +2,7 @@
 using AntBoxFrontEnd.Models;
 using AntBoxFrontEnd.Services.AntBoxes;
 using AntBoxFrontEnd.Services.Customer;
+using AntBoxFrontEnd.Services.Tasks;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +13,9 @@ namespace AntBoxFrontEnd.Controllers
 {
     public class AntBoxController : Controller
     {
+
+        private const int RANGE_HOURS_TO_TASK = 2;
+
         [HttpPost]
         public ActionResult UpdateAjax(string id, string name, string description)
         {
@@ -54,6 +58,52 @@ namespace AntBoxFrontEnd.Controllers
             }
 
             return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult SolicitarAntbox (string worker, string address, string fecha, string hora, string referencia, string folioEntrega)
+        {
+            bool isTaskDeliveryCreated = false;
+            try
+            {
+                isTaskDeliveryCreated = CreateDeliveryTask(fecha, hora, address, worker, folioEntrega);
+            } catch (Exception ex)
+            {
+                //error
+            }
+            
+            return Json(new { success = isTaskDeliveryCreated }, JsonRequestBehavior.AllowGet);
+        }
+
+        private bool CreateDeliveryTask(string from, string timefrom, string idAddress, string worker, string folio)
+        {
+            var fromDate = GetDateFromString(from, timefrom);
+
+            var toDate = fromDate.AddHours(RANGE_HOURS_TO_TASK);
+
+            var ts = new TaskService(ServiceConfiguration.GetApiKey());
+            var t = new TaskRequestOption
+            {
+                Address_id = idAddress,
+                customer_id = ((CustomerResponse)Session["customer"]).Id,
+                from = DateHelpers.ToUnixTime(fromDate),
+                To = DateHelpers.ToUnixTime(toDate),
+                Worker_id = worker,
+                Folio = folio,
+                Type = ts.Type_Delivery
+            };
+            return ts.CreateTask(t);
+        }
+
+        private DateTime GetDateFromString(string date, string time)
+        {
+            int hour = 0;
+            int.TryParse(time.Substring(0, 2), out hour);
+
+            var dateForm = Convert.ToDateTime(date);
+
+            var dateResult = DateHelpers.AppendTimeToDate(dateForm, new TimeSpan(hour, 0, 0));
+
+            return dateResult;
         }
     }
 }

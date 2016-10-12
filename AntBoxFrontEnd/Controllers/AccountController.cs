@@ -60,7 +60,7 @@ namespace AntBoxFrontEnd.Controllers
 
         [HttpPost]
         [AllowAnonymous]
-        public ActionResult AntBoxRegisterAjax(string email, string name, string lastname, string password, string username)
+        public ActionResult AntBoxRegisterAjax(string email, string name, string lastname, string password, string username, string verifoption)
         {
             var cus = new AntBoxFrontEnd.Services.Customer.CustomerRequestOptions
             {
@@ -96,8 +96,9 @@ namespace AntBoxFrontEnd.Controllers
                 Session["customer"] = customer;
 
                 return PartialView("_LoginPartial");
-
             }
+
+            
 
             return Json(new { success = false}, JsonRequestBehavior.AllowGet);
             //AddErrors(result);

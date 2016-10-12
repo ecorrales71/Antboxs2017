@@ -13,7 +13,7 @@ namespace AntBoxFrontEnd.Services.AntBoxes
 {
     public class AntBoxesServices : Services
     {
-        const int itemPerPage = 40;
+        const int itemPerPage = 20;
         public int Page { get; set; }
 
         public AntBoxesServices(string apiKey) : base(apiKey)

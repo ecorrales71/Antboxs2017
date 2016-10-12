@@ -20,7 +20,26 @@ namespace AntBoxFrontEnd.Services.AntBoxes
         public string Name { get; set; }
 
         [JsonProperty("description")]
-        public string Description { get; set; }
+        public string Description
+        {
+            get;
+            set;
+        }
+
+        public string Descriptionv
+        {
+            get
+            {
+                if ((Description == "undefined") || (Description == "Descripci�n"))
+                {
+                    return "Descripción";
+                }
+                else
+                {
+                    return Description;
+                }
+            }
+        }
 
         [JsonProperty("folio")]
         public string Folio { get; set; }

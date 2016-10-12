@@ -12,6 +12,7 @@ using AntBoxFrontEnd.Models;
 
 
 using System.Threading.Tasks;
+using AntBoxFrontEnd.Services.Util;
 
 namespace AntBoxFrontEnd.Services.Address
 {
@@ -54,6 +55,27 @@ namespace AntBoxFrontEnd.Services.Address
                 return false;
             }
             return true;
+        }
+
+        public virtual InsertResponse CreateAddressForCustomer(AddressRequestOptions createOptions, RequestOptions requestOptions = null)
+        {
+            requestOptions = SetupRequestOptions(requestOptions);
+
+            string serilizedObj = JsonConvert.SerializeObject(createOptions, new JsonSerializerSettings() { NullValueHandling = NullValueHandling.Ignore }).ToString();
+            StringContent PostData = new StringContent(serilizedObj, Encoding.UTF8, "application/json");
+
+            InsertResponse customerResponse = new InsertResponse();
+            try
+            {
+                customerResponse = Requestor.Post<InsertResponse>(UrlsConstants.CustomerAddress, requestOptions, PostData);
+                return customerResponse;
+            }
+            catch (Exception ex)
+            {
+                //Todo log
+                LogManager.Write(ex.Message + " " + ex.InnerException, LogManager.Error);
+                return customerResponse;
+            }
         }
 
 
@@ -193,6 +215,27 @@ namespace AntBoxFrontEnd.Services.Address
             
 
             return true;
+        }
+
+        public virtual Boolean ValidateAddress(string Address, RequestOptions requestOptions = null)
+        {
+            requestOptions = SetupRequestOptions(requestOptions);
+
+            try
+            {
+                var addresses = Requestor.Get<ValidationAddressResponse>(UrlsConstants.ValidateAddress + "/" + Address, requestOptions);
+                if (addresses.Status == "OK")
+                {
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                LogManager.Write(ex.Message + " " + ex.InnerException, LogManager.Error);
+                return false;
+            }
+
+            return false;
         }
 
 

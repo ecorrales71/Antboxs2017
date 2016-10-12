@@ -17,7 +17,8 @@
 }
 
 header, h1, h2, h3, h4, h5, h6, div, nav, .widget_tag_cloud .tagcloud a, .btn {
-    font-family: 'Nexa_Bold', FontAwesome !important;
+    /*font-family: 'Nexa_Bold', FontAwesome !important;*/
+    font-family: 'Lato', sans-serif !important;
 }
 
 p, a, address, input, textarea, .active-result, .contact-info, label{
@@ -33,8 +34,8 @@ p, a, address, input, textarea, .active-result, .contact-info, label{
 }
 
 
-p, input{
-    font-size: 100% !important;
+p, input, .page-header p {
+    font-size: 115% !important;
 }
 
 label, .etiqueta {
@@ -44,3 +45,51 @@ label, .etiqueta {
 .iwrap h1 {
     font-size: 210%;
 }
+
+address  {
+    font-size: 110% !important;
+}
+
+p, address, .rs {
+    color: #000 !important;
+}
+
+.footer  a, .footer .rs {
+    font-weight: 400 !important;
+    text-decoration: none;
+    color: #000;
+    font-size: 115% !important;
+}
+
+/*.font-open-sans
+{
+    font-family: 'Open Sans', sans-serif;
+}
+.font-roboto
+{
+    font-family: 'Roboto', sans-serif;
+}
+.font-roboto-slab
+{
+    font-family: 'Roboto Slab', serif;
+}
+.font-raleway
+{
+    font-family: 'Raleway', sans-serif;
+}
+.font-lato
+{
+    font-family: 'Lato', sans-serif;
+}
+.font-varela
+{
+    font-family: 'Varela Round', sans-serif;
+}
+.font-lora
+{
+    font-family: 'Lora', serif;
+}
+.font-playfair
+{
+    font-family: 'Playfair Display', serif;
+}*/

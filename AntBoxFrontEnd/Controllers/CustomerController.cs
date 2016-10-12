@@ -103,6 +103,26 @@ namespace AntBoxFrontEnd.Controllers
                 result = new PaginationAntBoxes();
             }
 
+            var addressService = new AddressService(ServiceConfiguration.GetApiKey());
+            var resultAddress = addressService.ListAddresses(((CustomerResponse)Session["customer"]).Id);
+            var antBoxResult = new List<AntBoxAddressViewModel>();
+
+            if (resultAddress != null && resultAddress.Count > 0)
+            {
+                resultAddress.ForEach(r =>
+                {
+                    var dir = addressService.SearchAddress(r.Id);
+                    var map = Mapper.Map<AddressResponse, AntBoxAddressViewModel>(dir);
+                    antBoxResult.Add(map);
+                });
+
+                result.Addresses = antBoxResult;
+            }
+            else
+            {
+                result.Addresses = new List<AntBoxAddressViewModel>();
+            }
+
             return View(result);
         }
         public ActionResult Movimientos()
@@ -115,16 +135,16 @@ namespace AntBoxFrontEnd.Controllers
             var servicio = new TaskService(ServiceConfiguration.GetApiKey());
 
 
-            ListCustomerTask result = new ListCustomerTask();
+            PaginationCustomerTask result = new PaginationCustomerTask();
             try
             {
-                result = servicio.ListTaskByCustomer(((CustomerResponse)Session["customer"]).Id);
+                result = servicio.ListTaskByCustomer(((CustomerResponse)Session["customer"]).Id, 1);
             }
             catch (Exception ex)
             {
             }
 
-            return View(new AntBoxTasksViewModel() { Tareas = result });
+            return View(result);
         }
         //public ActionResult Ordenar()
         //{
@@ -522,11 +542,9 @@ namespace AntBoxFrontEnd.Controllers
 
 
 
-        public JsonResult DoOrder(string dirRecolId, string dirEntlId ,
-                                string fecRec, string fecEnt, string workerEnt,
-                                string workerRec , string horaEnt, string horaRec, 
-                                string esperar, string contactoTel , string contactoMail,
-                                string referenciasRec, string referenciasEnt, string cardid, string monto)
+        public JsonResult DoOrder(string dirRecolId, string fecRec, string workerRec, 
+                                string horaRec, string esperar, string contactoTel , string contactoMail,
+                                string referenciasRec, string cardid, string monto)
         {
             string result = "";
 
@@ -539,16 +557,11 @@ namespace AntBoxFrontEnd.Controllers
                 else
                     waitTimeWorker = Convert.ToBoolean(esperar.ToLower());
 
-
-
-
                 var folioRecoleccion = CheckOutBox(workerRec);
 
                 bool isTaskPickupCreated;
                 if (string.IsNullOrEmpty(folioRecoleccion))
                     return Json(new { success = false, responseText = "OCURRIO UN ERROR AL SOLICITAR LAS CAJAS DE RECOLECCION" }, JsonRequestBehavior.AllowGet);
-
-                
 
                 isTaskPickupCreated = CreatePickupTask(fecRec, horaRec, dirRecolId, workerRec, folioRecoleccion, waitTimeWorker);
 
@@ -557,32 +570,14 @@ namespace AntBoxFrontEnd.Controllers
 
                 result += "Tarea de recoleccion agendada: " + isTaskPickupCreated + "\n";
 
-                if (!string.IsNullOrEmpty(fecEnt) && !string.IsNullOrEmpty(horaEnt))
-                {
-                    var folioEntrega = CheckOutBox(workerRec);
-
-                    bool isTaskDeliveryCreated;
-                    if (string.IsNullOrEmpty(folioEntrega))
-                        return Json(new { success = false, responseText = "OCURRIO UN ERROR AL SOLICITAR LAS CAJAS DE RECOLECCION" }, JsonRequestBehavior.AllowGet);
-
-                    isTaskDeliveryCreated = CreateDeliveryTask(fecEnt, horaEnt, dirEntlId, workerEnt, folioEntrega);
-
-                    //if (!isTaskPickupCreated)
-                    //    return Json(new { success = false, responseText = "OCURRIO UN ERROR AL CREAR TAREA DE RECOLECCION" }, JsonRequestBehavior.AllowGet);
-
-                    result += "Tarea de entrega agendada: " + isTaskDeliveryCreated + "\n";
-
-                }
-
                 decimal VALOR_TEST = 10;
 
-               // var status = DoCharge(Convert.ToDecimal(monto));
+                // var status = DoCharge(Convert.ToDecimal(monto));
 
-                var status = DoCharge(Convert.ToDecimal(VALOR_TEST), folioRecoleccion);
+                /*var status = DoCharge(Convert.ToDecimal(VALOR_TEST), folioRecoleccion);
                 if (status == null || string.IsNullOrEmpty(status.Status))
-                    return Json(new { success = false, responseText = "OCURRIO UN ERROR Al REALIZAR EL CARGO" }, JsonRequestBehavior.AllowGet);
-
-                result += "Cargo realizado: " + status.Status;// +" el día " + status.Creation_date;
+                    return Json(new { success = false, responseText = "OCURRIO UN ERROR Al REALIZAR EL CARGO" }, JsonRequestBehavior.AllowGet);*/
+                //result += "Cargo realizado: " + status.Status;// +" el día " + status.Creation_date;
 
                 return Json(new { success = true, responseText = "Tu pedido ha sido registrado con éxito y llegará en la fecha solicitada. A continuación te llegará un correo electrónico confirmando tu(s) Antboxs. En caso de que no te llegue el correo, no te preocupes el mismo ya fue registrado en nuestro sistema." }, JsonRequestBehavior.AllowGet);
             }

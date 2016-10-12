@@ -190,11 +190,11 @@
 
                     </div>
                     <div class="col-sm-6">
-                        @*<div class="irow-xs mb20">
+                        <div class="irow-xs mb20">
                             <h3>Preferencia de contacto</h3>
                             <p>Elige la forma de contacto más adecuada para ti.</p>
-                        </div>*@
-                        @*<div class="row">
+                        </div>
+                        <div class="row">
                             <div class="col-sm-6">
                                 <div class="checkbox">
                                     <label>
@@ -211,7 +211,7 @@
                                     </label>
                                 </div>
                             </div>
-                        </div>*@
+                        </div>
                     </div>
                 </div>
 
@@ -350,7 +350,7 @@
 
             $.ajax({
                 type: 'POST',
-                url: '@Url.Action("MakePaymentAjax", "Precios")',
+                url: '@Url.Action("ProcesarOrdenRegistro", "Precios")',
                 data: { deviceId: deviceSessionId, state: "main", token: token_id },
                 success: function (result) {
                     if (result.success == false) {
@@ -358,21 +358,12 @@
                         '<div class="alert alert-warning" role="alert" id="LoginFailAlert"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a> Error al hacer el cargo</div>');
                         window.setTimeout(function ()
                         { $("#LoginFailAlert").alert('close'); }, 50000);
-
-
                     }
-                    else {
-                        
-                    }
-
-
-                },
-                error: function (emp) {
+                }, error: function (result) {
                     $('#completar-orden').prepend(
                         '<div class="alert alert-warning" role="alert" id="LoginFailAlert"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>error</div>');
                     window.setTimeout(function ()
                     { $("#LoginFailAlert").alert('close'); }, 50000);
-
                 }
             });
             //$('#token_id').val(token_id);
@@ -399,5 +390,8 @@
             "cvv2": $('#card-cvv').val()
         }, sucess_callbak, error_callbak);
     };
+    function procesarOrdenRegistro() {
+            generate_token();
+    }
 </script>
 }

@@ -122,13 +122,11 @@
                         </div>
                     </div>
                 </div>
-                <div class="row">
                     @{ 
                         Html.RenderPartial("_BoxesPartialView", Model.Boxes);
                     }
 
                     
-                </div>
             </form>
         </div>
         <!-- /.container -->
@@ -139,3 +137,154 @@
 
 </div>
 <!-- /.wrapper -->
+@section scripts {
+    <script type="text/javascript">
+
+    $(function () {
+        $('#quantityvalue').keypress(function (e) {
+            var txt = String.fromCharCode(e.which);
+            if (!txt.match(/[0-9]/)) {
+                return false;
+            }
+        });
+
+        $('.checkdisplay').change(function () {
+            if (this.checked)
+                $('.todisplay').fadeIn('slow');
+            else
+                $('.todisplay').fadeOut('slow');
+
+        });
+    })
+
+    function AddBox(ide) {
+        var p = '#Price_' + ide;
+        var q = '#quantity_' + ide;
+
+        var priceObj = $('#Price_' + ide)
+        var quantityObj = $('#quantity_' + ide)
+
+        var price = priceObj.html();
+        var quantity = quantityObj.val();
+
+        quantity++;
+
+        lineSub = price * quantity;
+
+        $( '#LineTotal_' + ide).html(lineSub);
+        recalculateTotal();
+
+
+        var boxobj = $('#box_' + ide);
+
+        var boxid = boxobj.val();
+
+        var data = JSON.stringify({ "boxid": boxid, "quantity": quantity })
+
+        $.ajax({
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            type: 'POST',
+            url: '@Url.Action("TempUpdateAntboxes", "Customer")',
+            // data: $('#frmNewAddress').serialize(),
+            data: data,
+            success: function (d) {
+
+            }
+
+        });
+    }
+
+    function RemoveBox(ide) {
+        var p = '#Price_' + ide;
+        var q = '#quantity_' + ide;
+
+        var priceObj = $('#Price_' + ide)
+        var quantityObj = $('#quantity_' + ide)
+
+        var price = priceObj.html();
+        var quantity = quantityObj.val();
+
+        quantity--;
+        if (quantity>=0)
+        {
+            lineSub = price * quantity;
+
+            $( '#LineTotal_' + ide).html(lineSub);
+        }
+        recalculateTotal();
+        var boxobj = $('#box_' + ide);
+
+        var boxid = boxobj.val();
+
+        var data = JSON.stringify({ "boxid": boxid, "quantity": quantity })
+
+        $.ajax({
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            type: 'POST',
+            url: '@Url.Action("TempUpdateAntboxes", "Customer")',
+            // data: $('#frmNewAddress').serialize(),
+            data: data,
+            success: function (d) {
+
+            }
+
+        });
+    }
+
+
+    function ActualizaCajas() {
+
+    }
+
+
+    function recalculateTotal()
+    {
+        var discountObj =  $( '#Discount' );
+        var subtotalObj =  $( '#Subtotal' );
+        var taxObj =  $( '#Tax' );
+        var totalObj =  $( '#Total' );
+
+        var subtotal = 0;
+        $( ".toSum" ).each(function( i ) {
+            subtotal += parseFloat($(this).text());
+
+        });
+
+        var tax = (subtotal*0.16);
+        var total = parseFloat(subtotal+tax);
+
+        subtotalObj.text(subtotal.toFixed(2));
+        taxObj.text(tax.toFixed(2));
+        totalObj.text(total.toFixed(2));
+
+
+
+
+
+    }
+
+    var CartLine = function () {
+        var self = this;
+
+
+
+    }
+
+    </script>
+
+
+
+    <script type="text/javascript">
+    function QuantityChange() {
+        alert("Entro al on change");
+
+
+
+    }
+
+
+
+    </script>
+}

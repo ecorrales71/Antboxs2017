@@ -47,7 +47,7 @@
                             </td>
                             <td class="product-quantity">
                                 <a href="" class="minus disabled" onclick='RemoveBox(@rowNo)' >-</a>
-                                <input type="text" id='quantity_@rowNo' value='@item.Quantity'>
+                                <input type="text" class="cant_antboxs" id='quantity_@rowNo' value='@item.Quantity'>
                                 <a href="" class="plus" onclick='AddBox(@rowNo)' >+</a>
                             </td>
                             <td class="product-subtotal no_iphone_portrait">
@@ -70,9 +70,30 @@
             </table>
         </div>
         <div class="row irow-xs cart-collaterals mt0">
-            <div class="col-md-5 col-sm-6">
+            <div class="col-sm-6">
+                <!-- Tabs -->
+                <div class="tabs tabs-border-highlight">
+                    <!-- Nav tabs -->
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a href="#precios" data-toggle="tab">Precios</a></li>
+                        <li><a href="#deposito" data-toggle="tab">Depósito</a></li>
+                    </ul>
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+                        <div class="tab-pane fade in active" id="precios">
+                            <p>Reconocemos tus necesidades y protegemos tus finanzas. Así que entre más tiempo estés con nosotros y más Antboxs solicites, recibirás una mejor tarifa mensual. Consulta nuestra lista de precios.</p>
+                            <p><a class="link_red" href="docs/lista-de-precios-antboxs.pdf" target="_blank">Lista de Precios Vigente</a></p>
+                        </div>
+                        <div class="tab-pane fade" id="deposito">
+                            <p>Te esperamos 20 minutos para que empaques tus cosas y nos llevemos tus Antboxs</p>
+                            <p>Si requieres que pasemos otro día a recoger tus Antboxs con tus cosas, solicitaremos un depósito de $158.00 IVA incluído por cada Antbox, el cual se te reembolsará integramente al momento de que vayamos por ellas.</p>
+                            <p>El monto total de la renta mensual por el servicio aplicará a partir de que recibamos tus Antboxs con tus cosas.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.tabs -->
             </div>
-            <div class="col-md-offset-1 col-sm-6 cart_totals">
+            <div class="col-sm-6 cart_totals">
                 <table class="table">
                     <tbody>
                         <tr class="cart-subtotal">
@@ -99,6 +120,57 @@
                                 <strong>
                                     $ <span class="amount" id="Total">@Html.DisplayTextFor( o=> o.Total) </span>
                                 </strong>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <hr class="hr-light mb5 hr_ordenar">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <div class="checkbox check_deposito">
+                                    <label>
+                                        <input type="checkbox" name="optionsCheckbox" class="checkdisplay">
+                                        Requiero que la recolección de mis Antboxs sea otro día.
+                                    </label>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <tr class="cart-subtotal todisplay">
+                            <th>Depósito</th>
+                            <td>
+                                <span class="amount">$ 272.45</span>
+                            </td>
+                        </tr>
+                        <tr class="shipping todisplay">
+                            <th>+ IVA</th>
+                            <td>
+                                <span class="amount">$ 43.55</span>
+                            </td>
+                        </tr>
+                        <tr class="order-total todisplay">
+                            <th>Total Depósito</th>
+                            <td>
+                                <strong>
+                                    <span class="amount">$ 316.00</span>
+                                </strong>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td colspan="2">
+                                <hr class="hr-light mb5 hr_ordenar">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+
+                            </th>
+                            <td>
+                                <input type="submit" class="btn btn-primary btn-wide pull-right mt10" value="Calcular Precio">
+                                <p class="succs-msg">Мensaje enviado</p>
                             </td>
                         </tr>
                     </tbody>

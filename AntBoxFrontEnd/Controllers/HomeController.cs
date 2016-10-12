@@ -70,18 +70,23 @@ namespace AntBoxFrontEnd.Controllers
         {
             ViewBag.Message = "Agendar entregas.";
 
-            List<SelectListItem> delegaciones = new List<SelectListItem>() { new SelectListItem { Value = "",  Text= "Selecciona código postal"} };
-            List<SelectListItem> colonias = new List<SelectListItem>() { new SelectListItem { Value = "", Text = "Selecciona código postal" } };
+            List<SelectListItem> delegaciones = new List<SelectListItem>() { new SelectListItem { Value = "",  Text= "Selecciona una delegacion"} };
+            List<SelectListItem> colonias = new List<SelectListItem>() { new SelectListItem { Value = "", Text = "Selecciona una colonia" } };
 
             ViewBag.DelegationList = new SelectList(delegaciones, "Value", "Text");
-            ViewBag.ColoniasList = new SelectList(delegaciones, "Value", "Text");
+            ViewBag.ColoniasList = new SelectList(colonias, "Value", "Text");
 
             return View();
         }
 
         public ActionResult CrearCuenta(AgendTaskModel modelagend)
         {
-            if (modelagend.Zipcode1 != null)
+            if ( modelagend.Paso != "2")
+            {
+                return RedirectToAction("Index", "Precios");
+            }
+
+            if (modelagend.Zipcode != null)
             {
                 Session["TasksTemp"] = modelagend;
             }
@@ -274,6 +279,17 @@ namespace AntBoxFrontEnd.Controllers
                 return Json(new { success = result, responseText = "Se borro exitósamente el registro" }, JsonRequestBehavior.AllowGet);
 
             return Json(new { success = result, responseText = "Ocurrio un error al borrar el registro" }, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult ValidateAddress(AntBoxAddressViewModel address)
+        {
+            var addressService = new AddressService(ServiceConfiguration.GetApiKey());
+            var cadAddress = address.Street + " " + address.External_number + ", " + address.Neighborhood + ", " + address.City + ", C.P. " + address.Zipcode;
+            var result = addressService.ValidateAddress(cadAddress);
+
+            if (result)
+                return Json(true, JsonRequestBehavior.AllowGet);
+            return Json(false, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult SearchZip(string zipcode)

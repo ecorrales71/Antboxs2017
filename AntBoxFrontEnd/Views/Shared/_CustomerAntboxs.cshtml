@@ -23,8 +23,8 @@
                         </div>
                         <div class="col-sm-8 col-xs-12 antboxs_txt" >
                             <h4><span class="name-antbox">@Html.DisplayFor(modelItem => item.Name)</span> - @Html.DisplayFor(modelItem => item.Folio)</h4>
-                            <p class="description-antbox">@Html.DisplayFor(modelItem => item.Description)</p>
-                            <button type="button" class="btn btn-primary btn-sm pull-right ml20 solicitar" data-toggle="modal" data-id="@Html.DisplayFor(modelItem => item.Id)" data-target="#solicitar">Solicitar</button>
+                            <p class="description-antbox">@Html.DisplayFor(modelItem => item.Descriptionv)</p>
+                            <button type="button" class="btn btn-primary btn-sm pull-right ml20 solicitar" data-toggle="modal" data-folio="@Html.DisplayFor(modelItem => item.Folio)" data-id="@Html.DisplayFor(modelItem => item.Id)" data-target="#solicitar">Solicitar</button>
                             <button type="button" class="btn btn-primary btn-sm pull-right btn_blue editar" data-toggle="modal" data-id="@Html.DisplayFor(modelItem => item.Id)" data-target="#editar">Editar</button>
                         </div>
                     </div>

@@ -17,7 +17,7 @@ namespace AntBoxFrontEnd.Models
             
         }
 
-        public virtual ListCustomerTask Tareas { get; set; }
+        public virtual PaginationCustomerTask Tareas { get; set; }
 
         
 

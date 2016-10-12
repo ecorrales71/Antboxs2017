@@ -1,18 +1,18 @@
 ﻿using AntBoxFrontEnd.Models;
+using AntBoxFrontEnd.Services.Tasks;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace AntBoxFrontEnd.Services.AntBoxes
+namespace AntBoxFrontEnd.Services.Tasks
 {
-    public class PaginationAntBoxes
+    public class PaginationCustomerTask
     {
-        public List<AntBoxAddressViewModel> Addresses { get; set; }
-        public  PaginationAntBoxes()
+        public PaginationCustomerTask()
         {
-            Antboxs = new List<AntBoxResponse>(); 
+            Tasks = new List<TaskResponse>(); 
         }
         [JsonProperty("pagination_id")]
         public string Pagination_id { get; set; }
@@ -23,7 +23,7 @@ namespace AntBoxFrontEnd.Services.AntBoxes
         [JsonProperty("pages")]
         public int Pages { get; set; }
 
-        [JsonProperty("antboxs")]
-        public List<AntBoxResponse> Antboxs { get; set; }
+        [JsonProperty("tasks")]
+        public List<TaskResponse> Tasks { get; set; }
     }
 }

@@ -332,51 +332,19 @@ namespace AntBoxFrontEnd.Controllers
                 else
                     waitTimeWorker = Convert.ToBoolean(esperar.ToLower());
 
-
-
-
                 var folioRecoleccion = CheckOutBox(workerRec);
 
                 bool isTaskPickupCreated;
                 if (string.IsNullOrEmpty(folioRecoleccion))
                     return Json(new { success = false, responseText = "OCURRIO UN ERROR AL SOLICITAR LAS CAJAS DE RECOLECCION" }, JsonRequestBehavior.AllowGet);
 
-
-
                 isTaskPickupCreated = CreatePickupTask(fecRec, horaRec, dirRecolId, workerRec, folioRecoleccion, waitTimeWorker);
-
                 if (!isTaskPickupCreated)
                     return Json(new { success = false, responseText = "OCURRIO UN ERROR AL CREAR TAREA DE RECOLECCION" }, JsonRequestBehavior.AllowGet);
 
                 result += "Tarea de recoleccion agendada: " + isTaskPickupCreated + "\n";
 
-                if (!string.IsNullOrEmpty(fecEnt) && !string.IsNullOrEmpty(horaEnt))
-                {
-                    var folioEntrega = CheckOutBox(workerRec);
-
-                    bool isTaskDeliveryCreated;
-                    if (string.IsNullOrEmpty(folioEntrega))
-                        return Json(new { success = false, responseText = "OCURRIO UN ERROR AL SOLICITAR LAS CAJAS DE RECOLECCION" }, JsonRequestBehavior.AllowGet);
-
-                    isTaskDeliveryCreated = CreateDeliveryTask(fecEnt, horaEnt, dirEntlId, workerEnt, folioEntrega);
-
-                    //if (!isTaskPickupCreated)
-                    //    return Json(new { success = false, responseText = "OCURRIO UN ERROR AL CREAR TAREA DE RECOLECCION" }, JsonRequestBehavior.AllowGet);
-
-                    result += "Tarea de entrega agendada: " + isTaskDeliveryCreated + "\n";
-
-                }
-
-                decimal VALOR_TEST = 10;
-
                 // var status = DoCharge(Convert.ToDecimal(monto));
-
-                var status = DoCharge(Convert.ToDecimal(VALOR_TEST), folioRecoleccion);
-
-                if (string.IsNullOrEmpty(status.Status))
-                    return Json(new { success = false, responseText = "OCURRIO UN ERROR Al REALIZAR EL CARGO" }, JsonRequestBehavior.AllowGet);
-
-                result += "Cargo realizado: " + status.Status + " el día " + status.Creation_date;
 
                 return Json(result, JsonRequestBehavior.AllowGet);
             }
@@ -558,17 +526,86 @@ namespace AntBoxFrontEnd.Controllers
             }
         }
 
+        public JsonResult ProcesarOrdenRegistro(string deviceId, string state, string token)
+        {
+            try
+            {
+                string result = "";
+                if (Session["customer"] == null)
+                {
+                    return Json(new { success = false, responseText = "Opción no permitida" }, JsonRequestBehavior.AllowGet);
+                }
+                CustomerResponse customer = (CustomerResponse)Session["customer"];
+
+                if (Session["TaskTemp"] != null)
+                {
+                    //PASO1 - AGREGAR DIRECCION
+                    AgendTaskModel modeltask = (AgendTaskModel)Session["TaskTemp"];
+
+                    var requestOption = Mapper.Map<AgendTaskModel, AddressRequestOptions>(modeltask);
+                    var addresService = new AddressService(ServiceConfiguration.GetApiKey());
+                    requestOption.Customer_id = customer.Id;
+                    var resultAddress = addresService.CreateAddressForCustomer(requestOption);
+                    if (resultAddress == null)
+                        return Json(new { success = false, responseText = "OCURRIO UN ERROR AL AGREGAR LA DIRECCION" }, JsonRequestBehavior.AllowGet);
+                    else
+                    {
+                        var dirRec = resultAddress.Id;
+
+                        //PASO 2 - AGREGAR TARJETA
+                        var ps = new PaymentService(ServiceConfiguration.GetApiKey());
+                        PaymentRequestOptions pro = new PaymentRequestOptions
+                        {
+                            Customer_id = ((CustomerResponse)Session["customer"]).Id,
+                            Device_id = deviceId,
+                            State = state,
+                            Token = token
+                        };
+                        bool resultCard = ps.CreatePaymentCard(pro);
+                        if (!resultCard)
+                            return Json(new { success = false, responseText = "OCURRIO UN ERROR AL REGISTRAR EL PAGO" }, JsonRequestBehavior.AllowGet);
+                        else
+                        {
+                            //PASO 3 - REALIZAR PEDIDO DE CAJAS VACIAS
+                            bool waitTimeWorker;
+                            if (string.IsNullOrEmpty(modeltask.Esperar))
+                                waitTimeWorker = false;
+                            else
+                                waitTimeWorker = Convert.ToBoolean(modeltask.Esperar.ToLower());
+
+                            var folioRecoleccion = CheckOutBox(modeltask.Horario);
+                            bool isTaskPickupCreated;
+                            if (string.IsNullOrEmpty(folioRecoleccion))
+                                return Json(new { success = false, responseText = "OCURRIO UN ERROR AL SOLICITAR LAS CAJAS DE RECOLECCION" }, JsonRequestBehavior.AllowGet);
+                            else
+                            {
+                                //PASO 4 - AGENDAR TASK
+                                isTaskPickupCreated = CreatePickupTask(modeltask.Fecha_recoleccion, modeltask.HoraRecoleccionString, dirRec, modeltask.Horario, folioRecoleccion, waitTimeWorker);
+                                if (!isTaskPickupCreated)
+                                    return Json(new { success = false, responseText = "OCURRIO UN ERROR AL CREAR TAREA DE RECOLECCION" }, JsonRequestBehavior.AllowGet);
+                                result += "Tarea de recoleccion agendada: " + isTaskPickupCreated + "\n";
+
+                                Session["TaskTemp"] = null;
+
+                                return Json(result, JsonRequestBehavior.AllowGet);
+                            }
+                        }
+                    }
+                } else {
+                    return Json(new { success = false, responseText = "OCURRIO UN ERROR AL SOLICITAR LAS CAJAS DE RECOLECCION" }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception ex)
+            {
+                LogManager.Write(ex.Message, LogManager.Error);
+                return Json(new { success = false, responseText = "OCURRIO UN ERROR AL PROCESAR LA ORDEN" }, JsonRequestBehavior.AllowGet);
+            }
+        }
 
         public decimal GetDisccount(string codgo)
         {
-
-
             return Convert.ToDecimal(0.00);
         }
-
-
-        
-        
 
     }
 }

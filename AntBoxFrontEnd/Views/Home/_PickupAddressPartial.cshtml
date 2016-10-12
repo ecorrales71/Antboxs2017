@@ -11,40 +11,40 @@
 <div class="row mt20">
     <div class="col-sm-6">
         <div class="form-group">
-            @Html.Label("Calle")
-            @Html.TextBoxFor(m => m.Street1, new { @id = "txtStreet1", @maxlength = "250" })
+            @Html.Label("* Calle")
+            @Html.TextBoxFor(m => m.Street, new { @id = "txtStreet", @maxlength = "250" })
         </div>
         <div class="row">
             <div class="col-sm-6">
                 <div class="form-group">
                     <label for="send-form-email">Núm. Int.</label>
-                    @Html.TextBoxFor(m => m.Internal_number1, new { @id = "txtInternal_number1", @maxlength = "50" })
+                    @Html.TextBoxFor(m => m.Internal_number, new { @id = "txtInternal_number", @maxlength = "50" })
                     @*<label for="send-form-email">Núm. Int.</label>
                     <input type="text"id="txtNumint">*@
                 </div>
             </div>
             <div class="col-sm-6">
                 <div class="form-group">
-                    <label for="send-form-email">Núm. Ext.</label>
-                   @Html.TextBoxFor(m => m.External_number1, new { @id = "External_number1", @maxlength = "50" })
+                    <label for="send-form-email">* Núm. Ext.</label>
+                   @Html.TextBoxFor(m => m.External_number, new { @id = "External_number", @maxlength = "50" })
                     @*<label for="send-form-email">Núm. Ext.</label>
                     <input type="text" id="txtNumExt">*@
                 </div>
             </div>
         </div>
         <div class="form-group">
-            @Html.Label("Código Postal")
-           @Html.TextBoxFor(m => m.Zipcode1,new{@id = "txtZipcode1" })
-            @Html.ValidationMessage("Código postal requerido", "*")
+            @Html.Label("* Código Postal")
+           @Html.TextBoxFor(m => m.Zipcode,new{@id = "txtZipcode", @onkeyup="search_code(this.value)" })
+            @Html.ValidationMessage("Código postal requerido", "")
 
 
             @*<label for="send-form-email">Código Postal</label>
             <input type="text" id="txtZipCode">*@
         </div>
-        <div id="zipCodeError1"></div>
+        <div id="zipCodeError"></div>
         <div class="form-group">
-            <label for="form-select">Delegación o Municipio</label>
-            @Html.DropDownListFor(m => m.Delegation1, ViewData["DelegationList"] as SelectList, new { @id = "cmbDelegations1" })
+            <label for="form-select">* Delegación o Municipio</label>
+            @Html.DropDownListFor(m => m.Delegation, ViewData["DelegationList"] as SelectList, new { @id = "cmbDelegations" })
 
             @*<select id="form-select">
                 <option value>- Selecciona una opción -</option>
@@ -55,8 +55,8 @@
             </select>*@
         </div>
         <div class="form-group">
-            <label for="form-select">Colonia</label>
-            @Html.DropDownListFor(m => m.Neighborhood1, ViewData["ColoniasList"] as SelectList, new { @id = "cmbNeighborhood1" })
+            <label for="form-select">* Colonia</label>
+            @Html.DropDownListFor(m => m.Neighborhood, ViewData["ColoniasList"] as SelectList, new { @id = "cmbNeighborhood" })
             @*<select name="form_select" onchange="showOtraColonia1(this)">
                 <option value>- Selecciona una opción -</option>
                 <option value="Colonia 1">Colonia 1</option>
@@ -73,11 +73,11 @@
 
         <div class="form-group">
             <label for="send-form-name">Ciudad</label>
-            <input type="text" id="txtCity1" maxlength="100" name="City1" />
+            <input type="text" id="txtCity" maxlength="100" name="City" readonly />
         </div>
         <div class="form-group">
             <label for="send-form-name">Estado</label>
-            <input type="text"id="txtState1" maxlength="100" name="State1" />
+            <input type="text"id="txtState" maxlength="100" name="State" readonly />
         </div>
 
     </div>
@@ -85,7 +85,7 @@
     <div class="col-sm-6">
         <div class="form-group">
             <label for="send-form-email">País</label>
-            <input type="text" id="txtCountry1" name="Country1">
+            <input type="text" id="txtCountry" name="Country" readonly>
         </div>
         <label for="textbox">Fecha de recolección (aaaa-mm-dd)</label>
         <div class="input-group">
@@ -96,7 +96,7 @@
         </div>
         <div class="form-group">
             <label for="form-select">Horario de recolección</label>
-            <select id="selHorario1" name="Horario1">
+            <select id="selHorario" name="Horario" onchange="HorarioRecoleccion()">
                 <option value>- Selecciona una opción -</option>
                 <option value="09-11">09:00 - 11:00 hrs.</option>
                 <option value="11-13">11:00 - 13:00 hrs.</option>
@@ -107,11 +107,12 @@
         </div>
         <div class="form-group">
             <label for="form-message">Referencias o comentarios</label>
-            <textarea name="References1" id="txtReferencias1"></textarea>
+            <textarea name="References" id="txtReferencias"></textarea>
         </div>
         <div class="checkbox">
             <label>
-                <input type="checkbox" name="optionsCheckbox">
+                @Html.HiddenFor(m => m.HoraRecoleccionString)
+                <input type="checkbox" name="Esperar" id="chkEsperar">
                 Quiero que el conductor me espere para que pueda llevar mis Antboxs de vuelta al almacén de forma inmediata. (Considere que los conductores solo pueden esperar hasta 20 minutos)
             </label>
         </div>
@@ -119,89 +120,3 @@
 </div>
 
 
-@Scripts.Render("~/bundles/jquery")
-<script type="text/jscript">
-    $(function () {
-        //Validar letras numeros y signos de puntuacion
-        $('#txtStreet1, #txtStreet2').keypress(function (e) {
-            var txt = String.fromCharCode(e.which);
-            if (!txt.match(/[A-Za-z0-9ñÑáéíóúÁÉÍÓÚ\s\-_&,'.]/)) {
-                return false;
-            }
-        });
-        //Validar letras numeros, signos de puntuacion y /
-        $('#txtInternal_number1, #txtInternal_number2, #External_number1, #External_number2').keypress(function (e) {
-            var txt = String.fromCharCode(e.which);
-            if (!txt.match(/[A-Za-z0-9ñÑáéíóúÁÉÍÓÚ\/\s\-_&,'.]/)) {
-                return false;
-            }
-        });
-        //Validar letras numeros y punto
-        $('#txtCity1, #txtCity2, #txtState1, #txtState2 #txtCountry1 #txtCountry2').keypress(function (e) {
-            var txt = String.fromCharCode(e.which);
-            if (!txt.match(/[A-Za-z0-9ñÑáéíóúÁÉÍÓÚ.\s]/)) {
-                return false;
-            }
-        });
-        $('#txtZipcode1').change(function () {
-
-            var zipcode = $('#txtZipcode1').val();
-
-            $.ajax({
-                type: 'POST',
-                url: '@Url.Action("ValidateZipCodeAjax", "AntBoxAddresses")',
-                data: { zipCode: zipcode },
-                success: function (result) {
-                    if (result.success == false) {
-                        if (!$('.error-zipcode1').length) {
-                            $('#zipCodeError1').prepend(
-                                '<div class="alert alert-warning" id="zipCodeError1"><p class="error-zipcode1"><i class="fa fa-exclamation-triangle"></i> <strong>Prueba con otro código postal.</strong> Por el momento nuestro servicio no llega a este domicilio pero te mantendremos informado de las próximas zonas de cobertura.</p></div>'
-                            );
-                        }
-                    }
-                    else {
-                        $('#zipCodeError1').html('');
-
-                        $.ajax({
-                            url: '@Url.Action("GetDelegation", "Home")',
-                            type: "POST",
-                            data: { "zipcode": zipcode },
-                            success: function (data) {
-
-                                $("#cmbDelegations1").html("");
-                                var items = '<option>Seleccciona una delegacion</option>';
-                                $.each(data.result, function (i, delegation) {
-                                    items += "<option value='" + delegation.Value + "'>" + delegation.Text + "</option>";
-                                });
-                                $('#cmbDelegations1').html(items);
-                                $('#cmbDelegations1').trigger("chosen:updated");
-                            }
-
-
-                        });
-
-                        $.ajax({
-                            url: '@Url.Action("GetColonias", "Home")',
-                            type: "POST",
-                            data: { "zipcode": zipcode },
-                            success: function (data) {
-
-                                $("#cmbNeighborhood1").html("");
-                                var items = '<option>Seleccciona una colonia</option>';
-                                $.each(data.result, function (i, delegation) {
-                                    items += "<option value='" + delegation.Value + "'>" + delegation.Text + "</option>";
-                                });
-                                $('#cmbNeighborhood1').html(items);
-                                $('#cmbNeighborhood1').trigger("chosen:updated");
-                            }
-
-
-                        });
-                    }
-                }
-            });
-
-        });
-
-    });
-</script>

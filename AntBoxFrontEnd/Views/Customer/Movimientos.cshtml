@@ -1,4 +1,4 @@
-﻿@model AntBoxFrontEnd.Models.AntBoxTasksViewModel
+﻿@model AntBoxFrontEnd.Services.Tasks.PaginationCustomerTask 
 @{
     ViewBag.Title = "Index";
 }
@@ -18,6 +18,9 @@
         <!-- /.container -->
         <!-- CONTAINER -->
         <div class="container mt30">
+            @Html.Hidden("idpagination", @Model.Pagination_id)
+            @Html.Hidden("total", @Model.Total)
+            @Html.Hidden("pages", @Model.Pages)
             <div class="row">
                 <div class="col-md-3 pr0 no_portrait">
                     @Html.Partial("_LeftMenu")
@@ -30,17 +33,16 @@
                         </div>
 
                         <div id="TasksList">
-                            @Html.Partial("_CustomerTasks", Model.Tareas.Tasks)
+                            @Html.Partial("_CustomerTasks", Model.Tasks)
                         </div>
                     </div>
-                    <div class"row">
-                        <div class="col-sm-12 pl0 pr0 text-center">
+                    <div id="loader" role="alert" style="display: none;">
+                        <img src="@Url.Content("~/Images/preloader.gif")" />   Cargando movimientos... &nbsp;
+                    </div>
+                    <div class="pagination solid text-center"></div>
+                    <div class="row">
+                        <div class="col-sm-12 pl0 pr0 pt20 text-center">
                             <!-- PAGINATION -->
-                            <ul class="pagination solid">
-                                <li class="pull-left"><a href="#" class="prev"><i class="fa fa-angle-left"></i></a></li>
-                                <li class="pull-right"><a href="#" class="next"><i class="fa fa-angle-right"></i></a></li>
-                                <li class="active"><a href="#">1</a></li>
-                            </ul>
                             <!-- /.pagination -->
                         </div>
                     </div>
@@ -54,3 +56,108 @@
 
 </div>
 <!-- /.wrapper -->
+
+@section css {
+    @Styles.Render("~/Content/simplepaginationcss")
+}
+
+@section scripts {
+@Scripts.Render("~/bundles/simplepaginationjs")
+<script type="text/javascript">
+    $(function () {
+
+        $('.pagination').pagination({
+            items: $('#total').val(),
+            itemsOnPage: 20,
+            cssStyle: 'light-theme',
+            onPageClick: function (pageNumber, event) {
+                event.preventDefault();
+
+                $("#TasksList").html('');
+                pageLoading(true);
+                var formData = { idPagination: $('#idpagination').val(), page: pageNumber };
+                var cadhtml = "";
+                var tasksresult = "";
+
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("PaginationAjax", "Movimientos")',
+                    data: formData,
+                    success: function (result) {
+
+                        tasksresult = "";
+
+                        for (var i = 0; i < result.Tasks.length; i++) {
+
+                            var taskv = result.Tasks[i];
+                            var address = taskv.Address.Street + " " + taskv.Address.External_number + ", " + taskv.Address.Neighborhood + ", " + taskv.Address.City + ", C.P. " + taskv.Address.Zipcode + ".";
+
+                            var cadhtml = "";
+                            cadhtml += "<div class=\"col-sm-12 back_gris pt30 pb20 mb30\">";
+                            cadhtml += "    <div class=\"media-left\">";
+                            cadhtml += "        <div class=\"icon icon-color icon-size-4\">";
+                            if (taskv.Type == "pickup")
+                                cadhtml += "            <i class=\"fa fa-truck fa-flip-horizontal\"><\/i>";
+                            else
+                                cadhtml += "            <i class=\"fa fa-archive\"><\/i>";
+                            cadhtml += "        <\/div>";
+                            cadhtml += "    <\/div>";
+                            cadhtml += "    <div class=\"media-body\">";
+                            if (taskv.Type == "pickup")
+                                cadhtml += "        <h4>Recolección<\/h4>";
+                            else
+                                cadhtml += "        <h4>Entrega<\/h4>";
+                            cadhtml += "        <p>Fecha: " + timeConverter(taskv.completeAfter) + "<br \/>Lugar: " + address + "<\/p>";
+                            cadhtml += "    <\/div>";
+                            cadhtml += "<\/div>";
+
+                            tasksresult += cadhtml;
+                        }
+
+                        $("#TasksList").html(tasksresult);
+
+                        console.log(result);
+                        pageLoading(false);
+
+                    }
+                });
+
+            }
+        });
+
+        function pageLoading(status) {
+            if (status) {
+                $("#loader").css('display', 'block');
+            }
+            else {
+                $("#loader").css('display', 'none');
+            }
+        }
+
+        function timeConverter(UNIX_timestamp) {
+            var a = new Date(UNIX_timestamp);
+            var year = a.getUTCFullYear();
+            var month = a.getUTCMonth() + 1;
+            month = ('0' + month).slice(-2);
+            var date = a.getUTCDate();
+            date = ('0' + date).slice(-2);
+            var time = date + '/' + month + '/' + year + ' ' + formatAMPM(a);
+            return time;
+        }
+
+        function formatAMPM(date) {
+            var hours = date.getUTCHours();
+            var minutes = date.getUTCMinutes();
+            var seconds = date.getUTCSeconds();
+            var ampm = hours >= 12 ? 'PM' : 'AM';
+            hours = hours % 12;
+            hours = hours ? hours : 12; // the hour '0' should be '12'
+            minutes = ('0' + minutes).slice(-2);
+            seconds = ('0' + seconds).slice(-2);
+            var strTime = hours + ':' + minutes + ':' + seconds + ' ' + ampm;
+            return strTime;
+        }
+
+    })
+</script>
+}

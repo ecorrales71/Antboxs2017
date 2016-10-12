@@ -68,21 +68,18 @@
         <!-- /.container -->
         <!-- CONTAINER -->
         <div class="container mt30">
-            <form class="form-solid" id="Tareas" action="/Home/CrearCuenta" method="post">
+            <form class="form-solid form-agendar" id="Tareas" action="/Home/CrearCuenta" method="post">
 
                 @{
                     Html.RenderPartial("~/Views/Home/_PickupAddressPartial.cshtml", Model);
                 }
 
-                @{
-                    Html.RenderPartial("~/Views/Home/_SentAddressPartial.cshtml", Model);
-                }
-
                 <div class="row" id="Agendar-tareas">
                     <div class="col-sm-12">
-                        @Html.ActionLink("Precios", "Index", "Precios", new { @class = "btn btn-primary btn-wide btn_blue pull-left" })
+                        <input type="hidden" name="Paso" value="2" />
+                        @Html.ActionLink("Volver", "Index", "Precios", new { @class = "btn btn-primary btn-wide btn_blue pull-left" })
                         @*<input type="" class="btn btn-primary btn-wide btn_blue pull-left" value="Regresar" onclick="window.location='precios.php';" />*@
-                        <input type="submit" name="name" class="btn btn-primary btn-wide pull-right" value="Agendar" />
+                        <input type="submit" name="name" class="btn btn-primary btn-wide pull-right agendarentrega" value="Agendar" />
                         @* @Html.ActionLink("Agendar", "CrearCuenta", "Home", new { onclick = "agendarTareas();", @class = "" }) *@
                         @*<input type="" class="btn btn-primary btn-wide pull-right" value="Agendar" onclick="agendarTareas()" />*@
                         <p class="succs-msg">Мensaje enviado</p>
@@ -107,18 +104,27 @@
 <script type="text/javascript">
 
 Calendar.setup({
-inputField     :    "fecha_recoleccion",      // id del campo de texto
-ifFormat       :    "%Y-%m-%d",       // formato de la fecha, cuando se escriba en el campo de texto
-button         :    "recoleccion"   // el id del botón que lanzará el calendario
-});
-</script>
-
-<script type="text/javascript">
-
-Calendar.setup({
-inputField     :    "fecha_entrega",      // id del campo de texto
-ifFormat       :    "%Y-%m-%d",       // formato de la fecha, cuando se escriba en el campo de texto
-button         :    "entrega"   // el id del botón que lanzará el calendario
+    inputField     :    "fecha_recoleccion",      // id del campo de texto
+    ifFormat       :    "%Y-%m-%d",       // formato de la fecha, cuando se escriba en el campo de texto
+    button         :    "recoleccion",   // el id del botón que lanzará el calendario
+    onUpdate: function() {
+        var date = $("#fecha_recoleccion").val();
+        $.ajax({
+            url: '@Url.Action("getSchedules", "Customer")',
+            type: "GET",
+            data: { "date": date },
+            success: function (schedules) {
+                // alert("<option value='" + schedules[0].worker + "'>" + schedules[0].Start + " - " + schedules[0].End + " hrs.</option>");
+                $("#selHorario").html("");
+                var items = '<option>Seleccciona un horario disponible</option>';
+                for (var i = 0; i < schedules.length ; i++) {
+                    items += "<option value='" + schedules[i].worker + "'>" + schedules[i].Start + " - " + schedules[i].End + " hrs.</option>";
+                }
+                $('#selHorario').html(items);
+                $('#selHorario').trigger("chosen:updated");
+            }
+        });
+    }
 });
 </script>
 
@@ -134,16 +140,6 @@ button         :    "entrega"   // el id del botón que lanzará el calendario
 </script>
 
 <script type="text/javascript">
-// Script para el campo de colonia
-	function showOtraColonia2(elem){
-	if(elem.value == "otra")
-	document.getElementById('hidden_div2').style.display = "block";
-	else
-	document.getElementById('hidden_div2').style.display = "none";
-	}
-</script>
-
-<script type="text/javascript">
 // Script para aparecer/desaparecer la dirección de entrega
 $(document).ready(function(){
     $('.checkdisplay').change(function(){
@@ -155,60 +151,32 @@ $(document).ready(function(){
     });
     var element = {};
     $('.agendarentrega').click(function(event){
+        
         event.preventDefault();
-        element = $(this);
-        var txtStreet1 = $('#txtStreet1').val();
-        var txtInternal_number1 = $('#txtInternal_number1').val();
-        var External_number1 = $('#External_number1').val();
-        var txtZipcode1 = $('#txtZipcode1').val();
-        var cmbDelegations1 = $('#cmbDelegations1').val();
-        var cmbNeighborhood1 = $('#cmbNeighborhood1').val();
-        var txtCity1 = $('#txtCity1').val();
-        var txtState1 = $('#txtState1').val();
-        var txtCountry1 = $('#txtCountry1').val();
-        var fecha_recoleccion = $('#fecha_recoleccion').val();
-        var selHorario1 = $('#selHorario1').val();
-        var txtReferencias1 = $('#txtReferencias1').val();
+        var formData = $(".form-agendar").serialize();
 
-
-        var txtStreet2 = $('#txtStreet2').val();
-        var txtInternal_number2 = $('#txtInternal_number2').val();
-        var External_number2 = $('#External_number2').val();
-        var txtZipcode2 = $('#txtZipcode2').val();
-        var cmbDelegations2 = $('#cmbDelegations2').val();
-        var cmbNeighborhood2 = $('#cmbNeighborhood2').val();
-        var txtCity2 = $('#txtCity2').val();
-        var txtState2 = $('#txtState2').val();
-        var txtCountry2 = $('#txtCountry2').val();
-        var fecha_entrega = $('#fecha_entrega').val();
-        var selHorario2 = $('#selHorario2').val();
-        var txtReferencias2 = $('#txtReferencias2').val();
-
-        var data = { txtStreet1, txtInternal_number1, External_number1, txtZipcode1, cmbDelegations1, cmbNeighborhood1, txtCity1, txtState1, txtCountry1, fecha_recoleccion, selHorario1, txtReferencias1, txtStreet2, txtInternal_number2, External_number2, txtZipcode2, cmbDelegations2, cmbNeighborhood2, txtCity2, txtState2, txtCountry2, fecha_entrega, selHorario2, txtReferencias2, }
-
-        var jsonOfLog = JSON.stringify(data);
-
-
+        //Validar direccion
         $.ajax({
             type: 'POST',
             dataType: 'text',
-            url:'@Url.Action("GuardaTempTasks", "Home")',
-            data: "jsonOfLog=" + jsonOfLog,
-            success: function (returnPayload) {
-                console && console.log("request succeeded");
-                location.href = element.attr('href');
-            },
-            error: function (emp) {
-                $('#Agendar-tareas').prepend(
-                    '<div class="alert alert-warning" role="alert" id="LoginFailAlert"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>error</div>');
-                window.setTimeout(function ()
-                { $("#LoginFailAlert").alert('close'); }, 50000);
-
-            },
-
-            processData: false,
-            async: false
+            url:'@Url.Action("ValidateAddress", "Home")',
+            data: formData,
+            success: function(data) {
+                console.log(data);
+                if (data == "true") {
+                    $(".form-agendar").submit();
+                } else {
+                    $('#completar-orden').prepend(
+                        '<div class="alert alert-warning" role="alert" id="LoginFailAlert"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a> La direccion no es valida</div>');
+                }
+            }, error: function(error)
+            {
+                console.log(error)
+            }
         });
+
+        event.preventDefault();
+        
     })
 });
 </script>
@@ -216,16 +184,116 @@ $(document).ready(function(){
 
 <script type="text/javascript">
 
-    function agendarTareas() {
+    $(function () {
+        //Validar letras numeros y signos de puntuacion
+        $('#txtStreet').keypress(function (e) {
+            var txt = String.fromCharCode(e.which);
+            if (!txt.match(/[A-Za-z0-9ñÑáéíóúÁÉÍÓÚ\s\-_&,'.]/)) {
+                return false;
+            }
+        });
+        //Validar letras numeros, signos de puntuacion y /
+        $('#txtInternal_number, #External_number').keypress(function (e) {
+            var txt = String.fromCharCode(e.which);
+            if (!txt.match(/[A-Za-z0-9ñÑáéíóúÁÉÍÓÚ\/\s\-_&,'.]/)) {
+                return false;
+            }
+        });
+        //Validar letras numeros y punto
+        $('#txtCity, #txtState, #txtCountry').keypress(function (e) {
+            var txt = String.fromCharCode(e.which);
+            if (!txt.match(/[A-Za-z0-9ñÑáéíóúÁÉÍÓÚ.\s]/)) {
+                return false;
+            }
+        });
+    });
 
-        
+    function search_code(value) {
+        if (value.length == 5)
+        {
+            changeZipCode1();
+        }
+    }
 
+    function changeZipCode1(){
+
+        var zipcode = $('#txtZipcode').val();
+
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("ValidateZipCodeAjax", "AntBoxAddresses")',
+            data: { zipCode: zipcode },
+            success: function (result) {
+                if (result.success == false) {
+                    if (!$('.error-zipcode').length) {
+                        $('#zipCodeError').prepend(
+                            '<div class="alert alert-warning" id="zipCodeError"><p class="error-zipcode"><i class="fa fa-exclamation-triangle"></i> <strong>Prueba con otro código postal.</strong> Por el momento nuestro servicio no llega a este domicilio pero te mantendremos informado de las próximas zonas de cobertura.</p></div>'
+                        );
+                    }
+                }
+                else {
+                    $('#zipCodeError').html('');
+
+                    $.ajax({
+                        url: '@Url.Action("GetDelegation", "Home")',
+                        type: "POST",
+                        data: { "zipcode": zipcode },
+                        success: function (data) {
+
+                            $("#cmbDelegations").html("");
+                            var items = '<option>Seleccciona una delegacion</option>';
+                            $.each(data.result, function (i, delegation) {
+                                items += "<option value='" + delegation.Value + "'>" + delegation.Text + "</option>";
+                            });
+                            $('#cmbDelegations').html(items);
+                            $('#cmbDelegations').trigger("chosen:updated");
+                        }
+
+
+                    });
+
+                    $.ajax({
+                        url: '@Url.Action("GetColonias", "Home")',
+                        type: "POST",
+                        data: { "zipcode": zipcode },
+                        success: function (data) {
+
+                            $("#cmbNeighborhood").html("");
+                            var items = '<option>Seleccciona una colonia</option>';
+                            $.each(data.result, function (i, delegation) {
+                                items += "<option value='" + delegation.Value + "'>" + delegation.Text + "</option>";
+                            });
+                            $('#cmbNeighborhood').html(items);
+                            $('#cmbNeighborhood').trigger("chosen:updated");
+                        }
+
+
+                    });
+
+                    $.ajax({
+                        url: '@Url.Action("GetState", "Home")',
+                        type: "POST",
+                        data: { "zipcode": zipcode },
+                        success: function (data) {
+                            if (data.result == "Ciudad de México")
+                                $('#txtState').val("DF");
+                            else
+                                $('#txtState').val(data.result);
+                            $('#txtCity').val(data.result);
+                            $('#txtCountry').val('México');
+                        }
+                    });
+                }
+            }
+        });
+    }
+
+    function HorarioRecoleccion() {
+        var horario = $("#Horario").val();
+        var t = $("#Horario option:selected").text();
+        $("#HoraRecoleccionString").val(t);  
+        //alert(horario + " " + t);
     };
-
-
-
-
-
 
 </script>
 

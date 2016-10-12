@@ -17,7 +17,8 @@
 }
 
 header, h1, h2, h3, h4, h5, h6, div, nav, .widget_tag_cloud .tagcloud a, .btn, .table-responsive table th, .nav-tabs li a, .inicio .mask-light.mask-info p {
-    font-family: 'Nexa_Bold', FontAwesome !important;
+    /*font-family: 'Nexa_Bold', FontAwesome !important;*/
+    font-family: 'Lato', sans-serif !important;
 }
 
 p, a, address, input, textarea, .active-result, .contact-info, label, .table-responsive table, .countup-amount, .pagetitle .subtitle{
@@ -31,10 +32,13 @@ p, a, address, input, textarea, .active-result, .contact-info, label, .table-res
 }
 
 
-p, input, .page-header p {
+p, .page-header p {
     font-size: 115% !important;
 }
 
+input {
+    font-size: 100% !important;
+}
 /*----------------------------- Tamaño fuente de video-galería -----------------------------*/
 .bannercontainer p {
     font-size: 1.2em !important;
@@ -46,7 +50,7 @@ label, .etiqueta {
 }
 
 .iwrap h1 {
-    font-size: 220%;
+    font-size: 215%;
 }
 
 .table-responsive table {
@@ -55,9 +59,9 @@ label, .etiqueta {
 .shop_table tbody {
     font-size: 90% !important;
 }
-h1, h2 {
+/*h1, h2 {
     font-size: 32px;
-}
+}*/
 
 .pagetitle .subtitle {
     font-size: 100% !important;

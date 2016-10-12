@@ -48,7 +48,7 @@
         </div>
         <div class="form-group">
             <label for="send-form-email">Código Postal</label>
-            @Html.TextBoxFor(m => m.Zipcode2, new { @id = "txtZipcode2" })
+            @Html.TextBoxFor(m => m.Zipcode2, new { @id = "txtZipcode2", @onkeyup = "search_code2(this.value)" })
         </div>
         <div id="zipCodeError2"></div>
         <div class="form-group">
@@ -120,49 +120,3 @@
     </div>
 </div>
 
-
-
-
-@Scripts.Render("~/bundles/jquery")
-<script type="text/jscript">
-    $(function () {
-        $('#txtZipcode2').change(function () {
-
-            var zipcode = $('#txtZipcode2').val();
-
-            $.ajax({
-                type: 'POST',
-                url: '@Url.Action("ValidateZipCodeAjax", "AntBoxAddresses")',
-                data: { zipCode: zipcode },
-                success: function (result) {
-                    if (result.success == false) {
-                        if (!$('.error-zipcode2').length) {
-                            $('#zipCodeError2').prepend(
-                                '<div class="alert alert-warning" id="zipCodeError2"><p class="error-zipcode2"><i class="fa fa-exclamation-triangle"></i> <strong>Prueba con otro código postal.</strong> Por el momento nuestro servicio no llega a este domicilio pero te mantendremos informado de las próximas zonas de cobertura.</p></div>'
-                            );
-                        }
-                    }
-                    else {
-                        $('#zipCodeError2').html('');
-
-                        $.ajax({
-                            url: '@Url.Action("GetDelegation", "Home")',
-                            type: "POST",
-                            data: { "zipcode": zipcode },
-                            "success": function (data) {
-                                $("#cmbDelegations2").html("");
-                                var items = '<option>Seleccciona una delegacion</option>';
-                                $.each(data, function (i, delegation) {
-                                    items += "<option value='" + delegation.Value + "'>" + delegation.Text + "</option>";
-                                });
-                                $('#cmbDelegations2').html(items);
-                            }
-
-
-                        });
-                    }
-                }
-            })
-        });
-    });
-</script>

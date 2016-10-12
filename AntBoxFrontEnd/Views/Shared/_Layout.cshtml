@@ -52,7 +52,7 @@
         <div class="container">
             <div class="navbar-account pull-left">
                 <nav>
-                    <span style="font-size:large">Almacenamiento Seguro, Fácil y Conveniente</span>
+                    <span>Almacenamiento Seguro, Fácil y Conveniente</span>
                 </nav>
             </div>
 
@@ -282,10 +282,10 @@
                 </div>
                 <div class="modal-body">
                     <div class="modal-form">
-                        <input type="hidden" id="verifoption" value="1" />
                         @*<p>Indícanos el código postal de la dirección dónde deseas que realicemos la recolección de tus cosas.</p>*@
                         <hr class="hr-sm hr-stroke" />
                         <form id="registerForm">
+                            <input type="hidden" id="verifoption" name="verifoption" value="1" />
                             <div class="form-group">
                                 <label for="name">Nombre</label>
                                 <input type="text" name="name" id="name" maxlength="50">
@@ -387,6 +387,7 @@
                     window.setTimeout(function ()
                     { $("#LoginFailAlert").alert('close'); }, 2000);
 
+                    
 
                 }
                 else {
@@ -417,8 +418,9 @@
                     '<div class="alert alert-warning" role="alert" id="LoginFailAlert">Usuario o Password no valido.</div>');
                     window.setTimeout(function ()
                     { $("#LoginFailAlert").alert('close'); }, 2000);
-
-
+                    if ($("#verifoption").val() == "2") {
+                        procesarOrdenRegistro();
+                    }
                 }
                 else {
                     $('#login-info').html(result);
