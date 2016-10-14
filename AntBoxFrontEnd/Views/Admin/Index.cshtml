@@ -1,0 +1,255 @@
+﻿@model AntBoxFrontEnd.Services.User.PaginationUser
+@{
+    ViewBag.Title = "Admin - Usuarios";
+}
+<!-- WRAPPER -->
+<div class="wrapper">
+<!-- PAGE TITLE -->
+<header class="pagetitle pagetitle-sm">
+    <div class="container">
+        <div class="divtable irow">
+            <div class="divcell">
+                <i class="fa fa-archive"></i>
+                <span class="title">Administración de Usuarios</span>
+                <div class="divider"></div>
+                <span class="subtitle">Almacenamiento Seguro, Fácil y Conveniente</span>
+            </div>
+        </div>
+    </div>
+</header>
+<!-- /.pagetitle -->
+<!-- CONTENT -->
+<div class="content usuarios">
+    <!-- CONTAINER -->
+    <div class="container">
+        <div class="row irow-xs">
+            <div class="col-sm-12">
+                <h1>Usuarios</h1>
+            </div>
+        </div>
+    </div>
+    <!-- /.container -->
+    <!-- CONTAINER -->
+    <div class="container mt30">
+        @Html.Hidden("idpagination", @Model.Pagination_id)
+        @Html.Hidden("total", @Model.Total)
+        @Html.Hidden("pages", @Model.Pages)
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="table-responsive">
+                    <table id="tabla" class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Usuario</th>
+                                <th>Nombre</th>
+                                <th>A. Paterno</th>
+                                <th>A. Materno</th>
+                                <th>Perfil</th>
+                                <th>E-mail</th>
+                                <th>Celular</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.Users)
+                            {
+                                <tr>
+                                        <td>@item.Username</td>
+                                        <td>@item.Name</td>
+                                        <td>@item.Lastname</td>
+                                        <td>@item.Lastname2</td>
+                                        <td>Administrador</td>
+                                        <td>@item.Email</td>
+                                        <td>@item.Mobile_phone</td>
+                                    </tr>
+                                }
+
+                                
+                            </tbody>
+
+                                    
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 mt10">
+                            <input type="button" class="btn btn-primary btn-wide pull-left" data-toggle="modal" data-target="#crear_usuario" value="Crear Nuevo">
+                            <input id="" type="button" class="btn btn-primary btn_blue btn-wide pull-right" onclick="eliminarItem()" value="Eliminar">
+                            <input type="button" class="btn btn-primary btn-wide pull-right mr10" data-toggle="modal" data-target="#editar_usuario" value="Editar">
+                        </div>
+                    </div>
+                </div>
+                <!-- /.container -->
+            </div>
+            <!-- /.content -->
+            <!-- Modal Medium -->
+            <div class="modal fade" id="crear_usuario">
+                <div class="modal-dialog modal-md">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal"><i class="fa fa-times"></i></button>
+                            <h6 class="modal-title">Crear Usuario</h6>
+                        </div>
+                        <div class="modal-body">
+                            <form method="post" id="form-agregar" novalidate>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label for="send-form-name">Usuario</label>
+                                            <input type="text" name="Username" id="username">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="send-form-name">Nombre(s)</label>
+                                            <input type="text" name="Name" id="name">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="send-form-name">Apellido Paterno</label>
+                                            <input type="text" name="Lastname" id="lastname">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="send-form-name">Apellido Materno</label>
+                                            <input type="text" name="Lastname2" id="Lastname2">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="form-select">Perfil</label>
+                                            <select id="form-select">
+                                                <option value="Administrador">Administrador</option>
+                                                <option value="Servicio_Cliente">Servicio al Cliente</option>
+                                                <option value="Operador">Operador</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 pl0_modal">
+                                        <div class="form-group">
+                                            <label for="send-form-name">E-mail</label>
+                                            <input type="email" name="Email" id="email">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="send-form-name">Celular</label>
+                                            <input type="text" name="Mobile_phone" id="mobile_phone">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="send-form-name">Contraseña</label>
+                                            <input type="password" name="Password" id="password">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="send-form-name">Confirmar contraseña</label>
+                                            <input type="password" name="Password-confirm" id="password-confirm">
+                                        </div>
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" name="optionsCheckbox">
+                                                El usuario puede cambiar su contraseña al iniciar sesión por primera vez.
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <input type="submit" class="btn btn-primary btn-wide pull-right mt10 registrar-usuario" value="Registrar">
+                                    </div>
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.modal -->
+            <!-- Modal Medium -->
+            <div class="modal fade" id="editar_usuario">
+                <div class="modal-dialog modal-md">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal"><i class="fa fa-times"></i></button>
+                            <h6 class="modal-title">Editar Usuario</h6>
+                        </div>
+                        <div class="modal-body">
+                            <form action="../../php/email.php" method="post" class="contact-form form-solid" novalidate>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label for="send-form-name">Usuario</label>
+                                            <input type="text" name="Username" id="username">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="send-form-name">Nombre(s)</label>
+                                            <input type="text" name="Name" id="name">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="send-form-name">Apellido Paterno</label>
+                                            <input type="text" name="Lastname" id="lastname">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="send-form-name">Apellido Materno</label>
+                                            <input type="text" name="Lastname2" id="lastname2">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="profile">Perfil</label>
+                                            <select id="profile" name="Profile">
+                                                <option value="administrator">Administrador</option>
+                                                <option value="helpdesk">Servicio al Cliente</option>
+                                                <option value="worker">Operador</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 pl0_modal">
+                                        <div class="form-group">
+                                            <label for="send-form-name">E-mail</label>
+                                            <input type="email" name="Email" id="email">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="send-form-name">Celular</label>
+                                            <input type="text" name="Mobile_phone" id="mobile_phone">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="send-form-name">Contraseña</label>
+                                            <input type="password" name="Password" id="password">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="send-form-name">Confirmar contraseña</label>
+                                            <input type="password" name="Password-confirm" id="password-confirm">
+                                        </div>
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" name="optionsCheckbox">
+                                                El usuario puede cambiar su contraseña al iniciar sesión por primera vez.
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <input type="submit" class="btn btn-primary btn-wide pull-right mt10" value="Guardar">
+                                    </div>
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+@section Scripts
+{
+<script>
+    $(function () {
+        $(".registrar-usuario").click(function () {
+            console.log("registrar usuario");
+            var form = $("#form-agregar");
+            var formData = $("#form-agregar").serialize();
+
+            $.ajax({
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                type: 'POST',
+                url: '@Url.Action("CreateUser", "User")',
+                data: formData,
+                sucess: function (data) {
+                    if (data.success) {
+                        mostrarMensaje(form, "userMensaje", "Usuario registrado", "alert-warning");
+                    } else {
+                        mostrarMensaje(form, "userMensaje", "Error al registrar usuario intentelo de nuevo", "alert-warning");
+                    }
+                }, error: function (error) {
+                    mostrarMensaje(form, "userMensaje", "Error al registrar usuario intentelo de nuevo", "alert-warning");
+                }
+            });
+        });
+    });
+</script>
+}

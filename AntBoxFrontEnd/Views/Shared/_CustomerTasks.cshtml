@@ -26,7 +26,16 @@
                         <h4>Entrega</h4>
                     }
                     <p>Fecha: @Html.DisplayFor(modelItem => item.completeAfterDate);<br />Lugar: @Html.DisplayFor(modelItem => item.Address.Street) @Html.DisplayFor(modelItem => item.Address.External_number), @Html.DisplayFor(modelItem => item.Address.Neighborhood), @Html.DisplayFor(modelItem => item.Address.City), C.P. @Html.DisplayFor(modelItem => item.Address.Zipcode). </p>
-                    @*<div class="sticker_mov completed">Completado</div>*@
+                    @if (item.Status == "completed")
+                    {
+                        <div class="sticker_mov completed">Completado</div>
+                    } else if (item.Status == "inprogress")
+                    {
+                        <div class="sticker_mov in_progress">En progreso</div>
+                    } else if (item.Status == "canceled")
+                    {
+                        <div class="sticker_mov canceled">Cancelado</div>
+                    }
                 </div>
             </div>
 

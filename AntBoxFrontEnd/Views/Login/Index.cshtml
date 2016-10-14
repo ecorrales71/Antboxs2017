@@ -1,0 +1,71 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="container">
+    <div id="loginbox" style="margin-top:50px;" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <div class="panel-title" style="text-align: center;">Admin - Antboxs</div>
+            </div>
+
+            <div style="padding-top:30px" class="panel-body">
+
+                <div style="display:none" id="login-alert" class="alert alert-danger col-sm-12"></div>
+
+                <form id="loginform" class="form-horizontal" role="form">
+
+                    <div style="margin-bottom: 25px" class="input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                        <input id="login-username" type="text" class="form-control" name="username" value="" placeholder="username or email">
+                    </div>
+
+                    <div style="margin-bottom: 25px" class="input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                        <input id="login-password" type="password" class="form-control" name="password" placeholder="password">
+                    </div>
+                    <div style="margin-top:10px" class="form-group">
+                        <!-- Button -->
+
+                        <div class="col-sm-12 controls pull-right" style="text-align: right;">
+                            <a id="btnLogin" href="#" class="btn btn-danger" >Login  </a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts
+{
+<script>
+    $(function () {
+        $('#btnLogin').click(function () {
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("AntBoxLoginAjax", "Login")',
+                data: $('#loginform').serialize(),
+                success: function (result) {
+                    if (result.success == false) {
+                        $('#panel-body').prepend(
+                        '<div class="alert alert-warning" role="alert" id="LoginFailAlert">Usuario o Password no valido.</div>');
+                        window.setTimeout(function ()
+                        { $("#LoginFailAlert").alert('close'); }, 2000);
+                    }
+                    else {
+                        location.href = '@Url.Action("Index", "Admin")';
+                    }
+                },
+                error: function (emp) {
+                    $('#panel-body').prepend(
+                        '<div class="alert alert-danger fade-in" role="alert" id="LoginErrorAlert">Error al realizar el login. Intente nuevamente.</div>'
+                        );
+                    window.setTimeout(function ()
+                    { $("#LoginErrorAlert").alert('close'); }, 2000);
+                }
+            });
+        });
+    });
+</script>
+}

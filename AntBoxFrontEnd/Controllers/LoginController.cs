@@ -1,4 +1,7 @@
-﻿using System;
+﻿using AntBoxFrontEnd.Infrastructure;
+using AntBoxFrontEnd.Services.Login;
+using AntBoxFrontEnd.Services.User;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -12,6 +15,40 @@ namespace AntBoxFrontEnd.Controllers
         public ActionResult Index()
         {
             return View();
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        public ActionResult AntBoxLoginAjax(string username, string password)
+        {
+            //if (ModelState.IsValid)w
+            //{
+            var usr = new AntBoxFrontEnd.Services.Login.LoginCreateOptions
+            {
+                Email = username,
+                Password = password
+            };
+
+            LoginService ls = new LoginService(ServiceConfiguration.GetApiKey());
+
+            string id = ls.HovaLogin(usr);
+
+            UserServices us = new UserServices(ServiceConfiguration.GetApiKey());
+
+            UserResponse admin = us.SearchUser(id);
+
+            if (admin != null)
+            {
+                Session["admin"] = admin;
+                return Json(new { success = true, user = admin }, JsonRequestBehavior.AllowGet);
+                //return Json(new { success = true, user = customer }, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json(new { success = false, user = admin }, JsonRequestBehavior.AllowGet);
+            }
+            //}
+            //return RedirectToAction("Index", "Home");
         }
 
         // GET: Login/Details/5

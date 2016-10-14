@@ -217,25 +217,32 @@ namespace AntBoxFrontEnd.Services.Address
             return true;
         }
 
-        public virtual Boolean ValidateAddress(string Address, RequestOptions requestOptions = null)
+        public virtual Boolean ValidateAddress(AddressValidateRequest Address, RequestOptions requestOptions = null)
         {
+
             requestOptions = SetupRequestOptions(requestOptions);
+
+            var parameters = new Dictionary<string, string>();
+
+            parameters.Add("external_number", Address.External_number);
+            parameters.Add("street", Address.Street);
+            parameters.Add("city", Address.City);
+            parameters.Add("country", Address.Country);
+            parameters.Add("zipcode", Address.Zipcode);
+
+            var encodedParams = Infrastructure.UrlHelper.BuildURLParametersString(parameters);
 
             try
             {
-                var addresses = Requestor.Get<ValidationAddressResponse>(UrlsConstants.ValidateAddress + "/" + Address, requestOptions);
-                if (addresses.Status == "OK")
-                {
-                    return true;
-                }
+                var customerResponse = Requestor.Get<MissingError>(UrlsConstants.ValidateAddress + encodedParams, requestOptions);
             }
             catch (Exception ex)
             {
+                //Todo log
                 LogManager.Write(ex.Message + " " + ex.InnerException, LogManager.Error);
                 return false;
             }
-
-            return false;
+            return true;
         }
 
 

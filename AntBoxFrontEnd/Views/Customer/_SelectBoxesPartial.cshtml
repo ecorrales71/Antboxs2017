@@ -51,6 +51,7 @@
                                 <a href="" class="plus" onclick='AddBox(@rowNo)' >+</a>
                             </td>
                             <td class="product-subtotal no_iphone_portrait">
+                                <input type="hidden" class="deposit_antbox_total" value="" />
                                 $ <span class="amount toSum" id='LineTotal_@rowNo'> @item.LineTotal</span>
                             </td>
                             
@@ -141,20 +142,21 @@
                         <tr class="cart-subtotal todisplay">
                             <th>Depósito</th>
                             <td>
-                                <span class="amount">$ 272.45</span>
+                                $<span class="sub_deposit"> 0.00</span>
                             </td>
                         </tr>
                         <tr class="shipping todisplay">
                             <th>+ IVA</th>
                             <td>
-                                <span class="amount">$ 43.55</span>
+                                $<span class="iva_deposit"> 0.00</span>
                             </td>
                         </tr>
                         <tr class="order-total todisplay">
                             <th>Total Depósito</th>
                             <td>
                                 <strong>
-                                    <span class="amount">$ 316.00</span>
+                                    
+                                    $<span class="total_deposit"> 0.00</span>
                                 </strong>
                             </td>
                         </tr>
@@ -191,12 +193,15 @@
 
         var price = priceObj.html();
         var quantity = quantityObj.val();
+        var deposit = 136.20;
 
         quantity++;
 
         lineSub = price * quantity;
+        depositSub = deposit * quantity;
 
         $( '#LineTotal_' + ide).html(lineSub);
+        $('#LineTotal_' + ide).parent().find('.deposit_antbox_total').val(depositSub);
         recalculateTotal();
 
         
@@ -204,7 +209,7 @@
 
         var boxid = boxobj.val();
 
-        var data = JSON.stringify({ "boxid": boxid, "quantity": quantity })
+        var data = JSON.stringify({ "boxid": boxid, "quantity": quantity });
 
         $.ajax({
             contentType: 'application/json; charset=utf-8',
@@ -229,13 +234,16 @@
 
         var price = priceObj.html();
         var quantity = quantityObj.val();
+        var deposit = 136.20;
 
         quantity--;
         if (quantity>=0)
         {
             lineSub = price * quantity;
+            depositSub = deposit * quantity;
 
             $( '#LineTotal_' + ide).html(lineSub);
+            $('#LineTotal_' + ide).parent().find('.deposit_antbox_total').val(depositSub);
         } 
         recalculateTotal();
         var boxobj = $('#box_' + ide);
@@ -271,30 +279,39 @@
         var taxObj =  $( '#Tax' );
         var totalObj =  $( '#Total' );
 
+        var subDepositObj = $('.sub_deposit');
+        var ivaDepositObj = $('.iva_deposit');
+        var totalDepositObj = $('.total_deposit');
+
         var subtotal = 0;
+        var deposit = 136.20;
+        var subtotaldeposit = 0;
+        var cantantboxs = 0;
         $( ".toSum" ).each(function( i ) {
             subtotal += parseFloat($(this).text());
-            
+        });
+        $(".cant_antboxs").each(function (i) {
+            cantantboxs += parseFloat($(this).val());
+            subtotaldeposit += cantantboxs * deposit;
         });
 
         var tax = (subtotal*0.16);
         var total = parseFloat(subtotal+tax);
+        var taxdeposito = (subtotaldeposit * 0.16);
+        var totalDeposit = parseFloat(subtotaldeposit + taxdeposito);
 
         subtotalObj.text(subtotal.toFixed(2));
         taxObj.text(tax.toFixed(2));
         totalObj.text(total.toFixed(2));
 
-
-
-
+        subDepositObj.text(subtotaldeposit.toFixed(2));
+        ivaDepositObj.text(taxdeposito.toFixed(2));
+        totalDepositObj.text(totalDeposit.toFixed(2));
 
     }
 
     var CartLine = function () {
         var self = this;
-
-        
-
     }
 
 </script>

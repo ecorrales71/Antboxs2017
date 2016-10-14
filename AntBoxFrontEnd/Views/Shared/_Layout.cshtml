@@ -386,15 +386,10 @@
                     '<div class="alert alert-warning" role="alert" id="LoginFailAlert">Usuario o Password no valido.</div>');
                     window.setTimeout(function ()
                     { $("#LoginFailAlert").alert('close'); }, 2000);
-
-                    
-
                 }
                 else {
                     $('#login-info').html(result);
                 }
-
-
             },
             error: function (emp) {
                 $('#body-content').prepend(

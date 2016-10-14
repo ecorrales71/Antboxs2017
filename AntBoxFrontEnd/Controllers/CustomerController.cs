@@ -134,7 +134,6 @@ namespace AntBoxFrontEnd.Controllers
 
             var servicio = new TaskService(ServiceConfiguration.GetApiKey());
 
-
             PaginationCustomerTask result = new PaginationCustomerTask();
             try
             {

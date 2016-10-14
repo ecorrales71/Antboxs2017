@@ -1,0 +1,637 @@
+﻿
+@{
+    ViewBag.Title = "Cupones";
+}
+<!-- WRAPPER -->
+<div class="wrapper">
+    <!-- PAGE TITLE -->
+    <header class="pagetitle pagetitle-sm">
+        <div class="container">
+            <div class="divtable irow">
+                <div class="divcell">
+                    <i class="fa fa-archive"></i>
+                    <span class="title">Administración de Usuarios</span>
+                    <div class="divider"></div>
+                    <span class="subtitle">Almacenamiento Seguro, Fácil y Conveniente</span>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- /.pagetitle -->
+    <!-- CONTENT -->
+    <div class="content seguros">
+        <!-- CONTAINER -->
+        <div class="container">
+            <div class="row irow-xs">
+                <div class="col-sm-12">
+                    <h1>Cupones</h1>
+                </div>
+            </div>
+        </div>
+        <!-- /.container -->
+        <!-- CONTAINER -->
+        <div class="container mt30">
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="table-responsive">
+                        <table id="tabla" class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Cupón</th>
+                                    <th>Cantidad</th>
+                                    <th>Porcentaje</th>
+                                    <th>Inicio</th>
+                                    <th>Vigencia</th>
+                                    <th>Creado por</th>
+                                    <th>Creación</th>
+                                    <th>Estatus</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Seguro Mínimo</td>
+                                    <td>$0.00</td>
+                                    <td>10%</td>
+                                    <td>2016-01-20</td>
+                                    <td>2016-05-20</td>
+                                    <td>jRodriguez</td>
+                                    <td>2016-05-20</td>
+                                    <td>Activo</td>
+                                </tr>
+                                <tr>
+                                    <td>Seguro Estándar</td>
+                                    <td>$0.00</td>
+                                    <td>20%</td>
+                                    <td>2016-02-01</td>
+                                    <td>2016-06-01</td>
+                                    <td>lEugenia</td>
+                                    <td>2016-06-01</td>
+                                    <td>Activo</td>
+                                </tr>
+                                <tr>
+                                    <td>Seguro Plus</td>
+                                    <td>$50.00</td>
+                                    <td>0%</td>
+                                    <td>2016-05-15</td>
+                                    <td>2016-07-15</td>
+                                    <td>bOsorio</td>
+                                    <td>2016-07-15</td>
+                                    <td>Inactivo</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-sm-12 text-center mb10">
+                    <!-- PAGINATION -->
+                    <ul class="pagination solid">
+                        <li class="pull-left"><a href="#" class="prev"><i class="fa fa-angle-left"></i></a></li>
+                        <li class="pull-right"><a href="#" class="next"><i class="fa fa-angle-right"></i></a></li>
+                        <li class="active"><a href="#">1</a></li>
+                        <li><a href="#">2</a></li>
+                        <li><a href="#">3</a></li>
+                        <li><a href="#">4</a></li>
+                        <li><a href="#">…</a></li>
+                        <li><a href="#">36</a></li>
+                    </ul>
+                    <!-- /.pagination -->
+                </div>
+                <div class="col-sm-12 mt10">
+                    <input type="button" class="btn btn-primary btn-wide pull-left" data-toggle="modal" data-target="#crear_cupon" value="Crear Nuevo">
+                    <input id="" type="button" class="btn btn-primary btn_blue btn-wide pull-right" onclick="eliminarItem()" value="Eliminar">
+                    <input type="button" class="btn btn-primary btn-wide pull-right mr10" data-toggle="modal" data-target="#editar_cupon" value="Editar">
+                </div>
+            </div>
+        </div>
+        <!-- /.container -->
+        <div class="row">
+            <div class="col-sm-12">
+                <hr class="hr-dashed mt20 mb0" />
+            </div>
+        </div>
+        <!-- CONTAINER -->
+        <div class="container mt40">
+            <div class="row irow-xs">
+                <div class="col-sm-12">
+                    <h1>Códigos de Descuento</h1>
+                </div>
+            </div>
+        </div>
+        <!-- /.container -->
+        <!-- CONTAINER -->
+        <div class="container mt30">
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="table-responsive">
+                        <table id="tabla" class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Código</th>
+                                    <th>Monto</th>
+                                    <th>Inicio</th>
+                                    <th>Vigencia</th>
+                                    <th>Cantidad</th>
+                                    <th>Utilizados</th>
+                                    <th>Creado por</th>
+                                    <th>Creación</th>
+                                    <th>Estatus</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>dimi75</td>
+                                    <td>$50.00</td>
+                                    <td>2016-02-10</td>
+                                    <td>2016-05-10</td>
+                                    <td>100</td>
+                                    <td>27</td>
+                                    <td>jRodriguez</td>
+                                    <td>2016-05-20</td>
+                                    <td>Activo</td>
+                                </tr>
+                                <tr>
+                                    <td>ueny83</td>
+                                    <td>$80.00</td>
+                                    <td>2016-05-20</td>
+                                    <td>2016-10-20</td>
+                                    <td>200</td>
+                                    <td>87</td>
+                                    <td>lEugenia</td>
+                                    <td>2016-06-01</td>
+                                    <td>Activo</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-sm-12 text-center mb10">
+                    <!-- PAGINATION -->
+                    <ul class="pagination solid">
+                        <li class="pull-left"><a href="#" class="prev"><i class="fa fa-angle-left"></i></a></li>
+                        <li class="pull-right"><a href="#" class="next"><i class="fa fa-angle-right"></i></a></li>
+                        <li class="active"><a href="#">1</a></li>
+                        <li><a href="#">2</a></li>
+                        <li><a href="#">3</a></li>
+                        <li><a href="#">4</a></li>
+                        <li><a href="#">…</a></li>
+                        <li><a href="#">36</a></li>
+                    </ul>
+                    <!-- /.pagination -->
+                </div>
+                <div class="col-sm-12 mt10">
+                    <input type="button" class="btn btn-primary btn-wide pull-left" data-toggle="modal" data-target="#crear_codigo" value="Crear Nuevo">
+                    <input id="" type="button" class="btn btn-primary btn_blue btn-wide pull-right" onclick="eliminarItem()" value="Eliminar">
+                    <input type="button" class="btn btn-primary btn-wide pull-right mr10" data-toggle="modal" data-target="#editar_codigo" value="Editar">
+                </div>
+            </div>
+
+        </div>
+        <!-- /.container -->
+    </div>
+    <!-- /.content -->
+</div>
+<!-- /.wrapper -->
+<!-- CUPONES -->
+<!-- Modal Medium -->
+<div class="modal fade" id="crear_cupon">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><i class="fa fa-times"></i></button>
+                <h6 class="modal-title">Crear Cupón</h6>
+            </div>
+            <div class="modal-body">
+                <form action="../../php/email.php" method="post" class="contact-form form-solid" novalidate>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="send-form-name">Cupón</label>
+                                <input type="text" name="name" id="send-form-name">
+                            </div>
+                            <div class="form-group">
+                                <label for="send-form-name">Cantidad</label>
+                                <input type="text" name="name" id="send-form-name">
+                            </div>
+                            <div class="form-group">
+                                <label for="send-form-name">Porcentaje</label>
+                                <input type="text" name="name" id="send-form-name">
+                            </div>
+                            <div class="form-group">
+                                <label for="textbox">Inicio</label>
+                                <div class="input-group mb0">
+                                    <span class="input-group-btn">
+                                        <button type="button" id="cupon_inicio" class="btn btn-primary pull-right"><i class="fa fa-calendar"></i></button>
+                                    </span>
+                                    <input class="form-control" type="text" id="fecha_cupon_inicio" name="fecha_cupon_inicio">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 pl0_modal">
+                            <div class="form-group">
+                                <label for="textbox">Vigencia</label>
+                                <div class="input-group mb0">
+                                    <span class="input-group-btn">
+                                        <button type="button" id="cupon_vigencia" class="btn btn-primary pull-right"><i class="fa fa-calendar"></i></button>
+                                    </span>
+                                    <input class="form-control" type="text" id="fecha_cupon_vigencia" name="fecha_cupon_vigencia">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="form-select">Agregado por</label>
+                                <select id="form-select">
+                                    <option value="jRodriguez">jRodriguez</option>
+                                    <option value="bOsorio">bOsorio</option>
+                                    <option value="lEugenia">lEugenia</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="textbox">Creación</label>
+                                <div class="input-group mb0">
+                                    <span class="input-group-btn">
+                                        <button type="button" id="cupon_creacion" class="btn btn-primary pull-right"><i class="fa fa-calendar"></i></button>
+                                    </span>
+                                    <input class="form-control" type="text" id="fecha_cupon_creacion" name="fecha_cupon_creacion">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="form-select">Estatus</label>
+                                <select id="form-select">
+                                    <option value="Activo">Activo</option>
+                                    <option value="Inactivo">Inactivo</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <input type="submit" class="btn btn-primary btn-wide pull-right mt10" value="Crear">
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /.modal -->
+<!-- Modal Medium -->
+<div class="modal fade" id="editar_cupon">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><i class="fa fa-times"></i></button>
+                <h6 class="modal-title">Editar Cupón</h6>
+            </div>
+            <div class="modal-body">
+                <form action="../../php/email.php" method="post" class="contact-form form-solid" novalidate>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="send-form-name">Cupón</label>
+                                <input type="text" name="name" id="send-form-name">
+                            </div>
+                            <div class="form-group">
+                                <label for="send-form-name">Cantidad</label>
+                                <input type="text" name="name" id="send-form-name">
+                            </div>
+                            <div class="form-group">
+                                <label for="send-form-name">Porcentaje</label>
+                                <input type="text" name="name" id="send-form-name">
+                            </div>
+                            <div class="form-group">
+                                <label for="textbox">Inicio</label>
+                                <div class="input-group mb0">
+                                    <span class="input-group-btn">
+                                        <button type="button" id="cupon_inicio_edit" class="btn btn-primary pull-right"><i class="fa fa-calendar"></i></button>
+                                    </span>
+                                    <input class="form-control" type="text" id="fecha_cupon_inicio_edit" name="fecha_cupon_inicio_edit">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 pl0_modal">
+                            <div class="form-group">
+                                <label for="textbox">Vigencia</label>
+                                <div class="input-group mb0">
+                                    <span class="input-group-btn">
+                                        <button type="button" id="cupon_vigencia_edit" class="btn btn-primary pull-right"><i class="fa fa-calendar"></i></button>
+                                    </span>
+                                    <input class="form-control" type="text" id="fecha_cupon_vigencia_edit" name="fecha_cupon_vigencia_edit">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="form-select">Agregado por</label>
+                                <select id="form-select">
+                                    <option value="jRodriguez">jRodriguez</option>
+                                    <option value="bOsorio">bOsorio</option>
+                                    <option value="lEugenia">lEugenia</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="textbox">Creación</label>
+                                <div class="input-group mb0">
+                                    <span class="input-group-btn">
+                                        <button type="button" id="cupon_creacion_edit" class="btn btn-primary pull-right"><i class="fa fa-calendar"></i></button>
+                                    </span>
+                                    <input class="form-control" type="text" id="fecha_cupon_creacion_edit" name="fecha_cupon_creacion_edit">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="form-select">Estatus</label>
+                                <select id="form-select">
+                                    <option value="Activo">Activo</option>
+                                    <option value="Inactivo">Inactivo</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <input type="submit" class="btn btn-primary btn-wide pull-right mt10" value="Crear">
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /.modal -->
+<!-- CÓDIGOS -->
+<!-- Modal Medium -->
+<div class="modal fade" id="crear_codigo">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><i class="fa fa-times"></i></button>
+                <h6 class="modal-title">Crear Código de Descuento</h6>
+            </div>
+            <div class="modal-body">
+                <form action="../../php/email.php" method="post" class="contact-form form-solid" novalidate>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="send-form-name">Código</label>
+                                <div class="input-group mb0">
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-primary getNewPass"><i class="fa fa-refresh"></i></button>
+                                    </span>
+                                    <input type="text" class="form-control" rel="gp" data-size="6" data-character-set="a-z,A-Z">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="send-form-name">Monto</label>
+                                <input type="text" name="name" id="send-form-name">
+                            </div>
+                            <div class="form-group">
+                                <label for="textbox">Inicio</label>
+                                <div class="input-group mb0">
+                                    <span class="input-group-btn">
+                                        <button type="button" id="codigo_inicio" class="btn btn-primary pull-right"><i class="fa fa-calendar"></i></button>
+                                    </span>
+                                    <input class="form-control" type="text" id="fecha_codigo_inicio" name="fecha_codigo_inicio">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="textbox">Vigencia</label>
+                                <div class="input-group mb0">
+                                    <span class="input-group-btn">
+                                        <button type="button" id="codigo_vigencia" class="btn btn-primary pull-right"><i class="fa fa-calendar"></i></button>
+                                    </span>
+                                    <input class="form-control" type="text" id="fecha_codigo_vigencia" name="fecha_codigo_vigencia">
+                                </div>
+                            </div>
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="optionsCheckbox">
+                                    Sin Vigencia
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <label for="send-form-name">Cantidad</label>
+                                <input type="text" name="name" id="send-form-name">
+                            </div>
+                        </div>
+                        <div class="col-sm-6 pl0_modal">
+                            <div class="form-group">
+                                <label for="send-form-name">Utilizados</label>
+                                <input type="text" name="name" id="send-form-name">
+                            </div>
+                            <div class="form-group">
+                                <label for="form-select">Creado por</label>
+                                <select id="form-select">
+                                    <option value="jRodriguez">jRodriguez</option>
+                                    <option value="bOsorio">bOsorio</option>
+                                    <option value="lEugenia">lEugenia</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="textbox">Creación de Cupón</label>
+                                <div class="input-group mb0">
+                                    <span class="input-group-btn">
+                                        <button type="button" id="codigo_creacion" class="btn btn-primary pull-right"><i class="fa fa-calendar"></i></button>
+                                    </span>
+                                    <input class="form-control" type="text" id="fecha_codigo_creacion" name="fecha_codigo_creacion">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="form-select">Estatus</label>
+                                <select id="form-select">
+                                    <option value="Activo">Activo</option>
+                                    <option value="Inactivo">Inactivo</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <input type="submit" class="btn btn-primary btn-wide pull-right mt10" value="Crear">
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /.modal -->
+<!-- Modal Medium -->
+<div class="modal fade" id="editar_codigo">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><i class="fa fa-times"></i></button>
+                <h6 class="modal-title">Editar Código de Descuento</h6>
+            </div>
+            <div class="modal-body">
+                <form action="../../php/email.php" method="post" class="contact-form form-solid" novalidate>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="send-form-name">Código</label>
+                                <div class="input-group mb0">
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-primary getNewPass"><i class="fa fa-refresh"></i></button>
+                                    </span>
+                                    <input type="text" class="form-control" rel="gp" data-size="6" data-character-set="a-z,A-Z">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="send-form-name">Monto</label>
+                                <input type="text" name="name" id="send-form-name">
+                            </div>
+                            <div class="form-group">
+                                <label for="textbox">Inicio</label>
+                                <div class="input-group mb0">
+                                    <span class="input-group-btn">
+                                        <button type="button" id="codigo_inicio_edit" class="btn btn-primary pull-right"><i class="fa fa-calendar"></i></button>
+                                    </span>
+                                    <input class="form-control" type="text" id="fecha_codigo_inicio_edit" name="fecha_codigo_inicio_edit">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="textbox">Vigencia</label>
+                                <div class="input-group mb0">
+                                    <span class="input-group-btn">
+                                        <button type="button" id="codigo_vigencia_edit" class="btn btn-primary pull-right"><i class="fa fa-calendar"></i></button>
+                                    </span>
+                                    <input class="form-control" type="text" id="fecha_codigo_vigencia_edit" name="fecha_codigo_vigencia_edit">
+                                </div>
+                            </div>
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="optionsCheckbox">
+                                    Sin Vigencia
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <label for="send-form-name">Cantidad</label>
+                                <input type="text" name="name" id="send-form-name">
+                            </div>
+                        </div>
+                        <div class="col-sm-6 pl0_modal">
+                            <div class="form-group">
+                                <label for="send-form-name">Utilizados</label>
+                                <input type="text" name="name" id="send-form-name">
+                            </div>
+                            <div class="form-group">
+                                <label for="form-select">Creado por</label>
+                                <select id="form-select">
+                                    <option value="jRodriguez">jRodriguez</option>
+                                    <option value="bOsorio">bOsorio</option>
+                                    <option value="lEugenia">lEugenia</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="textbox">Creación de Cupón</label>
+                                <div class="input-group mb0">
+                                    <span class="input-group-btn">
+                                        <button type="button" id="codigo_creacion_edit" class="btn btn-primary pull-right"><i class="fa fa-calendar"></i></button>
+                                    </span>
+                                    <input class="form-control" type="text" id="fecha_codigo_creacion_edit" name="fecha_codigo_creacion_edit">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="form-select">Estatus</label>
+                                <select id="form-select">
+                                    <option value="Activo">Activo</option>
+                                    <option value="Inactivo">Inactivo</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <input type="submit" class="btn btn-primary btn-wide pull-right mt10" value="Crear">
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /.modal -->
+@section Scripts
+{
+    <!-- CUPONES -->
+<script type="text/javascript">
+    Calendar.setup({
+        inputField: "fecha_cupon_inicio",      // id del campo de texto
+        ifFormat: "%Y-%m-%d",       // formato de la fecha, cuando se escriba en el campo de texto
+        button: "cupon_inicio"   // el id del botón que lanzará el calendario
+    });
+</script>
+<script type="text/javascript">
+    Calendar.setup({
+        inputField: "fecha_cupon_vigencia",      // id del campo de texto
+        ifFormat: "%Y-%m-%d",       // formato de la fecha, cuando se escriba en el campo de texto
+        button: "cupon_vigencia"   // el id del botón que lanzará el calendario
+    });
+</script>
+<script type="text/javascript">
+    Calendar.setup({
+        inputField: "fecha_cupon_creacion",      // id del campo de texto
+        ifFormat: "%Y-%m-%d",       // formato de la fecha, cuando se escriba en el campo de texto
+        button: "cupon_creacion"   // el id del botón que lanzará el calendario
+    });
+</script>
+<script type="text/javascript">
+    Calendar.setup({
+        inputField: "fecha_cupon_inicio_edit",      // id del campo de texto
+        ifFormat: "%Y-%m-%d",       // formato de la fecha, cuando se escriba en el campo de texto
+        button: "cupon_inicio_edit"   // el id del botón que lanzará el calendario
+    });
+</script>
+<script type="text/javascript">
+    Calendar.setup({
+        inputField: "fecha_cupon_vigencia_edit",      // id del campo de texto
+        ifFormat: "%Y-%m-%d",       // formato de la fecha, cuando se escriba en el campo de texto
+        button: "cupon_vigencia_edit"   // el id del botón que lanzará el calendario
+    });
+</script>
+<script type="text/javascript">
+    Calendar.setup({
+        inputField: "fecha_cupon_creacion_edit",      // id del campo de texto
+        ifFormat: "%Y-%m-%d",       // formato de la fecha, cuando se escriba en el campo de texto
+        button: "cupon_creacion_edit"   // el id del botón que lanzará el calendario
+    });
+</script>
+<!-- CÓDIGOS -->
+<script type="text/javascript">
+    Calendar.setup({
+        inputField: "fecha_codigo_inicio",      // id del campo de texto
+        ifFormat: "%Y-%m-%d",       // formato de la fecha, cuando se escriba en el campo de texto
+        button: "codigo_inicio"   // el id del botón que lanzará el calendario
+    });
+</script>
+<script type="text/javascript">
+    Calendar.setup({
+        inputField: "fecha_codigo_vigencia",      // id del campo de texto
+        ifFormat: "%Y-%m-%d",       // formato de la fecha, cuando se escriba en el campo de texto
+        button: "codigo_vigencia"   // el id del botón que lanzará el calendario
+    });
+</script>
+<script type="text/javascript">
+    Calendar.setup({
+        inputField: "fecha_codigo_creacion",      // id del campo de texto
+        ifFormat: "%Y-%m-%d",       // formato de la fecha, cuando se escriba en el campo de texto
+        button: "codigo_creacion"   // el id del botón que lanzará el calendario
+    });
+</script>
+<script type="text/javascript">
+    Calendar.setup({
+        inputField: "fecha_codigo_inicio_edit",      // id del campo de texto
+        ifFormat: "%Y-%m-%d",       // formato de la fecha, cuando se escriba en el campo de texto
+        button: "codigo_inicio_edit"   // el id del botón que lanzará el calendario
+    });
+</script>
+<script type="text/javascript">
+    Calendar.setup({
+        inputField: "fecha_codigo_vigencia_edit",      // id del campo de texto
+        ifFormat: "%Y-%m-%d",       // formato de la fecha, cuando se escriba en el campo de texto
+        button: "codigo_vigencia_edit"   // el id del botón que lanzará el calendario
+    });
+</script>
+<script type="text/javascript">
+    Calendar.setup({
+        inputField: "fecha_codigo_creacion_edit",      // id del campo de texto
+        ifFormat: "%Y-%m-%d",       // formato de la fecha, cuando se escriba en el campo de texto
+        button: "codigo_creacion_edit"   // el id del botón que lanzará el calendario
+    });
+</script>
+
+}

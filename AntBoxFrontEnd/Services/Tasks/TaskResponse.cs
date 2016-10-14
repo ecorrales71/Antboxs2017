@@ -25,10 +25,10 @@ namespace AntBoxFrontEnd.Services.Tasks
         [JsonProperty("service_time")]
         public bool service_time { get; set; }
 
-        [JsonProperty("completeAfter")]
+        [JsonProperty("complete_after")]
         public long completeAfter { get; set; }
 
-        [JsonProperty("completeBefore")]
+        [JsonProperty("complete_before")]
         public long completeBefore { get; set; }
 
         [JsonProperty("address")]

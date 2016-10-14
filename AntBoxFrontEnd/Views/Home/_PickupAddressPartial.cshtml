@@ -12,7 +12,7 @@
     <div class="col-sm-6">
         <div class="form-group">
             @Html.Label("* Calle")
-            @Html.TextBoxFor(m => m.Street, new { @id = "txtStreet", @maxlength = "250" })
+            @Html.TextBoxFor(m => m.Street, new { @id = "txtStreet", @maxlength = "250", @required = "required" })
         </div>
         <div class="row">
             <div class="col-sm-6">
@@ -26,7 +26,7 @@
             <div class="col-sm-6">
                 <div class="form-group">
                     <label for="send-form-email">* Núm. Ext.</label>
-                   @Html.TextBoxFor(m => m.External_number, new { @id = "External_number", @maxlength = "50" })
+                   @Html.TextBoxFor(m => m.External_number, new { @id = "External_number", @maxlength = "50", @required = "required" })
                     @*<label for="send-form-email">Núm. Ext.</label>
                     <input type="text" id="txtNumExt">*@
                 </div>
@@ -34,7 +34,7 @@
         </div>
         <div class="form-group">
             @Html.Label("* Código Postal")
-           @Html.TextBoxFor(m => m.Zipcode,new{@id = "txtZipcode", @onkeyup="search_code(this.value)" })
+           @Html.TextBoxFor(m => m.Zipcode, new { @id = "txtZipcode", @onkeyup = "search_code(this.value)", @required = "required" })
             @Html.ValidationMessage("Código postal requerido", "")
 
 
@@ -44,7 +44,7 @@
         <div id="zipCodeError"></div>
         <div class="form-group">
             <label for="form-select">* Delegación o Municipio</label>
-            @Html.DropDownListFor(m => m.Delegation, ViewData["DelegationList"] as SelectList, new { @id = "cmbDelegations" })
+            @Html.DropDownListFor(m => m.Delegation, ViewData["DelegationList"] as SelectList, new { @id = "cmbDelegations", @required = "required" })
 
             @*<select id="form-select">
                 <option value>- Selecciona una opción -</option>
@@ -56,7 +56,7 @@
         </div>
         <div class="form-group">
             <label for="form-select">* Colonia</label>
-            @Html.DropDownListFor(m => m.Neighborhood, ViewData["ColoniasList"] as SelectList, new { @id = "cmbNeighborhood" })
+            @Html.DropDownListFor(m => m.Neighborhood, ViewData["ColoniasList"] as SelectList, new { @id = "cmbNeighborhood", @required = "required" })
             @*<select name="form_select" onchange="showOtraColonia1(this)">
                 <option value>- Selecciona una opción -</option>
                 <option value="Colonia 1">Colonia 1</option>

@@ -281,15 +281,21 @@ namespace AntBoxFrontEnd.Controllers
             return Json(new { success = result, responseText = "Ocurrio un error al borrar el registro" }, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult ValidateAddress(AntBoxAddressViewModel address)
+        public JsonResult ValidateAddress(AddressValidateRequest address)
         {
-            var addressService = new AddressService(ServiceConfiguration.GetApiKey());
-            var cadAddress = address.Street + " " + address.External_number + ", " + address.Neighborhood + ", " + address.City + ", C.P. " + address.Zipcode;
-            var result = addressService.ValidateAddress(cadAddress);
-
-            if (result)
-                return Json(true, JsonRequestBehavior.AllowGet);
-            return Json(false, JsonRequestBehavior.AllowGet);
+            try
+            {
+                var addressService = new AddressService(ServiceConfiguration.GetApiKey());
+                var result = addressService.ValidateAddress(address);
+                if (result)
+                    return Json(true, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                LogManager.Write(ex.Message, LogManager.Error);
+                return Json(new { success = false, responseText = "Direccion no valida" }, JsonRequestBehavior.AllowGet);
+            }
+            return Json(false, JsonRequestBehavior.AllowGet); 
         }
 
         public ActionResult SearchZip(string zipcode)

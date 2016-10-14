@@ -51,6 +51,7 @@
                                 <a href="" class="plus" onclick='AddBox(@rowNo)'>+</a>
                             </td>
                             <td class="product-subtotal no_iphone_portrait">
+                                <input type="hidden" class="deposit_antbox_total" value="" />
                                 $ <span class="amount toSum" id='LineTotal_@rowNo'> @item.LineTotal</span>
                             </td>
 
@@ -143,20 +144,20 @@
                         <tr class="cart-subtotal todisplay">
                             <th>Depósito</th>
                             <td>
-                                <span class="amount">$ 272.45</span>
+                                $<span class="sub_deposit"> 0.00</span>
                             </td>
                         </tr>
                         <tr class="shipping todisplay">
                             <th>+ IVA</th>
                             <td>
-                                <span class="amount">$ 43.55</span>
+                                $<span class="iva_deposit"> 0.00</span>
                             </td>
                         </tr>
                         <tr class="order-total todisplay">
                             <th>Total Depósito</th>
                             <td>
                                 <strong>
-                                    <span class="amount">$ 316.00</span>
+                                    $<span class="total_deposit"> 0.00</span>
                                 </strong>
                             </td>
                         </tr>

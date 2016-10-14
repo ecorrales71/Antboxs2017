@@ -1,0 +1,277 @@
+﻿@{
+    ViewBag.Title = "Admin - Catalogos";
+}
+<!-- WRAPPER -->
+<div class="wrapper">
+    <!-- PAGE TITLE -->
+    <header class="pagetitle pagetitle-sm">
+        <div class="container">
+            <div class="divtable irow">
+                <div class="divcell">
+                    <i class="fa fa-archive"></i>
+                    <span class="title">Administración de Usuarios</span>
+                    <div class="divider"></div>
+                    <span class="subtitle">Almacenamiento Seguro, Fácil y Conveniente</span>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- /.pagetitle -->
+    <!-- CONTENT -->
+    <div class="content catalogos">
+        <!-- CONTAINER -->
+        <div class="container">
+            <div class="row irow-xs">
+                <div class="col-sm-12">
+                    <h1>Catálogos</h1>
+                </div>
+            </div>
+        </div>
+        <!-- /.container -->
+        <!-- CONTAINER -->
+        <div class="container mt30">
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="table-responsive">
+                        <table id="tabla" class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Modelo</th>
+                                    <th>Dimensiones</th>
+                                    <th>Etiqueta</th>
+                                    <th>Precio</th>
+                                    <th>Seguro</th>
+                                    <th>Monto</th>
+                                    <th>SLU</th>
+                                    <th>Agregado por</th>
+                                    <th>Activación</th>
+                                    <th>Estatus</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Chica</td>
+                                    <td>27"x17"x17"</td>
+                                    <td>Ch</td>
+                                    <td>$80.00</td>
+                                    <td>Mínimo</td>
+                                    <td>$500.00</td>
+                                    <td>7483</td>
+                                    <td>Joaquín Rodriguez</td>
+                                    <td>2016-05-20</td>
+                                    <td>Activo</td>
+                                </tr>
+                                <tr>
+                                    <td>Mediana</td>
+                                    <td>37"x27"x27"</td>
+                                    <td>Md</td>
+                                    <td>$100.00</td>
+                                    <td>Estándar</td>
+                                    <td>$1,500.00</td>
+                                    <td>7483</td>
+                                    <td>Lillian Eugenia</td>
+                                    <td>2016-06-01</td>
+                                    <td>Inactivo</td>
+                                </tr>
+                                <tr>
+                                    <td>Grande</td>
+                                    <td>47"x37"x37"</td>
+                                    <td>Gd</td>
+                                    <td>$130.00</td>
+                                    <td>Plus</td>
+                                    <td>$2,000.00</td>
+                                    <td>7483</td>
+                                    <td>Beatríz Osorio</td>
+                                    <td>2016-07-15</td>
+                                    <td>Inactivo</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-sm-12 mt10">
+                    <input type="button" class="btn btn-primary btn-wide pull-left" data-toggle="modal" data-target="#crear_antboxs" value="Crear Nuevo">
+                    <input id="" type="button" class="btn btn-primary btn_blue btn-wide pull-right" onclick="eliminarItem()" value="Eliminar">
+                    <input type="button" class="btn btn-primary btn-wide pull-right mr10" data-toggle="modal" data-target="#editar_antboxs" value="Editar">
+                </div>
+            </div>
+        </div>
+        <!-- /.container -->
+    </div>
+    <!-- /.content -->
+</div>
+<!-- /.wrapper -->
+<!-- Modal Medium -->
+<div class="modal fade" id="crear_antboxs">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><i class="fa fa-times"></i></button>
+                <h6 class="modal-title">Crear Antboxs</h6>
+            </div>
+            <div class="modal-body">
+                <form action="../../php/email.php" method="post" class="contact-form form-solid" novalidate>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="send-form-name">Modelo</label>
+                                <input type="text" name="name" id="send-form-name">
+                            </div>
+                            <div class="form-group">
+                                <label for="send-form-name">Dimensiones</label>
+                                <input type="text" name="name" id="send-form-name">
+                            </div>
+                            <div class="form-group">
+                                <label for="send-form-name">Etiqueta</label>
+                                <input type="text" name="name" id="send-form-name">
+                            </div>
+                            <div class="form-group">
+                                <label for="send-form-name">Precio</label>
+                                <input type="text" name="name" id="send-form-name">
+                            </div>
+                            <div class="form-group">
+                                <label for="send-form-name">Seguro</label>
+                                <input type="text" name="name" id="send-form-name">
+                            </div>
+                        </div>
+                        <div class="col-sm-6 pl0_modal">
+                            <div class="form-group">
+                                <label for="send-form-name">Monto</label>
+                                <input type="text" name="name" id="send-form-name">
+                            </div>
+                            <div class="form-group">
+                                <label for="send-form-name">SLU</label>
+                                <input type="text" name="name" id="send-form-name">
+                            </div>
+                            <div class="form-group">
+                                <label for="form-select">Agregado por</label>
+                                <select id="form-select">
+                                    <option value="jRodriguez">jRodriguez</option>
+                                    <option value="bOsorio">bOsorio</option>
+                                    <option value="lEugenia">lEugenia</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="textbox">Fecha de Activación</label>
+                                <div class="input-group mb0">
+                                    <span class="input-group-btn">
+                                        <button type="button" id="activacion" class="btn btn-primary pull-right"><i class="fa fa-calendar"></i></button>
+                                    </span>
+                                    <input class="form-control" type="text" id="fecha_activacion" name="fecha_activacion">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="form-select">Estatus</label>
+                                <select id="form-select">
+                                    <option value="Activo">Activo</option>
+                                    <option value="Inactivo">Inactivo</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <input type="submit" class="btn btn-primary btn-wide pull-right mt10" value="Crear">
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /.modal -->
+<!-- Modal Medium -->
+<div class="modal fade" id="editar_antboxs">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><i class="fa fa-times"></i></button>
+                <h6 class="modal-title">Editar Antboxs</h6>
+            </div>
+            <div class="modal-body">
+                <form action="../../php/email.php" method="post" class="contact-form form-solid" novalidate>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="send-form-name">Modelo</label>
+                                <input type="text" name="name" id="send-form-name">
+                            </div>
+                            <div class="form-group">
+                                <label for="send-form-name">Dimensiones</label>
+                                <input type="text" name="name" id="send-form-name">
+                            </div>
+                            <div class="form-group">
+                                <label for="send-form-name">Etiqueta</label>
+                                <input type="text" name="name" id="send-form-name">
+                            </div>
+                            <div class="form-group">
+                                <label for="send-form-name">Precio</label>
+                                <input type="text" name="name" id="send-form-name">
+                            </div>
+                            <div class="form-group">
+                                <label for="send-form-name">Seguro</label>
+                                <input type="text" name="name" id="send-form-name">
+                            </div>
+                        </div>
+                        <div class="col-sm-6 pl0_modal">
+                            <div class="form-group">
+                                <label for="send-form-name">Monto</label>
+                                <input type="text" name="name" id="send-form-name">
+                            </div>
+                            <div class="form-group">
+                                <label for="send-form-name">SLU</label>
+                                <input type="text" name="name" id="send-form-name">
+                            </div>
+                            <div class="form-group">
+                                <label for="form-select">Agregado por</label>
+                                <select id="form-select">
+                                    <option value="jRodriguez">jRodriguez</option>
+                                    <option value="bOsorio">bOsorio</option>
+                                    <option value="lEugenia">lEugenia</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="textbox">Fecha de Activación</label>
+                                <div class="input-group mb0">
+                                    <span class="input-group-btn">
+                                        <button type="button" id="activacion_edit" class="btn btn-primary pull-right"><i class="fa fa-calendar"></i></button>
+                                    </span>
+                                    <input class="form-control" type="text" id="fecha_activacion_edit" name="fecha_activacion_edit">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="form-select">Estatus</label>
+                                <select id="form-select">
+                                    <option value="Activo">Activo</option>
+                                    <option value="Inactivo">Inactivo</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <input type="submit" class="btn btn-primary btn-wide pull-right mt10" value="Guardar">
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /.modal -->
+@section Scripts
+{
+<script type="text/javascript">
+    Calendar.setup({
+        inputField: "fecha_activacion",      // id del campo de texto
+        ifFormat: "%Y-%m-%d",       // formato de la fecha, cuando se escriba en el campo de texto
+        button: "activacion"   // el id del botón que lanzará el calendario
+    });
+</script>
+<script type="text/javascript">
+    Calendar.setup({
+        inputField: "fecha_activacion_edit",      // id del campo de texto
+        ifFormat: "%Y-%m-%d",       // formato de la fecha, cuando se escriba en el campo de texto
+        button: "activacion_edit"   // el id del botón que lanzará el calendario
+    });
+</script>
+}

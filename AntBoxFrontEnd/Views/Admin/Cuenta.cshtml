@@ -1,0 +1,96 @@
+﻿
+@{
+    ViewBag.Title = "Cuenta";
+}
+<!-- WRAPPER -->
+<div class="wrapper">
+    <!-- PAGE TITLE -->
+    <header class="pagetitle pagetitle-sm">
+        <div class="container">
+            <div class="divtable irow">
+                <div class="divcell">
+                    <i class="fa fa-archive"></i>
+                    <span class="title">Sistema de Administración</span>
+                    <div class="divider"></div>
+                    <span class="subtitle">Almacenamiento Seguro, Fácil y Conveniente</span>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- /.pagetitle -->
+    <!-- CONTENT -->
+    <div class="content cuenta">
+        <!-- CONTAINER -->
+        <div class="container">
+            <div class="row irow-xs">
+                <div class="col-sm-12">
+                    <h1>Cuenta</h1>
+                </div>
+            </div>
+        </div>
+        <!-- /.container -->
+        <!-- CONTAINER -->
+        <div class="container mt30">
+
+            <form action="../../php/email.php" method="post" class="contact-form form-solid" novalidate>
+                <div class="row">
+                    <div class="col-sm-4 col-md-3">
+                        <div class="irow-xs pb20">
+                            <!--<h3>Datos personales</h3>-->
+                            <a href="">
+                                <img class="img-lg text-center mt30" src="images/perfil.jpg" width="200" height="200" alt="">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-sm-8 col-md-9">
+                        <div class="row">
+                            <div class="col-sm-12 col-md-6">
+                                <div class="form-group">
+                                    <label for="send-form-name">Nombre(s)</label>
+                                    <input type="text" name="name" id="send-form-name">
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-md-6">
+                                <div class="form-group">
+                                    <label for="send-form-name">Apellido Paterno</label>
+                                    <input type="text" name="name" id="send-form-name">
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-md-6">
+                                <div class="form-group">
+                                    <label for="send-form-name">Apellido Materno</label>
+                                    <input type="text" name="name" id="send-form-name">
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-md-6">
+                                <div class="form-group">
+                                    <label for="send-form-name">E-mail</label>
+                                    <input type="email" name="name" id="send-form-name">
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-md-6">
+                                <div class="form-group">
+                                    <label for="send-form-email">Contraseña</label>
+                                    <input type="password" name="email" id="send-form-email">
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-md-6">
+                                <div class="form-group">
+                                    <label for="send-form-email">Confirmar contraseña</label>
+                                    <input type="password" name="email" id="send-form-email">
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+                                <input type="submit" class="btn btn-primary btn-wide pull-right mt10" value="Guardar">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <!-- /.container -->
+    </div>
+    <!-- /.content -->
+</div>
+<!-- /.wrapper -->
+

@@ -165,13 +165,16 @@
         var quantityObj = $('#quantity_' + ide)
 
         var price = priceObj.html();
+        var deposit = 136.20;
         var quantity = quantityObj.val();
 
         quantity++;
 
         lineSub = price * quantity;
+        depositSub = deposit * quantity;
 
-        $( '#LineTotal_' + ide).html(lineSub);
+        $('#LineTotal_' + ide).html(lineSub);
+        $('#LineTotal_' + ide).parent().find('.deposit_antbox_total').val(depositSub);
         recalculateTotal();
 
 
@@ -204,13 +207,16 @@
 
         var price = priceObj.html();
         var quantity = quantityObj.val();
+        var deposit = 136.20;
 
         quantity--;
         if (quantity>=0)
         {
             lineSub = price * quantity;
-
-            $( '#LineTotal_' + ide).html(lineSub);
+            depositSub = deposit * quantity;
+            
+            $('#LineTotal_' + ide).html(lineSub);
+            $('#LineTotal_' + ide).parent().find('.deposit_antbox_total').val(depositSub);
         }
         recalculateTotal();
         var boxobj = $('#box_' + ide);
@@ -244,24 +250,31 @@
         var discountObj =  $( '#Discount' );
         var subtotalObj =  $( '#Subtotal' );
         var taxObj =  $( '#Tax' );
-        var totalObj =  $( '#Total' );
+        var totalObj = $('#Total');
+
+        var subDepositObj = $('.sub_deposit');
+        var ivaDepositObj = $('.iva_deposit');
+        var totalDepositObj = $('.total_deposit');
 
         var subtotal = 0;
+        var subtotaldeposit = 0;
         $( ".toSum" ).each(function( i ) {
             subtotal += parseFloat($(this).text());
-
+            subtotaldeposit += parseFloat($(this).parent().find('.deposit_antbox_total').val());
         });
 
-        var tax = (subtotal*0.16);
-        var total = parseFloat(subtotal+tax);
+        var tax = (subtotal * 0.16);
+        var taxdeposito = (subtotaldeposit * 0.16);
+        var total = parseFloat(subtotal + tax);
+        var totalDeposit = parseFloat(subtotaldeposit + taxdeposito);
 
         subtotalObj.text(subtotal.toFixed(2));
         taxObj.text(tax.toFixed(2));
         totalObj.text(total.toFixed(2));
 
-
-
-
+        subDepositObj.text(subtotaldeposit.toFixed(2));
+        ivaDepositObj.text(taxdeposito.toFixed(2));
+        totalDepositObj.text(totalDeposit.toFixed(2));
 
     }
 

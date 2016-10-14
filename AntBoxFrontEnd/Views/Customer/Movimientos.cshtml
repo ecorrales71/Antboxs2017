@@ -108,6 +108,12 @@
                             else
                                 cadhtml += "        <h4>Entrega<\/h4>";
                             cadhtml += "        <p>Fecha: " + timeConverter(taskv.completeAfter) + "<br \/>Lugar: " + address + "<\/p>";
+                            if (taskv.Status == "completed")
+                                cadhtml += "<div class=\"sticker_mov completed\">Completado<\/div>";
+                            else if (taskv.Status == "inprogress")
+                                cadhtml += "<div class=\"sticker_mov in_progress\">En progreso<\/div>";
+                            else if (taskv.Status == "canceled")
+                                cadhtml += "<div class=\"sticker_mov canceled\">Cancelado<\/div>";
                             cadhtml += "    <\/div>";
                             cadhtml += "<\/div>";
 

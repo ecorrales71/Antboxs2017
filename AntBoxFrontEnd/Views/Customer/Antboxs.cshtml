@@ -100,6 +100,9 @@
                 <h6 class="modal-title">Solicitar mi Antboxs</h6>
             </div>
             <div class="modal-body">
+                <div id="loader-solicitar" role="alert" style="display: none;">
+                    <img src="@Url.Content("~/Images/preloader.gif")" />   Solicitando antboxs... &nbsp;
+                </div>
                 <form method="post" class="contact-form form-solid form-solicitar-antbox" novalidate>
                     <div class="row">
                         <div class="col-sm-6">
@@ -201,6 +204,8 @@
 
         $(document).on("click", ".solicitar", function () {
             element = $(this);
+            var elementchecked = $(this).closest("div").find(".select-antbox");
+            elementchecked.prop('checked', true);
         });
 
         $('.guardar-antbox').click(function (event) {
@@ -234,40 +239,68 @@
         });
 
         $('.solicitar-antbox').click(function (event) {
+
             event.preventDefault();
 
-            var formData = {
-                worker: $("#horario").val(),
-                address: $("#address").val(),
-                fecha: $("#fecha_entrega").val(),
-                hora: $('#horariostring').val(),
-                referencia: $('#referencia').val(),
-                folioEntrega: element.attr('data-folio')
-            };
-            
-            $.ajax({
-                type: 'POST',
-                url: '@Url.Action("SolicitarAntbox", "AntBox")',
-                data: formData,
-                success: function (result) {
-                    if (result.success == true) {
-                        //antbox editado
-                        if (!$('#SolicitarAntBoxSuccess').length) {
-                            $('.form-solicitar-antbox').prepend('<div class="alert alert-success alert-dismissible fade in" id="SolicitarAntBoxSuccess"> <button type="button" class="close" data-dismiss="alert"> <i class="fa fa-times"></i></button><p><i class="fa fa-check"></i>Se ha actualizado la información.</p></div>');
-                            window.setTimeout(function () {
-                                $('#SolicitarAntBoxSuccess').hide();
-                            }, 3000);
-                            window.setTimeout(function () {
-                                $('#solicitar').modal('hide');
-                            }, 500);
-                        }
-                        element.parent().find('.name-antbox').text($('#mname-antbox').val());
-                        element.parent().find('.description-antbox').text($('#mdescription-antbox').val());
-                    } else {
+            var checkeds = [];
+            var succesed = [];
+            var count = 0;
 
+            $("#loader-solicitar").show();
+            $(".select-antbox:checked").each(function () {
+                var folio = $(this).attr("data-folio");
+                checkeds.push(folio);
+
+                var formData = {
+                    worker: $("#horario").val(),
+                    address: $("#address").val(),
+                    fecha: $("#fecha_entrega").val(),
+                    hora: $('#horariostring').val(),
+                    referencia: $('#referencia').val(),
+                    folioEntrega: folio
+                };
+
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("SolicitarAntbox", "AntBox")',
+                    data: formData,
+                    success: function (result) {
+                        if (result.success == true) {
+                            //antbox editado
+                            succesed.push(1);
+                        } else {
+                            succesed.push(0);
+                        }
+                    }, error: function (dataerror) {
+                        succesed.push(0);
+                    }, complete: function () {
+                        count++;
+                        if (count == checkeds.length)
+                        {
+                            var mensaje = "Antboxs solicitados correctamente";
+                            if (checkeds.length > 1) mensaje = "Antbox solicitado correctamente";
+                            $("#loader-solicitar").hide();
+                            if (!$('#SolicitarAntBoxSuccess').length) {
+                                $('.form-solicitar-antbox').prepend('<div class="alert alert-success alert-dismissible fade in" id="SolicitarAntBoxSuccess"> <button type="button" class="close" data-dismiss="alert"> <i class="fa fa-times"></i></button><p><i class="fa fa-check"></i>' + mensaje + '</p></div>');
+                                window.setTimeout(function () {
+                                    $('#SolicitarAntBoxSuccess').remove();
+                                }, 3000);
+                                window.setTimeout(function () {
+                                    $(".select-antbox:checked").each(function () {
+                                        $(this).prop('checked', false);
+                                    });
+                                    $('#solicitar').modal('hide');
+                                }, 1000);
+                            }
+                            element.parent().find('.name-antbox').text($('#mname-antbox').val());
+                            element.parent().find('.description-antbox').text($('#mdescription-antbox').val());
+                        }
                     }
-                }
+                });
             });
+
+            console.log(checkeds);
+
         });
 
         $(document).on('change', '#horario', function () {

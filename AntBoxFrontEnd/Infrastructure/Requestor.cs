@@ -56,7 +56,7 @@ namespace AntBoxFrontEnd.Infrastructure
 
                 if(responseMessage.StatusCode == HttpStatusCode.Unauthorized)
                 {
-
+                    var prueba = "prueba";
                 }
 
                     throw new MissingException(responseMessage.StatusCode, new MissingError { Missing = responseString});

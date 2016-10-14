@@ -1,0 +1,321 @@
+﻿@{
+    ViewBag.Title = "Codigos";
+}
+<!-- WRAPPER -->
+<div class="wrapper">
+    <!-- PAGE TITLE -->
+    <header class="pagetitle pagetitle-sm">
+        <div class="container">
+            <div class="divtable irow">
+                <div class="divcell">
+                    <i class="fa fa-archive"></i>
+                    <span class="title">Administración de Usuarios</span>
+                    <div class="divider"></div>
+                    <span class="subtitle">Almacenamiento Seguro, Fácil y Conveniente</span>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- /.pagetitle -->
+    <!-- CONTENT -->
+    <div class="content codigos">
+        <!-- CONTAINER -->
+        <div class="container">
+            <div class="row irow-xs">
+                <div class="col-sm-12">
+                    <h1>Códigos Postales</h1>
+                </div>
+            </div>
+        </div>
+        <!-- /.container -->
+        <!-- CONTAINER -->
+        <div class="container mt0">
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="table-responsive tabla_cp">
+                        <table id="tabla" class="table table-bordered">
+                            <form id="search" action="../../php/email.php" method="post" class="contact-form form-solid " novalidate>
+                                <div class="col-sm-12 pr0 pb0">
+                                    <input type="submit" class="btn btn-primary btn-wide pull-right mt10" value="Buscar">
+                                    <input type="reset" class="btn btn-primary btn-wide btn_blue pull-right mt10 mr10" value="Borrar campos">
+                                </div>
+                                <thead>
+                                    <tr>
+                                        <th><input type="text" name="name" id="send-form-name" placeholder="Código Postal"></th>
+                                        <th><input type="text" name="name" id="send-form-name" placeholder="Estado"></th>
+                                        <th><input type="text" name="name" id="send-form-name" placeholder="Municipio"></th>
+                                        <th><input type="text" name="name" id="send-form-name" placeholder="Colonia"></th>
+                                        <th><input type="text" name="name" id="send-form-name" placeholder="Latitud"></th>
+                                        <th><input type="text" name="name" id="send-form-name" placeholder="Longitud"></th>
+                                        <th>
+                                            <div class="input-group mb0">
+                                                <span class="input-group-btn">
+                                                    <button type="button" id="registro_busqueda" class="btn btn-primary pull-right"><i class="fa fa-calendar"></i></button>
+                                                </span>
+                                                <input class="form-control" type="text" id="fecha_registro_busqueda" name="fecha_registro_busqueda" placeholder="Registro">
+                                            </div>
+                                        </th>
+                                        <th>
+                                            <select id="form-select">
+                                                <option value="" selected="selected">Estatus</option>
+                                                <option value="Activo">Activo</option>
+                                                <option value="Inactivo">Inactivo</option>
+                                            </select>
+                                        </th>
+                                    </tr>
+                                </thead>
+                            </form>
+                            <tbody>
+                                <tr>
+                                    <td>45782</td>
+                                    <td>CDMX</td>
+                                    <td>Azcapotzalco</td>
+                                    <td>Nueva Santa María</td>
+                                    <td>23.00</td>
+                                    <td>12.43</td>
+                                    <td>2016-05-20</td>
+                                    <td>Activo</td>
+                                </tr>
+                                <tr>
+                                    <td>35890</td>
+                                    <td>CDMX</td>
+                                    <td>Azcapotzalco</td>
+                                    <td>Electricistas</td>
+                                    <td>23.00</td>
+                                    <td>12.43</td>
+                                    <td>2016-06-01</td>
+                                    <td>Activo</td>
+                                </tr>
+                                <tr>
+                                    <td>13780</td>
+                                    <td>CDMX</td>
+                                    <td>Azcapotzalco</td>
+                                    <td>Petrolera</td>
+                                    <td>23.00</td>
+                                    <td>12.43</td>
+                                    <td>2016-07-15</td>
+                                    <td>Activo</td>
+                                </tr>
+                                <tr>
+                                    <td>45782</td>
+                                    <td>CDMX</td>
+                                    <td>Azcapotzalco</td>
+                                    <td>Nueva Santa María</td>
+                                    <td>23.00</td>
+                                    <td>12.43</td>
+                                    <td>2016-05-20</td>
+                                    <td>Activo</td>
+                                </tr>
+                                <tr>
+                                    <td>35890</td>
+                                    <td>CDMX</td>
+                                    <td>Azcapotzalco</td>
+                                    <td>Electricistas</td>
+                                    <td>23.00</td>
+                                    <td>12.43</td>
+                                    <td>2016-06-01</td>
+                                    <td>Activo</td>
+                                </tr>
+                                <tr>
+                                    <td>13780</td>
+                                    <td>CDMX</td>
+                                    <td>Azcapotzalco</td>
+                                    <td>Petrolera</td>
+                                    <td>23.00</td>
+                                    <td>12.43</td>
+                                    <td>2016-07-15</td>
+                                    <td>Activo</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-sm-12 text-center mb10">
+                    <!-- PAGINATION -->
+                    <ul class="pagination solid">
+                        <li class="pull-left"><a href="#" class="prev"><i class="fa fa-angle-left"></i></a></li>
+                        <li class="pull-right"><a href="#" class="next"><i class="fa fa-angle-right"></i></a></li>
+                        <li class="active"><a href="#">1</a></li>
+                        <li><a href="#">2</a></li>
+                        <li><a href="#">3</a></li>
+                        <li><a href="#">4</a></li>
+                        <li><a href="#">…</a></li>
+                        <li><a href="#">36</a></li>
+                    </ul>
+                    <!-- /.pagination -->
+                </div>
+                <div class="col-sm-12 pt10">
+                    <input type="button" class="btn btn-primary btn-wide pull-left" data-toggle="modal" data-target="#crear_codigo" value="Crear Nuevo">
+                    <input id="" type="button" class="btn btn-primary btn_blue btn-wide pull-right" onclick="eliminarItem()" value="Eliminar">
+                    <input type="button" class="btn btn-primary btn-wide pull-right mr10" data-toggle="modal" data-target="#editar_codigo" value="Editar">
+                </div>
+            </div>
+        </div>
+        <!-- /.container -->
+    </div>
+    <!-- /.content -->
+</div>
+<!-- /.wrapper -->
+<!-- Modal Medium -->
+<div class="modal fade" id="crear_codigo">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><i class="fa fa-times"></i></button>
+                <h6 class="modal-title">Crear Código Postal</h6>
+            </div>
+            <div class="modal-body">
+                <form action="../../php/email.php" method="post" class="contact-form form-solid" novalidate>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="send-form-name">Código Postal</label>
+                                <input type="text" name="name" id="send-form-name">
+                            </div>
+                            <div class="form-group">
+                                <label for="send-form-name">Estado</label>
+                                <input type="text" name="name" id="send-form-name">
+                            </div>
+                            <div class="form-group">
+                                <label for="send-form-name">Municipio</label>
+                                <input type="text" name="name" id="send-form-name">
+                            </div>
+                            <div class="form-group">
+                                <label for="send-form-name">Colonia</label>
+                                <input type="text" name="name" id="send-form-name">
+                            </div>
+                            <div class="form-group">
+                                <label for="send-form-name">Latitud</label>
+                                <input type="text" name="name" id="send-form-name">
+                            </div>
+                        </div>
+                        <div class="col-sm-6 pl0_modal">
+                            <div class="form-group">
+                                <label for="send-form-name">Longitud</label>
+                                <input type="text" name="name" id="send-form-name">
+                            </div>
+                            <div class="form-group">
+                                <label for="textbox">Fecha</label>
+                                <div class="input-group mb0">
+                                    <span class="input-group-btn">
+                                        <button type="button" id="actualizacion" class="btn btn-primary pull-right"><i class="fa fa-calendar"></i></button>
+                                    </span>
+                                    <input class="form-control" type="text" id="fecha_actualizacion" name="fecha_actualizacion">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="form-select">Estatus</label>
+                                <select id="form-select" class="select_codigo">
+                                    <option value="Activo">Activo</option>
+                                    <option value="Inactivo">Inactivo</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="send-form-name">Cargar Archivo</label>
+                                <input type="file" name="name" id="send-form-name">
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <input type="submit" class="btn btn-primary btn-wide pull-right mt10" value="Crear">
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /.modal -->
+<!-- Modal Medium -->
+<div class="modal fade" id="editar_codigo">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><i class="fa fa-times"></i></button>
+                <h6 class="modal-title">Editar Código Postal</h6>
+            </div>
+            <div class="modal-body">
+                <form action="../../php/email.php" method="post" class="contact-form form-solid" novalidate>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="send-form-name">Código Postal</label>
+                                <input type="text" name="name" id="send-form-name">
+                            </div>
+                            <div class="form-group">
+                                <label for="send-form-name">Estado</label>
+                                <input type="text" name="name" id="send-form-name">
+                            </div>
+                            <div class="form-group">
+                                <label for="send-form-name">Municipio</label>
+                                <input type="text" name="name" id="send-form-name">
+                            </div>
+                            <div class="form-group">
+                                <label for="send-form-name">Colonia</label>
+                                <input type="text" name="name" id="send-form-name">
+                            </div>
+                            <div class="form-group">
+                                <label for="send-form-name">Latitud</label>
+                                <input type="text" name="name" id="send-form-name">
+                            </div>
+                        </div>
+                        <div class="col-sm-6 pl0_modal">
+                            <div class="form-group">
+                                <label for="send-form-name">Longitud</label>
+                                <input type="text" name="name" id="send-form-name">
+                            </div>
+                            <div class="form-group">
+                                <label for="textbox">Fecha</label>
+                                <div class="input-group mb0">
+                                    <span class="input-group-btn">
+                                        <button type="button" id="actualizacion_edit" class="btn btn-primary pull-right"><i class="fa fa-calendar"></i></button>
+                                    </span>
+                                    <input class="form-control" type="text" id="fecha_actualizacion_edit" name="fecha_actualizacion_edit">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="form-select">Estatus</label>
+                                <select id="form-select" class="select_codigo">
+                                    <option value="Activo">Activo</option>
+                                    <option value="Inactivo">Inactivo</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <input type="submit" class="btn btn-primary btn-wide pull-right mt10" value="Crear">
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /.modal -->
+@section Scripts
+{
+<script type="text/javascript">
+    Calendar.setup({
+        inputField: "fecha_registro_busqueda",      // id del campo de texto
+        ifFormat: "%Y-%m-%d",       // formato de la fecha, cuando se escriba en el campo de texto
+        button: "registro_busqueda"   // el id del botón que lanzará el calendario
+    });
+</script>
+
+<script type="text/javascript">
+    Calendar.setup({
+        inputField: "fecha_actualizacion",      // id del campo de texto
+        ifFormat: "%Y-%m-%d",       // formato de la fecha, cuando se escriba en el campo de texto
+        button: "actualizacion"   // el id del botón que lanzará el calendario
+    });
+</script>
+<script type="text/javascript">
+    Calendar.setup({
+        inputField: "fecha_actualizacion_edit",      // id del campo de texto
+        ifFormat: "%Y-%m-%d",       // formato de la fecha, cuando se escriba en el campo de texto
+        button: "actualizacion_edit"   // el id del botón que lanzará el calendario
+    });
+</script>
+
+}
