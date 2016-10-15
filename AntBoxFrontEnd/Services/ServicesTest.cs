@@ -468,7 +468,7 @@ namespace AntBoxFrontEnd.Services
         {
             var l = new BoxesService(ServiceConfiguration.GetApiKey());
 
-            var cus = new BoxesRequestOptions
+            var cus = new BoxesUpdateOptions
             {
                 Label = "ALIAS updated",
                 Model = "modelo  updated",

@@ -1,4 +1,5 @@
-﻿@{
+﻿@model AntBoxFrontEnd.Models.BoxModel
+@{
     ViewBag.Title = "Admin - Catalogos";
 }
 <!-- WRAPPER -->
@@ -37,6 +38,7 @@
                         <table id="tabla" class="table table-bordered">
                             <thead>
                                 <tr>
+                                    <th></th>
                                     <th>Modelo</th>
                                     <th>Dimensiones</th>
                                     <th>Etiqueta</th>
@@ -50,50 +52,30 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>Chica</td>
-                                    <td>27"x17"x17"</td>
-                                    <td>Ch</td>
-                                    <td>$80.00</td>
-                                    <td>Mínimo</td>
-                                    <td>$500.00</td>
-                                    <td>7483</td>
-                                    <td>Joaquín Rodriguez</td>
-                                    <td>2016-05-20</td>
-                                    <td>Activo</td>
-                                </tr>
-                                <tr>
-                                    <td>Mediana</td>
-                                    <td>37"x27"x27"</td>
-                                    <td>Md</td>
-                                    <td>$100.00</td>
-                                    <td>Estándar</td>
-                                    <td>$1,500.00</td>
-                                    <td>7483</td>
-                                    <td>Lillian Eugenia</td>
-                                    <td>2016-06-01</td>
-                                    <td>Inactivo</td>
-                                </tr>
-                                <tr>
-                                    <td>Grande</td>
-                                    <td>47"x37"x37"</td>
-                                    <td>Gd</td>
-                                    <td>$130.00</td>
-                                    <td>Plus</td>
-                                    <td>$2,000.00</td>
-                                    <td>7483</td>
-                                    <td>Beatríz Osorio</td>
-                                    <td>2016-07-15</td>
-                                    <td>Inactivo</td>
-                                </tr>
+                                @foreach (var item in Model.Boxes)
+                                {
+                                    <tr data-id="@item.Id">
+                                        <td><input type="checkbox" data-id="@item.Id" class="select-box" /></td>
+                                        <td class="tmodel">@item.Model</td>
+                                        <td class="tsize">@item.Size</td>
+                                        <td class="tlabel">@item.Label</td>
+                                        <td class="tprice">@item.Price</td>
+                                        <td class="tsecure_label">@item.Secure_label</td>
+                                        <td class="tsecure">@item.Secure</td>
+                                        <td class="tslu">@item.Slu</td>
+                                        <td class="tname">@item.Registered_by.Name</td>
+                                        <td class="tactivation_date">@item.Activation_date</td>
+                                        <td class="tstatus">@item.Statusname</td>
+                                    </tr>
+                                }
                             </tbody>
                         </table>
                     </div>
                 </div>
                 <div class="col-sm-12 mt10">
                     <input type="button" class="btn btn-primary btn-wide pull-left" data-toggle="modal" data-target="#crear_antboxs" value="Crear Nuevo">
-                    <input id="" type="button" class="btn btn-primary btn_blue btn-wide pull-right" onclick="eliminarItem()" value="Eliminar">
-                    <input type="button" class="btn btn-primary btn-wide pull-right mr10" data-toggle="modal" data-target="#editar_antboxs" value="Editar">
+                    <input id="" type="button" class="btn btn-primary btn_blue btn-wide pull-right eliminar-box" onclick="eliminarItem()" value="Eliminar">
+                    <input type="button" class="btn btn-primary btn-wide pull-right mr10 editar-box-button" value="Editar">
                 </div>
             </div>
         </div>
@@ -111,45 +93,52 @@
                 <h6 class="modal-title">Crear Antboxs</h6>
             </div>
             <div class="modal-body">
-                <form action="../../php/email.php" method="post" class="contact-form form-solid" novalidate>
+                <form id="form-agregar" method="post" class="contact-form form-solid" novalidate>
                     <div class="row">
                         <div class="col-sm-6">
                             <div class="form-group">
-                                <label for="send-form-name">Modelo</label>
-                                <input type="text" name="name" id="send-form-name">
+                                <label for="send-form-name">* Modelo</label>
+                                <input type="text" name="Model" id="model">
                             </div>
                             <div class="form-group">
-                                <label for="send-form-name">Dimensiones</label>
-                                <input type="text" name="name" id="send-form-name">
+                                <label for="send-form-name">* Dimensiones</label>
+                                <input type="text" name="Size" id="size">
                             </div>
                             <div class="form-group">
-                                <label for="send-form-name">Etiqueta</label>
-                                <input type="text" name="name" id="send-form-name">
+                                <label for="send-form-name">* Etiqueta</label>
+                                <input type="text" name="Label" id="label">
                             </div>
                             <div class="form-group">
-                                <label for="send-form-name">Precio</label>
-                                <input type="text" name="name" id="send-form-name">
+                                <label for="send-form-name">* Precio</label>
+                                <input type="text" name="Price" id="price">
                             </div>
                             <div class="form-group">
                                 <label for="send-form-name">Seguro</label>
-                                <input type="text" name="name" id="send-form-name">
+                                <input type="text" name="Secure_label" id="secure_label">
                             </div>
                         </div>
                         <div class="col-sm-6 pl0_modal">
                             <div class="form-group">
                                 <label for="send-form-name">Monto</label>
-                                <input type="text" name="name" id="send-form-name">
+                                <input type="text" name="Secure" id="secure">
                             </div>
                             <div class="form-group">
                                 <label for="send-form-name">SLU</label>
-                                <input type="text" name="name" id="send-form-name">
+                                <input type="text" name="Slu" id="slu">
                             </div>
                             <div class="form-group">
-                                <label for="form-select">Agregado por</label>
-                                <select id="form-select">
-                                    <option value="jRodriguez">jRodriguez</option>
-                                    <option value="bOsorio">bOsorio</option>
-                                    <option value="lEugenia">lEugenia</option>
+                                <label for="Registered_by">* Agregado por</label>
+                                <select id="Registered_by" name="Registered_by">
+                                    @if (Model.Users != null)
+                                    {
+                                        foreach (var item in Model.Users)
+                                        {
+                                            if (item != null)
+                                            {
+                                        <option value='@item.Id.ToString()'>@item.Name @item.Lastname</option>
+                                            }
+                                        }
+                                    }
                                 </select>
                             </div>
                             <div class="form-group">
@@ -158,19 +147,19 @@
                                     <span class="input-group-btn">
                                         <button type="button" id="activacion" class="btn btn-primary pull-right"><i class="fa fa-calendar"></i></button>
                                     </span>
-                                    <input class="form-control" type="text" id="fecha_activacion" name="fecha_activacion">
+                                    <input class="form-control" type="text" id="fecha_activacion" name="Activation_date">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="form-select">Estatus</label>
-                                <select id="form-select">
+                                <label for="Status">Estatus</label>
+                                <select id="Status" name="Status">
                                     <option value="Activo">Activo</option>
                                     <option value="Inactivo">Inactivo</option>
                                 </select>
                             </div>
                         </div>
                         <div class="col-sm-12">
-                            <input type="submit" class="btn btn-primary btn-wide pull-right mt10" value="Crear">
+                            <input type="submit" class="btn btn-primary btn-wide pull-right mt10 crear-box" value="Crear">
                         </div>
                     </div>
                 </form>
@@ -189,45 +178,53 @@
                 <h6 class="modal-title">Editar Antboxs</h6>
             </div>
             <div class="modal-body">
-                <form action="../../php/email.php" method="post" class="contact-form form-solid" novalidate>
+                <form id="form-editar" method="post" class="contact-form form-solid" novalidate>
+                    <input type="hidden" name="id" id="editar-id" value="" />
                     <div class="row">
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label for="send-form-name">Modelo</label>
-                                <input type="text" name="name" id="send-form-name">
+                                <input type="text" name="model" id="model">
                             </div>
                             <div class="form-group">
                                 <label for="send-form-name">Dimensiones</label>
-                                <input type="text" name="name" id="send-form-name">
+                                <input type="text" name="size" id="size">
                             </div>
                             <div class="form-group">
                                 <label for="send-form-name">Etiqueta</label>
-                                <input type="text" name="name" id="send-form-name">
+                                <input type="text" name="label" id="label">
                             </div>
                             <div class="form-group">
                                 <label for="send-form-name">Precio</label>
-                                <input type="text" name="name" id="send-form-name">
+                                <input type="text" name="price" id="price">
                             </div>
                             <div class="form-group">
                                 <label for="send-form-name">Seguro</label>
-                                <input type="text" name="name" id="send-form-name">
+                                <input type="text" name="secure_label" id="secure_label">
                             </div>
                         </div>
                         <div class="col-sm-6 pl0_modal">
                             <div class="form-group">
                                 <label for="send-form-name">Monto</label>
-                                <input type="text" name="name" id="send-form-name">
+                                <input type="text" name="secure" id="secure">
                             </div>
                             <div class="form-group">
                                 <label for="send-form-name">SLU</label>
-                                <input type="text" name="name" id="send-form-name">
+                                <input type="text" name="slu" id="slu">
                             </div>
                             <div class="form-group">
-                                <label for="form-select">Agregado por</label>
-                                <select id="form-select">
-                                    <option value="jRodriguez">jRodriguez</option>
-                                    <option value="bOsorio">bOsorio</option>
-                                    <option value="lEugenia">lEugenia</option>
+                                <label for="registered_by">Agregado por</label>
+                                <select id="registered_by" name="registered_by">
+                                    @if (Model.Users != null)
+                                    {
+                                        foreach (var item in Model.Users)
+                                        {
+                                            if (item != null)
+                                            {
+                                                   <option value='@item.Id.ToString()'>@item.Name @item.Lastname</option>
+                                            }
+                                        }
+                                    }
                                 </select>
                             </div>
                             <div class="form-group">
@@ -236,19 +233,19 @@
                                     <span class="input-group-btn">
                                         <button type="button" id="activacion_edit" class="btn btn-primary pull-right"><i class="fa fa-calendar"></i></button>
                                     </span>
-                                    <input class="form-control" type="text" id="fecha_activacion_edit" name="fecha_activacion_edit">
+                                    <input class="form-control" type="text" id="fecha_activacion_edit" name="activation_date">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="form-select">Estatus</label>
-                                <select id="form-select">
+                                <select id="status" name="status">
                                     <option value="Activo">Activo</option>
                                     <option value="Inactivo">Inactivo</option>
                                 </select>
                             </div>
                         </div>
                         <div class="col-sm-12">
-                            <input type="submit" class="btn btn-primary btn-wide pull-right mt10" value="Guardar">
+                            <input type="submit" class="btn btn-primary btn-wide pull-right mt10 modificar-box" value="Guardar">
                         </div>
                     </div>
                 </form>
@@ -266,12 +263,199 @@
         ifFormat: "%Y-%m-%d",       // formato de la fecha, cuando se escriba en el campo de texto
         button: "activacion"   // el id del botón que lanzará el calendario
     });
-</script>
-<script type="text/javascript">
     Calendar.setup({
         inputField: "fecha_activacion_edit",      // id del campo de texto
         ifFormat: "%Y-%m-%d",       // formato de la fecha, cuando se escriba en el campo de texto
         button: "activacion_edit"   // el id del botón que lanzará el calendario
     });
+    $.fn.serializeObject = function () {
+        var o = {};
+        var a = this.serializeArray();
+        $.each(a, function () {
+            if (o[this.name] !== undefined) {
+                if (!o[this.name].push) {
+                    o[this.name] = [o[this.name]];
+                }
+                o[this.name].push(this.value || '');
+            } else {
+                o[this.name] = this.value || '';
+            }
+        });
+        return o;
+    };
+    $(function () {
+        $(".crear-box").click(function (event) {
+            event.preventDefault();
+            console.log("crear box");
+            var form = $("#form-agregar");
+            modalToClose = $("#crear_antboxs");
+            var formData = $("#form-agregar").serializeObject();
+
+            formData.Status = (formData.Status == "Activo") ? true : false;
+
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("CreateBox", "Catalogo")',
+                data: formData,
+                success: function (data) {
+                    if (data.success) {
+                        verifCloseModal = true;
+                        mostrarMensaje(form, "userMensaje", "Box registrado", "alert-warning");
+                        window.location.reload(false);
+                    } else {
+                        mostrarMensaje(form, "userMensaje", "Error al registrar box intentelo de nuevo", "alert-warning");
+                    }
+                }, error: function (error) {
+                    mostrarMensaje(form, "userMensaje", "Error al registrar box intentelo de nuevo", "alert-warning");
+                }, complete: function (data) {
+                    console.log(data);
+                }
+            });
+        });
+        $(".editar-box-button").click(function (event) {
+
+            var countCheckbox = $("#tabla").find('input:checkbox:checked').length;
+            if (countCheckbox == 0)
+            {
+                alert("Debe seleccionar un box para editar");
+                return false;
+            }
+            console.log("editar box");
+            var form = $("#form-editar");
+            var formData = {};
+
+            formData.id = actualEdicion;
+
+            if (actualEdicion != null) {
+                $("#editar-id").val(actualEdicion);
+
+                $.ajax({
+                    contentType: 'application/json; charset=utf-8',
+                    dataType: 'json',
+                    type: 'GET',
+                    url: '@Url.Action("GetBox", "Catalogo")',
+                    data: formData,
+                    success: function (data) {
+                        console.log("success data");
+                        console.log(data);
+                        if (data) {
+                            form.find("#model").val(data.Model);
+                            form.find("#size").val(data.Size);
+                            form.find("#label").val(data.Label);
+                            form.find("#price").val(data.Price);
+                            form.find("#secure_label").val(data.Secure_label);
+                            form.find("#secure").val(data.Secure);
+                            form.find("#slu").val(data.Slu);
+                            form.find("#registered_by").val(data.Registered_by.Id);
+                            form.find("#fecha_activacion_edit").val(data.Activation_date);
+                            var statusname = "Activo"
+                            if (!data.Status)
+                                statusname = "Inactivo"
+                            form.find("#status").val(statusname);
+
+                            $("#editar_antboxs").modal("show");
+                        }
+                    }, error: function (error) {
+                        mostrarMensaje(form, "userMensaje", "Error al registrar box intentelo de nuevo", "alert-warning");
+                    }, statusCode: {
+                        404: function () {
+                            alert("page not found");
+                        }
+                    }, complete: function (data) {
+                        console.log(data);
+                    }
+                });
+            }
+
+        });
+        $(".modificar-box").click(function (event) {
+            event.preventDefault();
+            modalToClose = $("#editar_antboxs");
+            console.log("modificar box");
+            var form = $("#form-editar");
+            var formData = $("#form-editar").serializeObject();
+
+            formData.status = (formData.status == "Activo") ? true : false;
+
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("UpdateBox", "Catalogo")',
+                data: formData,
+                success: function (data) {
+                    if (data.success) {
+                        mostrarMensaje(form, "userMensaje", "Box modificado", "alert-warning");
+                        verifCloseModal = true;
+                        actualElement.closest("tr").find(".tmodel").text(form.find("#model").val());
+                        actualElement.closest("tr").find(".tsize").text(form.find("#size").val());
+                        actualElement.closest("tr").find(".tlabel").text(form.find("#label").val());
+                        actualElement.closest("tr").find(".tprice").text(form.find("#price").val());
+                        actualElement.closest("tr").find(".tsecure_label").text(form.find("#secure_label").val());
+                        actualElement.closest("tr").find(".tsecure").text(form.find("#secure").val());
+                        actualElement.closest("tr").find(".tslu").text(form.find("#slu").val());
+                        actualElement.closest("tr").find(".tname").text(form.find("#registered_by option:selected").text());
+                        actualElement.closest("tr").find(".tactivation_date").text(form.find("#fecha_activacion").val());
+                        actualElement.closest("tr").find(".tstatus").text(form.find("#status").val());
+                    } else {
+                        mostrarMensaje(form, "userMensaje", "Error al modificar box intentelo de nuevo", "alert-warning");
+                    }
+                }, error: function (error) {
+                    mostrarMensaje(form, "userMensaje", "Error al modificar box intentelo de nuevo", "alert-warning");
+                }, complete: function (data) {
+                    console.log(data);
+                }
+            });
+        });
+        $(".eliminar-box").click(function (event) {
+            var countCheckbox = $("#tabla").find('input:checkbox:checked').length;
+            console.log(countCheckbox);
+            var mensaje = "Esta seguro que desea eliminar los antbox seleccionados?";
+            if (countCheckbox == 1) {
+                var mensaje = "Esta seguro que desea eliminar el box " + actualLabel + "?";
+            } else if (countCheckbox == 0){
+                alert("Debe seleccionar al menos un box para editar");
+                return false;
+            }
+            if (confirm(mensaje)) {
+                var formData = {};
+                formData.id = actualEdicion;
+                if (countCheckbox > 1)
+                {
+                    $("#tabla").find('input:checkbox:checked').each(function () {
+                        formData = {};
+                        formData.id = $(this).attr("data-id");
+                        deleteBox(formData, $(this));
+                    })
+                } else if (countCheckbox == 1)
+                {
+                    deleteBox(formData, actualElement);
+                }
+            }
+        });
+        var actualEdicion = null;
+        var actualNombre = "";
+        var actualElement = null;
+        $(document).on("change", ".select-box", function (event) {
+            if ($(this).is(":checked")) {
+                actualElement = $(this);
+                actualEdicion = $(this).attr("data-id");
+                actualLabel = $(this).closest("tr").find(".tlabel").text();
+            }
+        });
+    });
+    function deleteBox(formData, element) {
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("DeleteBox", "Catalogo")',
+            data: formData,
+            success: function (data) {
+                alert("Box eliminado correctamente");
+                element.closest("tr").remove();
+            }, error: function (error) {
+                alert("Error al eliminar box, intentelo nuevamente");
+            }, complete: function (data) {
+                console.log(data);
+            }
+        });
+    }
 </script>
 }

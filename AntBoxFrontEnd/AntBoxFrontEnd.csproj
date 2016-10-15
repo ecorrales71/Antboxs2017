@@ -239,6 +239,7 @@
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\AntBoxAddressesController.cs" />
     <Compile Include="Controllers\AntBoxController.cs" />
+    <Compile Include="Controllers\CatalogoController.cs" />
     <Compile Include="Controllers\CustomerAntBoxController.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -283,6 +284,7 @@
     <Compile Include="Models\abTask.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\abAddress.cs" />
+    <Compile Include="Models\BoxModel.cs" />
     <Compile Include="Models\AntBoxTasksViewModel.cs" />
     <Compile Include="Models\AntBoxAddressViewModel.cs" />
     <Compile Include="Models\AntBoxesViewModel.cs" />
@@ -304,6 +306,7 @@
     <Compile Include="Services\AntBoxes\CheckOut.cs" />
     <Compile Include="Services\AntBoxes\PaginationAntBoxes.cs" />
     <Compile Include="Services\BadRequestResponse.cs" />
+    <Compile Include="Services\Boxes\BoxesUpdateOptions.cs" />
     <Compile Include="Services\Boxes\BoxesRequestOptions.cs" />
     <Compile Include="Services\Boxes\BoxesResponse.cs" />
     <Compile Include="Services\Boxes\BoxesService.cs" />
@@ -340,6 +343,7 @@
     <Compile Include="Services\User\PaginationUser.cs" />
     <Compile Include="Services\User\UserResponse.cs" />
     <Compile Include="Services\User\UserServices.cs" />
+    <Compile Include="Services\User\UserUpdateOptions.cs" />
     <Compile Include="Services\Util\InsertResponse.cs" />
     <Compile Include="Services\Worker\Vehicle.cs" />
     <Compile Include="Services\Worker\WorkerRequestOption.cs" />
@@ -705,6 +709,7 @@
     <Folder Include="Views\Addresses\" />
     <Folder Include="Views\AntBoxAddress\" />
     <Folder Include="Views\Antbox\" />
+    <Folder Include="Views\Catalogo\" />
     <Folder Include="Views\CustomerAntBox\" />
     <Folder Include="Views\Movimientos\" />
     <Folder Include="Views\PricePartial\" />

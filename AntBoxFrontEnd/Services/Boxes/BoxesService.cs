@@ -42,7 +42,7 @@ namespace AntBoxFrontEnd.Services.Boxes
             return true;
         }
 
-        public virtual Boolean UpdateBox(BoxesRequestOptions createOptions, string id, RequestOptions requestOptions = null)
+        public virtual Boolean UpdateBox(BoxesUpdateOptions createOptions, string id, RequestOptions requestOptions = null)
         {
             requestOptions = SetupRequestOptions(requestOptions);
 
@@ -94,7 +94,7 @@ namespace AntBoxFrontEnd.Services.Boxes
         }
 
 
-        public virtual List<BoxesResponse> ListBoxes(string status =null , RequestOptions requestOptions = null)
+        public virtual List<BoxesResponse> ListBoxes(string status = null, RequestOptions requestOptions = null, string include = "price,label,model,size,secure")
         {
             PaginationBoxesResponse boxes = new PaginationBoxesResponse();
 
@@ -111,7 +111,7 @@ namespace AntBoxFrontEnd.Services.Boxes
 
                 parameters.Add("items_per_page", itemPerPage.ToString());
                 parameters.Add("page_number", Page.ToString());
-                parameters.Add("include", "price,label,model,size,secure");
+                parameters.Add("include", include);
 
                 var encodedParams = Infrastructure.UrlHelper.BuildURLParametersString(parameters);
 

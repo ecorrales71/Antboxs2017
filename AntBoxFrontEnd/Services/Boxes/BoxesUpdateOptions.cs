@@ -2,7 +2,7 @@
 
 namespace AntBoxFrontEnd.Services.Boxes
 {
-    public class BoxesRequestOptions
+    public class BoxesUpdateOptions
     {
         [JsonProperty("registered_by")]
         public string Registered_by { get; set; }
@@ -16,23 +16,20 @@ namespace AntBoxFrontEnd.Services.Boxes
         [JsonProperty("label")]
         public string Label { get; set; }
 
-        [JsonProperty("secure_label")]
-        public string Secure_label { get; set; }
-
         [JsonProperty("price")]
         public decimal Price { get; set; }
 
         [JsonProperty("secure")]
         public decimal Secure { get; set; }
 
-        [JsonProperty("status")]
-        public bool Status { get; set; }
+        [JsonProperty("secure_label")]
+        public string Secure_label { get; set; }
 
         [JsonProperty("activation_date")]
         public string Activation_date { get; set; }
 
         [JsonProperty("slu")]
-        public string Slu{ get; set; }
+        public decimal Slu { get; set; }
 
     }
 }

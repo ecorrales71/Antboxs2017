@@ -51,16 +51,16 @@
             <!-- NAVBAR COLLAPSE -->
             <div id="navbar" class="navbar-collapse collapse pull-right no_landscape_down">
                 <ul class="nav navbar-nav">
-                    <li class="active">
+                    <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "Index" ? "active" : "")">
                         <a href="@Url.Action("Index", "Admin")">Usuarios</a>
                     </li>
-                    <li>
+                    <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "Catalogos" ? "active" : "")">
                         <a href="@Url.Action("Catalogos", "Admin")">Catálogos</a>
                     </li>
-                    <li>
+                    <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "Codigos" ? "active" : "")">
                         <a href="@Url.Action("Codigos", "Admin")">Códigos</a>
                     </li>
-                    <li>
+                    <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "Cupones" ? "active" : "")">
                         <a href="@Url.Action("Cupones", "Admin")">Cupones</a>
                     </li>
                 </ul>
@@ -96,13 +96,22 @@
 @RenderSection("scripts", required: false)
 
 <script>
+    var modalToClose = null;
+    var verifCloseModal = false;
     function mostrarMensaje(element, ElemVerifExist, mensaje, clase) {
         if (!$("#"+ElemVerifExist).length)
         {
-            $('#frmNewAddress').prepend(
+            element.prepend(
                     '<div class="alert ' + clase + '" role="alert" id="' + ElemVerifExist + '">' + mensaje + '</div>');
             window.setTimeout(function ()
-            { $("#addressError").alert('close'); }, 2000);
+            {
+                $("#" + ElemVerifExist).alert('close');
+                if ((typeof modalToClose !== "undefined") && (modalToClose != null) && (verifCloseModal))
+                {
+                    verifCloseModal = false;
+                    modalToClose.modal("hide");
+                }
+            }, 2000);
         }
         
     }

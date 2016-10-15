@@ -32,10 +32,27 @@ namespace AntBoxFrontEnd.Services.User
         [JsonProperty("lastname2")]
         public string Lastname2 { get; set; }
 
+        [JsonProperty("lastnamev")]
+        public string Lastnamev
+        {
+            get
+            {
+                if (Lastname == "undefined")
+                {
+                    return "";
+                } else {
+                    return Lastname;
+                }
+            }
+        }
+
         [JsonProperty("status")]
         public string Status { get; set; }
 
         [JsonProperty("profile")]
         public string Profile { get; set; }
+
+        [JsonProperty("change_password")]
+        public bool Change_password { get; set; }
     }
 }

@@ -57,6 +57,31 @@ namespace AntBoxFrontEnd.Services.User
             return true;
         }
 
+        public virtual Boolean UpdateUser(UserUpdateOptions createOptions, string id, RequestOptions requestOptions = null)
+        {
+            requestOptions = SetupRequestOptions(requestOptions);
+
+            var parameters = new Dictionary<string, string> { { "id", id } };
+
+            var encodedParams = Infrastructure.UrlHelper.BuildURLParametersString(parameters);
+
+            string serilizedObj = JsonConvert.SerializeObject(createOptions, new JsonSerializerSettings() { NullValueHandling = NullValueHandling.Ignore }).ToString();
+            StringContent PostData = new StringContent(serilizedObj, Encoding.UTF8, "application/json");
+
+            try
+            {
+                var userResponse = Requestor.Put<MissingResponse>(UrlsConstants.User + "/" + id, requestOptions, PostData);
+            }
+            catch (Exception ex)
+            {
+                //Todo log
+                LogManager.Write(ex.Message + " " + ex.InnerException, LogManager.Error);
+                return false;
+            }
+
+            return true;
+        }
+
         public virtual PaginationUser ListUsersPagination(int currentPage, string idPagination = null, RequestOptions requestOptions = null)
         {
             try
@@ -69,9 +94,9 @@ namespace AntBoxFrontEnd.Services.User
 
                 var encodedParams = Infrastructure.UrlHelper.BuildURLParametersString(parameters);
 
-                var addresses = Requestor.Get<PaginationUser>(UrlsConstants.UserList + encodedParams, requestOptions);
+                var users = Requestor.Get<PaginationUser>(UrlsConstants.UserList + encodedParams, requestOptions);
 
-                return addresses;
+                return users;
             }
             catch (Exception ex)
             {
@@ -90,15 +115,34 @@ namespace AntBoxFrontEnd.Services.User
 
                 var encodedParams = Infrastructure.UrlHelper.BuildURLParametersString(parameters);
 
-                var customers = Requestor.Get<UserResponse>(UrlsConstants.User + "/" + id, requestOptions);
+                var user = Requestor.Get<UserResponse>(UrlsConstants.User + "/" + id, requestOptions);
 
-                return customers;
+                return user;
             }
             catch (Exception ex)
             {
                 LogManager.Write(ex.Message + " " + ex.InnerException, LogType.Error);
                 return null;
             }
+        }
+
+        public virtual bool DeleteUser(string id, RequestOptions requestOptions = null)
+        {
+            requestOptions = SetupRequestOptions(requestOptions);
+
+            try
+            {
+                Requestor.Delete(UrlsConstants.User + "/" + id, requestOptions);
+
+            }
+            catch (Exception ex)
+            {
+                LogManager.Write(ex.Message + " " + ex.InnerException, LogManager.Error);
+                return false;
+            }
+
+
+            return true;
         }
         
     }
