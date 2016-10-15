@@ -1,6 +1,7 @@
 ﻿using AntBoxFrontEnd.Infrastructure;
 using AntBoxFrontEnd.Models;
 using AntBoxFrontEnd.Services.Boxes;
+using AntBoxFrontEnd.Services.Code;
 using AntBoxFrontEnd.Services.Coupon;
 using AntBoxFrontEnd.Services.Customer;
 using AntBoxFrontEnd.Services.Login;
@@ -71,14 +72,17 @@ namespace AntBoxFrontEnd.Controllers
         public ActionResult Cupones()
         {
             var servicio = new CouponService(ServiceConfiguration.GetApiKey());
+            var servicioCode = new CodeService(ServiceConfiguration.GetApiKey());
             var servicioUser = new UserServices(ServiceConfiguration.GetApiKey());
 
-            var result = new List<CouponResponse>();
+            PaginationCouponsResponse result = new PaginationCouponsResponse();
+            PaginationCodesResponse resultCode = new PaginationCodesResponse();
             PaginationUser resultUsers = new PaginationUser();
             try
             {
                 resultUsers = servicioUser.ListUsersPagination(1);
-                result = servicio.ListCoupon();
+                resultCode = servicioCode.ListCode(1);
+                result = servicio.ListCoupon(1);
             }
             catch (Exception ex)
             {
@@ -86,6 +90,7 @@ namespace AntBoxFrontEnd.Controllers
 
             CouponModel response = new CouponModel();
             response.Coupons = result;
+            response.Codes = resultCode;
             response.Users = resultUsers.Users;
 
             return View(response);

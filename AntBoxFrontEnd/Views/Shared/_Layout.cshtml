@@ -84,26 +84,26 @@
             <!-- NAVBAR COLLAPSE -->
             <div id="navbar" class="navbar-collapse collapse pull-right">
                 <ul class="nav navbar-nav">
-                    <li class="active">
+                    <li class="@( (ViewContext.RouteData.Values["Action"].ToString() == "Index" && ViewContext.RouteData.Values["Controller"].ToString() == "Home") ? "active" : "")">
                         @Html.ActionLink("Antboxs es...", "Index", "Home")
                     </li>
-                    <li>
+                    <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "ComoFunciona" ? "active" : "")">
                         @Html.ActionLink("¿Cómo funciona?", "ComoFunciona", "Home")
                     </li>
-                    <li>
+                    <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "QueDeboHacer" ? "active" : "")">
                         @Html.ActionLink("¿Qué debo hacer?", "QueDeboHacer", "Home")
                     </li>
-                    <li>
+                    <li class="@( (ViewContext.RouteData.Values["Action"].ToString() == "Index" && ViewContext.RouteData.Values["Controller"].ToString() == "Precios") ? "active" : "")">
                         @Html.ActionLink("Precios", "Index", "Precios")
                     </li>
-                    <li class="dropdown">
+                    <li class="dropdown @( (ViewContext.RouteData.Values["Action"].ToString() == "PreguntasFrecuentes" || ViewContext.RouteData.Values["Action"].ToString() == "Contacto") ? "active" : "")">
                         <a href="" class="dropdown-toggle" data-toggle="dropdown">Ayuda</a>
                         <ul class="dropdown-menu sub-menu">
-                            <li>@Html.ActionLink("Preguntas Frecuentes", "PreguntasFrecuentes", "Home")</li>  
-                                                      
+                            <li>@Html.ActionLink("Preguntas Frecuentes", "PreguntasFrecuentes", "Home")</li>
+
                             <li>
                                 @Html.ActionLink("Contacto", "Contacto", "Home")
-                                                         
+
                             </li>
                         </ul>
                     </li>

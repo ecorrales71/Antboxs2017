@@ -10,19 +10,19 @@ using AntBoxFrontEnd.Entities;
 using System.Text;
 using AntBoxFrontEnd.Models;
 
-namespace AntBoxFrontEnd.Services.Coupon
+namespace AntBoxFrontEnd.Services.Code
 {
-    public class CouponService : Services
+    public class CodeService : Services
     {
         const int itemPerPage = 100;
         public int Page { get; set; }
 
-        public CouponService(string apiKey) : base(apiKey)
+        public CodeService(string apiKey) : base(apiKey)
         {
             Page = 1;
         }
 
-        public virtual Boolean CreateCoupon(CouponRequestOptions createOptions, RequestOptions requestOptions = null)
+        public virtual Boolean CreateCode(CodeRequestOptions createOptions, RequestOptions requestOptions = null)
         {
             requestOptions = SetupRequestOptions(requestOptions);
 
@@ -31,7 +31,7 @@ namespace AntBoxFrontEnd.Services.Coupon
 
             try
             {
-                var customerResponse = Requestor.Post<MissingError>(UrlsConstants.Coupon, requestOptions, PostData);
+                var customerResponse = Requestor.Post<MissingError>(UrlsConstants.Code, requestOptions, PostData);
             }
             catch (Exception ex)
             {
@@ -42,7 +42,7 @@ namespace AntBoxFrontEnd.Services.Coupon
             return true;
         }
 
-        public virtual Boolean UpdateCoupon(CouponUpdateOptions createOptions, string id, RequestOptions requestOptions = null)
+        public virtual Boolean UpdateCode(CodeUpdateOptions createOptions, string id, RequestOptions requestOptions = null)
         {
             requestOptions = SetupRequestOptions(requestOptions);
 
@@ -55,7 +55,7 @@ namespace AntBoxFrontEnd.Services.Coupon
 
             try
             {
-                var customerResponse = Requestor.Put<MissingResponse>(UrlsConstants.Coupon + "/" + id, requestOptions, PostData);
+                var customerResponse = Requestor.Put<MissingResponse>(UrlsConstants.Code + "/" + id, requestOptions, PostData);
             }
             catch (Exception ex)
             {
@@ -70,9 +70,9 @@ namespace AntBoxFrontEnd.Services.Coupon
         }
 
 
-        public virtual CouponResponse SearchCoupon(string id, RequestOptions requestOptions = null)
+        public virtual CodeResponse SearchCode(string id, RequestOptions requestOptions = null)
         {
-            CouponResponse coupon = new CouponResponse();
+            CodeResponse coupon = new CodeResponse();
 
             try
             {
@@ -82,7 +82,7 @@ namespace AntBoxFrontEnd.Services.Coupon
 
                 var encodedParams = UrlHelper.BuildURLParametersString(parameters);
 
-                coupon = Requestor.Get<CouponResponse>(UrlsConstants.Coupon + "/" + id, requestOptions);
+                coupon = Requestor.Get<CodeResponse>(UrlsConstants.Code + "/" + id, requestOptions);
 
             }catch(Exception ex)
             {
@@ -94,9 +94,9 @@ namespace AntBoxFrontEnd.Services.Coupon
         }
 
 
-        public virtual PaginationCouponsResponse ListCoupon(int currentPage, string idPagination = null, RequestOptions requestOptions = null)
+        public virtual PaginationCodesResponse ListCode(int currentPage, string idPagination = null, RequestOptions requestOptions = null)
         {
-            PaginationCouponsResponse coupons = new PaginationCouponsResponse();
+            PaginationCodesResponse coupons = new PaginationCodesResponse();
 
             try
             {
@@ -105,6 +105,7 @@ namespace AntBoxFrontEnd.Services.Coupon
                 var parameters = new Dictionary<string, string> ();
 
                 parameters.Add("items_per_page", itemPerPage.ToString());
+
                 if (!string.IsNullOrEmpty(idPagination))
                 {
                     parameters.Add("pagination_id", idPagination);
@@ -113,7 +114,7 @@ namespace AntBoxFrontEnd.Services.Coupon
 
                 var encodedParams = Infrastructure.UrlHelper.BuildURLParametersString(parameters);
 
-                coupons = Requestor.Get<PaginationCouponsResponse>(UrlsConstants.CouponList + encodedParams, requestOptions);
+                coupons = Requestor.Get<PaginationCodesResponse>(UrlsConstants.CodeList + encodedParams, requestOptions);
 
             }catch (Exception ex)
             {
@@ -124,13 +125,13 @@ namespace AntBoxFrontEnd.Services.Coupon
         }
 
 
-        public virtual bool DeleteCoupon(string id, RequestOptions requestOptions = null)
+        public virtual bool DeleteCode(string id, RequestOptions requestOptions = null)
         {
             requestOptions = SetupRequestOptions(requestOptions);
 
             try
             {
-                Requestor.Delete(UrlsConstants.Coupon + "/" + id, requestOptions);
+                Requestor.Delete(UrlsConstants.Code + "/" + id, requestOptions);
 
             }
             catch (Exception ex)
@@ -144,7 +145,7 @@ namespace AntBoxFrontEnd.Services.Coupon
         }
 
 
-       
+
 
     }
 

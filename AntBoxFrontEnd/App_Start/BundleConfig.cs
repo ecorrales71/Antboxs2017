@@ -28,7 +28,8 @@ namespace AntBoxFrontEnd
 
             bundles.Add(new ScriptBundle("~/bundles/simplepaginationjs").Include(
                         "~/Scripts/jquery.simplePagination.js*"));
-
+            bundles.Add(new ScriptBundle("~/bundles/couponjs").Include(
+                        "~/Scripts/CouponFunction.js"));
             // Use the development version of Modernizr to develop with and learn from. Then, when you're
             // ready for production, use the build tool at http://modernizr.com to pick only the tests you need.
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
@@ -52,6 +53,7 @@ namespace AntBoxFrontEnd
                       ));
             bundles.Add(new ScriptBundle("~/Content/simplepaginationcss").Include(
                         "~/Content/simplePagination.css*"));
+
             bundles.Add(new StyleBundle("~/Content/Customer2").Include(
                       "~/Content/Customer/preloader.css",
                       "~/Content/bootstrap.css",

@@ -240,6 +240,7 @@
     <Compile Include="Controllers\AntBoxAddressesController.cs" />
     <Compile Include="Controllers\AntBoxController.cs" />
     <Compile Include="Controllers\CatalogoController.cs" />
+    <Compile Include="Controllers\CodeController.cs" />
     <Compile Include="Controllers\CouponController.cs" />
     <Compile Include="Controllers\CustomerAntBoxController.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
@@ -313,6 +314,11 @@
     <Compile Include="Services\Boxes\BoxesResponse.cs" />
     <Compile Include="Services\Boxes\BoxesService.cs" />
     <Compile Include="Services\Boxes\PaginationBoxesResponse.cs" />
+    <Compile Include="Services\Code\CodeRequestOptions.cs" />
+    <Compile Include="Services\Code\CodeResponse.cs" />
+    <Compile Include="Services\Code\CodeService.cs" />
+    <Compile Include="Services\Code\CodeUpdateOptions.cs" />
+    <Compile Include="Services\Code\PaginationCodesResponse.cs" />
     <Compile Include="Services\Coupon\CouponService.cs" />
     <Compile Include="Services\Coupon\CouponRequestOptions.cs" />
     <Compile Include="Services\Coupon\CouponResponse.cs" />
@@ -611,6 +617,7 @@
     <None Include="Properties\PublishProfiles\AntBoxTest - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\localhost.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\CouponFunction.js" />
     <Content Include="Scripts\gridmvc.js" />
     <Content Include="Scripts\gridmvc.lang.ru.js" />
     <Content Include="Scripts\gridmvc.min.js" />
@@ -752,7 +759,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>False</UseIIS>
+          <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>50089</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>

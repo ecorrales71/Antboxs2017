@@ -35,9 +35,13 @@
             <div class="row">
                 <div class="col-sm-12">
                     <div class="table-responsive">
-                        <table id="tabla" class="table table-bordered">
+                        @Html.Hidden("idpagination", @Model.Coupons.Pagination_id)
+                        @Html.Hidden("total", @Model.Coupons.Total)
+                        @Html.Hidden("pages", @Model.Coupons.Pages)
+                        <table id="tabla-coupon" class="table table-bordered">
                             <thead>
                                 <tr>
+                                    <th></th>
                                     <th>Cupón</th>
                                     <th>Cantidad</th>
                                     <th>Porcentaje</th>
@@ -51,17 +55,18 @@
                             <tbody>
                                 @if (Model.Coupons != null)
                                 {
-                                    foreach (var item in Model.Coupons)
+                                    foreach (var item in Model.Coupons.Coupons)
                                     {
                                     <tr>
-                                        <td>@item.Name</td>
-                                        <td>@item.Quantity</td>
-                                        <td>@item.Discount%</td>
-                                        <td>@item.From</td>
-                                        <td>@item.To</td>
-                                        <td>-</td>
-                                        <td>-</td>
-                                        <td>@item.Statusname</td>
+                                        <td><input type="checkbox" data-id="@item.Id" class="select-coupon" /></td>
+                                        <td class="tname">@item.Name</td>
+                                        <td class="tquantity">@item.Quantity</td>
+                                        <td class="tdiscount">@item.Discount%</td>
+                                        <td class="tfrom">@item.From</td>
+                                        <td class="tto">@item.To</td>
+                                        <td class="tcreated">-</td>
+                                        <td class="tdatecreated">-</td>
+                                        <td class="tstatus">@item.Statusname</td>
                                     </tr>
                                     }
                                 }
@@ -84,9 +89,9 @@
                     <!-- /.pagination -->
                 </div>
                 <div class="col-sm-12 mt10">
-                    <input type="button" class="btn btn-primary btn-wide pull-left" data-toggle="modal" data-target="#crear_cupon" value="Crear Nuevo">
-                    <input id="" type="button" class="btn btn-primary btn_blue btn-wide pull-right" onclick="eliminarItem()" value="Eliminar">
-                    <input type="button" class="btn btn-primary btn-wide pull-right mr10" data-toggle="modal" data-target="#editar_cupon" value="Editar">
+                    <input type="button" class="btn btn-primary btn-wide pull-left" data-toggle="modal" data-target="#crear_coupon" value="Crear Nuevo">
+                    <input id="" type="button" class="btn btn-primary btn_blue btn-wide pull-right eliminar-coupon" onclick="eliminarItem()" value="Eliminar">
+                    <input type="button" class="btn btn-primary btn-wide pull-right mr10 editar-coupon-button" value="Editar">
                 </div>
             </div>
         </div>
@@ -111,9 +116,13 @@
             <div class="row">
                 <div class="col-sm-12">
                     <div class="table-responsive">
-                        <table id="tabla" class="table table-bordered">
+                        @Html.Hidden("idpagination", @Model.Codes.Pagination_id)
+                        @Html.Hidden("total", @Model.Codes.Total)
+                        @Html.Hidden("pages", @Model.Codes.Pages)
+                        <table id="tabla-code" class="table table-bordered">
                             <thead>
                                 <tr>
+                                    <th></th>
                                     <th>Código</th>
                                     <th>Monto</th>
                                     <th>Inicio</th>
@@ -126,28 +135,24 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>dimi75</td>
-                                    <td>$50.00</td>
-                                    <td>2016-02-10</td>
-                                    <td>2016-05-10</td>
-                                    <td>100</td>
-                                    <td>27</td>
-                                    <td>jRodriguez</td>
-                                    <td>2016-05-20</td>
-                                    <td>Activo</td>
-                                </tr>
-                                <tr>
-                                    <td>ueny83</td>
-                                    <td>$80.00</td>
-                                    <td>2016-05-20</td>
-                                    <td>2016-10-20</td>
-                                    <td>200</td>
-                                    <td>87</td>
-                                    <td>lEugenia</td>
-                                    <td>2016-06-01</td>
-                                    <td>Activo</td>
-                                </tr>
+                                @if (Model.Codes != null)
+                                {
+                                    foreach (var item in Model.Codes.Codes)
+                                    {
+                                    <tr>
+                                        <td><input type="checkbox" data-id="@item.Id" class="select-code" /></td>
+                                        <td class="tcode">@item.Code</td>
+                                        <td class="tamount">@item.Amount</td>
+                                        <td class="tfrom">@item.From</td>
+                                        <td class="tto">@item.From</td>
+                                        <td class="tquantity">@item.Quantity</td>
+                                        <td class="t">-</td>
+                                        <td class="t">-</td>
+                                        <td class="t">-</td>
+                                        <td class="tstatus">@item.Statusname</td>
+                                    </tr>
+                                    }
+                                }
                             </tbody>
                         </table>
                     </div>
@@ -167,9 +172,9 @@
                     <!-- /.pagination -->
                 </div>
                 <div class="col-sm-12 mt10">
-                    <input type="button" class="btn btn-primary btn-wide pull-left" data-toggle="modal" data-target="#crear_codigo" value="Crear Nuevo">
-                    <input id="" type="button" class="btn btn-primary btn_blue btn-wide pull-right" onclick="eliminarItem()" value="Eliminar">
-                    <input type="button" class="btn btn-primary btn-wide pull-right mr10" data-toggle="modal" data-target="#editar_codigo" value="Editar">
+                    <input type="button" class="btn btn-primary btn-wide pull-left" data-toggle="modal" data-target="#crear_code" value="Crear Nuevo">
+                    <input id="" type="button" class="btn btn-primary btn_blue btn-wide pull-right eliminar-code" onclick="eliminarItem()" value="Eliminar">
+                    <input type="button" class="btn btn-primary btn-wide pull-right mr10 editar-code-button" data-toggle="modal" data-target="#editar_codigo" value="Editar">
                 </div>
             </div>
 
@@ -181,7 +186,7 @@
 <!-- /.wrapper -->
 <!-- CUPONES -->
 <!-- Modal Medium -->
-<div class="modal fade" id="crear_cupon">
+<div class="modal fade" id="crear_coupon">
     <div class="modal-dialog modal-md">
         <div class="modal-content">
             <div class="modal-header">
@@ -189,20 +194,20 @@
                 <h6 class="modal-title">Crear Cupón</h6>
             </div>
             <div class="modal-body">
-                <form action="../../php/email.php" method="post" class="contact-form form-solid" novalidate>
+                <form id="form-agregar-coupon" method="post" class="contact-form form-solid" novalidate>
                     <div class="row">
                         <div class="col-sm-6">
                             <div class="form-group">
-                                <label for="send-form-name">Cupón</label>
-                                <input type="text" name="name" id="send-form-name">
+                                <label for="Name">Cupón</label>
+                                <input type="text" name="Name" id="Name">
                             </div>
                             <div class="form-group">
-                                <label for="send-form-name">Cantidad</label>
-                                <input type="text" name="name" id="send-form-name">
+                                <label for="Quantity">Cantidad</label>
+                                <input type="text" name="Quantity" id="Quantity">
                             </div>
                             <div class="form-group">
-                                <label for="send-form-name">Porcentaje</label>
-                                <input type="text" name="name" id="send-form-name">
+                                <label for="Discount">Porcentaje</label>
+                                <input type="text" name="Discount" id="Discount">
                             </div>
                             <div class="form-group">
                                 <label for="textbox">Inicio</label>
@@ -210,7 +215,7 @@
                                     <span class="input-group-btn">
                                         <button type="button" id="cupon_inicio" class="btn btn-primary pull-right"><i class="fa fa-calendar"></i></button>
                                     </span>
-                                    <input class="form-control" type="text" id="fecha_cupon_inicio" name="fecha_cupon_inicio">
+                                    <input class="form-control" type="text" id="fecha_cupon_inicio" name="From">
                                 </div>
                             </div>
                         </div>
@@ -221,15 +226,22 @@
                                     <span class="input-group-btn">
                                         <button type="button" id="cupon_vigencia" class="btn btn-primary pull-right"><i class="fa fa-calendar"></i></button>
                                     </span>
-                                    <input class="form-control" type="text" id="fecha_cupon_vigencia" name="fecha_cupon_vigencia">
+                                    <input class="form-control" type="text" id="fecha_cupon_vigencia" name="To">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="form-select">Agregado por</label>
-                                <select id="form-select">
-                                    <option value="jRodriguez">jRodriguez</option>
-                                    <option value="bOsorio">bOsorio</option>
-                                    <option value="lEugenia">lEugenia</option>
+                                <label for="Created_by">Agregado por</label>
+                                <select id="Created_by" name="Created_by">
+                                    @if (Model.Users != null)
+                                    {
+                                        foreach (var item in Model.Users)
+                                        {
+                                            if (item != null)
+                                            {
+                                                   <option value='@item.Id.ToString()'>@item.Name @item.Lastname</option>
+                                            }
+                                        }
+                                    }
                                 </select>
                             </div>
                             <div class="form-group">
@@ -242,15 +254,15 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="form-select">Estatus</label>
-                                <select id="form-select">
+                                <label for="Status">Estatus</label>
+                                <select id="Status" name="Status">
                                     <option value="Activo">Activo</option>
                                     <option value="Inactivo">Inactivo</option>
                                 </select>
                             </div>
                         </div>
                         <div class="col-sm-12">
-                            <input type="submit" class="btn btn-primary btn-wide pull-right mt10" value="Crear">
+                            <input type="submit" class="btn btn-primary btn-wide pull-right mt10 crear-coupon" value="Crear">
                         </div>
                     </div>
                 </form>
@@ -261,7 +273,7 @@
 </div>
 <!-- /.modal -->
 <!-- Modal Medium -->
-<div class="modal fade" id="editar_cupon">
+<div class="modal fade" id="editar_coupon">
     <div class="modal-dialog modal-md">
         <div class="modal-content">
             <div class="modal-header">
@@ -269,20 +281,21 @@
                 <h6 class="modal-title">Editar Cupón</h6>
             </div>
             <div class="modal-body">
-                <form action="../../php/email.php" method="post" class="contact-form form-solid" novalidate>
+                <form id="form-editar-coupon" method="post" class="contact-form form-solid" novalidate>
+                    <input type="hidden" name="id" id="editar-id-coupon" value="" />
                     <div class="row">
                         <div class="col-sm-6">
                             <div class="form-group">
-                                <label for="send-form-name">Cupón</label>
-                                <input type="text" name="name" id="send-form-name">
+                                <label for="Name">Cupón</label>
+                                <input type="text" name="Name" id="Name">
                             </div>
                             <div class="form-group">
-                                <label for="send-form-name">Cantidad</label>
-                                <input type="text" name="name" id="send-form-name">
+                                <label for="Quantity">Cantidad</label>
+                                <input type="text" name="Quantity" id="Quantity">
                             </div>
                             <div class="form-group">
-                                <label for="send-form-name">Porcentaje</label>
-                                <input type="text" name="name" id="send-form-name">
+                                <label for="Discount">Porcentaje</label>
+                                <input type="text" name="Discount" id="Discount">
                             </div>
                             <div class="form-group">
                                 <label for="textbox">Inicio</label>
@@ -290,7 +303,7 @@
                                     <span class="input-group-btn">
                                         <button type="button" id="cupon_inicio_edit" class="btn btn-primary pull-right"><i class="fa fa-calendar"></i></button>
                                     </span>
-                                    <input class="form-control" type="text" id="fecha_cupon_inicio_edit" name="fecha_cupon_inicio_edit">
+                                    <input class="form-control" type="text" id="fecha_cupon_inicio_edit" name="From">
                                 </div>
                             </div>
                         </div>
@@ -301,15 +314,22 @@
                                     <span class="input-group-btn">
                                         <button type="button" id="cupon_vigencia_edit" class="btn btn-primary pull-right"><i class="fa fa-calendar"></i></button>
                                     </span>
-                                    <input class="form-control" type="text" id="fecha_cupon_vigencia_edit" name="fecha_cupon_vigencia_edit">
+                                    <input class="form-control" type="text" id="fecha_cupon_vigencia_edit" name="To">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="form-select">Agregado por</label>
-                                <select id="form-select">
-                                    <option value="jRodriguez">jRodriguez</option>
-                                    <option value="bOsorio">bOsorio</option>
-                                    <option value="lEugenia">lEugenia</option>
+                                <label for="Created_by">Agregado por</label>
+                                <select id="Created_by" name="Created_by">
+                                    @if (Model.Users != null)
+                                    {
+                                        foreach (var item in Model.Users)
+                                        {
+                                            if (item != null)
+                                            {
+                                                   <option value='@item.Id.ToString()'>@item.Name @item.Lastname</option>
+                                            }
+                                        }
+                                    }
                                 </select>
                             </div>
                             <div class="form-group">
@@ -322,15 +342,15 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="form-select">Estatus</label>
-                                <select id="form-select">
+                                <label for="Status">Estatus</label>
+                                <select id="Status" name="Status">
                                     <option value="Activo">Activo</option>
                                     <option value="Inactivo">Inactivo</option>
                                 </select>
                             </div>
                         </div>
                         <div class="col-sm-12">
-                            <input type="submit" class="btn btn-primary btn-wide pull-right mt10" value="Crear">
+                            <input type="submit" class="btn btn-primary btn-wide pull-right mt10 modificar-coupon" value="Guardar">
                         </div>
                     </div>
                 </form>
@@ -342,7 +362,7 @@
 <!-- /.modal -->
 <!-- CÓDIGOS -->
 <!-- Modal Medium -->
-<div class="modal fade" id="crear_codigo">
+<div class="modal fade" id="crear_code">
     <div class="modal-dialog modal-md">
         <div class="modal-content">
             <div class="modal-header">
@@ -350,21 +370,21 @@
                 <h6 class="modal-title">Crear Código de Descuento</h6>
             </div>
             <div class="modal-body">
-                <form action="../../php/email.php" method="post" class="contact-form form-solid" novalidate>
+                <form id="form-agregar-code" method="post" class="contact-form form-solid" novalidate>
                     <div class="row">
                         <div class="col-sm-6">
                             <div class="form-group">
-                                <label for="send-form-name">Código</label>
+                                <label for="">Código</label>
                                 <div class="input-group mb0">
                                     <span class="input-group-btn">
                                         <button type="button" class="btn btn-primary getNewPass"><i class="fa fa-refresh"></i></button>
                                     </span>
-                                    <input type="text" class="form-control" rel="gp" data-size="6" data-character-set="a-z,A-Z">
+                                    <input type="text" name="Code" class="form-control" rel="gp" data-size="6" data-character-set="a-z,A-Z">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="send-form-name">Monto</label>
-                                <input type="text" name="name" id="send-form-name">
+                                <label for="Amount">Monto</label>
+                                <input type="text" name="Amount" id="Amount">
                             </div>
                             <div class="form-group">
                                 <label for="textbox">Inicio</label>
@@ -372,7 +392,7 @@
                                     <span class="input-group-btn">
                                         <button type="button" id="codigo_inicio" class="btn btn-primary pull-right"><i class="fa fa-calendar"></i></button>
                                     </span>
-                                    <input class="form-control" type="text" id="fecha_codigo_inicio" name="fecha_codigo_inicio">
+                                    <input class="form-control" type="text" id="fecha_codigo_inicio" name="From">
                                 </div>
                             </div>
                             <div class="form-group">
@@ -381,7 +401,7 @@
                                     <span class="input-group-btn">
                                         <button type="button" id="codigo_vigencia" class="btn btn-primary pull-right"><i class="fa fa-calendar"></i></button>
                                     </span>
-                                    <input class="form-control" type="text" id="fecha_codigo_vigencia" name="fecha_codigo_vigencia">
+                                    <input class="form-control" type="text" id="fecha_codigo_vigencia" name="To">
                                 </div>
                             </div>
                             <div class="checkbox">
@@ -391,21 +411,28 @@
                                 </label>
                             </div>
                             <div class="form-group">
-                                <label for="send-form-name">Cantidad</label>
-                                <input type="text" name="name" id="send-form-name">
+                                <label for="Quantity">Cantidad</label>
+                                <input type="text" name="Quantity" id="Quantity">
                             </div>
                         </div>
                         <div class="col-sm-6 pl0_modal">
                             <div class="form-group">
-                                <label for="send-form-name">Utilizados</label>
-                                <input type="text" name="name" id="send-form-name">
+                                <label for="">Utilizados</label>
+                                <input type="text" name="" id="">
                             </div>
                             <div class="form-group">
-                                <label for="form-select">Creado por</label>
-                                <select id="form-select">
-                                    <option value="jRodriguez">jRodriguez</option>
-                                    <option value="bOsorio">bOsorio</option>
-                                    <option value="lEugenia">lEugenia</option>
+                                <label for="Created_by">Creado por</label>
+                                <select id="Created_by" name="Created_by">
+                                    @if (Model.Users != null)
+                                    {
+                                        foreach (var item in Model.Users)
+                                        {
+                                            if (item != null)
+                                            {
+                                                   <option value='@item.Id.ToString()'>@item.Name @item.Lastname</option>
+                                            }
+                                        }
+                                    }
                                 </select>
                             </div>
                             <div class="form-group">
@@ -418,15 +445,15 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="form-select">Estatus</label>
-                                <select id="form-select">
+                                <label for="Status">Estatus</label>
+                                <select id="Status" name="Status">
                                     <option value="Activo">Activo</option>
                                     <option value="Inactivo">Inactivo</option>
                                 </select>
                             </div>
                         </div>
                         <div class="col-sm-12">
-                            <input type="submit" class="btn btn-primary btn-wide pull-right mt10" value="Crear">
+                            <input type="submit" class="btn btn-primary btn-wide pull-right mt10 crear-code" value="Crear">
                         </div>
                     </div>
                 </form>
@@ -437,7 +464,7 @@
 </div>
 <!-- /.modal -->
 <!-- Modal Medium -->
-<div class="modal fade" id="editar_codigo">
+<div class="modal fade" id="editar_code">
     <div class="modal-dialog modal-md">
         <div class="modal-content">
             <div class="modal-header">
@@ -445,21 +472,22 @@
                 <h6 class="modal-title">Editar Código de Descuento</h6>
             </div>
             <div class="modal-body">
-                <form action="../../php/email.php" method="post" class="contact-form form-solid" novalidate>
+                <form id="form-editar-code" method="post" class="contact-form form-solid" novalidate>
+                    <input type="hidden" name="id" id="editar-id-code" value="" />
                     <div class="row">
                         <div class="col-sm-6">
                             <div class="form-group">
-                                <label for="send-form-name">Código</label>
+                                <label for="">Código</label>
                                 <div class="input-group mb0">
                                     <span class="input-group-btn">
                                         <button type="button" class="btn btn-primary getNewPass"><i class="fa fa-refresh"></i></button>
                                     </span>
-                                    <input type="text" class="form-control" rel="gp" data-size="6" data-character-set="a-z,A-Z">
+                                    <input type="text" name="Code" id="Code" class="form-control" rel="gp" data-size="6" data-character-set="a-z,A-Z">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="send-form-name">Monto</label>
-                                <input type="text" name="name" id="send-form-name">
+                                <label for="Amount">Monto</label>
+                                <input type="text" name="Amount" id="Amount">
                             </div>
                             <div class="form-group">
                                 <label for="textbox">Inicio</label>
@@ -467,7 +495,7 @@
                                     <span class="input-group-btn">
                                         <button type="button" id="codigo_inicio_edit" class="btn btn-primary pull-right"><i class="fa fa-calendar"></i></button>
                                     </span>
-                                    <input class="form-control" type="text" id="fecha_codigo_inicio_edit" name="fecha_codigo_inicio_edit">
+                                    <input class="form-control" type="text" id="fecha_codigo_inicio_edit" name="From">
                                 </div>
                             </div>
                             <div class="form-group">
@@ -476,7 +504,7 @@
                                     <span class="input-group-btn">
                                         <button type="button" id="codigo_vigencia_edit" class="btn btn-primary pull-right"><i class="fa fa-calendar"></i></button>
                                     </span>
-                                    <input class="form-control" type="text" id="fecha_codigo_vigencia_edit" name="fecha_codigo_vigencia_edit">
+                                    <input class="form-control" type="text" id="fecha_codigo_vigencia_edit" name="To">
                                 </div>
                             </div>
                             <div class="checkbox">
@@ -486,21 +514,28 @@
                                 </label>
                             </div>
                             <div class="form-group">
-                                <label for="send-form-name">Cantidad</label>
-                                <input type="text" name="name" id="send-form-name">
+                                <label for="Quantity">Cantidad</label>
+                                <input type="text" name="Quantity" id="Quantity">
                             </div>
                         </div>
                         <div class="col-sm-6 pl0_modal">
                             <div class="form-group">
-                                <label for="send-form-name">Utilizados</label>
-                                <input type="text" name="name" id="send-form-name">
+                                <label for="">Utilizados</label>
+                                <input type="text" name="" id="">
                             </div>
                             <div class="form-group">
-                                <label for="form-select">Creado por</label>
-                                <select id="form-select">
-                                    <option value="jRodriguez">jRodriguez</option>
-                                    <option value="bOsorio">bOsorio</option>
-                                    <option value="lEugenia">lEugenia</option>
+                                <label for="Created_by">Creado por</label>
+                                <select id="Created_by" name="Created_by">
+                                    @if (Model.Users != null)
+                                    {
+                                        foreach (var item in Model.Users)
+                                        {
+                                            if (item != null)
+                                            {
+                                                   <option value='@item.Id.ToString()'>@item.Name @item.Lastname</option>
+                                            }
+                                        }
+                                    }
                                 </select>
                             </div>
                             <div class="form-group">
@@ -513,15 +548,15 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="form-select">Estatus</label>
-                                <select id="form-select">
+                                <label for="Status">Estatus</label>
+                                <select id="Status" name="Status">
                                     <option value="Activo">Activo</option>
                                     <option value="Inactivo">Inactivo</option>
                                 </select>
                             </div>
                         </div>
                         <div class="col-sm-12">
-                            <input type="submit" class="btn btn-primary btn-wide pull-right mt10" value="Crear">
+                            <input type="submit" class="btn btn-primary btn-wide pull-right mt10 modificar-code" value="Guardar">
                         </div>
                     </div>
                 </form>
@@ -540,84 +575,63 @@
         ifFormat: "%Y-%m-%d",       // formato de la fecha, cuando se escriba en el campo de texto
         button: "cupon_inicio"   // el id del botón que lanzará el calendario
     });
-</script>
-<script type="text/javascript">
     Calendar.setup({
         inputField: "fecha_cupon_vigencia",      // id del campo de texto
         ifFormat: "%Y-%m-%d",       // formato de la fecha, cuando se escriba en el campo de texto
         button: "cupon_vigencia"   // el id del botón que lanzará el calendario
     });
-</script>
-<script type="text/javascript">
     Calendar.setup({
         inputField: "fecha_cupon_creacion",      // id del campo de texto
         ifFormat: "%Y-%m-%d",       // formato de la fecha, cuando se escriba en el campo de texto
         button: "cupon_creacion"   // el id del botón que lanzará el calendario
     });
-</script>
-<script type="text/javascript">
+
     Calendar.setup({
         inputField: "fecha_cupon_inicio_edit",      // id del campo de texto
         ifFormat: "%Y-%m-%d",       // formato de la fecha, cuando se escriba en el campo de texto
         button: "cupon_inicio_edit"   // el id del botón que lanzará el calendario
     });
-</script>
-<script type="text/javascript">
     Calendar.setup({
         inputField: "fecha_cupon_vigencia_edit",      // id del campo de texto
         ifFormat: "%Y-%m-%d",       // formato de la fecha, cuando se escriba en el campo de texto
         button: "cupon_vigencia_edit"   // el id del botón que lanzará el calendario
     });
-</script>
-<script type="text/javascript">
     Calendar.setup({
         inputField: "fecha_cupon_creacion_edit",      // id del campo de texto
         ifFormat: "%Y-%m-%d",       // formato de la fecha, cuando se escriba en el campo de texto
         button: "cupon_creacion_edit"   // el id del botón que lanzará el calendario
     });
-</script>
 <!-- CÓDIGOS -->
-<script type="text/javascript">
     Calendar.setup({
         inputField: "fecha_codigo_inicio",      // id del campo de texto
         ifFormat: "%Y-%m-%d",       // formato de la fecha, cuando se escriba en el campo de texto
         button: "codigo_inicio"   // el id del botón que lanzará el calendario
     });
-</script>
-<script type="text/javascript">
     Calendar.setup({
         inputField: "fecha_codigo_vigencia",      // id del campo de texto
         ifFormat: "%Y-%m-%d",       // formato de la fecha, cuando se escriba en el campo de texto
         button: "codigo_vigencia"   // el id del botón que lanzará el calendario
     });
-</script>
-<script type="text/javascript">
     Calendar.setup({
         inputField: "fecha_codigo_creacion",      // id del campo de texto
         ifFormat: "%Y-%m-%d",       // formato de la fecha, cuando se escriba en el campo de texto
         button: "codigo_creacion"   // el id del botón que lanzará el calendario
     });
-</script>
-<script type="text/javascript">
     Calendar.setup({
         inputField: "fecha_codigo_inicio_edit",      // id del campo de texto
         ifFormat: "%Y-%m-%d",       // formato de la fecha, cuando se escriba en el campo de texto
         button: "codigo_inicio_edit"   // el id del botón que lanzará el calendario
     });
-</script>
-<script type="text/javascript">
     Calendar.setup({
         inputField: "fecha_codigo_vigencia_edit",      // id del campo de texto
         ifFormat: "%Y-%m-%d",       // formato de la fecha, cuando se escriba en el campo de texto
         button: "codigo_vigencia_edit"   // el id del botón que lanzará el calendario
     });
-</script>
-<script type="text/javascript">
     Calendar.setup({
         inputField: "fecha_codigo_creacion_edit",      // id del campo de texto
         ifFormat: "%Y-%m-%d",       // formato de la fecha, cuando se escriba en el campo de texto
         button: "codigo_creacion_edit"   // el id del botón que lanzará el calendario
     });
 </script>
-
+@Scripts.Render("~/bundles/couponjs")
 }

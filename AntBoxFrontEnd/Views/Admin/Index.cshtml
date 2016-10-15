@@ -54,7 +54,7 @@
                             @foreach (var item in Model.Users)
                             {
                                 <tr data-id="@item.Id">
-                                    <td><input type="checkbox" data-id="@item.Id"  /></td>
+                                    <td><input type="checkbox" data-id="@item.Id" class="select-user" /></td>
                                     <td class="tusername">@item.Username</td>
                                     <td class="tname">@item.Name</td>
                                     <td class="tlastname">@item.Lastname</td>

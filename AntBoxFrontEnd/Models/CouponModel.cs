@@ -1,4 +1,5 @@
 ﻿using AntBoxFrontEnd.Entities;
+using AntBoxFrontEnd.Services.Code;
 using AntBoxFrontEnd.Services.Coupon;
 using AntBoxFrontEnd.Services.User;
 using Newtonsoft.Json;
@@ -13,7 +14,9 @@ namespace AntBoxFrontEnd.Models
     public class CouponModel
     {
         
-        public List<CouponResponse> Coupons { get; set; }
+        public PaginationCouponsResponse Coupons { get; set; }
+
+        public PaginationCodesResponse Codes { get; set; }
 
         public List<UserResponse> Users { get; set; }
 
