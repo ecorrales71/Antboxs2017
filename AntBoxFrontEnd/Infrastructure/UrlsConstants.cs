@@ -52,6 +52,10 @@ namespace AntBoxFrontEnd.Infrastructure
 
         public static String User { get { return BaseUrl + "/user"; } }
 
+        public static String Coupon { get { return BaseUrl + "/coupon"; } }
+
+        public static String CouponList { get { return BaseUrl + "/coupon/search"; } }
+
         public static String ValidateAddress { get { return BaseUrl + "/customer-address/check"; } }
 
 

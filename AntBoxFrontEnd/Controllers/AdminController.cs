@@ -1,6 +1,7 @@
 ﻿using AntBoxFrontEnd.Infrastructure;
 using AntBoxFrontEnd.Models;
 using AntBoxFrontEnd.Services.Boxes;
+using AntBoxFrontEnd.Services.Coupon;
 using AntBoxFrontEnd.Services.Customer;
 using AntBoxFrontEnd.Services.Login;
 using AntBoxFrontEnd.Services.User;
@@ -69,7 +70,25 @@ namespace AntBoxFrontEnd.Controllers
 
         public ActionResult Cupones()
         {
-            return View();
+            var servicio = new CouponService(ServiceConfiguration.GetApiKey());
+            var servicioUser = new UserServices(ServiceConfiguration.GetApiKey());
+
+            var result = new List<CouponResponse>();
+            PaginationUser resultUsers = new PaginationUser();
+            try
+            {
+                resultUsers = servicioUser.ListUsersPagination(1);
+                result = servicio.ListCoupon();
+            }
+            catch (Exception ex)
+            {
+            }
+
+            CouponModel response = new CouponModel();
+            response.Coupons = result;
+            response.Users = resultUsers.Users;
+
+            return View(response);
         }
 
         public ActionResult Cuenta()

@@ -1,4 +1,4 @@
-﻿
+﻿@model AntBoxFrontEnd.Models.CouponModel
 @{
     ViewBag.Title = "Cupones";
 }
@@ -49,36 +49,22 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>Seguro Mínimo</td>
-                                    <td>$0.00</td>
-                                    <td>10%</td>
-                                    <td>2016-01-20</td>
-                                    <td>2016-05-20</td>
-                                    <td>jRodriguez</td>
-                                    <td>2016-05-20</td>
-                                    <td>Activo</td>
-                                </tr>
-                                <tr>
-                                    <td>Seguro Estándar</td>
-                                    <td>$0.00</td>
-                                    <td>20%</td>
-                                    <td>2016-02-01</td>
-                                    <td>2016-06-01</td>
-                                    <td>lEugenia</td>
-                                    <td>2016-06-01</td>
-                                    <td>Activo</td>
-                                </tr>
-                                <tr>
-                                    <td>Seguro Plus</td>
-                                    <td>$50.00</td>
-                                    <td>0%</td>
-                                    <td>2016-05-15</td>
-                                    <td>2016-07-15</td>
-                                    <td>bOsorio</td>
-                                    <td>2016-07-15</td>
-                                    <td>Inactivo</td>
-                                </tr>
+                                @if (Model.Coupons != null)
+                                {
+                                    foreach (var item in Model.Coupons)
+                                    {
+                                    <tr>
+                                        <td>@item.Name</td>
+                                        <td>@item.Quantity</td>
+                                        <td>@item.Discount%</td>
+                                        <td>@item.From</td>
+                                        <td>@item.To</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>@item.Statusname</td>
+                                    </tr>
+                                    }
+                                }
                             </tbody>
                         </table>
                     </div>

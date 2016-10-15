@@ -240,6 +240,7 @@
     <Compile Include="Controllers\AntBoxAddressesController.cs" />
     <Compile Include="Controllers\AntBoxController.cs" />
     <Compile Include="Controllers\CatalogoController.cs" />
+    <Compile Include="Controllers\CouponController.cs" />
     <Compile Include="Controllers\CustomerAntBoxController.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -284,6 +285,7 @@
     <Compile Include="Models\abTask.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\abAddress.cs" />
+    <Compile Include="Models\CouponModel.cs" />
     <Compile Include="Models\BoxModel.cs" />
     <Compile Include="Models\AntBoxTasksViewModel.cs" />
     <Compile Include="Models\AntBoxAddressViewModel.cs" />
@@ -311,6 +313,11 @@
     <Compile Include="Services\Boxes\BoxesResponse.cs" />
     <Compile Include="Services\Boxes\BoxesService.cs" />
     <Compile Include="Services\Boxes\PaginationBoxesResponse.cs" />
+    <Compile Include="Services\Coupon\CouponService.cs" />
+    <Compile Include="Services\Coupon\CouponRequestOptions.cs" />
+    <Compile Include="Services\Coupon\CouponResponse.cs" />
+    <Compile Include="Services\Coupon\CouponUpdateOptions.cs" />
+    <Compile Include="Services\Coupon\PaginationCouponsResponse.cs" />
     <Compile Include="Services\Customer\CustomerUpdateOptions.cs" />
     <Compile Include="Services\Customer\CustomerRequestOptions.cs" />
     <Compile Include="Services\Customer\CustomerResponse.cs" />
@@ -598,6 +605,8 @@
     <Content Include="Content\docs\terminos-y-condiciones.pdf" />
     <None Include="Properties\PublishProfiles\antbox - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\AntBoxs - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\antboxstest %282%29.pubxml" />
+    <None Include="Properties\PublishProfiles\antboxstest %283%29.pubxml" />
     <None Include="Properties\PublishProfiles\antboxstest.pubxml" />
     <None Include="Properties\PublishProfiles\AntBoxTest - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\localhost.pubxml" />
@@ -710,6 +719,7 @@
     <Folder Include="Views\AntBoxAddress\" />
     <Folder Include="Views\Antbox\" />
     <Folder Include="Views\Catalogo\" />
+    <Folder Include="Views\Coupon\" />
     <Folder Include="Views\CustomerAntBox\" />
     <Folder Include="Views\Movimientos\" />
     <Folder Include="Views\PricePartial\" />
@@ -742,7 +752,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
+          <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>50089</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>

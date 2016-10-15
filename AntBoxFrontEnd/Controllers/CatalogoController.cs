@@ -11,7 +11,6 @@ namespace AntBoxFrontEnd.Controllers
     [RedirectingAction]
     public class CatalogoController : Controller
     {
-        // GET: Catalogo
         public ActionResult CreateBox(BoxesRequestOptions modelBox)
         {
             try
@@ -55,9 +54,9 @@ namespace AntBoxFrontEnd.Controllers
                     Slu = slu
                 };
 
-                var userService = new BoxesService(ServiceConfiguration.GetApiKey());
+                var boxService = new BoxesService(ServiceConfiguration.GetApiKey());
 
-                var result = userService.UpdateBox(bu, id);
+                var result = boxService.UpdateBox(bu, id);
 
                 return Json(new { success = result, responseText = "Box actualizado" }, JsonRequestBehavior.AllowGet);
 
@@ -73,9 +72,9 @@ namespace AntBoxFrontEnd.Controllers
 
         public JsonResult DeleteBox(string id)
         {
-            var userService = new BoxesService(ServiceConfiguration.GetApiKey());
+            var boxService = new BoxesService(ServiceConfiguration.GetApiKey());
 
-            var result = userService.DeleteBoxes(id);
+            var result = boxService.DeleteBoxes(id);
 
 
             if(result)
@@ -86,9 +85,9 @@ namespace AntBoxFrontEnd.Controllers
 
         public JsonResult GetBox(string id)
         {
-            var userService = new BoxesService(ServiceConfiguration.GetApiKey());
+            var boxService = new BoxesService(ServiceConfiguration.GetApiKey());
 
-            var result = userService.SearchBox(id);
+            var result = boxService.SearchBox(id);
 
             return Json(result, JsonRequestBehavior.AllowGet);
         }
