@@ -12,7 +12,7 @@
     <div class="col-sm-6">
         <div class="form-group">
             @Html.Label("* Calle")
-            @Html.TextBoxFor(m => m.Street, new { @id = "txtStreet", @maxlength = "250", @required = "required" })
+            <input type="text" name="Street" id="txtStreet" value="" maxlength="250" />
         </div>
         <div class="row">
             <div class="col-sm-6">
@@ -87,17 +87,17 @@
             <label for="send-form-email">País</label>
             <input type="text" id="txtCountry" name="Country" readonly>
         </div>
-        <label for="textbox">Fecha de recolección (aaaa-mm-dd)</label>
-        <div class="input-group">
+        <label for="textbox">* Fecha de recolección (aaaa-mm-dd)</label>
+        <div class="input-group form-group">
             <span class="input-group-btn">
                 <button type="button" id="recoleccion" class="btn btn-primary pull-right"><i class="fa fa-calendar"></i></button>
             </span>
             <input class="form-control" type="text" id="fecha_recoleccion" name="Fecha_recoleccion">
         </div>
         <div class="form-group">
-            <label for="form-select">Horario de recolección</label>
+            <label for="form-select">* Horario de recolección</label>
             <select id="selHorario" name="Horario" onchange="HorarioRecoleccion()">
-                <option value>- Selecciona una opción -</option>
+                <option value="">- Selecciona una opción -</option>
                 <option value="09-11">09:00 - 11:00 hrs.</option>
                 <option value="11-13">11:00 - 13:00 hrs.</option>
                 <option value="13-15">13:00 - 15:00 hrs.</option>

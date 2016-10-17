@@ -77,51 +77,30 @@ namespace AntBoxFrontEnd.Models
 
     public class AgendTaskModel
     {
-        [Required]
-        [StringLength(5, ErrorMessage = "El {0} deber ser de {2} digitos.", MinimumLength = 5)]
-        [Display(Name = "Código Postal")]
         public string Zipcode { get; set; }
 
-        [Required]
-        [StringLength(100, ErrorMessage = "El {0} deber ser de al menos {2} digitos.", MinimumLength = 2)]
-        [Display(Name = "Calle")]
         public string Street { get; set; }
 
-        [Display(Name = "Núm. exterior")]
         public string External_number { get; set; }
 
-        [Display(Name = "Núm Interior")]
         public string Internal_number { get; set; }
 
-        [Required]
-        [Display(Name = "Colonia")]
         public string Neighborhood { get; set; }
 
-        [Required]
-        [Display(Name = "Estado")]
         public string State { get; set; }
 
-        [Required]
-        [Display(Name = "Delegacion")]
         public string Delegation { get; set; }
 
-        [Display(Name = "Ciudad")]
         public string City { get; set; }
 
-        [Required]
-        [Display(Name = "País")]
         public string Country { get; set; }
 
         public string Rfc_id { get; set; }
 
-        [Required]
-        [Display(Name = "Notas")]
         public string References { get; set; }
 
-        [Display(Name = "Horario")]
         public string Horario { get; set; }
 
-        [Display(Name = "Fecha Recoleccion")]
         public string Fecha_recoleccion { get; set; }
 
         public string Paso { get; set; }

@@ -327,5 +327,9 @@ a:hover {
 }
 
 .border_bottom {
-        border-bottom: 4px solid red;
+    border-bottom: 4px solid red;
+}
+
+.has-error .chosen-container {
+    background-color: #ffc7c7 !important;
 }

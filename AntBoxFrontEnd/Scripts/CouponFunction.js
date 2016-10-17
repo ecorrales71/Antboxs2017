@@ -18,29 +18,34 @@ $(function () {
         event.preventDefault();
         console.log("crear cupón");
         var form = $("#form-agregar-coupon");
-        modalToClose = $("#crear_coupon");
-        var formData = $("#form-agregar-coupon").serializeObject();
 
-        formData.Status = (formData.Status == "Activo") ? true : false;
+        if (form.valid())
+        {
+            modalToClose = $("#crear_coupon");
+            var formData = $("#form-agregar-coupon").serializeObject();
 
-        $.ajax({
-            type: 'POST',
-            url: "/Coupon/CreateCoupon",
-            data: formData,
-            success: function (data) {
-                if (data.success) {
-                    verifCloseModal = true;
-                    mostrarMensaje(form, "userMensaje", "Cupón registrado", "alert-warning");
-                    window.location.reload(false);
-                } else {
+            formData.Status = (formData.Status == "Activo") ? true : false;
+
+            $.ajax({
+                type: 'POST',
+                url: "/Coupon/CreateCoupon",
+                data: formData,
+                success: function (data) {
+                    if (data.success) {
+                        verifCloseModal = true;
+                        mostrarMensaje(form, "userMensaje", "Cupón registrado", "alert-warning");
+                        window.location.reload(false);
+                    } else {
+                        mostrarMensaje(form, "userMensaje", "Error al registrar cupón intentelo de nuevo", "alert-warning");
+                    }
+                }, error: function (error) {
                     mostrarMensaje(form, "userMensaje", "Error al registrar cupón intentelo de nuevo", "alert-warning");
+                }, complete: function (data) {
+                    console.log(data);
                 }
-            }, error: function (error) {
-                mostrarMensaje(form, "userMensaje", "Error al registrar cupón intentelo de nuevo", "alert-warning");
-            }, complete: function (data) {
-                console.log(data);
-            }
-        });
+            });
+        }
+        
     });
     $(".editar-coupon-button").click(function (event) {
 
@@ -100,35 +105,40 @@ $(function () {
         modalToClose = $("#editar_coupon");
         console.log("modificar cupón");
         var form = $("#form-editar-coupon");
-        var formData = $("#form-editar-coupon").serializeObject();
 
-        formData.status = (formData.status == "Activo") ? true : false;
+        if (form.valid())
+        {
+            var formData = $("#form-editar-coupon").serializeObject();
 
-        $.ajax({
-            type: 'POST',
-            url: '/Coupon/UpdateCoupon',
-            data: formData,
-            success: function (data) {
-                if (data.success) {
-                    mostrarMensaje(form, "userMensaje", "Cupón modificado", "alert-warning");
-                    verifCloseModal = true;
-                    actualElement.closest("tr").find(".tname").text(form.find("#Name").val());
-                    actualElement.closest("tr").find(".tquantity").text(form.find("#Quantity").val());
-                    actualElement.closest("tr").find(".tdiscount").text(form.find("#Discount").val());
-                    actualElement.closest("tr").find(".tfrom").text(form.find("#fecha_cupon_inicio_edit").val());
-                    actualElement.closest("tr").find(".tto").text(form.find("#fecha_cupon_vigencia_edit").val());
-                    //actualElement.closest("tr").find(".tcreated").text(form.find("#secure").val());
-                    //actualElement.closest("tr").find(".tdatecreated").text(form.find("#slu").val());
-                    actualElement.closest("tr").find(".tstatus").text(form.find("#status").val());
-                } else {
+            formData.status = (formData.status == "Activo") ? true : false;
+
+            $.ajax({
+                type: 'POST',
+                url: '/Coupon/UpdateCoupon',
+                data: formData,
+                success: function (data) {
+                    if (data.success) {
+                        mostrarMensaje(form, "userMensaje", "Cupón modificado", "alert-warning");
+                        verifCloseModal = true;
+                        actualElement.closest("tr").find(".tname").text(form.find("#Name").val());
+                        actualElement.closest("tr").find(".tquantity").text(form.find("#Quantity").val());
+                        actualElement.closest("tr").find(".tdiscount").text(form.find("#Discount").val());
+                        actualElement.closest("tr").find(".tfrom").text(form.find("#fecha_cupon_inicio_edit").val());
+                        actualElement.closest("tr").find(".tto").text(form.find("#fecha_cupon_vigencia_edit").val());
+                        //actualElement.closest("tr").find(".tcreated").text(form.find("#secure").val());
+                        //actualElement.closest("tr").find(".tdatecreated").text(form.find("#slu").val());
+                        actualElement.closest("tr").find(".tstatus").text(form.find("#status").val());
+                    } else {
+                        mostrarMensaje(form, "userMensaje", "Error al modificar cupón intentelo de nuevo", "alert-warning");
+                    }
+                }, error: function (error) {
                     mostrarMensaje(form, "userMensaje", "Error al modificar cupón intentelo de nuevo", "alert-warning");
+                }, complete: function (data) {
+                    console.log(data);
                 }
-            }, error: function (error) {
-                mostrarMensaje(form, "userMensaje", "Error al modificar cupón intentelo de nuevo", "alert-warning");
-            }, complete: function (data) {
-                console.log(data);
-            }
-        });
+            });
+        }
+        
     });
     $(".eliminar-coupon").click(function (event) {
         var countCheckbox = $("#tabla-coupon").find('input:checkbox:checked').length;
@@ -171,29 +181,34 @@ $(function () {
         event.preventDefault();
         console.log("crear código");
         var form = $("#form-agregar-code");
-        modalToClose = $("#crear_code");
-        var formData = $("#form-agregar-code").serializeObject();
 
-        formData.Status = (formData.Status == "Activo") ? true : false;
+        if (form.valid())
+        {
+            modalToClose = $("#crear_code");
+            var formData = $("#form-agregar-code").serializeObject();
 
-        $.ajax({
-            type: 'POST',
-            url: "/Code/CreateCode",
-            data: formData,
-            success: function (data) {
-                if (data.success) {
-                    verifCloseModal = true;
-                    mostrarMensaje(form, "userMensaje", "Código registrado", "alert-warning");
-                    window.location.reload(false);
-                } else {
+            formData.Status = (formData.Status == "Activo") ? true : false;
+
+            $.ajax({
+                type: 'POST',
+                url: "/Code/CreateCode",
+                data: formData,
+                success: function (data) {
+                    if (data.success) {
+                        verifCloseModal = true;
+                        mostrarMensaje(form, "userMensaje", "Código registrado", "alert-warning");
+                        window.location.reload(false);
+                    } else {
+                        mostrarMensaje(form, "userMensaje", "Error al registrar código intentelo de nuevo", "alert-warning");
+                    }
+                }, error: function (error) {
                     mostrarMensaje(form, "userMensaje", "Error al registrar código intentelo de nuevo", "alert-warning");
+                }, complete: function (data) {
+                    console.log(data);
                 }
-            }, error: function (error) {
-                mostrarMensaje(form, "userMensaje", "Error al registrar código intentelo de nuevo", "alert-warning");
-            }, complete: function (data) {
-                console.log(data);
-            }
-        });
+            });
+        }
+        
     });
     $(".editar-code-button").click(function (event) {
 
@@ -253,35 +268,40 @@ $(function () {
         modalToClose = $("#editar_code");
         console.log("modificar código");
         var form = $("#form-editar-code");
-        var formData = $("#form-editar-code").serializeObject();
 
-        formData.status = (formData.status == "Activo") ? true : false;
+        if (form.valid())
+        {
+            var formData = $("#form-editar-code").serializeObject();
 
-        $.ajax({
-            type: 'POST',
-            url: '/Code/UpdateCode',
-            data: formData,
-            success: function (data) {
-                if (data.success) {
-                    mostrarMensaje(form, "userMensaje", "Código modificado", "alert-warning");
-                    verifCloseModal = true;
-                    actualElement.closest("tr").find(".tcode").text(form.find("#Code").val());
-                    actualElement.closest("tr").find(".tamount").text(form.find("#Amount").val());
-                    actualElement.closest("tr").find(".tfrom").text(form.find("#fecha_codigo_inicio_edit").val());
-                    actualElement.closest("tr").find(".tto").text(form.find("#fecha_codigo_vigencia_edit").val());
-                    actualElement.closest("tr").find(".tquantity").text(form.find("#Quantity").val());
-                    //actualElement.closest("tr").find(".tcreated").text(form.find("#secure").val());
-                    //actualElement.closest("tr").find(".tdatecreated").text(form.find("#slu").val());
-                    actualElement.closest("tr").find(".tstatus").text(form.find("#status").val());
-                } else {
+            formData.status = (formData.status == "Activo") ? true : false;
+
+            $.ajax({
+                type: 'POST',
+                url: '/Code/UpdateCode',
+                data: formData,
+                success: function (data) {
+                    if (data.success) {
+                        mostrarMensaje(form, "userMensaje", "Código modificado", "alert-warning");
+                        verifCloseModal = true;
+                        actualElement.closest("tr").find(".tcode").text(form.find("#Code").val());
+                        actualElement.closest("tr").find(".tamount").text(form.find("#Amount").val());
+                        actualElement.closest("tr").find(".tfrom").text(form.find("#fecha_codigo_inicio_edit").val());
+                        actualElement.closest("tr").find(".tto").text(form.find("#fecha_codigo_vigencia_edit").val());
+                        actualElement.closest("tr").find(".tquantity").text(form.find("#Quantity").val());
+                        //actualElement.closest("tr").find(".tcreated").text(form.find("#secure").val());
+                        //actualElement.closest("tr").find(".tdatecreated").text(form.find("#slu").val());
+                        actualElement.closest("tr").find(".tstatus").text(form.find("#status").val());
+                    } else {
+                        mostrarMensaje(form, "userMensaje", "Error al modificar código intentelo de nuevo", "alert-warning");
+                    }
+                }, error: function (error) {
                     mostrarMensaje(form, "userMensaje", "Error al modificar código intentelo de nuevo", "alert-warning");
+                }, complete: function (data) {
+                    console.log(data);
                 }
-            }, error: function (error) {
-                mostrarMensaje(form, "userMensaje", "Error al modificar código intentelo de nuevo", "alert-warning");
-            }, complete: function (data) {
-                console.log(data);
-            }
-        });
+            });
+        }
+        
     });
     $(".eliminar-code").click(function (event) {
         var countCheckbox = $("#tabla-code").find('input:checkbox:checked').length;
@@ -315,6 +335,159 @@ $(function () {
             actualElement = $(this);
             actualEdicion = $(this).attr("data-id");
             actualCode = $(this).closest("tr").find(".tcode").text();
+        }
+    });
+
+    //-------------------------JQuery Validate----------------------
+    $('#form-agregar-coupon').validate({
+        rules: {
+            Name: {
+                required: true
+            },
+            Quantity: {
+                required: true
+            },
+            Discount: {
+                required: true
+            },
+            From: {
+                required: true
+            },
+            To: {
+                required: true
+            },
+            "Created_by": {
+                required: true
+            }
+        },
+        highlight: function (element) {
+            $(element).closest('.form-group').addClass('has-error');
+        },
+        unhighlight: function (element) {
+            $(element).closest('.form-group').removeClass('has-error');
+        },
+        errorElement: 'span',
+        errorClass: 'help-block',
+        errorPlacement: function (error, element) {
+            if (element.parent('.input-group').length) {
+                error.insertAfter(element.parent());
+            } else {
+                error.insertAfter(element);
+            }
+        }
+    });
+
+    $('#form-editar-coupon').validate({
+        rules: {
+            Name: {
+                required: true
+            },
+            Quantity: {
+                required: true
+            },
+            Discount: {
+                required: true
+            },
+            From: {
+                required: true
+            },
+            To: {
+                required: true
+            },
+            "Created_by": {
+                required: true
+            }
+        },
+        highlight: function (element) {
+            $(element).closest('.form-group').addClass('has-error');
+        },
+        unhighlight: function (element) {
+            $(element).closest('.form-group').removeClass('has-error');
+        },
+        errorElement: 'span',
+        errorClass: 'help-block',
+        errorPlacement: function (error, element) {
+            if (element.parent('.input-group').length) {
+                error.insertAfter(element.parent());
+            } else {
+                error.insertAfter(element);
+            }
+        }
+    });
+
+    $('#form-agregar-code').validate({
+        rules: {
+            Code: {
+                required: true
+            },
+            Quantity: {
+                required: true
+            },
+            Amount: {
+                required: true
+            },
+            From: {
+                required: true
+            },
+            To: {
+                required: true
+            },
+            "Created_by": {
+                required: true
+            }
+        },
+        highlight: function (element) {
+            $(element).closest('.form-group').addClass('has-error');
+        },
+        unhighlight: function (element) {
+            $(element).closest('.form-group').removeClass('has-error');
+        },
+        errorElement: 'span',
+        errorClass: 'help-block',
+        errorPlacement: function (error, element) {
+            if (element.parent('.input-group').length) {
+                error.insertAfter(element.parent());
+            } else {
+                error.insertAfter(element);
+            }
+        }
+    });
+
+    $('#form-editar-code').validate({
+        rules: {
+            Code: {
+                required: true
+            },
+            Quantity: {
+                required: true
+            },
+            Amount: {
+                required: true
+            },
+            From: {
+                required: true
+            },
+            To: {
+                required: true
+            },
+            "Created_by": {
+                required: true
+            }
+        },
+        highlight: function (element) {
+            $(element).closest('.form-group').addClass('has-error');
+        },
+        unhighlight: function (element) {
+            $(element).closest('.form-group').removeClass('has-error');
+        },
+        errorElement: 'span',
+        errorClass: 'help-block',
+        errorPlacement: function (error, element) {
+            if (element.parent('.input-group').length) {
+                error.insertAfter(element.parent());
+            } else {
+                error.insertAfter(element);
+            }
         }
     });
 });

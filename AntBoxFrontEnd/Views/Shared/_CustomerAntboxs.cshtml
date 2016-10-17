@@ -25,10 +25,13 @@
                             <div>
                                 <h4><span class="name-antbox">
                                     @Html.DisplayFor(modelItem => item.Name)</span> - @Html.DisplayFor(modelItem => item.Folio)
-                                    <span style="float: right;"> <input type="checkbox" class="select-antbox" data-folio="@Html.DisplayFor(modelItem => item.Folio)" /> </span>
                                 </h4>
                             </div>
                             <p class="description-antbox">@Html.DisplayFor(modelItem => item.Descriptionv)</p>
+                            <div class="checkboxFive">
+                                <input type="checkbox" value="1" id="checkboxFiveInput-@item.Id" name="">
+                                <label for="checkboxFiveInput-@item.Id" class="select-antbox" data-folio="@Html.DisplayFor(modelItem => item.Folio)"></label>
+                            </div>
                             <button type="button" class="btn btn-primary btn-sm pull-right ml20 solicitar" data-toggle="modal" data-folio="@Html.DisplayFor(modelItem => item.Folio)" data-id="@Html.DisplayFor(modelItem => item.Id)" data-target="#solicitar">Solicitar</button>
                             <button type="button" class="btn btn-primary btn-sm pull-right btn_blue editar" data-toggle="modal" data-id="@Html.DisplayFor(modelItem => item.Id)" data-target="#editar">Editar</button>
                         </div>

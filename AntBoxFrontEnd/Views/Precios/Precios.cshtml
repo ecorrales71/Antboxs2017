@@ -164,6 +164,10 @@
                 $('.todisplay').fadeOut('slow');
 
         });
+
+        $(".amount").each(function () {
+            $(this).text($(this).text().replace(",", "."));
+        });
     })
 
     function AddBox(ide) {

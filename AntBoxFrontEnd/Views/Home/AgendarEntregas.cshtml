@@ -68,7 +68,7 @@
         <!-- /.container -->
         <!-- CONTAINER -->
         <div class="container mt30">
-            <form class="form-solid form-agendar" id="Tareas" action="/Home/CrearCuenta" method="post">
+            <form class="form-solid form-agendar" id="Tareas" method="post">
 
                 @{
                     Html.RenderPartial("~/Views/Home/_PickupAddressPartial.cshtml", Model);
@@ -108,6 +108,10 @@ Calendar.setup({
     ifFormat       :    "%Y-%m-%d",       // formato de la fecha, cuando se escriba en el campo de texto
     button         :    "recoleccion",   // el id del botón que lanzará el calendario
     onUpdate: function() {
+        if ($("#fecha_recoleccion").val() != "") {
+            $("#fecha_recoleccion").closest(".form-group").removeClass("has-error");
+            $("#fecha_recoleccion").closest(".form-group").find(".help-block").remove();
+        }
         var date = $("#fecha_recoleccion").val();
         $.ajax({
             url: '@Url.Action("getSchedules", "Customer")',
@@ -116,7 +120,7 @@ Calendar.setup({
             success: function (schedules) {
                 // alert("<option value='" + schedules[0].worker + "'>" + schedules[0].Start + " - " + schedules[0].End + " hrs.</option>");
                 $("#selHorario").html("");
-                var items = '<option>Seleccciona un horario disponible</option>';
+                var items = '<option value="">Seleccciona un horario disponible</option>';
                 for (var i = 0; i < schedules.length ; i++) {
                     items += "<option value='" + schedules[i].worker + "'>" + schedules[i].Start + " - " + schedules[i].End + " hrs.</option>";
                 }
@@ -151,39 +155,36 @@ $(document).ready(function(){
     });
     var element = {};
     $('.agendarentrega').click(function (event) {
-
-        
         
         event.preventDefault();
-        var formData = $(".form-agendar").serialize();
 
-        //Validar direccion
-        $.ajax({
-            type: 'POST',
-            dataType: 'text',
-            url:'@Url.Action("ValidateAddress", "Home")',
-            data: formData,
-            success: function(data) {
-                console.log(data);
-                if (data == "true") {
-                    $(".form-agendar").submit();
-                } else {
-                    if (!$("#AddressFail").length)
-                    {
-                        $('#Agendar-tareas').prepend(
-                            '<div class="alert alert-warning" role="alert" id="AddressFail"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a> La direccion no es valida</div>');
-                        window.setTimeout(function () {
-                            $("#AddressFail").remove();
-                        }, 5000);
+        if ($('#Tareas').valid()) {
+            var formData = $(".form-agendar").serialize();
+
+            //Validar direccion
+            $.ajax({
+                type: 'POST',
+                dataType: 'text',
+                url: '@Url.Action("ValidateAddress", "Home")',
+                data: formData,
+                success: function (data) {
+                    console.log(data);
+                    if (data == "true") {
+                        $(".form-agendar").submit();
+                    } else {
+                        if (!$("#AddressFail").length) {
+                            $('#Agendar-tareas').prepend(
+                                '<div class="alert alert-warning" role="alert" id="AddressFail"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a> La direccion no es valida</div>');
+                            window.setTimeout(function () {
+                                $("#AddressFail").remove();
+                            }, 5000);
+                        }
                     }
+                }, error: function (error) {
+                    console.log(error)
                 }
-            }, error: function(error)
-            {
-                console.log(error)
-            }
-        });
-
-        event.preventDefault();
+            });
+        }
         
     })
 });
@@ -191,7 +192,11 @@ $(document).ready(function(){
 
 
 <script type="text/javascript">
-
+    function colocaChosen() {
+        $(".chosen-container").each(function () {
+            $(this).insertBefore($(this).closest(".form-group").find("select"));
+        })
+    }
     $(function () {
         //Validar letras numeros y signos de puntuacion
         $('#txtStreet').keypress(function (e) {
@@ -214,6 +219,67 @@ $(document).ready(function(){
                 return false;
             }
         });
+
+        $.validator.addMethod("valueNotEquals", function (value, element, arg) {
+            return arg != value;
+        }, "Value must not equal arg.");
+
+        $.validator.setDefaults({ ignore: ":hidden:not(select)" });
+
+        $('#Tareas').validate({
+            rules: {
+                Street: {
+                    required: true
+                },
+                "External_number": {
+                    required: true
+                },
+                Zipcode: {
+                    valueNotEquals: "",
+                    required: true
+                },
+                Delegation: {
+                    valueNotEquals: "",
+                    required: true
+                },
+                Neighborhood: {
+                    valueNotEquals: "",
+                    required: true
+                },
+                "Fecha_recoleccion": {
+                    required: true
+                },
+                Horario: {
+                    valueNotEquals: "",
+                    required: true
+                }
+            },
+            highlight: function (element) {
+                $(element).closest('.form-group').addClass('has-error');
+            },
+            unhighlight: function (element) {
+                $(element).closest('.form-group').removeClass('has-error');
+            },
+            errorElement: 'span',
+            errorClass: 'help-block',
+            errorPlacement: function (error, element) {
+                colocaChosen();
+                if (element.parent('.input-group').length) {
+                    error.insertAfter(element.parent());
+                } else {
+                    error.insertAfter(element);
+                }
+            }
+        });
+
+        $('#selHorario, #cmbDelegations, #cmbNeighborhood').on('change', function (evt, params) {
+            if ($(this).val() != "") {
+                $(this).closest(".form-group").removeClass("has-error");
+                $(this).closest(".form-group").find(".help-block").remove();
+            }
+        });
+
+        
     });
 
     function search_code(value) {
@@ -249,7 +315,7 @@ $(document).ready(function(){
                         success: function (data) {
 
                             $("#cmbDelegations").html("");
-                            var items = '<option>Seleccciona una delegacion</option>';
+                            var items = '<option value="">Seleccciona una delegacion</option>';
                             $.each(data.result, function (i, delegation) {
                                 items += "<option value='" + delegation.Value + "'>" + delegation.Text + "</option>";
                             });
@@ -267,7 +333,7 @@ $(document).ready(function(){
                         success: function (data) {
 
                             $("#cmbNeighborhood").html("");
-                            var items = '<option>Seleccciona una colonia</option>';
+                            var items = '<option value="">Seleccciona una colonia</option>';
                             $.each(data.result, function (i, delegation) {
                                 items += "<option value='" + delegation.Value + "'>" + delegation.Text + "</option>";
                             });
