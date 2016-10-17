@@ -12,7 +12,7 @@
 
             <div style="padding-top:30px" class="panel-body">
 
-                <div style="display:none" id="login-alert" class="alert alert-danger col-sm-12"></div>
+                <div style="display: none; padding: 6px;" id="login-alert" class="alert alert-danger col-sm-12">Usuario o Password incorrecto</div>
 
                 <form id="loginform" class="form-horizontal" role="form">
 
@@ -23,7 +23,7 @@
 
                     <div style="margin-bottom: 25px" class="input-group">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                        <input id="login-password" type="password" class="form-control" name="password" placeholder="password">
+                        <input id="login-password" style="height: 34px;" type="password" class="form-control" name="password" placeholder="password">
                     </div>
                     <div style="margin-top:10px" class="form-group">
                         <!-- Button -->
@@ -42,19 +42,20 @@
 <script>
     $(function () {
         $('#btnLogin').click(function () {
+            $("#login-alert").hide();
             $.ajax({
                 type: 'POST',
                 url: '@Url.Action("AntBoxLoginAjax", "Login")',
                 data: $('#loginform').serialize(),
                 success: function (result) {
                     if (result.success == false) {
-                        $('#panel-body').prepend(
-                        '<div class="alert alert-warning" role="alert" id="LoginFailAlert">Usuario o Password no valido.</div>');
-                        window.setTimeout(function ()
-                        { $("#LoginFailAlert").alert('close'); }, 2000);
+                        $("#login-alert").show();
+                        window.setTimeout(function () {
+                            $("#login-alert").hide();
+                        }, 3000);
                     }
                     else {
-                        location.href = '@Url.Action("Index", "Admin")';
+                        location.href = result.link;
                     }
                 },
                 error: function (emp) {

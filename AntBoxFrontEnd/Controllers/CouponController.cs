@@ -24,12 +24,12 @@ namespace AntBoxFrontEnd.Controllers
 
                 var ser = new CouponService(ServiceConfiguration.GetApiKey());
                 var res = ser.CreateCoupon(modelCoupon);
-                return Json(res, JsonRequestBehavior.AllowGet);
+                return Json(new { success = true , responseText = "CUPÓN REGISTRADO CORRECTAMENTE" }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
                 LogManager.Write(ex.Message, LogManager.Error);
-                return Json(new { success = false, responseText = "OCURRIO UN ERROR AL REGISTRAR LA DIRECCIÓN" }, JsonRequestBehavior.AllowGet);
+                return Json(new { success = false, responseText = "OCURRIO UN ERROR AL REGISTRAR EL CUPÓN" }, JsonRequestBehavior.AllowGet);
             }
         }
 

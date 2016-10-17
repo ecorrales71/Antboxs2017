@@ -1,0 +1,114 @@
+﻿@model AntBoxFrontEnd.Models.CustomerListModel
+@{
+    ViewBag.Title = "Index";
+}
+<!-- WRAPPER -->
+<div class="wrapper">
+    <!-- PAGE TITLE -->
+    <header class="pagetitle pagetitle-sm">
+        <div class="container">
+            <div class="divtable irow">
+                <div class="divcell">
+                    <i class="fa fa-archive"></i>
+                    <span class="title">Customer Service</span>
+                    <div class="divider"></div>
+                    <span class="subtitle">Almacenamiento Seguro, Fácil y Conveniente</span>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- /.pagetitle -->
+    <!-- CONTENT -->
+    <div class="content clientes">
+        <!-- CONTAINER -->
+        <div class="container">
+            <div class="row irow-xs">
+                <div class="col-sm-12">
+                    <h1>Clientes</h1>
+                </div>
+            </div>
+        </div>
+        <!-- /.container -->
+        <!-- CONTAINER -->
+        <div class="container mt0">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="table-responsive">
+                        <form id="search" action="" method="get" class="form-solid " novalidate>
+                            <div class="col-sm-12 pr0 pb0">
+                                <input type="submit" class="btn btn-primary btn-wide pull-right mt10" value="Buscar">
+                                <input type="reset" class="btn btn-primary btn-wide btn_blue pull-right mt10 mr10" value="Borrar campos">
+                            </div>
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th><input class="input_cliente" type="text" name="name" id="send-form-name" placeholder="Cliente" value="@Model.Name"></th>
+                                        <th><input class="input_email" type="text" name="email" id="send-form-name" placeholder="Email" value="@Model.Email"></th>
+                                        <th><input class="input_rfc" type="text" name="rfc" id="send-form-name" placeholder="RFC" value="@Model.Rfc_id"></th>
+                                        <th><input class="input_antboxs" type="text" name="antboxs" id="send-form-name" placeholder="Antboxs" value="@Model.Antboxs"></th>
+                                        <th>
+                                            <input type="hidden" id="statusvalue" value="@Model.Status" />
+                                            <select id="status" name="status">
+                                                <option value="" >Estatus</option>
+                                                <option value="true" >Pagado</option>
+                                                <option value="false" >Retrasado</option>
+                                            </select>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (Model.Customers.Customers != null)
+                                    {
+                                        foreach (var item in Model.Customers.Customers)
+                                        {
+                                            <tr>
+                                                <td><button type="button" class="btn-link" data-toggle="modal" data-target="#nombre_cliente">@item.Lastname @item.Lastname2 @item.Name</button></td>
+                                                <td>@item.Email</td>
+                                                <td>-</td>
+                                                <td>@item.Antboxs</td>
+                                                if (@item.Status)
+                                                {
+                                                    <td>Pagado</td>
+                                                } else {
+                                                    <td>Retrasado</td>
+                                                }
+                                            </tr>
+                                        }
+                                    }
+                                   
+                                </tbody>
+                            </table>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!-- <div class"row">
+                <div class="col-sm-12 pt10 pl0 pr0 text-center">
+                    <ul class="pagination solid">
+                        <li class="pull-left"><a href="#" class="prev"><i class="fa fa-angle-left"></i></a></li>
+                        <li class="pull-right"><a href="#" class="next"><i class="fa fa-angle-right"></i></a></li>
+                        <li class="active"><a href="#">1</a></li>
+                        <li><a href="#">2</a></li>
+                        <li><a href="#">3</a></li>
+                        <li><a href="#">4</a></li>
+                        <li><a href="#">…</a></li>
+                        <li><a href="#">36</a></li>
+                    </ul>
+                </div>
+            </div>-->
+
+        </div>
+        <!-- /.container -->
+    </div>
+    <!-- /.content -->
+</div>
+<!-- /.wrapper -->
+@section Scripts
+{
+    <script>
+        $(function () {
+            $("#status").val($("#statusvalue").val());
+        })
+    </script>
+}
+

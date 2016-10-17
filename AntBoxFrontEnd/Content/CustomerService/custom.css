@@ -1,0 +1,406 @@
+/*----------------------------------- GENERAL -------------------------------------*/
+
+.ml0 {margin-left: 0px !important;}
+.mt0 {margin-top: 0px !important;}
+.mr0 {margin-right: 0px !important;}
+.mb0 {margin-bottom: 0px !important;}
+
+.pl0 {padding-left: 0px !important;}
+.pt0 {padding-top: 0px !important;}
+.pr0 {padding-right: 0px !important;}
+.pb0 {padding-bottom: 0px !important;}
+
+.ml5 {margin-left: 5px !important;}
+.mt5 {margin-top: 5px !important;}
+.mr5 {margin-right: 5px !important;}
+.mb5 {margin-bottom: 5px !important;}
+
+.pl5 {padding-left: 5px !important;}
+.pt5 {padding-top: 5px !important;}
+.pr5 {padding-right: 5px !important;}
+.pb5 {padding-bottom: 5px !important;}
+
+.ml10 {margin-left: 10px !important;}
+.mt10 {margin-top: 10px !important;}
+.mr10 {margin-right: 10px !important;}
+.mb10 {margin-bottom: 10px !important;}
+
+.pl5 {padding-left: 5px !important;}
+
+.pl10 {padding-left: 10px !important;}
+.pt10 {padding-top: 10px !important;}
+.pr10 {padding-right: 10px !important;}
+.pb10 {padding-bottom: 10px !important;}
+
+.ml20 {margin-left: 20px !important;}
+.mt20 {margin-top: 20px !important;}
+.mr20 {margin-right: 20px !important;}
+.mb20 {margin-bottom: 20px !important;}
+
+.pl20 {padding-left: 20px !important;}
+.pt20 {padding-top: 20px !important;}
+.pr20 {padding-right: 20px !important;}
+.pb20 {padding-bottom: 20px !important;}
+
+.pt15 {padding-top: 15px !important;}
+
+.ml30 {margin-left: 30px !important;}
+.mt30 {margin-top: 30px !important;}
+.mr30 {margin-right: 30px !important;}
+.mb30 {margin-bottom: 30px !important;}
+
+.pl30 {padding-left: 30px !important;}
+.pt30 {padding-top: 30px !important;}
+.pr30 {padding-right: 30px !important;}
+.pb30 {padding-bottom: 30px !important;}
+
+.ml40 {margin-left: 40px !important;}
+.mt40 {margin-top: 40px !important;}
+.mr40 {margin-right: 40px !important;}
+.mb40 {margin-bottom: 40px !important;}
+
+.pl40 {padding-left: 40px !important;}
+.pt40 {padding-top: 40px !important;}
+.pr40 {padding-right: 40px !important;}
+.pb40 {padding-bottom: 40px !important;}
+
+.ml50 {margin-left: 50px !important;}
+.mt50 {margin-top: 50px !important;}
+.mr50 {margin-right: 50px !important;}
+.mb50 {margin-bottom: 50px !important;}
+
+.pl50 {padding-left: 50px !important;}
+.pt50 {padding-top: 50px !important;}
+.pr50 {padding-right: 50px !important;}
+.pb50 {padding-bottom: 50px !important;}
+
+.ml60 {margin-left: 60px !important;}
+.mt60 {margin-top: 60px !important;}
+.mr60 {margin-right: 60px !important;}
+.mb60 {margin-bottom: 60px !important;}
+
+.pl60 {padding-left: 60px !important;}
+.pt60 {padding-top: 60px !important;}
+.pr60 {padding-right: 60px !important;}
+.pb60 {padding-bottom: 60px !important;}
+
+.ml70 {margin-left: 70px !important;}
+.mt70 {margin-top: 70px !important;}
+.mr70 {margin-right: 70px !important;}
+.mb70 {margin-bottom: 70px !important;}
+
+.pl70 {padding-left: 70px !important;}
+.pt70 {padding-top: 70px !important;}
+.pr70 {padding-right: 70px !important;}
+.pb70 {padding-bottom: 70px !important;}
+
+/* Botones de regresar */
+.btn_blue {
+    background-color: #192151!important;
+}
+.btn_blue:hover {
+    background-color: #2f3b80!important;
+}
+
+.back_gris {
+    background-color: #f5f5f5;
+}
+.floatr {
+    float: right;
+}
+.floatl {
+    float: left;
+}
+
+
+/* Paginadores */
+ul.pagination .prev, ul.pagination .next {
+    line-height: 40px;
+    width: 41px;
+    height: 41px;
+
+}
+/* Paginadores */
+.pagination li[class*=pull-] {
+    margin-top: 0px;
+}
+
+/* Form opción múltiple */
+.active-result {
+    color: #000 !important;
+}
+/* Form opción múltiple */
+.active-result:hover {
+    background-color: #192151;
+    color: #fff !important;
+}
+/*Encabezados*/
+.pagetitle .title {
+    font-size: 22px;
+    font-weight: 400;
+    line-height: 30px;
+    display: inline-block;
+    margin: 0;
+    vertical-align: middle;
+    color: #fff;
+}
+
+/* Botones tipo link - color */
+.btn-link {
+    font-weight: 400;
+    color: #000;
+    border: 0;
+    text-decoration: none;
+    text-align: left;
+}
+/* Botones tipo link - color sobre */
+.btn-link:hover {
+    color: #ba2025;
+    font-weight: 600;
+    text-decoration: none;
+}
+/* Botones tipo link - color después de ser visitados*/
+.btn-link:visited, .btn-link:focus  {
+    color: #000;
+    text-decoration: none;
+}
+/* Cursor en links */
+a:hover {
+    cursor: pointer;
+}
+
+/* Color de fondo de cabecera de tabla */
+.table-responsive table th {
+    background-color: #192151;
+    color: #fff;
+}
+
+/* Color de fondo de filas pares */
+.table-responsive table tr:nth-of-type(even) {
+    background-color: #f5f5f5;
+}
+
+/* Para el menú */
+/* Debido a que se quita el Plugin de plugin.js - Chosen v1.5.1 | (c) 2011-2016 by Harvest | MIT License, https://github.com/harvesthq/chosen/blob/master/LICENSE.md   */
+.collapse {
+    display: inherit !important;
+}
+
+/* Alto de btn de calendario - Antboxs */
+.input-group .btn {
+    height: 25px !important;
+    padding-left: 5px;
+    padding-right: 5px;
+    
+}
+
+.input-group input{
+    max-width: 85px !important;
+}
+.input-group {
+    max-width: 85px !important;
+}
+.input_antboxs, .input_pedido, .input_plazo {
+    min-width: 40px !important;
+    max-width: 80px !important;
+}
+.input_codigo {
+    min-width: 60px !important;
+    max-width: 80px !important;
+}
+
+/* Alto de btn de calendario - Antboxs */
+input, textarea {
+    height: 25px !important;
+    
+}
+
+/* Estilos de cambos de input - Antboxs */
+table input {
+    color: #000;
+    background-color: #fff !important;
+    border: 0px solid #d9d9d9 !important;
+    padding: 0 5px !important;
+    
+}
+
+/* Estilos de select - Antboxs */
+select {
+    font-size: 100%;
+    font-weight: 400;
+    cursor: pointer;
+    line-height: 22px;
+    position: relative;
+    display: block;
+    overflow: hidden;
+    height: 25px;
+    padding: 0 10px 0 10px;
+    transition: color 2s ease;
+    white-space: nowrap;
+    text-decoration: none;
+    color: #000;
+    border: 0px;
+    border-radius: 2px;
+    background-clip: padding-box;
+}
+.input-group .form-control {
+    width: inherit;
+}
+
+/* Input calendario - Antboxs */
+/*.input-group .form-control {
+    width: 105px;
+}
+table {
+    width: inherit!important;
+}
+*/
+.input_cliente {
+    max-width: 100% !important;
+}
+
+/* Espacio alrededor de la tabla y centrar el texto */
+.table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
+    padding: 8px 5px 8px 5px !important;
+    vertical-align: middle;
+}
+
+.modal-lg .modal-body-inside {
+    padding: 20px;
+}
+/*----------------------------------- MENU -------------------------------------*/
+
+/* Cambio de color de barrita lateral izquierda en hover en menú mobile */
+.no-menu .header:not(.header-vertical) .navbar-collapse .navbar-nav > li:hover > a,
+.no-menu .header:not(.header-vertical) .navbar-collapse .navbar-nav > li.open > a,
+.no-menu .header:not(.header-vertical) .navbar-collapse .navbar-nav > li > a:focus
+{
+    border-left-color: #192151;
+}
+
+/* Cambio de color de barrita superior en hover en menú desk */
+.navbar-nav > li:hover > a,
+.navbar-nav > li.open > a:hover
+{
+    color: #fff;
+    border-top-color: #192151;
+    border-bottom-color: transparent;
+}
+
+.navbar-nav > li:hover > .dropdown-toggle,
+.navbar-nav > li.open > .dropdown-toggle:hover
+{
+    color: #fff;
+    border-top-color: transparent;
+    border-bottom-color: transparent;
+}
+
+
+
+/* Estilo de circulo de perfil */
+.nav_account img {
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+    border-radius: 100%;
+}
+/* Color de menú superior */
+.header-light .dropdown-menu > li > a {
+    color: #000 !important;
+}
+
+.header-light .dropdown-menu > li > a:hover {
+    /*background-color: #192151 !important;*/
+    color: #fff!important;
+}
+
+/* Breadcrumb color */
+.pagetitle {
+    background-color: #192151;
+}
+
+/* Breadcrumb color */
+.pagetitle .divider{
+    background-color: #fff;
+}
+
+/* Breadcrumb color de borde superior */
+.header.header-light {
+    border-bottom: 1px solid #192151 !important;
+}
+
+.nav_account .dropdown-toggle {
+    padding: 0 0 0 0;
+}
+
+.content {
+    padding-top: 30px !important;
+}
+
+/*----------------------------------- CLIENTES -------------------------------------*/
+
+
+.tab-content h6 {
+    margin: 0px 0px 0px 0px !important;
+}
+
+.tab-content p {
+    margin-bottom: 15px !important;
+}
+
+/* Color rojo al título de nombre */
+.title_name {
+    color: #ba2025;
+}
+
+
+/*----------------------------------- ANTBOXS -------------------------------------*/
+
+/* Medidas de tarjeta flip */
+.antboxs .card {
+    padding: 20px !important;
+    width: 100%;
+}
+.antboxs img {
+    /*width: 100%;
+    max-width: 170px;*/
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+}
+/* Fondo de lupa en foto - Mis - Antboxs */
+.antboxs .icon.icon-theme:hover {
+    background-color: #192151 !important;
+}
+
+
+/*----------------------------------- FOOTER -------------------------------------*/
+.footer-extra {
+	background-color: #f5f5f5;
+}
+
+/*----------------------------------- RECOLECCIONES -------------------------------------*/
+
+
+.chosen-container-single .chosen-single abbr {
+    position: absolute;
+    top: 6px;
+    right: 26px;
+    display: block;
+    width: 12px;
+    height: 12px;
+    background: url('../images/chosen-sprite.png') -42px 1px no-repeat;
+    font-size: 1px;
+}
+
+.chosen-container-multi .chosen-choices {
+    background-color: #fff;
+}
+
+/* alto de los input de sección cuenta */
+.cuenta input {
+    height: 42px !important;
+}
+
+.btn-primary {
+    height: 28px !important;
+}

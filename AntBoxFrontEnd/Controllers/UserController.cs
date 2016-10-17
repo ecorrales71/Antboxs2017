@@ -24,12 +24,12 @@ namespace AntBoxFrontEnd.Controllers
 
                 var ser = new UserServices(ServiceConfiguration.GetApiKey());
                 var res = ser.CreateUser(modelUser);
-                return Json(res, JsonRequestBehavior.AllowGet);
+                return Json(new { success = true, responseText = "USUARIO AGREGADO CORRECTAMENTE" }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
                 LogManager.Write(ex.Message, LogManager.Error);
-                return Json(new { success = false, responseText = "OCURRIO UN ERROR AL REGISTRAR LA DIRECCIÓN" }, JsonRequestBehavior.AllowGet);
+                return Json(new { success = false, responseText = "OCURRIO UN ERROR AL REGISTRAR EL USUARIO" }, JsonRequestBehavior.AllowGet);
             }
         }
 

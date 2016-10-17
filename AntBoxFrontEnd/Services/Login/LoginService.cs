@@ -40,6 +40,28 @@ namespace AntBoxFrontEnd.Services.Login
             return id;
         }
 
+        public virtual LoginResponse HovaLoginObject(LoginCreateOptions createOptions, RequestOptions requestOptions = null)
+        {
+            LoginResponse response = null;
+
+            try
+            {
+                requestOptions = SetupRequestOptions(requestOptions);
+
+                var parameters = new Dictionary<string, string> { { "email", createOptions.Email }, { "password", createOptions.Password } };
+
+                var encodedContent = Infrastructure.UrlHelper.BuildURLParametersString(parameters);
+
+                response = Requestor.Get<LoginResponse>(UrlsConstants.Login + encodedContent, requestOptions);
+            }
+            catch (Exception ex)
+            {
+                LogManager.Write(ex.Message + " " + ex.InnerException, LogManager.Error);
+                return null;
+            }
+
+            return response;
+        }
 
         public class LoginResponse
         {
@@ -47,6 +69,8 @@ namespace AntBoxFrontEnd.Services.Login
             public string Id { get; set; }
             [JsonProperty("worker_id")]
             public string Worker_id { get; set; }
+            [JsonProperty("role")]
+            public string Role { get; set; }
         }
 
 

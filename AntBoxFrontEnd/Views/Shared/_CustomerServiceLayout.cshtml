@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
     <title>@ViewBag.Title - Antboxs</title>
 
-    @Styles.Render("~/Content/Admin2")
+    @Styles.Render("~/Content/CustomerService2")
     @RenderSection("css", required: false)
 
     <meta name="description" content="">
@@ -33,14 +33,14 @@
             <div class="nav_account pull-right">
                 <ul class="nav navbar-nav">
                     <li class="dropdown">
-                        <a href="" class="dropdown-toggle" data-toggle="dropdown"><span>@Html.Label(((AntBoxFrontEnd.Services.User.UserResponse)Session["admin"]).Name + " " + ((AntBoxFrontEnd.Services.User.UserResponse)Session["admin"]).Lastname)</span></a>
+                        <a href="" class="dropdown-toggle" data-toggle="dropdown"><span>@Html.Label(((AntBoxFrontEnd.Services.User.UserResponse)Session["helpdesk"]).Name + " " + ((AntBoxFrontEnd.Services.User.UserResponse)Session["helpdesk"]).Lastname)</span></a>
                         <ul class="dropdown-menu">
-                            <li><a href='@Url.Action("Index", "Admin")'><i class="fa fa-user pull-right"></i>Usuarios</a></li>
-                            <li><a href='@Url.Action("Catalogos", "Admin")'><i class="fa fa-building pull-right"></i>Catálogos</a></li>
-                            <li><a href='@Url.Action("Codigos", "Admin")'><i class="fa fa-archive pull-right"></i>Códigos</a></li>
-                            <li><a href='@Url.Action("Cupones", "Admin")'><i class="fa fa-history pull-right"></i>Cupones</a></li>
-                            <li><a href='@Url.Action("Cuenta", "Admin")'><i class="fa fa-credit-card pull-right"></i>Cuenta</a></li>
-                            <li><a href='@Url.Action("Logout", "Admin")'><i class="fa fa-sign-out pull-right"></i>Cerrar Sesión</a></li>
+                            <li><a href="@Url.Action("Index", "CustomerService")"><i class="fa fa-users pull-right"></i>Clientes</a></li>
+                            <li><a href="@Url.Action("Antboxs", "CustomerService")"><i class="fa fa-archive pull-right"></i>Antboxs</a></li>
+                            <li><a href="@Url.Action("Recolecciones", "CustomerService")"><i class="fa fa-truck pull-right"></i>Recolecciones</a></li>
+                            <li><a href="@Url.Action("Entregas", "CustomerService")"><i class="fa fa-truck fa-flip-horizontal pull-right"></i>Entregas</a></li>
+                            <li><a href="@Url.Action("Cuenta", "CustomerService")"><i class="fa fa-user pull-right"></i>Cuenta</a></li>
+                            <li><a href="@Url.Action("Logout", "CustomerService")"><i class="fa fa-sign-out pull-right"></i>Cerrar Sesión</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -52,16 +52,16 @@
             <div id="navbar" class="navbar-collapse collapse pull-right no_landscape_down">
                 <ul class="nav navbar-nav">
                     <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "Index" ? "active" : "")">
-                        <a href="@Url.Action("Index", "Admin")">Usuarios</a>
+                        <a href="@Url.Action("Index", "CustomerService")">Clientes</a>
                     </li>
-                    <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "Catalogos" ? "active" : "")">
-                        <a href="@Url.Action("Catalogos", "Admin")">Catálogos</a>
+                    <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "Antboxs" ? "active" : "")">
+                        <a href="@Url.Action("Antboxs", "CustomerService")">Antboxs</a>
                     </li>
-                    <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "Codigos" ? "active" : "")">
-                        <a href="@Url.Action("Codigos", "Admin")">Códigos</a>
+                    <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "Entregas" ? "active" : "")">
+                        <a href="@Url.Action("Entregas", "CustomerService")">Entregas</a>
                     </li>
-                    <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "Cupones" ? "active" : "")">
-                        <a href="@Url.Action("Cupones", "Admin")">Cupones</a>
+                    <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "Recolecciones" ? "active" : "")">
+                        <a href="@Url.Action("Recolecciones", "CustomerService")">Recolecciones</a>
                     </li>
                 </ul>
             </div>
@@ -91,7 +91,7 @@
 
 @Scripts.Render("~/bundles/jquery")
 @Scripts.Render("~/bundles/bootstrap")
-@Scripts.Render("~/bundles/antbox")
+@Scripts.Render("~/bundles/scriptsservice")
 @Scripts.Render("~/bundles/jqueryval")
 @RenderSection("scripts", required: false)
 
@@ -115,23 +115,4 @@
         }
         
     }
-    jQuery.extend(jQuery.validator.messages, {
-        required: "Este campo es requerido.",
-        remote: "Please fix this field.",
-        email: "Please enter a valid email address.",
-        url: "Please enter a valid URL.",
-        date: "Please enter a valid date.",
-        dateISO: "Please enter a valid date (ISO).",
-        number: "Please enter a valid number.",
-        digits: "Please enter only digits.",
-        creditcard: "Please enter a valid credit card number.",
-        equalTo: "Please enter the same value again.",
-        accept: "Please enter a value with a valid extension.",
-        maxlength: jQuery.validator.format("Por favor ingresa no mas de {0} caracteres."),
-        minlength: jQuery.validator.format("Por favor ingresa al menos {0} caracteres."),
-        rangelength: jQuery.validator.format("Please enter a value between {0} and {1} characters long."),
-        range: jQuery.validator.format("Please enter a value between {0} and {1}."),
-        max: jQuery.validator.format("Please enter a value less than or equal to {0}."),
-        min: jQuery.validator.format("Please enter a value greater than or equal to {0}.")
-    });
 </script>

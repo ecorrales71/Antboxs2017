@@ -80,12 +80,37 @@ namespace AntBoxFrontEnd
                       "~/Content/Admin/custom-responsive.css",
                       "~/Content/Admin/font.css"
                       ));
+            bundles.Add(new StyleBundle("~/Content/CustomerService2").Include(
+                      "~/Content/Customer/preloader.css",
+                      "~/Content/bootstrap.css",
+                      "~/Content/Customer/font-awesome.min.css",
+                      "~/Content/animate.css",
+                      "~/Content/Customer/animate.css",
+                      "~/Content/Customer/revolution.css",
+                      "~/Content/CustomerService/style.css",
+                      "~/Content/Customer/calendar.css",
+                      "~/Content/CustomerService/custom.css",
+                      "~/Content/CustomerService/custom-responsive.css",
+                      "~/Content/CustomerService/font.css"
+                      ));
             bundles.Add(new StyleBundle("~/Content/Login2").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/Admin/custom.css",
                       "~/Content/Admin/custom-responsive.css",
                       "~/Content/Admin/font.css"
                       ));
+
+            bundles.Add(new ScriptBundle("~/bundles/scriptsservice").Include(
+                        "~/Scripts/antbox/jquery-2.1.4.min.js",
+                        "~/Scripts/antbox/plugins.js",
+                        "~/Scripts/antbox/fontawesome-markers.min.js",
+                        "~/Scripts/customerService/custom.js",
+                        "~/Scripts/antbox/calendar.js",
+                        "~/Scripts/antbox/calendar-es.js",
+                        "~/Scripts/antbox/calendar-setup.js",
+                        "~/Scripts/antbox/openpay.v1.js",
+                        "~/Scripts/antbox/openpay-data.v1.js"
+            ));
         }
     }
 }

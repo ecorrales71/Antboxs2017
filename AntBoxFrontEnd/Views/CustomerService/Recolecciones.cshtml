@@ -1,0 +1,209 @@
+﻿
+@{
+    ViewBag.Title = "Recolecciones";
+}
+<!-- WRAPPER -->
+<div class="wrapper">
+    <!-- PAGE TITLE -->
+    <header class="pagetitle pagetitle-sm">
+        <div class="container">
+            <div class="divtable irow">
+                <div class="divcell">
+                    <i class="fa fa-archive"></i>
+                    <span class="title">Customer Service</span>
+                    <div class="divider"></div>
+                    <span class="subtitle">Almacenamiento Seguro, Fácil y Conveniente</span>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- /.pagetitle -->
+    <!-- CONTENT -->
+    <div class="content clientes">
+        <!-- CONTAINER -->
+        <div class="container">
+            <div class="row irow-xs">
+                <div class="col-sm-12">
+                    <h1>Recolecciones</h1>
+                </div>
+            </div>
+        </div>
+        <!-- /.container -->
+        <!-- CONTAINER -->
+        <div class="container mt0">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <form id="search" action="../../php/email.php" method="post" class="contact-form form-solid " novalidate>
+                                <div class="col-sm-12 pr0 pb0">
+                                    <input type="submit" class="btn btn-primary btn-wide pull-right mt10" value="Buscar">
+                                    <input type="reset" class="btn btn-primary btn-wide btn_blue pull-right mt10 mr10" value="Borrar campos">
+                                </div>
+                                <thead>
+                                    <tr>
+                                        <th><input class="input_cliente" type="text" name="name" id="send-form-name" placeholder="Cliente"></th>
+                                        <th>
+                                            <select>
+                                                <option value="Default">Tipo</option>
+                                                <option value="Nuevo">Nuevo</option>
+                                                <option value="Recolección">Recolección</option>
+                                            </select>
+                                        </th>
+                                        <th><input class="input_operador" type="text" name="name" id="send-form-name" placeholder="Operador"></th>
+                                        <th><input class="input_antboxs" type="text" name="name" id="send-form-name" placeholder="Antboxs"></th>
+                                        <th>
+                                            <div class="input-group mb0">
+                                                <span class="input-group-btn">
+                                                    <button type="button" id="solicitud" class="btn btn-primary pull-right"><i class="fa fa-calendar"></i></button>
+                                                </span>
+                                                <input class="form-control" type="text" id="fecha_solicitud" name="fecha_solicitud" placeholder="Solicitud">
+                                            </div>
+                                        </th>
+                                        <th>
+                                            <div class="input-group mb0">
+                                                <span class="input-group-btn">
+                                                    <button type="button" id="recoleccion" class="btn btn-primary pull-right"><i class="fa fa-calendar"></i></button>
+                                                </span>
+                                                <input class="form-control" type="text" id="fecha_recoleccion" name="fecha_recoleccion" placeholder="Recolección">
+                                            </div>
+                                        </th>
+                                        <th>
+                                            <select id="form-select">
+                                                <option value="Default" selected="selected">Horario</option>
+                                                <option value="09-11">07:00-09:00</option>
+                                                <option value="11-13">11:00-13:00</option>
+                                                <option value="13-15">13:00-15:00</option>
+                                                <option value="15-17">15:00-17:00</option>
+                                                <option value="17-19">17:00-19:00</option>
+                                            </select>
+                                        </th>
+                                        <th>
+                                            <select id="form-select">
+                                                <option value="" selected="selected">Estatus</option>
+                                                <option value="Confirmado">Confirmado</option>
+                                                <option value="Programado">Programado</option>
+                                            </select>
+                                        </th>
+                                    </tr>
+                                </thead>
+                            </form>
+                            <tbody>
+                                <tr>
+                                    <td><button type="button" class="btn-link" data-toggle="modal" data-target="#nombre_cliente">Rodríguez Pérez Joaquín</button></td>
+                                    <td>Nuevo</td>
+                                    <td>Joaquín Rodríguez Pérez</td>
+                                    <td>1</td>
+                                    <td>09/07/2016</td>
+                                    <td>24/10/2016</td>
+                                    <td>17:00-19:00</td>
+                                    <td>Programado</td>
+                                </tr>
+                                <tr>
+                                    <td><button type="button" class="btn-link" data-toggle="modal" data-target="#nombre_cliente">Osorio Laverde Beatriz Elena</button></td>
+                                    <td>Recolección</td>
+                                    <td>Beatriz Elena Osorio Laverde</td>
+                                    <td>7</td>
+                                    <td>28/03/2016</td>
+                                    <td>09/07/2016</td>
+                                    <td>09:00-11:00</td>
+                                    <td>En camino</td>
+                                </tr>
+                                <tr>
+                                    <td><button type="button" class="btn-link" data-toggle="modal" data-target="#nombre_cliente">Gómez Álvarez Lillian Eugenia</button></td>
+                                    <td>Recolección</td>
+                                    <td>Lilian Eugenia Gómez Álvarez</td>
+                                    <td>5</td>
+                                    <td>03/06/2016</td>
+                                    <td>28/03/2017</td>
+                                    <td>13:00-15:00</td>
+                                    <td>Confirmado</td>
+                                </tr>
+                                <tr>
+                                    <td><button type="button" class="btn-link" data-toggle="modal" data-target="#nombre_cliente">Murillo González Oscar Darío</button></td>
+                                    <td>Recolección</td>
+                                    <td>Joaquín Rodríguez Pérez</td>
+                                    <td>2</td>
+                                    <td>10/03/2016</td>
+                                    <td>24/10/2016</td>
+                                    <td>15:00-17:00</td>
+                                    <td>Confirmado</td>
+                                </tr>
+                                <tr>
+                                    <td><button type="button" class="btn-link" data-toggle="modal" data-target="#nombre_cliente">Oficinas - Posada Vera Bernardo</button></td>
+                                    <td>Nuevo</td>
+                                    <td>Lilian Eugenia Gómez Álvarez</td>
+                                    <td>15</td>
+                                    <td>24/10/2016</td>
+                                    <td>28/03/2017</td>
+                                    <td>09:00-11:00</td>
+                                    <td>Programado</td>
+                                </tr>
+                                <tr>
+                                    <td><button type="button" class="btn-link" data-toggle="modal" data-target="#nombre_cliente">Aguilar Gómez Javier Ignacio</button></td>
+                                    <td>Recolección</td>
+                                    <td>Joaquín Rodríguez Pérez</td>
+                                    <td>3</td>
+                                    <td>02/08/2016</td>
+                                    <td>14/11/2016</td>
+                                    <td>11:00-13:00</td>
+                                    <td>En camino</td>
+                                </tr>
+                                <tr>
+                                    <td><button type="button" class="btn-link" data-toggle="modal" data-target="#nombre_cliente">Rodríguez Pérez Joaquín</button></td>
+                                    <td>Nuevo</td>
+                                    <td>Joaquín Rodríguez Pérez</td>
+                                    <td>1</td>
+                                    <td>09/07/2016</td>
+                                    <td>24/10/2016</td>
+                                    <td>17:00-19:00</td>
+                                    <td>Programado</td>
+                                </tr>
+                                <tr>
+                                    <td><button type="button" class="btn-link" data-toggle="modal" data-target="#nombre_cliente">Osorio Laverde Beatriz Elena</button></td>
+                                    <td>Recolección</td>
+                                    <td>Lilian Eugenia Gómez Álvarez</td>
+                                    <td>2</td>
+                                    <td>28/03/2016</td>
+                                    <td>09/07/2016</td>
+                                    <td>09:00-11:00</td>
+                                    <td>Confirmado</td>
+                                </tr>
+                                <tr>
+                                    <td><button type="button" class="btn-link" data-toggle="modal" data-target="#nombre_cliente">Gómez Álvarez Lillian Eugenia</button></td>
+                                    <td>Recolección</td>
+                                    <td>Beatriz Elena Osorio Laverde</td>
+                                    <td>9</td>
+                                    <td>03/06/2016</td>
+                                    <td>28/03/2017</td>
+                                    <td>13:00-15:00</td>
+                                    <td>Confirmado</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class"row">
+                <div class="col-sm-12 pl0 pr0 text-center">
+                    <!-- PAGINATION -->
+                    <ul class="pagination solid">
+                        <li class="pull-left"><a href="#" class="prev"><i class="fa fa-angle-left"></i></a></li>
+                        <li class="pull-right"><a href="#" class="next"><i class="fa fa-angle-right"></i></a></li>
+                        <li class="active"><a href="#">1</a></li>
+                        <li><a href="#">2</a></li>
+                        <li><a href="#">3</a></li>
+                        <li><a href="#">4</a></li>
+                        <li><a href="#">…</a></li>
+                        <li><a href="#">36</a></li>
+                    </ul>
+                    <!-- /.pagination -->
+                </div>
+            </div>
+        </div>
+        <!-- /.container -->
+    </div>
+    <!-- /.content -->
+</div>
+<!-- /.wrapper -->
+

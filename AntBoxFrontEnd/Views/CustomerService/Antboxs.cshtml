@@ -1,0 +1,190 @@
+﻿
+@{
+    ViewBag.Title = "Antboxs";
+}
+<!-- WRAPPER -->
+<div class="wrapper">
+    <!-- PAGE TITLE -->
+    <header class="pagetitle pagetitle-sm">
+        <div class="container">
+            <div class="divtable irow">
+                <div class="divcell">
+                    <i class="fa fa-archive"></i>
+                    <span class="title">Customer Service</span>
+                    <div class="divider"></div>
+                    <span class="subtitle">Almacenamiento Seguro, Fácil y Conveniente</span>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- /.pagetitle -->
+    <!-- CONTENT -->
+    <div class="content antboxs">
+        <!-- CONTAINER -->
+        <div class="container">
+            <div class="row irow-xs">
+                <div class="col-sm-12">
+                    <h1>Antboxs</h1>
+                </div>
+            </div>
+        </div>
+        <!-- /.container -->
+        <!-- CONTAINER -->
+        <div class="container mt0">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <form id="search" action="../../php/email.php" method="post" class="contact-form form-solid " novalidate>
+                                <div class="col-sm-12 pr0 pb0">
+                                    <input type="submit" class="btn btn-primary btn-wide pull-right mt10" value="Buscar">
+                                    <input type="reset" class="btn btn-primary btn-wide btn_blue pull-right mt10 mr10" value="Borrar campos">
+                                </div>
+                                <thead>
+                                    <tr>
+                                        <th><input class="input_cliente" type="text" name="name" id="send-form-name" placeholder="Cliente"></th>
+                                        <th><input class="input_pedido" type="text" name="name" id="send-form-name" placeholder="Pedido"></th>
+                                        <th><input class="input_codigo" type="text" name="name" id="send-form-name" placeholder="Código"></th>
+                                        <th>
+                                            <div class="input-group mb0">
+                                                <span class="input-group-btn">
+                                                    <button type="button" id="registro" class="btn btn-primary pull-right"><i class="fa fa-calendar"></i></button>
+                                                </span>
+                                                <input class="form-control" type="text" id="fecha_registro" name="fecha_registro" placeholder="Registro">
+                                            </div>
+                                        </th>
+                                        <th>
+                                            <div class="input-group mb0">
+                                                <span class="input-group-btn">
+                                                    <button type="button" id="recoleccion" class="btn btn-primary pull-right"><i class="fa fa-calendar"></i></button>
+                                                </span>
+                                                <input class="form-control" type="text" id="fecha_recoleccion" name="fecha_recoleccion" placeholder="Recolección">
+                                            </div>
+                                        </th>
+                                        <th>
+                                            <div class="input-group mb0">
+                                                <span class="input-group-btn">
+                                                    <button type="button" id="almacen" class="btn btn-primary pull-right"><i class="fa fa-calendar"></i></button>
+                                                </span>
+                                                <input class="form-control" type="text" id="fecha_almacen" name="fecha_almacen" placeholder="Almacén">
+                                            </div>
+                                        </th>
+                                        <th>
+                                            <div class="input-group mb0">
+                                                <span class="input-group-btn">
+                                                    <button type="button" id="entrega" class="btn btn-primary pull-right"><i class="fa fa-calendar"></i></button>
+                                                </span>
+                                                <input class="form-control" type="text" id="fecha_entrega" name="fecha_entrega" placeholder="Entrega">
+                                            </div>
+                                        </th>
+                                        <th>
+                                            <select id="form-select">
+                                                <option value="" selected="selected">Estatus</option>
+                                                <option value="Entregado">Entregado</option>
+                                                <option value="Programado">Programado</option>
+                                            </select>
+                                        </th>
+                                        <th>
+                                            <select id="form-select">
+                                                <option value="" selected="selected">Mod.</option>
+                                                <option value="A1">A1</option>
+                                                <option value="A2">A2</option>
+                                            </select>
+                                        </th>
+                                    </tr>
+                                </thead>
+                            </form>
+                            <tbody>
+                                <tr>
+                                    <td><button type="button" class="btn-link" data-toggle="modal" data-target="#nombre_cliente">Rodríguez Pérez Joaquín</button></td>
+                                    <td>0001</td>
+                                    <td>849502</td>
+                                    <td>02/08/2016</td>
+                                    <td>14/11/2016</td>
+                                    <td>03/08/2016</td>
+                                    <td>14/11/2016</td>
+                                    <td>Entregado</td>
+                                    <td>A1</td>
+                                </tr>
+                                <tr>
+                                    <td><button type="button" class="btn-link" data-toggle="modal" data-target="#nombre_cliente">Osorio Laverde Beatriz Elena</button></td>
+                                    <td>0002</td>
+                                    <td>746392</td>
+                                    <td>24/10/2016</td>
+                                    <td>28/03/2017</td>
+                                    <td>28/10/2016</td>
+                                    <td>14/11/2016</td>
+                                    <td>Entregado</td>
+                                    <td>A1</td>
+                                </tr>
+                                <tr>
+                                    <td><button type="button" class="btn-link" data-toggle="modal" data-target="#nombre_cliente">Gómez Álvarez Lillian Eugenia</button></td>
+                                    <td>0003</td>
+                                    <td>956116</td>
+                                    <td>10/03/2016</td>
+                                    <td>24/10/2016</td>
+                                    <td>13/03/2016</td>
+                                    <td>24/10/2016</td>
+                                    <td>Entregado</td>
+                                    <td>A1</td>
+                                </tr>
+                                <tr>
+                                    <td><button type="button" class="btn-link" data-toggle="modal" data-target="#nombre_cliente">Murillo González Oscar Darío</button></td>
+                                    <td>0004</td>
+                                    <td>004277</td>
+                                    <td>03/06/2016</td>
+                                    <td>28/03/2017</td>
+                                    <td>04/06/2016</td>
+                                    <td>Retrasado</td>
+                                    <td>Entregado</td>
+                                    <td>A1</td>
+                                </tr>
+                                <tr>
+                                    <td><button type="button" class="btn-link" data-toggle="modal" data-target="#nombre_cliente">Oficinas - Posada Vera Bernardo</button></td>
+                                    <td>0005</td>
+                                    <td>453434</td>
+                                    <td>28/03/2016</td>
+                                    <td>09/07/2016</td>
+                                    <td>01/04/2016</td>
+                                    <td>24/10/2016</td>
+                                    <td>Entregado</td>
+                                    <td>A1</td>
+                                </tr>
+                                <tr>
+                                    <td><button type="button" class="btn-link" data-toggle="modal" data-target="#nombre_cliente">Aguilar Gómez Javier Ignacio</button></td>
+                                    <td>0006</td>
+                                    <td>018293</td>
+                                    <td>09/07/2016</td>
+                                    <td>24/10/2016</td>
+                                    <td>10/07/2016</td>
+                                    <td>28/03/2016</td>
+                                    <td>Entregado</td>
+                                    <td>A1</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class"row">
+                <div class="col-sm-12 pt10 pl0 pr0 text-center">
+                    <!-- PAGINATION -->
+                    <ul class="pagination solid">
+                        <li class="pull-left"><a href="#" class="prev"><i class="fa fa-angle-left"></i></a></li>
+                        <li class="pull-right"><a href="#" class="next"><i class="fa fa-angle-right"></i></a></li>
+                        <li class="active"><a href="#">1</a></li>
+                        <li><a href="#">2</a></li>
+                        <li><a href="#">3</a></li>
+                        <li><a href="#">4</a></li>
+                        <li><a href="#">…</a></li>
+                        <li><a href="#">36</a></li>
+                    </ul>
+                    <!-- /.pagination -->
+                </div>
+            </div>
+        </div>
+        <!-- /.container -->
+    </div>
+    <!-- /.content -->
+</div>
+<!-- /.wrapper -->

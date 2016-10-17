@@ -133,7 +133,7 @@
                 </div>
                 <div class="col-sm-6">
                     <h3>Formulario de Contacto</h3>
-                    <form action="../../php/email.php" method="post" class="contact-form form-solid mt30" novalidate>
+                    <form id="form-contact" method="post" class="contact-form form-solid mt30" novalidate>
                         <div class="form-group">
                             <label for="send-form-name">Nombre</label>
                             <input type="text" name="name" id="send-form-name">
@@ -154,7 +154,7 @@
                             <label for="send-form-message">Mensaje</label>
                             <textarea name="message" id="send-form-message"></textarea>
                         </div>
-                        <input type="submit" class="btn btn-primary btn-wide" value="Enviar">
+                        <input type="submit" class="btn btn-primary btn-wide send-message" value="Enviar">
                         <p class="succs-msg">Мessage was sent</p>
                     </form>
                 </div>
@@ -217,5 +217,21 @@
       }
       })(marker, i));
     }
+
+    $(".send-message").click(function () {
+        var formData = $("#form-contact").serialize();
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("ContactPost", "Home")',
+            data: formData,
+            success: function (data) {
+                if (data.success) {
+                    alert(data.responseText);
+                } else {
+                    alert(data.responseText);
+                }
+            }
+        });
+    });
   })(jQuery);
 </script>

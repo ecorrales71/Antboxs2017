@@ -60,6 +60,10 @@ namespace AntBoxFrontEnd.Infrastructure
 
         public static String CodeList { get { return BaseUrl + "/code/search"; } }
 
+        public static String CustomerList { get { return BaseUrl + "/listing/customer"; } }
+
+        public static String Contact { get { return BaseUrl + "/contact"; } } 
+
         public static String ValidateAddress { get { return BaseUrl + "/customer-address/check"; } }
 
 

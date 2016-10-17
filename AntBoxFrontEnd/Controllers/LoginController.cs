@@ -31,21 +31,41 @@ namespace AntBoxFrontEnd.Controllers
 
             LoginService ls = new LoginService(ServiceConfiguration.GetApiKey());
 
-            string id = ls.HovaLogin(usr);
+            AntBoxFrontEnd.Services.Login.LoginService.LoginResponse loginObject = ls.HovaLoginObject(usr);
 
-            UserServices us = new UserServices(ServiceConfiguration.GetApiKey());
-
-            UserResponse admin = us.SearchUser(id);
-
-            if (admin != null)
+            if (loginObject != null)
             {
-                Session["admin"] = admin;
-                return Json(new { success = true, user = admin }, JsonRequestBehavior.AllowGet);
-                //return Json(new { success = true, user = customer }, JsonRequestBehavior.AllowGet);
+
+                UserServices us = new UserServices(ServiceConfiguration.GetApiKey());
+
+                UserResponse user = us.SearchUser(loginObject.Id);
+
+                string link = "";
+
+                if (user != null)
+                {
+                    if (loginObject.Role == "administrator")
+                    {
+                        Session["admin"] = user;
+                        link = Url.Action("Index", "Admin");
+                    }
+                    else if (loginObject.Role == "helpdesk")
+                    {
+                        Session["helpdesk"] = user;
+                        link = Url.Action("Index", "CustomerService");
+                    }
+
+                    return Json(new { success = true, user = user, link = link }, JsonRequestBehavior.AllowGet);
+                    //return Json(new { success = true, user = customer }, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    return Json(new { success = false, user = user }, JsonRequestBehavior.AllowGet);
+                }
             }
             else
             {
-                return Json(new { success = false, user = admin }, JsonRequestBehavior.AllowGet);
+                return Json(new { success = false }, JsonRequestBehavior.AllowGet);
             }
             //}
             //return RedirectToAction("Index", "Home");

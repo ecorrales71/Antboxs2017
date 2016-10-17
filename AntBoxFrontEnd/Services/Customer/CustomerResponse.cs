@@ -16,7 +16,7 @@ namespace AntBoxFrontEnd.Services.Customer
 
         [JsonProperty("lastname2")]
         public string Lastname2 { get; set; }
-
+         
         [JsonProperty("lastname")]
         public string LastName { get; set; }
 

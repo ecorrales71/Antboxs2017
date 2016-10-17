@@ -1,0 +1,150 @@
+@media screen and (max-width: 992px){
+    /* Espacio superior en menú - Menú */
+    .navbar-nav {
+    	padding-bottom: 0px;
+    }
+    /* Espacio superior en menú - Menú */
+    .irow-sm [class*=col-] {
+    	margin-bottom: 0px;
+    }
+}
+@media screen and (min-width: 768px){
+	/*padding left de form modal medio*/
+	.pl0_modal {
+		padding-left: 0px;
+	}
+	/*Tamaño del modal medio*/
+	.modal-md {
+    width: 700px;
+}
+}
+@media screen and (min-width: 479px){
+	.w100 {
+	    width: 100%
+	}
+	/* Acomodar textos - Pagos */
+    .pagos .media-body h4 {  
+        position: relative;
+        float: left;
+    }
+    /* Acomodar textos - Pagos */
+    .pagos .media-body p, .pagos .media-body a {  
+        position: relative;
+        float: left;
+        margin-left: 20px;
+    }
+
+}
+
+@media screen and (max-width: 479px){
+
+	/* Quitar espacio al circulo de cuenta - Menú 
+	.navbar-nav > li > a {
+		padding: 0px;
+	}*/
+	.no_mobile {
+		display: none !important;
+	}
+	/*.navbar {
+		padding: 0 20px !important;
+	}
+	.pl10_pr10_mobiles {
+		padding-left: 15px;
+		padding-right: 15px;
+		clear: left;
+	}*/
+}
+
+@media screen and (max-width: 767px){
+	/* Quitar espacio abajo del menú central - Index */
+	.inicio .irow-md [class*=col-], .inicio .irow-sm [class*=col-], .inicio .irow-xs [class*=col-] {
+    	margin-bottom: 0px;
+	}
+	/* Separar txt d eimagen en mis-antboxs - Mis Antboxs */
+    .mis_antboxs .antboxs_txt {
+    	margin-top: 20px;
+    	text-align: left;
+    }
+    .media-left {
+    	padding: 0 0 10px;
+    }
+    /* Colocar el btn de facturar en el lado sup derecha - Pagos */
+    .pagos .media-body a  {
+	    position: absolute;
+	    z-index: 2;
+	    top: 15px;
+	    right: 15px;
+	    display: block;
+	}
+	/* Acomodar textos - Pagos */
+	.pagos .media-body h4 {  
+        position: relative;
+        float: left;
+        margin-right: 20px;
+    }
+    .pagetitle .fa, .pagetitle.pagetitle-collapse .fa {
+    	display: inherit;
+    }
+
+    .pagos .media-body h4, .pagos .media-body p {
+    	display: inline-block;
+    } 
+
+}
+
+@media screen and (max-width: 991px){
+	.direcciones .media-left {
+    	display: block;
+    	padding: 0 0 25px;
+	}
+	.no_portrait {
+		display: none;
+	}
+	
+}
+@media screen and (min-width: 992px){
+	.only_portrait {
+		display: none;
+	}
+}
+
+@media screen and (max-width: 380px){
+	.no_iphone_portrait {
+		display: none;
+	}
+	.center_iphone_portrait {
+		text-align: center !important;
+		float: none !important;
+	}
+	.pb10__iphone_portrait {
+		margin-bottom: 10px !important;
+		min-width: 100% !important;
+
+	}
+	a.navbar-brand img {
+		width: 80%;
+	}
+	
+}
+
+@media screen and (max-width: 767px){
+	/* Quitar espacio a la derecha del circulo de perfil - Menú*/
+	.nav_account img {
+    	margin-right: 0px;
+	}
+	/* Quitar nombre de usuario - Menú*/
+    .nav_account a span {
+		display: none;
+	}
+}
+
+@media screen and (max-width: 1024px){
+	.no_landscape_down {
+		display: none;
+	}
+	/* Para el menú */
+	/* Debido a que se quita el Plugin - Chosen v1.5.1 | (c) 2011-2016 by Harvest | MIT License, https://github.com/harvesthq/chosen/blob/master/LICENSE.md   */
+.collapse {
+    display: none !important;
+}
+}

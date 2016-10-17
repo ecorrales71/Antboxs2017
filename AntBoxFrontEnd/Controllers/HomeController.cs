@@ -3,6 +3,7 @@ using AntBoxFrontEnd.Infrastructure;
 using AntBoxFrontEnd.Models;
 using AntBoxFrontEnd.Services.Address;
 using AntBoxFrontEnd.Services.Boxes;
+using AntBoxFrontEnd.Services.Contact;
 using AntBoxFrontEnd.Services.Customer;
 using AntBoxFrontEnd.Services.Zipcodes;
 using AutoMapper;
@@ -56,6 +57,21 @@ namespace AntBoxFrontEnd.Controllers
             ViewBag.Message = "Pagina de contacto.";
 
             return View();
+        }
+
+        public JsonResult ContactPost(ContactRequestOptions modelContact)
+        {
+            try
+            {
+                var ser = new ContactService(ServiceConfiguration.GetApiKey());
+                var res = ser.Send(modelContact);
+                return Json(new { success = res, responseText = "Mensaje enviado correctamente" }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                LogManager.Write(ex.Message, LogManager.Error);
+                return Json(new { success = false, responseText = "Ocurrio un error al enviar el mensaje, intentelo de nuevo mas tarde" }, JsonRequestBehavior.AllowGet);
+            }
         }
 
         public ActionResult PreguntasFrecuentes()

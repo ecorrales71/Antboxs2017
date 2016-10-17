@@ -244,6 +244,7 @@
     <Compile Include="Controllers\CouponController.cs" />
     <Compile Include="Controllers\CustomerAntBoxController.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
+    <Compile Include="Controllers\CustomerServiceController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -286,6 +287,7 @@
     <Compile Include="Models\abTask.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\abAddress.cs" />
+    <Compile Include="Models\CustomerListModel.cs" />
     <Compile Include="Models\CouponModel.cs" />
     <Compile Include="Models\BoxModel.cs" />
     <Compile Include="Models\AntBoxTasksViewModel.cs" />
@@ -319,15 +321,19 @@
     <Compile Include="Services\Code\CodeService.cs" />
     <Compile Include="Services\Code\CodeUpdateOptions.cs" />
     <Compile Include="Services\Code\PaginationCodesResponse.cs" />
+    <Compile Include="Services\Contact\CouponRequestOptions.cs" />
+    <Compile Include="Services\Contact\CouponService.cs" />
     <Compile Include="Services\Coupon\CouponService.cs" />
     <Compile Include="Services\Coupon\CouponRequestOptions.cs" />
     <Compile Include="Services\Coupon\CouponResponse.cs" />
     <Compile Include="Services\Coupon\CouponUpdateOptions.cs" />
     <Compile Include="Services\Coupon\PaginationCouponsResponse.cs" />
+    <Compile Include="Services\Customer\CustomerListingResponse.cs" />
     <Compile Include="Services\Customer\CustomerUpdateOptions.cs" />
     <Compile Include="Services\Customer\CustomerRequestOptions.cs" />
     <Compile Include="Services\Customer\CustomerResponse.cs" />
     <Compile Include="Services\Customer\CustomerServices.cs" />
+    <Compile Include="Services\Customer\PaginationCustomerResponse.cs" />
     <Compile Include="Services\Login\LoginCreateOptions.cs" />
     <Compile Include="Services\Login\LoginService.cs" />
     <Compile Include="Services\Login\UserManager.cs" />
@@ -386,6 +392,16 @@
     <Content Include="Content\calendar.css" />
     <Content Include="Content\custom-responsive.css" />
     <Content Include="Content\custom.css" />
+    <Content Include="Content\CustomerService\animate.css" />
+    <Content Include="Content\CustomerService\bootstrap.css" />
+    <Content Include="Content\CustomerService\calendar.css" />
+    <Content Include="Content\CustomerService\custom-responsive.css" />
+    <Content Include="Content\CustomerService\custom.css" />
+    <Content Include="Content\CustomerService\font-awesome.min.css" />
+    <Content Include="Content\CustomerService\font.css" />
+    <Content Include="Content\CustomerService\preloader.css" />
+    <Content Include="Content\CustomerService\revolution.css" />
+    <Content Include="Content\CustomerService\style.css" />
     <Content Include="Content\Customer\calendar.css" />
     <Content Include="Content\Customer\custom-responsive.css" />
     <Content Include="Content\Customer\custom.css" />
@@ -609,6 +625,7 @@
     <Content Include="Content\docs\aviso-de-privacidad.pdf" />
     <Content Include="Content\docs\codigo-de-etica.pdf" />
     <Content Include="Content\docs\terminos-y-condiciones.pdf" />
+    <Content Include="Content\lista-de-precios-antboxs.pdf" />
     <None Include="Properties\PublishProfiles\antbox - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\AntBoxs - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\antboxstest %282%29.pubxml" />
@@ -618,6 +635,7 @@
     <None Include="Properties\PublishProfiles\localhost.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\CouponFunction.js" />
+    <Content Include="Scripts\customerService\custom.js" />
     <Content Include="Scripts\gridmvc.js" />
     <Content Include="Scripts\gridmvc.lang.ru.js" />
     <Content Include="Scripts\gridmvc.min.js" />
@@ -720,6 +738,12 @@
     <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\Login\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_LoginLayout.cshtml" />
+    <Content Include="Views\CustomerService\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\_CustomerServiceLayout.cshtml" />
+    <Content Include="Views\CustomerService\Index.cshtml" />
+    <Content Include="Views\CustomerService\Antboxs.cshtml" />
+    <Content Include="Views\CustomerService\Recolecciones.cshtml" />
+    <Content Include="Views\CustomerService\Entregas.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Addresses\" />

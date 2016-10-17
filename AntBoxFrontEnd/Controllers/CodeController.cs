@@ -24,7 +24,7 @@ namespace AntBoxFrontEnd.Controllers
 
                 var ser = new CodeService(ServiceConfiguration.GetApiKey());
                 var res = ser.CreateCode(modelCode);
-                return Json(new { success = true, responseText = "Codigo registrado correctamente" }, JsonRequestBehavior.AllowGet);
+                return Json(new { success = res, responseText = "Codigo registrado correctamente" }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
