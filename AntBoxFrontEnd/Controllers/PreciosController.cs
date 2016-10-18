@@ -5,6 +5,7 @@ using AntBoxFrontEnd.Services.Address;
 using AntBoxFrontEnd.Services.AntBoxes;
 using AntBoxFrontEnd.Services.Boxes;
 using AntBoxFrontEnd.Services.Customer;
+using AntBoxFrontEnd.Services.Login;
 using AntBoxFrontEnd.Services.Payments;
 using AntBoxFrontEnd.Services.Tasks;
 using AutoMapper;
@@ -526,73 +527,105 @@ namespace AntBoxFrontEnd.Controllers
             }
         }
 
-        public JsonResult ProcesarOrdenRegistro(string deviceId, string state, string token)
+        public JsonResult ProcesarOrdenRegistro(ProcessOrderModel requestOrder)
         {
             try
             {
-                string result = "";
-                if (Session["customer"] == null)
-                {
-                    return Json(new { success = false, responseText = "Opción no permitida" }, JsonRequestBehavior.AllowGet);
-                }
-                CustomerResponse customer = (CustomerResponse)Session["customer"];
 
-                if (Session["TaskTemp"] != null)
+                var cus = new AntBoxFrontEnd.Services.Customer.CustomerRequestOptions
                 {
-                    //PASO1 - AGREGAR DIRECCION
-                    AgendTaskModel modeltask = (AgendTaskModel)Session["TaskTemp"];
+                    Email = requestOrder.Email,
+                    Name = requestOrder.Name,
+                    LastName = requestOrder.Lastname,
+                    //Lastname2 = "Prueba Apellido materno4",
+                    Mobile_phone = "",
+                    Password = requestOrder.Password,
+                    Username = requestOrder.Username,
+                    Status = true
+                };
 
-                    var requestOption = Mapper.Map<AgendTaskModel, AddressRequestOptions>(modeltask);
-                    var addresService = new AddressService(ServiceConfiguration.GetApiKey());
-                    requestOption.Customer_id = customer.Id;
-                    var resultAddress = addresService.CreateAddressForCustomer(requestOption);
-                    if (resultAddress == null)
-                        return Json(new { success = false, responseText = "OCURRIO UN ERROR AL AGREGAR LA DIRECCION" }, JsonRequestBehavior.AllowGet);
-                    else
+                var ser = new CustomerServices(ServiceConfiguration.GetApiKey());
+
+                var res = ser.CreateCustomer(cus);
+                if (res)
+                {
+                    var usr = new AntBoxFrontEnd.Services.Login.LoginCreateOptions
                     {
-                        var dirRec = resultAddress.Id;
+                        Email = requestOrder.Email,
+                        Password = requestOrder.Password
+                    };
 
-                        //PASO 2 - AGREGAR TARJETA
-                        var ps = new PaymentService(ServiceConfiguration.GetApiKey());
-                        PaymentRequestOptions pro = new PaymentRequestOptions
-                        {
-                            Customer_id = ((CustomerResponse)Session["customer"]).Id,
-                            Device_id = deviceId,
-                            State = state,
-                            Token = token
-                        };
-                        bool resultCard = ps.CreatePaymentCard(pro);
-                        if (!resultCard)
-                            return Json(new { success = false, responseText = "OCURRIO UN ERROR AL REGISTRAR EL PAGO" }, JsonRequestBehavior.AllowGet);
+                    LoginService ls = new LoginService(ServiceConfiguration.GetApiKey());
+
+                    string id = ls.HovaLogin(usr);
+
+                    CustomerServices cs = new CustomerServices(ServiceConfiguration.GetApiKey());
+
+                    CustomerResponse customer = cs.SearchCustomer(id);
+
+                    Session["customer"] = customer;
+
+                    string result = "";
+                
+                    if (Session["TaskTemp"] != null)
+                    {
+                        //PASO1 - AGREGAR DIRECCION
+                        AgendTaskModel modeltask = (AgendTaskModel)Session["TaskTemp"];
+
+                        var requestOption = Mapper.Map<AgendTaskModel, AddressRequestOptions>(modeltask);
+                        var addresService = new AddressService(ServiceConfiguration.GetApiKey());
+                        requestOption.Customer_id = customer.Id;
+                        var resultAddress = addresService.CreateAddressForCustomer(requestOption);
+                        if (resultAddress == null)
+                            return Json(new { success = false, responseText = "OCURRIO UN ERROR AL AGREGAR LA DIRECCION" }, JsonRequestBehavior.AllowGet);
                         else
                         {
-                            //PASO 3 - REALIZAR PEDIDO DE CAJAS VACIAS
-                            bool waitTimeWorker;
-                            if (string.IsNullOrEmpty(modeltask.Esperar))
-                                waitTimeWorker = false;
-                            else
-                                waitTimeWorker = Convert.ToBoolean(modeltask.Esperar.ToLower());
+                            var dirRec = resultAddress.Id;
 
-                            var folioRecoleccion = CheckOutBox(modeltask.Horario);
-                            bool isTaskPickupCreated;
-                            if (string.IsNullOrEmpty(folioRecoleccion))
-                                return Json(new { success = false, responseText = "OCURRIO UN ERROR AL SOLICITAR LAS CAJAS DE RECOLECCION" }, JsonRequestBehavior.AllowGet);
+                            //PASO 2 - AGREGAR TARJETA
+                            var ps = new PaymentService(ServiceConfiguration.GetApiKey());
+                            PaymentRequestOptions pro = new PaymentRequestOptions
+                            {
+                                Customer_id = ((CustomerResponse)Session["customer"]).Id,
+                                Device_id = requestOrder.Deviceid,
+                                State = requestOrder.State,
+                                Token = requestOrder.Token
+                            };
+                            bool resultCard = ps.CreatePaymentCard(pro);
+                            if (!resultCard)
+                                return Json(new { success = false, responseText = "OCURRIO UN ERROR AL REGISTRAR EL PAGO" }, JsonRequestBehavior.AllowGet);
                             else
                             {
-                                //PASO 4 - AGENDAR TASK
-                                isTaskPickupCreated = CreatePickupTask(modeltask.Fecha_recoleccion, modeltask.HoraRecoleccionString, dirRec, modeltask.Horario, folioRecoleccion, waitTimeWorker);
-                                if (!isTaskPickupCreated)
-                                    return Json(new { success = false, responseText = "OCURRIO UN ERROR AL CREAR TAREA DE RECOLECCION" }, JsonRequestBehavior.AllowGet);
-                                result += "Tarea de recoleccion agendada: " + isTaskPickupCreated + "\n";
+                                //PASO 3 - REALIZAR PEDIDO DE CAJAS VACIAS
+                                bool waitTimeWorker;
+                                if (string.IsNullOrEmpty(modeltask.Esperar))
+                                    waitTimeWorker = false;
+                                else
+                                    waitTimeWorker = Convert.ToBoolean(modeltask.Esperar.ToLower());
 
-                                Session["TaskTemp"] = null;
+                                var folioRecoleccion = CheckOutBox(modeltask.Horario);
+                                bool isTaskPickupCreated;
+                                if (string.IsNullOrEmpty(folioRecoleccion))
+                                    return Json(new { success = false, responseText = "OCURRIO UN ERROR AL SOLICITAR LAS CAJAS DE RECOLECCION" }, JsonRequestBehavior.AllowGet);
+                                else
+                                {
+                                    //PASO 4 - AGENDAR TASK
+                                    isTaskPickupCreated = CreatePickupTask(modeltask.Fecha_recoleccion, modeltask.HoraRecoleccionString, dirRec, modeltask.Horario, folioRecoleccion, waitTimeWorker);
+                                    if (!isTaskPickupCreated)
+                                        return Json(new { success = false, responseText = "OCURRIO UN ERROR AL CREAR TAREA DE RECOLECCION" }, JsonRequestBehavior.AllowGet);
+                                    result += "Tarea de recoleccion agendada: " + isTaskPickupCreated + "\n";
 
-                                return Json(result, JsonRequestBehavior.AllowGet);
+                                    Session["TaskTemp"] = null;
+
+                                    return Json(result, JsonRequestBehavior.AllowGet);
+                                }
                             }
                         }
                     }
-                } else {
-                    return Json(new { success = false, responseText = "OCURRIO UN ERROR AL SOLICITAR LAS CAJAS DE RECOLECCION" }, JsonRequestBehavior.AllowGet);
+                    else
+                    {
+                        return Json(new { success = false, responseText = "OCURRIO UN ERROR AL SOLICITAR LAS CAJAS DE RECOLECCION" }, JsonRequestBehavior.AllowGet);
+                    }
                 }
             }
             catch (Exception ex)
@@ -600,6 +633,8 @@ namespace AntBoxFrontEnd.Controllers
                 LogManager.Write(ex.Message, LogManager.Error);
                 return Json(new { success = false, responseText = "OCURRIO UN ERROR AL PROCESAR LA ORDEN" }, JsonRequestBehavior.AllowGet);
             }
+
+            return Json(new { success = false }, JsonRequestBehavior.AllowGet);
         }
 
         public decimal GetDisccount(string codgo)

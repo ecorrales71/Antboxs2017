@@ -64,7 +64,7 @@
         <!-- /.container -->
         <!-- CONTAINER -->
         <div class="container mt30">
-            <form class="form-solid">
+            <form class="form-solid" method="post" action="/Precios/ProcesarOrdenRegistro" id="form-crear">
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="row">
@@ -74,70 +74,74 @@
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
+                                    <label for="send-form-name">Nombre de Usuario*</label>
+                                    <input type="text" name="Username" id="username">
+                                </div>
+                                <div class="form-group">
                                     <label for="send-form-name">Nombre(s)*</label>
-                                    <input type="text" name="name" id="send-form-name">
+                                    <input type="text" name="Name" id="name">
                                 </div>
                                 <div class="form-group">
                                     <label for="send-form-email">Apellido Paterno*</label>
-                                    <input type="text" name="email" id="send-form-email">
+                                    <input type="text" name="Lastname" id="lastname">
                                 </div>
                                 <div class="form-group">
                                     <label for="send-form-email">Apellido Materno*</label>
-                                    <input type="text" name="email" id="send-form-email">
+                                    <input type="text" name="Lastname2" id="lastname2">
                                 </div>
                                 <div class="form-group">
                                     <label for="send-form-email">E-mail*</label>
-                                    <input type="text" name="email" id="send-form-email">
+                                    <input type="text" name="Email" id="email">
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label for="send-form-email">Teléfono*</label>
-                                    <input type="text" name="email" id="send-form-email">
+                                    <input type="text" name="Phone" id="phone">
                                 </div>
                                 <div class="form-group">
                                     <label for="send-form-name">Celular</label>
-                                    <input type="text" name="name" id="send-form-name">
+                                    <input type="text" name="Mobilephone" id="mobilephone">
                                 </div>
                                 <div class="form-group">
                                     <label for="send-form-email">Contraseña*</label>
-                                    <input type="password" name="email" id="send-form-email">
+                                    <input type="password" name="Password" id="Password1">
                                 </div>
                                 <div class="form-group">
                                     <label for="send-form-email">Confirmar Contraseña*</label>
-                                    <input type="password" name="email" id="send-form-email">
+                                    <input type="password" name="Passwordconfirm" id="password2">
                                 </div>
                             </div>
                         </div>
                     </div>
                     <!--<div class="col-sm-4">
-                        <div class="col-sm-12 mb20">
-                            <h3>Información Adicional</h3>
-                        </div>
+                <div class="col-sm-12 mb20">
+                    <h3>Información Adicional</h3>
+                </div>
 
-                        <div class="tabs tabs-icons-square">
-                            <ul class="nav nav-tabs text-center">
-                                <li class="active"><a href="#mus-3" data-toggle="tab"><i class="fa fa-music"></i></a></li>
-                                <li><a href="#time-3" data-toggle="tab"><i class="fa fa-clock-o"></i></a></li>
-                                <li><a href="#photo-3" data-toggle="tab"><i class="fa fa-instagram"></i></a></li>
-                            </ul>
+                <div class="tabs tabs-icons-square">
+                    <ul class="nav nav-tabs text-center">
+                        <li class="active"><a href="#mus-3" data-toggle="tab"><i class="fa fa-music"></i></a></li>
+                        <li><a href="#time-3" data-toggle="tab"><i class="fa fa-clock-o"></i></a></li>
+                        <li><a href="#photo-3" data-toggle="tab"><i class="fa fa-instagram"></i></a></li>
+                    </ul>
 
-                            <div class="tab-content no-border">
-                                <div class="tab-pane fade in active" id="mus-3">
-                                    <h4>Testimonials</h4>
-                                    <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
-                                </div>
-                                <div class="tab-pane fade" id="time-3">
-                                    <h4>In Time</h4>
-                                    <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa sunt explicabo.</p>
-                                </div>
-                                <div class="tab-pane fade" id="photo-3">
-                                    <h4>Photo</h4>
-                                    <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
-                                </div>
-                            </div>
+                    <div class="tab-content no-border">
+                        <div class="tab-pane fade in active" id="mus-3">
+                            <h4>Testimonials</h4>
+                            <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
                         </div>
-                    </div>-->
+                        <div class="tab-pane fade" id="time-3">
+                            <h4>In Time</h4>
+                            <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa sunt explicabo.</p>
+                        </div>
+                        <div class="tab-pane fade" id="photo-3">
+                            <h4>Photo</h4>
+                            <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>-->
                 </div>
 
                 <div class="row">
@@ -153,16 +157,19 @@
                             <h3>Información de Pago</h3>
                         </div>
                         <div class="row">
+                            <input type="hidden" name="Deviceid" value="" id="Deviceid" />
+                            <input type="hidden" name="State" value="" id="State" />
+                            <input type="hidden" name="Token" value="" id="Token" />
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label for="send-form-name">Nombre de Tarjeta*</label>
-                                    <input type="text" name="name" id="card-holder-name">
+                                    <input type="text" name="Cardname" id="cardname">
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label for="send-form-email">Número de Tarjeta*</label>
-                                    <input type="email" name="email" id="card-number">
+                                    <input type="text" name="Cardnumber" id="cardnumber">
                                 </div>
                             </div>
                         </div>
@@ -171,19 +178,19 @@
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <label for="send-form-email">MM*</label>
-                                    <input type="email" name="email" id="card-exp-month">
+                                    <input type="text" name="Month" id="month">
                                 </div>
                             </div>
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <label for="send-form-email">YY*</label>
-                                    <input type="email" name="email" id="card-exp-year">
+                                    <input type="text" name="Year" id="year">
                                 </div>
                             </div>
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <label for="send-form-email">CVC*</label>
-                                    <input type="email" name="email" id="card-cvv">
+                                    <input type="text" name="CVC" id="cvv">
                                 </div>
                             </div>
                         </div>
@@ -198,7 +205,7 @@
                             <div class="col-sm-6">
                                 <div class="checkbox">
                                     <label>
-                                        <input type="checkbox" name="preferencia_contacto" checked>
+                                        <input type="checkbox" name="Preferencia_contacto_telefono" checked>
                                         Teléfono
                                     </label>
                                 </div>
@@ -206,7 +213,7 @@
                             <div class="col-sm-6">
                                 <div class="checkbox">
                                     <label>
-                                        <input type="checkbox" name="preferencia_contacto" checked>
+                                        <input type="checkbox" name="Preferencia_contacto_email" checked>
                                         E-mail
                                     </label>
                                 </div>
@@ -244,8 +251,8 @@
                             <!--<button type="button" class="btn-link" data-toggle="modal" data-target="#terminos_condiciones">términos y condiciones</button>-->
                             <label class="pull-left pr5">
                                 <input type="checkbox" name="preferencia_contacto">
-                                Entiendo y acepto los 
-                                <a href="@Url.Content("~/Content/docs/terminos-y-condiciones.pdf")" target="_blank" class="btn-link">
+                                Entiendo y acepto los
+                                <a href="/Content/docs/terminos-y-condiciones.pdf" target="_blank" class="btn-link">
                                     <strong>términos y condiciones</strong>
                                 </a>
                             </label>
@@ -259,7 +266,7 @@
                         @Html.ActionLink("Regresar", "AgendarEntregas", "Home", new { @class = "btn btn-primary btn-wide btn_blue pull-left" })
                         @*<input type="" class="btn btn-primary btn-wide btn_blue pull-left" value="Regresar" onclick="window.location='agendar-entregas.php';" />*@
                         @*@Html.ActionLink("¡Completar Orden!", "OrdenCompleta", "Home", new { @class = "btn btn-primary btn-wide pull-right" })*@
-                         <input type="button" class="btn btn-primary btn-wide pull-right completarorden" value="¡Completar Orden!" />
+                        <input type="button" class="btn btn-primary btn-wide pull-right completarorden" value="¡Completar Orden!" />
                         <p class="succs-msg">Мensaje enviado</p>
                     </div>
                 </div>
@@ -334,8 +341,73 @@
 <script>
     $(function () {
         $('.completarorden').click(function (event) {
-            $('#registro').find('#verifoption').val(2);
-            $('#registro').modal('show');
+
+            event.preventDefault();
+            if ($("#form-crear").valid()) {
+                generate_token();
+                
+            }
+
+            //$('#registro').find('#verifoption').val(2);
+            //$('#registro').modal('show');
+        });
+
+        $('#form-crear').validate({
+            rules: {
+                Username: {
+                    required: true
+                },
+                Name: {
+                    required: true
+                },
+                Lastname: {
+                    required: true
+                },
+                Email: {
+                    email: true,
+                    required: true
+                },
+                Phone: {
+                    required: true
+                },
+                Password: {
+                    required: true
+                },
+                Passwordconfirm: {
+                    required: true,
+                    equalTo: "#Password1"
+                },
+                Cardname: {
+                    required: true
+                },
+                Cardnumber: {
+                    required: true
+                },
+                Month: {
+                    required: true
+                },
+                Year: {
+                    required: true
+                },
+                CVC: {
+                    required: true
+                }
+            },
+            highlight: function (element) {
+                $(element).closest('.form-group').addClass('has-error');
+            },
+            unhighlight: function (element) {
+                $(element).closest('.form-group').removeClass('has-error');
+            },
+            errorElement: 'span',
+            errorClass: 'help-block',
+            errorPlacement: function (error, element) {
+                if (element.parent('.input-group').length) {
+                    error.insertAfter(element.parent());
+                } else {
+                    error.insertAfter(element);
+                }
+            }
         });
     })
     function generate_token() {
@@ -348,7 +420,12 @@
         var sucess_callbak = function (response) {
             var token_id = response.data.id;
 
-            $.ajax({
+            $("#Deviceid").val(deviceSessionId);
+            $("#State").val("main");
+            $("#Token").val(token_id);
+
+            $("#form-crear").submit();
+            @*$.ajax({
                 type: 'POST',
                 url: '@Url.Action("ProcesarOrdenRegistro", "Precios")',
                 data: { deviceId: deviceSessionId, state: "main", token: token_id },
@@ -365,7 +442,7 @@
                     window.setTimeout(function ()
                     { $("#LoginFailAlert").alert('close'); }, 50000);
                 }
-            });
+            });*@
             //$('#token_id').val(token_id);
             //$('#deviceSessionId').val(deviceSessionId);
         };
@@ -383,11 +460,11 @@
         };
 
         OpenPay.token.create({
-            "card_number": $('#card-number').val(),
-            "holder_name": $('#card-holder-name').val(),
-            "expiration_year": $('#card-exp-year').val(),
-            "expiration_month": $('#card-exp-month').val(),
-            "cvv2": $('#card-cvv').val()
+            "card_number": $('#cardnumber').val(),
+            "holder_name": $('#cardname').val(),
+            "expiration_year": $('#year').val(),
+            "expiration_month": $('#month').val(),
+            "cvv2": $('#cvv').val()
         }, sucess_callbak, error_callbak);
     };
     function procesarOrdenRegistro() {

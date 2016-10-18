@@ -296,6 +296,7 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\OrderViewModel.cs" />
+    <Compile Include="Models\ProcessOrderModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\Address\AddressResponse.cs" />
     <Compile Include="Services\Address\AddressUpdateOptions.cs" />
