@@ -352,6 +352,7 @@
                             form.find("#secure").val(data.Secure);
                             form.find("#slu").val(data.Slu);
                             form.find("#registered_by").val(data.Registered_by.Id);
+                            form.find("#registered_by").trigger("chosen:updated");
                             form.find("#fecha_activacion_edit").val(data.Activation_date);
                             var statusname = "Activo"
                             if (!data.Status)

@@ -33,7 +33,7 @@ namespace AntBoxFrontEnd.Controllers
             }
         }
 
-        public JsonResult UpdateCoupon(string id, string name, decimal discount)
+        public JsonResult UpdateCoupon(string id, string name, decimal discount, decimal quantity, string From, string To, string Created_by)
         {
             try
             {
@@ -45,7 +45,11 @@ namespace AntBoxFrontEnd.Controllers
                 CouponUpdateOptions cu = new CouponUpdateOptions
                 {
                     Name = name,
-                    Discount = discount
+                    Discount = discount,
+                    Quantity = quantity,
+                    From = From,
+                    To = To,
+                    Created_by = Created_by
                 };
 
                 var couponService = new CouponService(ServiceConfiguration.GetApiKey());
@@ -82,6 +86,27 @@ namespace AntBoxFrontEnd.Controllers
             var couponService = new CouponService(ServiceConfiguration.GetApiKey());
 
             var result = couponService.SearchCoupon(id);
+
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult PaginationAjax(string idPagination, int page)
+        {
+            var servicio = new CouponService(ServiceConfiguration.GetApiKey());
+
+            PaginationCouponsResponse result = new PaginationCouponsResponse();
+            try
+            {
+                result = servicio.ListCoupon(page, idPagination);
+            }
+            catch (Exception ex)
+            {
+
+            }
+            if (result == null)
+            {
+                result = new PaginationCouponsResponse();
+            }
 
             return Json(result, JsonRequestBehavior.AllowGet);
         }

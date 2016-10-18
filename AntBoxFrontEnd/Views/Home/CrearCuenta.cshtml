@@ -235,11 +235,13 @@
                             <p>Revisa las condiciones de uso antes de continuar.</p>
                         </div>
                         <div class="checkbox">
-                            <button type="button" class="btn-link" data-toggle="modal" data-target="#restricciones_uso">restricciones de uso</button>
-                            <label class="pull-left pr5">
-                                <input type="checkbox" name="preferencia_contacto">
-                                Entiendo y acepto las
-                            </label>
+                            <div class="form-group">
+                                <button type="button" class="btn-link" data-toggle="modal" data-target="#restricciones_uso">restricciones de uso</button>
+                                <label class="pull-left pr5">
+                                    <input type="checkbox" name="check_politicas" id="check_condiciones">
+                                    Entiendo y acepto las
+                                </label>
+                            </div>
                         </div>
                     </div>
                     <div class="col-sm-6 pl10_pr10_mobiles">
@@ -249,17 +251,24 @@
                         </div>
                         <div class="checkbox">
                             <!--<button type="button" class="btn-link" data-toggle="modal" data-target="#terminos_condiciones">términos y condiciones</button>-->
-                            <label class="pull-left pr5">
-                                <input type="checkbox" name="preferencia_contacto">
-                                Entiendo y acepto los
-                                <a href="/Content/docs/terminos-y-condiciones.pdf" target="_blank" class="btn-link">
-                                    <strong>términos y condiciones</strong>
-                                </a>
-                            </label>
+                            <div class="form-group">
+                                <label class="pull-left pr5">
+
+                                    <input type="checkbox" name="check_condiciones" id="check_condiciones">
+                                    Entiendo y acepto los
+                                    <a href="/Content/docs/terminos-y-condiciones.pdf" target="_blank" class="btn-link">
+                                        <strong>términos y condiciones</strong>
+                                    </a>
+                                </label>
+                            </div>
+        
 
                         </div>
                     </div>
 
+                </div>
+                <div id="loader" role="alert" style="display: none;">
+                    <img src="@Url.Content("~/Images/preloader.gif")" />   Procesando Orden... &nbsp;
                 </div>
                 <div class="row" id="completar-orden">
                     <div class="col-sm-12">
@@ -391,6 +400,12 @@
                 },
                 CVC: {
                     required: true
+                },
+                "check_politicas": {
+                    required: true
+                }, 
+                "check_condiciones": {
+                    required: true
                 }
             },
             highlight: function (element) {
@@ -411,6 +426,9 @@
         });
     })
     function generate_token() {
+
+        $("#loader").show();
+
         OpenPay.setId('miqwkvkewii1gqs4ifh2');
         OpenPay.setApiKey('pk_e70b7a22c6c04239b10b7be3596a1f98');
         OpenPay.setSandboxMode(true);
@@ -424,25 +442,30 @@
             $("#State").val("main");
             $("#Token").val(token_id);
 
-            $("#form-crear").submit();
-            @*$.ajax({
+            //$("#form-crear").submit();
+            var formData = $("#form-crear").serialize();
+            $.ajax({
                 type: 'POST',
                 url: '@Url.Action("ProcesarOrdenRegistro", "Precios")',
-                data: { deviceId: deviceSessionId, state: "main", token: token_id },
+                data: formData,
                 success: function (result) {
+                    $("#loader").hide();
                     if (result.success == false) {
                         $('#completar-orden').prepend(
                         '<div class="alert alert-warning" role="alert" id="LoginFailAlert"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a> Error al hacer el cargo</div>');
                         window.setTimeout(function ()
                         { $("#LoginFailAlert").alert('close'); }, 50000);
+                    } else {
+                        location.href = "/Home/OrdenCompleta";
                     }
                 }, error: function (result) {
+                    $("#loader").hide();
                     $('#completar-orden').prepend(
                         '<div class="alert alert-warning" role="alert" id="LoginFailAlert"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>error</div>');
                     window.setTimeout(function ()
                     { $("#LoginFailAlert").alert('close'); }, 50000);
                 }
-            });*@
+            });
             //$('#token_id').val(token_id);
             //$('#deviceSessionId').val(deviceSessionId);
         };

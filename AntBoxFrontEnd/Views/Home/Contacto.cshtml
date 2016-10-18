@@ -133,7 +133,7 @@
                 </div>
                 <div class="col-sm-6">
                     <h3>Formulario de Contacto</h3>
-                    <form id="form-contact" method="post" class="contact-form form-solid mt30" novalidate>
+                    <form id="form-contacto" method="post" class="mt30">
                         <div class="form-group">
                             <label for="send-form-name">Nombre</label>
                             <input type="text" name="name" id="send-form-name">
@@ -144,17 +144,17 @@
                         </div>
                         <div class="form-group">
                             <label for="send-form-name">Teléfono</label>
-                            <input type="text" name="name" id="send-form-name">
+                            <input type="text" name="Phone" id="send-form-name">
                         </div>
                         <div class="form-group">
                             <label for="send-form-name">Código Postal</label>
-                            <input type="text" name="name" id="send-form-name">
+                            <input type="text" name="Zipcode" id="send-form-name">
                         </div>
                         <div class="form-group">
                             <label for="send-form-message">Mensaje</label>
                             <textarea name="message" id="send-form-message"></textarea>
                         </div>
-                        <input type="submit" class="btn btn-primary btn-wide send-message" value="Enviar">
+                        <input type="button" class="btn btn-primary btn-wide enviar-mensaje" value="Enviar">
                         <p class="succs-msg">Мessage was sent</p>
                     </form>
                 </div>
@@ -174,17 +174,19 @@
 </div>
 
 
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB40Z_-G33kr2YjKhFn9QSz-1y7YBrMxYE" type="text/javascript"></script>
+
 
 <!-- Google Map -->
+@section scripts {
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB40Z_-G33kr2YjKhFn9QSz-1y7YBrMxYE" type="text/javascript"></script>
 <script type="text/javascript">
-  (function($) {
+  $(function(){
     "use strict";
     var locations = [
     ['<div class="infobox"><h2 class="title"><a href="contacto.php"><mark>Teknoturf</mark></a></h2><span>Lomas Verdes, Naucalpan, Edo. Méx.</span><br>(01-55) 5343-6622<br><a href="mailto:ventasmex@teknoturf.com.mx">ventasmex@teknoturf.com.mx</a></p></div></div></div>', 19.51141465562705, -99.26876104999997, 2]
     ];
 
-    var map = new google.maps.Map(document.getElementById('map'), {
+    /*var map = new google.maps.Map(document.getElementById('map'), {
       zoom: 14,
       scrollwheel: false,
       navigationControl: true,
@@ -216,10 +218,11 @@
         infowindow.open(map, marker);
       }
       })(marker, i));
-    }
+    }*/
 
-    $(".send-message").click(function () {
-        var formData = $("#form-contact").serialize();
+    $(".enviar-mensaje").click(function (event) {
+        event.preventDefault();
+        var formData = $("#form-contacto").serialize();
         $.ajax({
             type: 'POST',
             url: '@Url.Action("ContactPost", "Home")',
@@ -227,11 +230,13 @@
             success: function (data) {
                 if (data.success) {
                     alert(data.responseText);
+                    $("#form-contacto").reset();
                 } else {
                     alert(data.responseText);
                 }
             }
         });
     });
-  })(jQuery);
+  });
 </script>
+}

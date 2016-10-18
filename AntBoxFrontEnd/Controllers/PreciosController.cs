@@ -567,14 +567,27 @@ namespace AntBoxFrontEnd.Controllers
 
                     string result = "";
                 
-                    if (Session["TaskTemp"] != null)
+                    if (Session["TasksTemp"] != null)
                     {
                         //PASO1 - AGREGAR DIRECCION
-                        AgendTaskModel modeltask = (AgendTaskModel)Session["TaskTemp"];
+                        AgendTaskModel modeltask = (AgendTaskModel)Session["TasksTemp"];
 
-                        var requestOption = Mapper.Map<AgendTaskModel, AddressRequestOptions>(modeltask);
+                        AddressRequestOptions requestOption = new AddressRequestOptions
+                        {
+                            Alias = "Direccion 1",
+                            Zipcode = modeltask.Zipcode,
+                            Street = modeltask.Street,
+                            External_number = modeltask.External_number,
+                            Internal_number = modeltask.Internal_number,
+                            Neighborhood = modeltask.Neighborhood,
+                            Delegation = modeltask.Delegation,
+                            City = modeltask.City,
+                            Country = modeltask.Country,
+                            Customer_id = customer.Id,
+                            State = modeltask.State
+                        };
+
                         var addresService = new AddressService(ServiceConfiguration.GetApiKey());
-                        requestOption.Customer_id = customer.Id;
                         var resultAddress = addresService.CreateAddressForCustomer(requestOption);
                         if (resultAddress == null)
                             return Json(new { success = false, responseText = "OCURRIO UN ERROR AL AGREGAR LA DIRECCION" }, JsonRequestBehavior.AllowGet);

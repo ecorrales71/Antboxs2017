@@ -89,5 +89,26 @@ namespace AntBoxFrontEnd.Controllers
 
             return Json(result, JsonRequestBehavior.AllowGet);
         }
+
+        public ActionResult PaginationAjax(string idPagination, int page)
+        {
+            var servicio = new CodeService(ServiceConfiguration.GetApiKey());
+
+            PaginationCodesResponse result = new PaginationCodesResponse();
+            try
+            {
+                result = servicio.ListCode(page, idPagination);
+            }
+            catch (Exception ex)
+            {
+
+            }
+            if (result == null)
+            {
+                result = new PaginationCodesResponse();
+            }
+
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
 	}
 }

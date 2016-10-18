@@ -282,89 +282,104 @@ $(document).ready(function(){
         
     });
 
+    valueold = "";
+
     function search_code(value) {
         if (value.length == 5)
         {
-            changeZipCode1();
+            if (valueold != value)
+            {
+                changeZipCode1();
+            }
         }
     }
 
+    var verifzipcode = true;
     function changeZipCode1(){
 
         var zipcode = $('#txtZipcode').val();
 
-        $.ajax({
-            type: 'POST',
-            url: '@Url.Action("ValidateZipCodeAjax", "AntBoxAddresses")',
-            data: { zipCode: zipcode },
-            success: function (result) {
-                if (result.success == false) {
-                    if (!$('.error-zipcode').length) {
-                        $('#zipCodeError').prepend(
-                            '<div class="alert alert-warning" id="zipCodeError"><p class="error-zipcode"><i class="fa fa-exclamation-triangle"></i> <strong>Prueba con otro código postal.</strong> Por el momento nuestro servicio no llega a este domicilio pero te mantendremos informado de las próximas zonas de cobertura.</p></div>'
-                        );
+        if (verifzipcode)
+        {
+            verifzipcode = false
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("ValidateZipCodeAjax", "AntBoxAddresses")',
+                data: { zipCode: zipcode },
+                success: function (result) {
+                    if (result.success == false) {
+                        if (!$('.error-zipcode').length) {
+                            $('#zipCodeError').prepend(
+                                '<div class="alert alert-warning" id="zipCodeError"><p class="error-zipcode"><i class="fa fa-exclamation-triangle"></i> <strong>Prueba con otro código postal.</strong> Por el momento nuestro servicio no llega a este domicilio pero te mantendremos informado de las próximas zonas de cobertura.</p></div>'
+                            );
+                        }
+                    }
+                    else {
+                        $('#zipCodeError').html('');
+
+                        $.ajax({
+                            url: '@Url.Action("GetDelegation", "Home")',
+                            type: "POST",
+                            data: { "zipcode": zipcode },
+                            success: function (data) {
+
+                                $("#cmbDelegations").html("");
+                                var items = '<option value="">Seleccciona una delegacion</option>';
+                                $.each(data.result, function (i, delegation) {
+                                    items += "<option value='" + delegation.Value + "'>" + delegation.Text + "</option>";
+                                });
+                                $('#cmbDelegations').html(items);
+                                $('#cmbDelegations').trigger("chosen:updated");
+
+                                $.ajax({
+                                    url: '@Url.Action("GetColonias", "Home")',
+                                    type: "POST",
+                                    data: { "zipcode": zipcode },
+                                    success: function (data) {
+
+                                        $("#cmbNeighborhood").html("");
+                                        var items = '<option value="">Seleccciona una colonia</option>';
+                                        $.each(data.result, function (i, delegation) {
+                                            items += "<option value='" + delegation.Value + "'>" + delegation.Text + "</option>";
+                                        });
+                                        $('#cmbNeighborhood').html(items);
+                                        $('#cmbNeighborhood').trigger("chosen:updated");
+
+                                        $.ajax({
+                                            url: '@Url.Action("GetState", "Home")',
+                                            type: "POST",
+                                            data: { "zipcode": zipcode },
+                                            success: function (data) {
+                                                if (data.result == "Ciudad de México")
+                                                    $('#txtState').val("DF");
+                                                else
+                                                    $('#txtState').val(data.result);
+                                                $('#txtCity').val(data.result);
+                                                $('#txtCountry').val('México');
+
+                                                verifzipcode = true;
+                                            }, error: function (dataerror) {
+                                                verifzipcode = true;
+                                            }
+                                        });
+                                    }, error: function (dataerror) {
+                                        verifzipcode = true;
+                                    }
+                                });
+                            }, error: function (dataerror) {
+                                verifzipcode = true;
+                            }
+                        });
                     }
                 }
-                else {
-                    $('#zipCodeError').html('');
-
-                    $.ajax({
-                        url: '@Url.Action("GetDelegation", "Home")',
-                        type: "POST",
-                        data: { "zipcode": zipcode },
-                        success: function (data) {
-
-                            $("#cmbDelegations").html("");
-                            var items = '<option value="">Seleccciona una delegacion</option>';
-                            $.each(data.result, function (i, delegation) {
-                                items += "<option value='" + delegation.Value + "'>" + delegation.Text + "</option>";
-                            });
-                            $('#cmbDelegations').html(items);
-                            $('#cmbDelegations').trigger("chosen:updated");
-                        }
-
-
-                    });
-
-                    $.ajax({
-                        url: '@Url.Action("GetColonias", "Home")',
-                        type: "POST",
-                        data: { "zipcode": zipcode },
-                        success: function (data) {
-
-                            $("#cmbNeighborhood").html("");
-                            var items = '<option value="">Seleccciona una colonia</option>';
-                            $.each(data.result, function (i, delegation) {
-                                items += "<option value='" + delegation.Value + "'>" + delegation.Text + "</option>";
-                            });
-                            $('#cmbNeighborhood').html(items);
-                            $('#cmbNeighborhood').trigger("chosen:updated");
-                        }
-
-
-                    });
-
-                    $.ajax({
-                        url: '@Url.Action("GetState", "Home")',
-                        type: "POST",
-                        data: { "zipcode": zipcode },
-                        success: function (data) {
-                            if (data.result == "Ciudad de México")
-                                $('#txtState').val("DF");
-                            else
-                                $('#txtState').val(data.result);
-                            $('#txtCity').val(data.result);
-                            $('#txtCountry').val('México');
-                        }
-                    });
-                }
-            }
-        });
+            });
+        }
+        
     }
 
     function HorarioRecoleccion() {
-        var horario = $("#Horario").val();
-        var t = $("#Horario option:selected").text();
+        var horario = $("#selHorario").val();
+        var t = $("#selHorario option:selected").text();
         $("#HoraRecoleccionString").val(t);  
         //alert(horario + " " + t);
     };

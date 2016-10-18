@@ -35,9 +35,9 @@
             <div class="row">
                 <div class="col-sm-12">
                     <div class="table-responsive">
-                        @Html.Hidden("idpagination", @Model.Coupons.Pagination_id)
-                        @Html.Hidden("total", @Model.Coupons.Total)
-                        @Html.Hidden("pages", @Model.Coupons.Pages)
+                        @Html.Hidden("idpagination-coupons", @Model.Coupons.Pagination_id)
+                        @Html.Hidden("total-coupons", @Model.Coupons.Total)
+                        @Html.Hidden("pages-coupons", @Model.Coupons.Pages)
                         <table id="tabla-coupon" class="table table-bordered">
                             <thead>
                                 <tr>
@@ -74,26 +74,17 @@
                         </table>
                     </div>
                 </div>
-                <div class="col-sm-12 text-center mb10">
-                    <!-- PAGINATION -->
-                    <ul class="pagination solid">
-                        <li class="pull-left"><a href="#" class="prev"><i class="fa fa-angle-left"></i></a></li>
-                        <li class="pull-right"><a href="#" class="next"><i class="fa fa-angle-right"></i></a></li>
-                        <li class="active"><a href="#">1</a></li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#">4</a></li>
-                        <li><a href="#">…</a></li>
-                        <li><a href="#">36</a></li>
-                    </ul>
-                    <!-- /.pagination -->
-                </div>
+                
+            </div>
+            <div class="pagination-coupons solid text-center"></div>
+            <div class="row">
                 <div class="col-sm-12 mt10">
                     <input type="button" class="btn btn-primary btn-wide pull-left" data-toggle="modal" data-target="#crear_coupon" value="Crear Nuevo">
                     <input id="" type="button" class="btn btn-primary btn_blue btn-wide pull-right eliminar-coupon" onclick="eliminarItem()" value="Eliminar">
                     <input type="button" class="btn btn-primary btn-wide pull-right mr10 editar-coupon-button" value="Editar">
                 </div>
             </div>
+            
         </div>
         <!-- /.container -->
         <div class="row">
@@ -116,9 +107,9 @@
             <div class="row">
                 <div class="col-sm-12">
                     <div class="table-responsive">
-                        @Html.Hidden("idpagination", @Model.Codes.Pagination_id)
-                        @Html.Hidden("total", @Model.Codes.Total)
-                        @Html.Hidden("pages", @Model.Codes.Pages)
+                        @Html.Hidden("idpagination-code", @Model.Codes.Pagination_id)
+                        @Html.Hidden("total-code", @Model.Codes.Total)
+                        @Html.Hidden("pages-code", @Model.Codes.Pages)
                         <table id="tabla-code" class="table table-bordered">
                             <thead>
                                 <tr>
@@ -157,26 +148,18 @@
                         </table>
                     </div>
                 </div>
-                <div class="col-sm-12 text-center mb10">
-                    <!-- PAGINATION -->
-                    <ul class="pagination solid">
-                        <li class="pull-left"><a href="#" class="prev"><i class="fa fa-angle-left"></i></a></li>
-                        <li class="pull-right"><a href="#" class="next"><i class="fa fa-angle-right"></i></a></li>
-                        <li class="active"><a href="#">1</a></li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#">4</a></li>
-                        <li><a href="#">…</a></li>
-                        <li><a href="#">36</a></li>
-                    </ul>
-                    <!-- /.pagination -->
-                </div>
+                
+            </div>
+
+            <div class="pagination-code solid text-center"></div>
+            <div class="row">
                 <div class="col-sm-12 mt10">
                     <input type="button" class="btn btn-primary btn-wide pull-left" data-toggle="modal" data-target="#crear_code" value="Crear Nuevo">
                     <input id="" type="button" class="btn btn-primary btn_blue btn-wide pull-right eliminar-code" onclick="eliminarItem()" value="Eliminar">
                     <input type="button" class="btn btn-primary btn-wide pull-right mr10 editar-code-button" data-toggle="modal" data-target="#editar_codigo" value="Editar">
                 </div>
             </div>
+            
 
         </div>
         <!-- /.container -->
@@ -566,8 +549,12 @@
     </div>
 </div>
 <!-- /.modal -->
+@section css {
+    @Styles.Render("~/Content/simplepaginationcss")
+}
 @section Scripts
 {
+@Scripts.Render("~/bundles/simplepaginationjs")
     <!-- CUPONES -->
 <script type="text/javascript">
     Calendar.setup({

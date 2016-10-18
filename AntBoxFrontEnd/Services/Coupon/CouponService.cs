@@ -14,7 +14,7 @@ namespace AntBoxFrontEnd.Services.Coupon
 {
     public class CouponService : Services
     {
-        const int itemPerPage = 100;
+        const int itemPerPage = 10;
         public int Page { get; set; }
 
         public CouponService(string apiKey) : base(apiKey)

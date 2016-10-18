@@ -15,5 +15,17 @@ namespace AntBoxFrontEnd.Services.Coupon
         [JsonProperty("discount")]
         public decimal Discount { get; set; }
 
+        [JsonProperty("quantity")]
+        public decimal Quantity { get; set; }
+
+        [JsonProperty("from")]
+        public string From{ get; set; }
+
+        [JsonProperty("to")]
+        public string To { get; set; }
+
+        [JsonProperty("created_by")]
+        public string Created_by { get; set; }
+
     }
 }

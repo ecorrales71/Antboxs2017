@@ -14,7 +14,7 @@ namespace AntBoxFrontEnd.Services.Code
 {
     public class CodeService : Services
     {
-        const int itemPerPage = 100;
+        const int itemPerPage = 10;
         public int Page { get; set; }
 
         public CodeService(string apiKey) : base(apiKey)

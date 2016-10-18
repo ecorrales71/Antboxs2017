@@ -301,6 +301,7 @@
                             form.find("#email").val(data.Email);
                             form.find("#mobile_phone").val(data.Mobile_phone);
                             form.find("#profile").val(data.Profile);
+                            form.find("#profile").trigger("chosen:updated");
                             form.find("#username").val(data.Username);
                             form.find("#change_password2").prop("checked", data.Change_password);
 

@@ -23,7 +23,7 @@ namespace AntBoxFrontEnd.Controllers
 
                 var ser = new BoxesService(ServiceConfiguration.GetApiKey());
                 var res = ser.CreateBoxes(modelBox);
-                return Json(res, JsonRequestBehavior.AllowGet);
+                return Json(new { success = true, responseText = "Box creado correctamente" }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {

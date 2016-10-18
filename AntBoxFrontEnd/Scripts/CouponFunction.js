@@ -79,6 +79,7 @@ $(function () {
                         form.find("#fecha_cupon_inicio_edit").val(data.From);
                         form.find("#fecha_cupon_vigencia_edit").val(data.To);
                         form.find("#Created_by").val(data.Created_by);
+                        form.find("#Created_by").trigger("chosen:updated");
                         //form.find("#fecha_cupon_creacion_edit").val(data.Slu);
                         var statusname = "Activo"
                         if (!data.Status)
@@ -242,6 +243,7 @@ $(function () {
                         form.find("#fecha_codigo_vigencia_edit").val(data.To);
                         form.find("#Quantity").val(data.Quantity);
                         form.find("#Created_by").val(data.Created_by);
+                        form.find("#Created_by").trigger("chosen:updated");
                         //form.find("#fecha_cupon_creacion_edit").val(data.Slu);
                         var statusname = "Activo"
                         if (!data.Status)
@@ -488,6 +490,111 @@ $(function () {
             } else {
                 error.insertAfter(element);
             }
+        }
+    });
+
+    $('.pagination-coupons').pagination({
+        items: $('#total-coupons').val(),
+        itemsOnPage: 10,
+        cssStyle: 'light-theme',
+        onPageClick: function (pageNumber, event) {
+            event.preventDefault();
+
+            $("#tabla-coupon").html('');
+            pageLoading(true);
+            var formData = { idPagination: $('#idpagination-coupons').val(), page: pageNumber };
+            var cadhtml = "";
+            var couponsresult = "";
+
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("PaginationAjax", "Coupon")',
+                data: formData,
+                success: function (result) {
+
+                    couponsresult = "";
+
+                    for (var i = 0; i < result.Coupons.length; i++) {
+
+                        var couponv = result.Coupons[i];
+
+                        cadhtml = "";
+                        cadhtml += "<tr>";
+                        cadhtml += "    <td><input type=\"checkbox\" data-id=\"" + couponv.Id + "\" class=\"select-coupon\" \/><\/td>";
+                        cadhtml += "    <td class=\"tname\">" + couponv.Name + "<\/td>";
+                        cadhtml += "    <td class=\"tquantity\">" + couponv.Quantity + "<\/td>";
+                        cadhtml += "    <td class=\"tdiscount\">" + couponv.Discount % +"<\/td>";
+                        cadhtml += "    <td class=\"tfrom\">" + couponv.From + "<\/td>";
+                        cadhtml += "    <td class=\"tto\">" + couponv.To + "<\/td>";
+                        cadhtml += "    <td class=\"tcreated\">-<\/td>";
+                        cadhtml += "    <td class=\"tdatecreated\">-<\/td>";
+                        cadhtml += "    <td class=\"tstatus\">" + couponv.Statusname + "<\/td>";
+                        cadhtml += "<\/tr>";
+
+                        couponsresult += cadhtml;
+                    }
+
+                    $("#tabla-coupon").html(couponsresult);
+
+                    console.log(result);
+                    pageLoading(false);
+
+                }
+            });
+
+        }
+    });
+
+    $('.pagination-code').pagination({
+        items: $('#total-code').val(),
+        itemsOnPage: 10,
+        cssStyle: 'light-theme',
+        onPageClick: function (pageNumber, event) {
+            event.preventDefault();
+
+            $("#tabla-code").html('');
+            pageLoading(true);
+            var formData = { idPagination: $('#idpagination-code').val(), page: pageNumber };
+            var cadhtml = "";
+            var coderesult = "";
+
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("PaginationAjax", "Code")',
+                data: formData,
+                success: function (result) {
+
+                    coderesult = "";
+
+                    for (var i = 0; i < result.Codes.length; i++) {
+
+                        var codev = result.Codes[i];
+
+                        cadhtml = "";
+                        cadhtml += "<tr>";
+                        cadhtml += "    <td><input type=\"checkbox\" data-id=\"" + codev.Id + "\" class=\"select-code\" \/><\/td>";
+                        cadhtml += "    <td class=\"tcode\">" + codev.Code + "<\/td>";
+                        cadhtml += "    <td class=\"tamount\">" + codev.Amount + "<\/td>";
+                        cadhtml += "    <td class=\"tfrom\">" + codev.From + "<\/td>";
+                        cadhtml += "    <td class=\"tto\">" + codev.From + "<\/td>";
+                        cadhtml += "    <td class=\"tquantity\">" + codev.Quantity + "<\/td>";
+                        cadhtml += "    <td class=\"t\">-<\/td>";
+                        cadhtml += "    <td class=\"t\">-<\/td>";
+                        cadhtml += "    <td class=\"t\">-<\/td>";
+                        cadhtml += "    <td class=\"tstatus\">" + codev.Statusname + "<\/td>";
+                        cadhtml += "<\/tr>";
+
+                        coderesult += cadhtml;
+                    }
+
+                    $("#tabla-coupon").html(coderesult);
+
+                    console.log(result);
+                    pageLoading(false);
+
+                }
+            });
+
         }
     });
 });
