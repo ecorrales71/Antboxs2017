@@ -58,19 +58,22 @@
                             <tbody>
                                 @if (Model.Coupons != null)
                                 {
-                                    foreach (var item in Model.Coupons.Coupons)
+                                    if (Model.Coupons.Coupons != null)
                                     {
-                                    <tr>
-                                        <td><input type="checkbox" data-id="@item.Id" class="select-coupon" /></td>
-                                        <td class="tname">@item.Name</td>
-                                        <td class="tquantity">@item.Quantity</td>
-                                        <td class="tdiscount">@item.Discount%</td>
-                                        <td class="tfrom">@item.From</td>
-                                        <td class="tto">@item.To</td>
-                                        <td class="tcreated">-</td>
-                                        <td class="tdatecreated">-</td>
-                                        <td class="tstatus">@item.Statusname</td>
-                                    </tr>
+                                        foreach (var item in Model.Coupons.Coupons)
+                                        {
+                                        <tr>
+                                            <td><input type="checkbox" data-id="@item.Id" class="select-coupon" /></td>
+                                            <td class="tname">@item.Name</td>
+                                            <td class="tquantity">@item.Quantity</td>
+                                            <td class="tdiscount">@item.Discount%</td>
+                                            <td class="tfrom">@item.From</td>
+                                            <td class="tto">@item.To</td>
+                                            <td class="tcreated">-</td>
+                                            <td class="tdatecreated">-</td>
+                                            <td class="tstatus">@item.Statusname</td>
+                                        </tr>
+                                        }
                                     }
                                 }
                             </tbody>
@@ -134,21 +137,25 @@
                             <tbody>
                                 @if (Model.Codes != null)
                                 {
-                                    foreach (var item in Model.Codes.Codes)
+                                    if (Model.Codes.Codes != null)
                                     {
-                                    <tr>
-                                        <td><input type="checkbox" data-id="@item.Id" class="select-code" /></td>
-                                        <td class="tcode">@item.Code</td>
-                                        <td class="tamount">@item.Amount</td>
-                                        <td class="tfrom">@item.From</td>
-                                        <td class="tto">@item.From</td>
-                                        <td class="tquantity">@item.Quantity</td>
-                                        <td class="t">-</td>
-                                        <td class="t">-</td>
-                                        <td class="t">-</td>
-                                        <td class="tstatus">@item.Statusname</td>
-                                    </tr>
+                                        foreach (var item in Model.Codes.Codes)
+                                        {
+                                            <tr>
+                                                <td><input type="checkbox" data-id="@item.Id" class="select-code" /></td>
+                                                <td class="tcode">@item.Code</td>
+                                                <td class="tamount">@item.Amount</td>
+                                                <td class="tfrom">@item.From</td>
+                                                <td class="tto">@item.From</td>
+                                                <td class="tquantity">@item.Quantity</td>
+                                                <td class="t">-</td>
+                                                <td class="t">-</td>
+                                                <td class="t">-</td>
+                                                <td class="tstatus">@item.Statusname</td>
+                                            </tr>
+                                        }
                                     }
+
                                 }
                             </tbody>
                         </table>

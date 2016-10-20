@@ -269,18 +269,18 @@
         var ivaDepositObj = $('.iva_deposit');
         var totalDepositObj = $('.total_deposit');
 
-        var subtotal = 0;
+        var total = 0;
         var subtotaldeposit = 0;
         var totaldeposit= 0;
         $( ".toSum" ).each(function( i ) {
-            subtotal += parseFloat($(this).text());
+            total += parseFloat($(this).text());
             if (!isNaN(parseFloat($(this).parent().find('.deposit_antbox_total').val())))
                 totaldeposit += parseFloat($(this).parent().find('.deposit_antbox_total').val());
         });
 
-        var tax = (subtotal * 0.16);
+        var tax = total - (total / 1.16);
         var taxdeposito = totaldeposit - (totaldeposit / 1.16);
-        var total = parseFloat(subtotal + tax);
+        var subtotal = total / 1.16;
         var subtotaldeposit = totaldeposit / 1.16;
 
         subtotalObj.text(subtotal.toFixed(2));
