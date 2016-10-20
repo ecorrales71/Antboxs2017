@@ -35,9 +35,12 @@
             <div class="row">
                 <div class="col-sm-12">
                     <div class="table-responsive">
-                        @Html.Hidden("idpagination-coupons", @Model.Coupons.Pagination_id)
-                        @Html.Hidden("total-coupons", @Model.Coupons.Total)
-                        @Html.Hidden("pages-coupons", @Model.Coupons.Pages)
+                        @if (Model.Coupons != null)
+                        {
+                            @Html.Hidden("idpagination-coupons", @Model.Coupons.Pagination_id)
+                            @Html.Hidden("total-coupons", @Model.Coupons.Total)
+                            @Html.Hidden("pages-coupons", @Model.Coupons.Pages)
+                        }
                         <table id="tabla-coupon" class="table table-bordered">
                             <thead>
                                 <tr>
@@ -107,9 +110,12 @@
             <div class="row">
                 <div class="col-sm-12">
                     <div class="table-responsive">
-                        @Html.Hidden("idpagination-code", @Model.Codes.Pagination_id)
-                        @Html.Hidden("total-code", @Model.Codes.Total)
-                        @Html.Hidden("pages-code", @Model.Codes.Pages)
+                        @if (Model.Codes != null)
+                        {
+                            @Html.Hidden("idpagination-code", @Model.Codes.Pagination_id)
+                            @Html.Hidden("total-code", @Model.Codes.Total)
+                            @Html.Hidden("pages-code", @Model.Codes.Pages)
+                        }
                         <table id="tabla-code" class="table table-bordered">
                             <thead>
                                 <tr>

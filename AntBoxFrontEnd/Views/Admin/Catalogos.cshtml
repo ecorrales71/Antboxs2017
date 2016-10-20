@@ -31,7 +31,12 @@
         <!-- /.container -->
         <!-- CONTAINER -->
         <div class="container mt30">
-
+            @Html.Hidden("idpagination", @Model.Boxes.Pagination_id)
+            @Html.Hidden("total", @Model.Boxes.Total)
+            @Html.Hidden("pages", @Model.Boxes.Pages)
+            <div id="loader" role="alert" style="display: none;">
+                <img src="@Url.Content("~/Images/preloader.gif")" />   Cargando usuarios... &nbsp;
+            </div>
             <div class="row">
                 <div class="col-sm-12">
                     <div class="table-responsive">
@@ -52,7 +57,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach (var item in Model.Boxes)
+                                @foreach (var item in Model.Boxes.Boxes)
                                 {
                                     <tr data-id="@item.Id">
                                         <td><input type="checkbox" data-id="@item.Id" class="select-box" /></td>
@@ -135,7 +140,7 @@
                                         {
                                             if (item != null)
                                             {
-                                        <option value='@item.Id.ToString()'>@item.Name @item.Lastname</option>
+                                                <option value='@item.Id.ToString()'>@item.Name @item.Lastname</option>
                                             }
                                         }
                                     }
@@ -303,7 +308,51 @@
                         if (data.success) {
                             verifCloseModal = true;
                             mostrarMensaje(form, "userMensaje", "Box registrado", "alert-warning");
-                            window.location.reload(false);
+
+                            $("#tabla").find("tbody").html("");
+                            var dataPagination = { page: 1, idpagination: $("#idpagination").val() }
+                            var boxesResult = "";
+
+                            $("#loader").show();
+
+                            $.ajax({
+                                type: 'POST',
+                                url: '@Url.Action("PaginationAjax", "Catalogo")',
+                                data: dataPagination,
+                                success: function (data) {
+
+                                    for (var i = 0; i < data.Boxes.length; i++) {
+
+                                        var boxv = data.Boxes[i];
+                                        var cadHtml = "";
+                                        cadHtml += "<tr data-id=\"" + boxv.Id + "\">";
+                                        cadHtml += "    <td><input type=\"checkbox\" data-id=\"" + boxv.Id + "\" class=\"select-box\" \/><\/td>";
+                                        cadHtml += "    <td class=\"tmodel\">"+boxv.Model+"<\/td>";
+                                        cadHtml += "    <td class=\"tsize\">"+boxv.Size+"<\/td>";
+                                        cadHtml += "    <td class=\"tlabel\">"+boxv.Label+"<\/td>";
+                                        cadHtml += "    <td class=\"tprice\">"+boxv.Price+"<\/td>";
+                                        cadHtml += "    <td class=\"tsecure_label\">"+boxv.Secure_label+"<\/td>";
+                                        cadHtml += "    <td class=\"tsecure\">"+boxv.Secure+"<\/td>";
+                                        cadHtml += "    <td class=\"tslu\">"+boxv.Slu+"<\/td>";
+                                        cadHtml += "    <td class=\"tname\">"+boxv.Registered_by.Name+"<\/td>";
+                                        cadHtml += "    <td class=\"tactivation_date\">" + boxv.Activation_date + "<\/td>";
+                                        var statusname = "Activo"
+                                        if (!boxv.Status)
+                                            statusname = "Inactivo"
+                                        cadHtml += "    <td class=\"tstatus\">" + statusname + "<\/td>";
+                                        cadHtml += "<\/tr>";
+
+
+                                        boxesResult = boxesResult + cadHtml;
+
+                                    }
+
+                                    $("#loader").hide();
+                                    $("#tabla").find("tbody").html(boxesResult);
+
+                                }
+                            });
+
                         } else {
                             mostrarMensaje(form, "userMensaje", "Error al registrar box intentelo de nuevo", "alert-warning");
                         }
@@ -358,6 +407,7 @@
                             if (!data.Status)
                                 statusname = "Inactivo"
                             form.find("#status").val(statusname);
+                            form.find("#status").trigger("chosen:updated");
 
                             $("#editar_antboxs").modal("show");
                         }

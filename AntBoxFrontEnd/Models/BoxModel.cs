@@ -12,8 +12,8 @@ namespace AntBoxFrontEnd.Models
 {
     public class BoxModel
     {
-        
-        public List<BoxesResponse> Boxes { get; set; }
+
+        public PaginationBoxesResponse Boxes { get; set; }
 
         public List<UserResponse> Users { get; set; }
 

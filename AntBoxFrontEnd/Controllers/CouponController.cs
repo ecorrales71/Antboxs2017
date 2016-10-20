@@ -33,7 +33,7 @@ namespace AntBoxFrontEnd.Controllers
             }
         }
 
-        public JsonResult UpdateCoupon(string id, string name, decimal discount, decimal quantity, string From, string To, string Created_by)
+        public JsonResult UpdateCoupon(string id, string name, decimal discount, decimal quantity, string From, string To, string Created_by, bool status)
         {
             try
             {
@@ -49,7 +49,8 @@ namespace AntBoxFrontEnd.Controllers
                     Quantity = quantity,
                     From = From,
                     To = To,
-                    Created_by = Created_by
+                    Created_by = Created_by,
+                    Status = status
                 };
 
                 var couponService = new CouponService(ServiceConfiguration.GetApiKey());

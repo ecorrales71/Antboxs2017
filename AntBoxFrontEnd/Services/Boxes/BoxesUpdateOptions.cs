@@ -31,5 +31,8 @@ namespace AntBoxFrontEnd.Services.Boxes
         [JsonProperty("slu")]
         public decimal Slu { get; set; }
 
+        [JsonProperty("status")]
+        public bool Status { get; set; }
+
     }
 }

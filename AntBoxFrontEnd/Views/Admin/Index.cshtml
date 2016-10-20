@@ -34,6 +34,9 @@
         @Html.Hidden("idpagination", @Model.Pagination_id)
         @Html.Hidden("total", @Model.Total)
         @Html.Hidden("pages", @Model.Pages)
+        <div id="loader" role="alert" style="display: none;">
+            <img src="@Url.Content("~/Images/preloader.gif")" />   Cargando usuarios... &nbsp;
+        </div>
         <div class="row">
             <div class="col-sm-12">
                 <div class="table-responsive">
@@ -261,7 +264,44 @@
                         if (data.success) {
                             verifCloseModal = true;
                             mostrarMensaje(form, "userMensaje", "Usuario registrado", "alert-warning");
-                            window.location.reload();
+
+                            $("#tabla").find("tbody").html("");
+                            var dataPagination = { page: 1, idpagination: $("#idpagination").val() }
+                            var usersResult = "";
+
+                            $("#loader").show();
+
+                            $.ajax({
+                                type: 'POST',
+                                url: '@Url.Action("PaginationAjax", "User")',
+                                data: dataPagination,
+                                success: function (data) {
+
+                                    for (var i = 0; i < data.Users.length; i++) {
+
+                                        var userv = data.Users[i];
+                                        var cadHtml = "";
+                                        cadHtml += "<tr data-id=\""+userv.Id+"\">";
+                                        cadHtml += "    <td><input type=\"checkbox\" data-id=\""+userv.Id+"\" class=\"select-user\" \/><\/td>";
+                                        cadHtml += "    <td class=\"tusername\">"+userv.Username+"<\/td>";
+                                        cadHtml += "    <td class=\"tname\">"+userv.Name+"<\/td>";
+                                        cadHtml += "    <td class=\"tlastname\">"+userv.Lastname+"<\/td>";
+                                        cadHtml += "    <td class=\"tlastname2\">"+userv.Lastname2+"<\/td>";
+                                        cadHtml += "    <td class=\"tprofile\">"+userv.System_profile+"<\/td>";
+                                        cadHtml += "    <td class=\"temail\">"+userv.Email+"<\/td>";
+                                        cadHtml += "    <td class=\"tmobile_phone\">" + userv.Mobile_phone + "<\/td>";
+                                        cadHtml += "<\/tr>";
+
+                                        usersResult = usersResult + cadHtml;
+
+                                    }
+
+                                    $("#loader").hide();
+                                    $("#tabla").find("tbody").html(usersResult);
+
+                                }
+                            });
+
                         } else {
                             mostrarMensaje(form, "userMensaje", "Error al registrar usuario intentelo de nuevo", "alert-warning");
                         }
@@ -395,8 +435,6 @@
         $('#form-agregar').validate({
             rules: {
                 Username: {
-                    minlength: 6,
-                    maxlength: 8,
                     required: true
                 },
                 Name: {

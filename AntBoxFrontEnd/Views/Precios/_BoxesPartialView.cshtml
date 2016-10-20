@@ -51,7 +51,7 @@
                                 <a href="" class="plus" onclick='AddBox(@rowNo)'>+</a>
                             </td>
                             <td class="product-subtotal no_iphone_portrait">
-                                <input type="hidden" class="deposit_antbox_total" value="" />
+                                <input type="hidden" class="deposit_antbox_total" value="0" />
                                 $ <span class="amount toSum" id='LineTotal_@rowNo'> @item.LineTotal</span>
                             </td>
 
@@ -167,15 +167,15 @@
                                 <hr class="hr-light mb5 hr_ordenar">
                             </td>
                         </tr>
-                        <tr>
-                            <th>
+                        @*<tr>
+        <th>
 
-                            </th>
-                            <td>
-                                <input type="submit" class="btn btn-primary btn-wide pull-right mt10" value="Calcular Precio">
-                                <p class="succs-msg">Мensaje enviado</p>
-                            </td>
-                        </tr>
+        </th>
+        <td>
+            <input type="submit" class="btn btn-primary btn-wide pull-right mt10" value="Calcular Precio">
+            <p class="succs-msg">Мensaje enviado</p>
+        </td>
+    </tr>*@
                     </tbody>
                 </table>
             </div>

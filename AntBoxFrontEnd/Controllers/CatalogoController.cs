@@ -51,7 +51,8 @@ namespace AntBoxFrontEnd.Controllers
                     Secure_label = secure_label,
                     Secure = secure,
                     Activation_date = activation_date,
-                    Slu = slu
+                    Slu = slu,
+                    Status = status
                 };
 
                 var boxService = new BoxesService(ServiceConfiguration.GetApiKey());
@@ -88,6 +89,27 @@ namespace AntBoxFrontEnd.Controllers
             var boxService = new BoxesService(ServiceConfiguration.GetApiKey());
 
             var result = boxService.SearchBox(id);
+
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult PaginationAjax(string idPagination, int page)
+        {
+            var servicio = new BoxesService(ServiceConfiguration.GetApiKey());
+
+            PaginationBoxesResponse result = new PaginationBoxesResponse();
+            try
+            {
+                result = servicio.ListBoxesPagination(StatusBoxes.All, null, page, idPagination, "size,label,price,secure_label,secure,status,activation_date,slu");
+            }
+            catch (Exception ex)
+            {
+
+            }
+            if (result == null)
+            {
+                result = new PaginationBoxesResponse();
+            }
 
             return Json(result, JsonRequestBehavior.AllowGet);
         }

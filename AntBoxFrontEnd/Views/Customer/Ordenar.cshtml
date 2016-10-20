@@ -538,6 +538,10 @@
     <script type="text/javascript">
         $(document).ready(function () {
             $('[data-toggle="popover"]').popover({ html: true });
+
+            $(".amount").each(function () {
+                $(this).text($(this).text().replace(",", "."));
+            });
         });
     </script>
 

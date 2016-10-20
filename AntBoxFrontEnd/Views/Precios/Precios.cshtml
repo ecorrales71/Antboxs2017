@@ -178,7 +178,7 @@
         var quantityObj = $('#quantity_' + ide)
 
         var price = priceObj.html();
-        var deposit = 136.20;
+        var deposit = 158;
         var quantity = quantityObj.val();
 
         quantity++;
@@ -220,7 +220,7 @@
 
         var price = priceObj.html();
         var quantity = quantityObj.val();
-        var deposit = 136.20;
+        var deposit = 158;
 
         quantity--;
         if (quantity>=0)
@@ -271,15 +271,17 @@
 
         var subtotal = 0;
         var subtotaldeposit = 0;
+        var totaldeposit= 0;
         $( ".toSum" ).each(function( i ) {
             subtotal += parseFloat($(this).text());
-            subtotaldeposit += parseFloat($(this).parent().find('.deposit_antbox_total').val());
+            if (!isNaN(parseFloat($(this).parent().find('.deposit_antbox_total').val())))
+                totaldeposit += parseFloat($(this).parent().find('.deposit_antbox_total').val());
         });
 
         var tax = (subtotal * 0.16);
-        var taxdeposito = (subtotaldeposit * 0.16);
+        var taxdeposito = totaldeposit - (totaldeposit / 1.16);
         var total = parseFloat(subtotal + tax);
-        var totalDeposit = parseFloat(subtotaldeposit + taxdeposito);
+        var subtotaldeposit = totaldeposit / 1.16;
 
         subtotalObj.text(subtotal.toFixed(2));
         taxObj.text(tax.toFixed(2));
@@ -287,7 +289,7 @@
 
         subDepositObj.text(subtotaldeposit.toFixed(2));
         ivaDepositObj.text(taxdeposito.toFixed(2));
-        totalDepositObj.text(totalDeposit.toFixed(2));
+        totalDepositObj.text(totaldeposit.toFixed(2));
 
     }
 

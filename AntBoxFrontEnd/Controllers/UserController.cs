@@ -33,7 +33,7 @@ namespace AntBoxFrontEnd.Controllers
             }
         }
 
-        public JsonResult UpdateUser(string id, string name, string lastname, string lastname2, string mobile_phone, string profile, bool change_password)
+        public JsonResult UpdateUser(string id, string name, string lastname, string lastname2, string mobile_phone, string profile, bool change_password, bool status)
         {
             try
             {
@@ -53,7 +53,8 @@ namespace AntBoxFrontEnd.Controllers
                     Lastname2 = lastname2,
                     Mobile_phone = mobile_phone,
                     Profile = profile,
-                    Change_password = change_passwordv
+                    Change_password = change_passwordv,
+                    Status = status
                 };
 
                 var userService = new UserServices(ServiceConfiguration.GetApiKey());
@@ -90,6 +91,28 @@ namespace AntBoxFrontEnd.Controllers
             var userService = new UserServices(ServiceConfiguration.GetApiKey());
 
             var result = userService.SearchUser(id);
+
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult PaginationAjax(string idPagination, int page)
+        {
+            var servicio = new UserServices(ServiceConfiguration.GetApiKey());
+
+            PaginationUser result = new PaginationUser();
+            try
+            {
+                result = servicio.ListUsersPagination(page, idPagination);
+            }
+            catch (Exception ex)
+            {
+
+            }
+            if (result == null)
+            {
+                result = new PaginationUser();
+            }
 
             return Json(result, JsonRequestBehavior.AllowGet);
         }

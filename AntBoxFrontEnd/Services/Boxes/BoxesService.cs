@@ -125,6 +125,43 @@ namespace AntBoxFrontEnd.Services.Boxes
             return boxes.Boxes;
         }
 
+        public virtual PaginationBoxesResponse ListBoxesPagination(string status = null, RequestOptions requestOptions = null, int currentPage = 1, string idPagination = null, string include = "price,label,model,size,secure")
+        {
+            PaginationBoxesResponse boxes = new PaginationBoxesResponse();
+
+            try
+            {
+                requestOptions = SetupRequestOptions(requestOptions);
+
+                var parameters = new Dictionary<string, string>();
+
+                if (string.IsNullOrEmpty(status))
+                    status = StatusBoxes.Active;  //por defaul trae las activas solamente
+
+                parameters.Add("status", status);
+                parameters.Add("items_per_page", itemPerPage.ToString());
+                parameters.Add("include", include);
+
+                if (!string.IsNullOrEmpty(idPagination))
+                {
+                    parameters.Add("pagination_id", idPagination);
+                    parameters.Add("page_number", currentPage.ToString());
+                } 
+
+
+                var encodedParams = Infrastructure.UrlHelper.BuildURLParametersString(parameters);
+
+                boxes = Requestor.Get<PaginationBoxesResponse>(UrlsConstants.BoxesSearch + encodedParams, requestOptions);
+
+            }
+            catch (Exception ex)
+            {
+                LogManager.Write(ex.Message + " " + ex.InnerException, LogManager.Error);
+                return null;
+            }
+            return boxes;
+        }
+
 
         public virtual bool DeleteBoxes(string id, RequestOptions requestOptions = null)
         {

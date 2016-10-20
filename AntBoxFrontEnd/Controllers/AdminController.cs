@@ -46,12 +46,12 @@ namespace AntBoxFrontEnd.Controllers
             var servicio = new BoxesService(ServiceConfiguration.GetApiKey());
             var servicioUser = new UserServices(ServiceConfiguration.GetApiKey());
 
-            var result = new List<BoxesResponse>();
+            PaginationBoxesResponse result = new PaginationBoxesResponse();
             PaginationUser resultUsers = new PaginationUser();
             try
             {
                 resultUsers = servicioUser.ListUsersPagination(1);
-                result = servicio.ListBoxes(StatusBoxes.All, null, "size,label,price,secure_label,secure,status,activation_date,slu");
+                result = servicio.ListBoxesPagination(StatusBoxes.All, null, 1, null, "size,label,price,secure_label,secure,status,activation_date,slu");
             }
             catch (Exception ex)
             {

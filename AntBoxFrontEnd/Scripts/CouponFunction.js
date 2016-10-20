@@ -85,6 +85,7 @@ $(function () {
                         if (!data.Status)
                             statusname = "Inactivo"
                         form.find("#Status").val(statusname);
+                        form.find("#Status").trigger("chosen:updated");
 
                         $("#editar_coupon").modal("show");
                     }
@@ -249,6 +250,7 @@ $(function () {
                         if (!data.Status)
                             statusname = "Inactivo"
                         form.find("#Status").val(statusname);
+                        form.find("#Status").trigger("chosen:updated");
 
                         $("#editar_code").modal("show");
                     }

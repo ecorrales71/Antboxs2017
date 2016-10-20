@@ -51,7 +51,7 @@
                                 <a href="" class="plus" onclick='AddBox(@rowNo)' >+</a>
                             </td>
                             <td class="product-subtotal no_iphone_portrait">
-                                <input type="hidden" class="deposit_antbox_total" value="" />
+                                <input type="hidden" class="deposit_antbox_total" value="0" />
                                 $ <span class="amount toSum" id='LineTotal_@rowNo'> @item.LineTotal</span>
                             </td>
                             
@@ -166,15 +166,15 @@
                                 <hr class="hr-light mb5 hr_ordenar">
                             </td>
                         </tr>
-                        <tr>
-                            <th>
+                        @*<tr>
+        <th>
 
-                            </th>
-                            <td>
-                                <input type="submit" class="btn btn-primary btn-wide pull-right mt10" value="Calcular Precio">
-                                <p class="succs-msg">Мensaje enviado</p>
-                            </td>
-                        </tr>
+        </th>
+        <td>
+            <input type="submit" class="btn btn-primary btn-wide pull-right mt10" value="Calcular Precio">
+            <p class="succs-msg">Мensaje enviado</p>
+        </td>
+    </tr>*@
                     </tbody>
                 </table>
             </div>
@@ -193,7 +193,7 @@
 
         var price = priceObj.html();
         var quantity = quantityObj.val();
-        var deposit = 136.20;
+        var deposit = 158;
 
         quantity++;
 
@@ -234,7 +234,7 @@
 
         var price = priceObj.html();
         var quantity = quantityObj.val();
-        var deposit = 136.20;
+        var deposit = 158;
 
         quantity--;
         if (quantity>=0)
@@ -284,21 +284,18 @@
         var totalDepositObj = $('.total_deposit');
 
         var subtotal = 0;
-        var deposit = 136.20;
-        var subtotaldeposit = 0;
+        var totaldeposit = 0;
         var cantantboxs = 0;
         $( ".toSum" ).each(function( i ) {
             subtotal += parseFloat($(this).text());
-        });
-        $(".cant_antboxs").each(function (i) {
-            cantantboxs += parseFloat($(this).val());
-            subtotaldeposit += cantantboxs * deposit;
+            if (!isNaN(parseFloat($(this).parent().find('.deposit_antbox_total').val())))
+                totaldeposit += parseFloat($(this).parent().find('.deposit_antbox_total').val());
         });
 
         var tax = (subtotal*0.16);
         var total = parseFloat(subtotal+tax);
-        var taxdeposito = (subtotaldeposit * 0.16);
-        var totalDeposit = parseFloat(subtotaldeposit + taxdeposito);
+        var taxdeposito = totaldeposit - (totaldeposit / 1.16);
+        var subtotaldeposit = totaldeposit / 1.16;
 
         subtotalObj.text(subtotal.toFixed(2));
         taxObj.text(tax.toFixed(2));
@@ -306,7 +303,7 @@
 
         subDepositObj.text(subtotaldeposit.toFixed(2));
         ivaDepositObj.text(taxdeposito.toFixed(2));
-        totalDepositObj.text(totalDeposit.toFixed(2));
+        totalDepositObj.text(totaldeposit.toFixed(2));
 
     }
 
