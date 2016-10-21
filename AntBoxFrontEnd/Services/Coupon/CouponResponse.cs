@@ -28,7 +28,7 @@ namespace AntBoxFrontEnd.Services.Coupon
         public string To { get; set; }
 
         [JsonProperty("created_by")]
-        public string Created_by { get; set; }
+        public CustomerResponse Created_by { get; set; }
 
         [JsonProperty("status")]
         public bool Status { get; set; }
@@ -46,6 +46,9 @@ namespace AntBoxFrontEnd.Services.Coupon
                 }
             }
         }
+
+        [JsonProperty("creation_date")]
+        public string Creation_date { get; set; }
 
 
     }

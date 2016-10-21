@@ -481,3 +481,6 @@ ul.pagination .prev, ul.pagination .next {
 .checkboxFive input {
     margin-left: 7px;
 }
+.restricciones-content ul li {
+    list-style: initial;
+}
