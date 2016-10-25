@@ -287,6 +287,8 @@
     <Compile Include="Models\abTask.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\abAddress.cs" />
+    <Compile Include="Models\DeliveryListModel.cs" />
+    <Compile Include="Models\PickupListModel.cs" />
     <Compile Include="Models\CustomerListModel.cs" />
     <Compile Include="Models\CouponModel.cs" />
     <Compile Include="Models\BoxModel.cs" />
@@ -329,6 +331,12 @@
     <Compile Include="Services\Coupon\CouponResponse.cs" />
     <Compile Include="Services\Coupon\CouponUpdateOptions.cs" />
     <Compile Include="Services\Coupon\PaginationCouponsResponse.cs" />
+    <Compile Include="Services\CustomerService\CSServices.cs" />
+    <Compile Include="Services\CustomerService\PickupResponse.cs" />
+    <Compile Include="Services\CustomerService\PaginationPickup.cs" />
+    <Compile Include="Services\CustomerService\PaginationDelivery.cs" />
+    <Compile Include="Services\CustomerService\DeliveryResponse.cs" />
+    <Compile Include="Services\CustomerService\WorkerResponse.cs" />
     <Compile Include="Services\Customer\CustomerListingResponse.cs" />
     <Compile Include="Services\Customer\CustomerUpdateOptions.cs" />
     <Compile Include="Services\Customer\CustomerRequestOptions.cs" />
@@ -745,6 +753,7 @@
     <Content Include="Views\CustomerService\Antboxs.cshtml" />
     <Content Include="Views\CustomerService\Recolecciones.cshtml" />
     <Content Include="Views\CustomerService\Entregas.cshtml" />
+    <Content Include="Views\Login\CustomerService.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Addresses\" />

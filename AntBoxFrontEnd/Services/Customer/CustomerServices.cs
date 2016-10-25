@@ -103,7 +103,7 @@ namespace AntBoxFrontEnd.Services.Customer
         }
 
 
-        public virtual PaginationCustomerResponse ListCustomer(int currentPage, string idPagination = null, RequestOptions requestOptions = null)
+        public virtual PaginationCustomerResponse ListCustomer(int currentPage, string name, string email, string rfc, int? antboxs, string status, string idPagination = null, RequestOptions requestOptions = null)
         {
             PaginationCustomerResponse customers = new PaginationCustomerResponse();
 
@@ -113,11 +113,25 @@ namespace AntBoxFrontEnd.Services.Customer
 
                 var parameters = new Dictionary<string, string>();
 
-                parameters.Add("items_per_page", itemPerPage.ToString());
+                
                 if (!string.IsNullOrEmpty(idPagination))
                 {
+                    parameters.Add("items_per_page", itemPerPage.ToString());
                     parameters.Add("pagination_id", idPagination);
                     parameters.Add("page_number", currentPage.ToString());
+                }
+
+                if (!string.IsNullOrEmpty(name))
+                {
+                    parameters.Add("name", name);
+                }
+                if (!string.IsNullOrEmpty(email))
+                {
+                    parameters.Add("email", email);
+                }
+                if (!string.IsNullOrEmpty(rfc))
+                {
+                    parameters.Add("rfc_id", rfc);
                 }
 
                 var encodedParams = Infrastructure.UrlHelper.BuildURLParametersString(parameters);

@@ -99,6 +99,33 @@ namespace AntBoxFrontEnd.Services.AntBoxes
                 return null;
             }
         }
+
+        public virtual PaginationAntBoxes ListAntBoxesCustomerService(int currentPage, string idPagination = null, RequestOptions requestOptions = null)
+        {
+            try
+            {
+                requestOptions = SetupRequestOptions(requestOptions);
+
+                var parameters = new Dictionary<string, string>();
+
+                if (!string.IsNullOrEmpty(idPagination))
+                {
+                    parameters.Add("pagination_id", idPagination);
+                    parameters.Add("page_number", currentPage.ToString());
+                }
+
+                var encodedParams = Infrastructure.UrlHelper.BuildURLParametersString(parameters);
+
+                var antBoxes = Requestor.Get<PaginationAntBoxes>(UrlsConstants.AntBoxList + "/" + encodedParams, requestOptions);
+
+                return antBoxes;
+            }
+            catch (Exception ex)
+            {
+                LogManager.Write(ex.Message + " " + ex.InnerException, LogManager.Error);
+                return null;
+            }
+        }
         
     }
 

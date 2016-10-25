@@ -1,4 +1,4 @@
-﻿
+﻿@model AntBoxFrontEnd.Models.PickupListModel
 @{
     ViewBag.Title = "Recolecciones";
 }
@@ -34,30 +34,23 @@
             <div class="row">
                 <div class="col-sm-12">
                     <div class="table-responsive">
-                        <table class="table table-bordered">
-                            <form id="search" action="../../php/email.php" method="post" class="contact-form form-solid " novalidate>
-                                <div class="col-sm-12 pr0 pb0">
-                                    <input type="submit" class="btn btn-primary btn-wide pull-right mt10" value="Buscar">
-                                    <input type="reset" class="btn btn-primary btn-wide btn_blue pull-right mt10 mr10" value="Borrar campos">
-                                </div>
+                        <form id="search" action="" method="get" class="form-solid " novalidate>
+                            <div class="col-sm-12 pr0 pb0">
+                                <input type="submit" class="btn btn-primary btn-wide pull-right mt10" value="Buscar">
+                                <input type="reset" class="btn btn-primary btn-wide btn_blue pull-right mt10 mr10" value="Borrar campos">
+                            </div>
+                            <table class="table table-bordered">
                                 <thead>
                                     <tr>
-                                        <th><input class="input_cliente" type="text" name="name" id="send-form-name" placeholder="Cliente"></th>
-                                        <th>
-                                            <select>
-                                                <option value="Default">Tipo</option>
-                                                <option value="Nuevo">Nuevo</option>
-                                                <option value="Recolección">Recolección</option>
-                                            </select>
-                                        </th>
-                                        <th><input class="input_operador" type="text" name="name" id="send-form-name" placeholder="Operador"></th>
-                                        <th><input class="input_antboxs" type="text" name="name" id="send-form-name" placeholder="Antboxs"></th>
+                                        <th><input class="input_cliente" type="text" name="name" id="send-form-name" placeholder="Cliente" value="@Model.Name"></th>
+                                        <th><input class="input_operador" type="text" name="operador" id="send-form-name" placeholder="Operador" value="@Model.Operador"></th>
+                                        <th><input class="input_antboxs" type="text" name="antboxs" id="send-form-name" placeholder="Antboxs" value="@Model.Antboxs"></th>
                                         <th>
                                             <div class="input-group mb0">
                                                 <span class="input-group-btn">
                                                     <button type="button" id="solicitud" class="btn btn-primary pull-right"><i class="fa fa-calendar"></i></button>
                                                 </span>
-                                                <input class="form-control" type="text" id="fecha_solicitud" name="fecha_solicitud" placeholder="Solicitud">
+                                                <input class="form-control" type="text" id="fecha_solicitud" name="fecha_solicitud" placeholder="Solicitud" value="@Model.Solicitud">
                                             </div>
                                         </th>
                                         <th>
@@ -65,12 +58,13 @@
                                                 <span class="input-group-btn">
                                                     <button type="button" id="recoleccion" class="btn btn-primary pull-right"><i class="fa fa-calendar"></i></button>
                                                 </span>
-                                                <input class="form-control" type="text" id="fecha_recoleccion" name="fecha_recoleccion" placeholder="Recolección">
+                                                <input class="form-control" type="text" id="fecha_recoleccion" name="fecha_recoleccion" placeholder="Recolección" value="@Model.Recoleccion">
                                             </div>
                                         </th>
                                         <th>
-                                            <select id="form-select">
-                                                <option value="Default" selected="selected">Horario</option>
+                                            <input type="hidden" name="horariov" id="horariov" value="@Model.Tipo" />
+                                            <select id="form-select" name="horario">
+                                                <option value="">Horario</option>
                                                 <option value="09-11">07:00-09:00</option>
                                                 <option value="11-13">11:00-13:00</option>
                                                 <option value="13-15">13:00-15:00</option>
@@ -79,112 +73,45 @@
                                             </select>
                                         </th>
                                         <th>
-                                            <select id="form-select">
-                                                <option value="" selected="selected">Estatus</option>
+                                            <input type="hidden" name="statusvalue" id="statusvalue" value="@Model.Status" />
+                                            <select id="form-select" name="status">
+                                                <option value="">Estatus</option>
                                                 <option value="Confirmado">Confirmado</option>
                                                 <option value="Programado">Programado</option>
                                             </select>
                                         </th>
                                     </tr>
                                 </thead>
-                            </form>
-                            <tbody>
-                                <tr>
-                                    <td><button type="button" class="btn-link" data-toggle="modal" data-target="#nombre_cliente">Rodríguez Pérez Joaquín</button></td>
-                                    <td>Nuevo</td>
-                                    <td>Joaquín Rodríguez Pérez</td>
-                                    <td>1</td>
-                                    <td>09/07/2016</td>
-                                    <td>24/10/2016</td>
-                                    <td>17:00-19:00</td>
-                                    <td>Programado</td>
-                                </tr>
-                                <tr>
-                                    <td><button type="button" class="btn-link" data-toggle="modal" data-target="#nombre_cliente">Osorio Laverde Beatriz Elena</button></td>
-                                    <td>Recolección</td>
-                                    <td>Beatriz Elena Osorio Laverde</td>
-                                    <td>7</td>
-                                    <td>28/03/2016</td>
-                                    <td>09/07/2016</td>
-                                    <td>09:00-11:00</td>
-                                    <td>En camino</td>
-                                </tr>
-                                <tr>
-                                    <td><button type="button" class="btn-link" data-toggle="modal" data-target="#nombre_cliente">Gómez Álvarez Lillian Eugenia</button></td>
-                                    <td>Recolección</td>
-                                    <td>Lilian Eugenia Gómez Álvarez</td>
-                                    <td>5</td>
-                                    <td>03/06/2016</td>
-                                    <td>28/03/2017</td>
-                                    <td>13:00-15:00</td>
-                                    <td>Confirmado</td>
-                                </tr>
-                                <tr>
-                                    <td><button type="button" class="btn-link" data-toggle="modal" data-target="#nombre_cliente">Murillo González Oscar Darío</button></td>
-                                    <td>Recolección</td>
-                                    <td>Joaquín Rodríguez Pérez</td>
-                                    <td>2</td>
-                                    <td>10/03/2016</td>
-                                    <td>24/10/2016</td>
-                                    <td>15:00-17:00</td>
-                                    <td>Confirmado</td>
-                                </tr>
-                                <tr>
-                                    <td><button type="button" class="btn-link" data-toggle="modal" data-target="#nombre_cliente">Oficinas - Posada Vera Bernardo</button></td>
-                                    <td>Nuevo</td>
-                                    <td>Lilian Eugenia Gómez Álvarez</td>
-                                    <td>15</td>
-                                    <td>24/10/2016</td>
-                                    <td>28/03/2017</td>
-                                    <td>09:00-11:00</td>
-                                    <td>Programado</td>
-                                </tr>
-                                <tr>
-                                    <td><button type="button" class="btn-link" data-toggle="modal" data-target="#nombre_cliente">Aguilar Gómez Javier Ignacio</button></td>
-                                    <td>Recolección</td>
-                                    <td>Joaquín Rodríguez Pérez</td>
-                                    <td>3</td>
-                                    <td>02/08/2016</td>
-                                    <td>14/11/2016</td>
-                                    <td>11:00-13:00</td>
-                                    <td>En camino</td>
-                                </tr>
-                                <tr>
-                                    <td><button type="button" class="btn-link" data-toggle="modal" data-target="#nombre_cliente">Rodríguez Pérez Joaquín</button></td>
-                                    <td>Nuevo</td>
-                                    <td>Joaquín Rodríguez Pérez</td>
-                                    <td>1</td>
-                                    <td>09/07/2016</td>
-                                    <td>24/10/2016</td>
-                                    <td>17:00-19:00</td>
-                                    <td>Programado</td>
-                                </tr>
-                                <tr>
-                                    <td><button type="button" class="btn-link" data-toggle="modal" data-target="#nombre_cliente">Osorio Laverde Beatriz Elena</button></td>
-                                    <td>Recolección</td>
-                                    <td>Lilian Eugenia Gómez Álvarez</td>
-                                    <td>2</td>
-                                    <td>28/03/2016</td>
-                                    <td>09/07/2016</td>
-                                    <td>09:00-11:00</td>
-                                    <td>Confirmado</td>
-                                </tr>
-                                <tr>
-                                    <td><button type="button" class="btn-link" data-toggle="modal" data-target="#nombre_cliente">Gómez Álvarez Lillian Eugenia</button></td>
-                                    <td>Recolección</td>
-                                    <td>Beatriz Elena Osorio Laverde</td>
-                                    <td>9</td>
-                                    <td>03/06/2016</td>
-                                    <td>28/03/2017</td>
-                                    <td>13:00-15:00</td>
-                                    <td>Confirmado</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                                <tbody>
+                                    @if (Model.Pickups.Pickups != null)
+                                    {
+                                        foreach (var item in Model.Pickups.Pickups)
+                                        {
+                                            <tr>
+                                                <td><button type="button" class="btn-link" data-toggle="modal" data-target="#nombre_cliente">@item.Namev</button></td>
+                                                <td>@item.Worker.Name</td>
+                                                <td>-</td>
+                                                <td>@item.Date</td>
+                                                <td>@item.Requested_at</td>
+                                                <td>@item.Time</td>
+                                                @if (item.Status == "inprogress")
+                                                {
+                                                    <td>En camino</td>
+                                                }
+                                                else
+                                                {
+                                                    <td>Programado</td>
+                                                }
+                                            </tr>
+                                        }
+                                    }
+                                </tbody>
+                            </table>
+                        </form>
                     </div>
                 </div>
             </div>
-            <div class"row">
+            <div class="row">
                 <div class="col-sm-12 pl0 pr0 text-center">
                     <!-- PAGINATION -->
                     <ul class="pagination solid">

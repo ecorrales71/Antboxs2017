@@ -62,11 +62,11 @@
                                         foreach (var item in Model.Customers.Customers)
                                         {
                                             <tr>
-                                                <td><button type="button" class="btn-link" data-toggle="modal" data-target="#nombre_cliente">@item.Lastname @item.Lastname2 @item.Name</button></td>
+                                                <td><button type="button" class="btn-link" data-toggle="modal" data-target="#nombre_cliente">@item.Namev</button></td>
                                                 <td>@item.Email</td>
-                                                <td>-</td>
-                                                <td>@item.Antboxs</td>
-                                                if (@item.Status)
+                                                <td>@item.Rfcv</td>
+                                                <td>@item.Antboxsnumber</td>
+                                                @if (item.Status == true)
                                                 {
                                                     <td>Pagado</td>
                                                 } else {

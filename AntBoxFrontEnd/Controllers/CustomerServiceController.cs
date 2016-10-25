@@ -1,6 +1,7 @@
 ﻿using AntBoxFrontEnd.Infrastructure;
 using AntBoxFrontEnd.Models;
 using AntBoxFrontEnd.Services.Customer;
+using AntBoxFrontEnd.Services.CustomerService;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,7 +24,7 @@ namespace AntBoxFrontEnd.Controllers
             PaginationCustomerResponse result = new PaginationCustomerResponse();
             try
             {
-                result = servicio.ListCustomer(1);
+                result = servicio.ListCustomer(1, name, email, rfc, antboxs, status);
             }
             catch (Exception ex)
             {
@@ -46,20 +47,70 @@ namespace AntBoxFrontEnd.Controllers
             return View();
         }
 
-        public ActionResult Entregas()
+        public ActionResult Entregas(string name, string tipo, string operador, string antboxs, string fecha_solicitud, string fecha_recoleccion, string horario, string status)
         {
-            return View();
+            var servicio = new CSServices(ServiceConfiguration.GetApiKey());
+
+            DeliveryListModel model = new DeliveryListModel();
+            PaginationDelivery result = new PaginationDelivery();
+            try
+            {
+                result = servicio.ListDeliveries(1, name, tipo, operador, antboxs, fecha_solicitud, fecha_recoleccion, horario, status);
+            }
+            catch (Exception ex)
+            {
+            }
+            if (result == null)
+            {
+                result = new PaginationDelivery();
+            }
+
+            model.Deliveries = result;
+            model.Name = name;
+            model.Tipo = tipo;
+            model.Operador = operador;
+            model.Antboxs = antboxs;
+            model.Solicitud = fecha_solicitud;
+            model.Recoleccion = fecha_recoleccion;
+            model.Horario = horario;
+
+            return View(model);
         }
 
-        public ActionResult Recolecciones()
+        public ActionResult Recolecciones(string name, string tipo, string operador, string antboxs, string fecha_solicitud, string fecha_recoleccion, string horario, string status)
         {
-            return View();
+            var servicio = new CSServices(ServiceConfiguration.GetApiKey());
+
+            PickupListModel model = new PickupListModel();
+            PaginationPickup result = new PaginationPickup();
+            try
+            {
+                result = servicio.ListPickups(1, name, tipo, operador, antboxs, fecha_solicitud, fecha_recoleccion, horario, status);
+            }
+            catch (Exception ex)
+            {
+            }
+            if (result == null)
+            {
+                result = new PaginationPickup();
+            }
+
+            model.Pickups = result;
+            model.Name = name;
+            model.Tipo = tipo;
+            model.Operador = operador;
+            model.Antboxs = antboxs;
+            model.Solicitud = fecha_solicitud;
+            model.Recoleccion = fecha_recoleccion;
+            model.Horario = horario;
+
+            return View(model);
         }
 
         public ActionResult Logout()
         {
             Session["helpdesk"] = null;
-            return RedirectToAction("Index", "Login");
+            return RedirectToAction("CustomerService", "Login");
         }
 	}
     public class RedirectingActionHelpDeskAttribute : ActionFilterAttribute
@@ -73,7 +124,7 @@ namespace AntBoxFrontEnd.Controllers
                 filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary(new
                 {
                     controller = "Login",
-                    action = "Index"
+                    action = "CustomerService"
                 }));
             }
         }

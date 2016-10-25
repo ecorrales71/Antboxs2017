@@ -57,12 +57,13 @@
                     <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "Antboxs" ? "active" : "")">
                         <a href="@Url.Action("Antboxs", "CustomerService")">Antboxs</a>
                     </li>
-                    <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "Entregas" ? "active" : "")">
-                        <a href="@Url.Action("Entregas", "CustomerService")">Entregas</a>
-                    </li>
                     <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "Recolecciones" ? "active" : "")">
                         <a href="@Url.Action("Recolecciones", "CustomerService")">Recolecciones</a>
                     </li>
+                    <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "Entregas" ? "active" : "")">
+                        <a href="@Url.Action("Entregas", "CustomerService")">Entregas</a>
+                    </li>
+                    
                 </ul>
             </div>
             <!-- /.navbar-collapse -->

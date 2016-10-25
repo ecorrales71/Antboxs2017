@@ -20,11 +20,28 @@ namespace AntBoxFrontEnd.Services.Customer
         [JsonProperty("lastname")]
         public string Lastname { get; set; }
 
+        public string Namev
+        {
+            get
+            {
+                string cad = "";
+                if (!string.IsNullOrEmpty(Name) && Name != "undefined")
+                {
+                    cad = Name;
+                }
+                if (!string.IsNullOrEmpty(Lastname) && Lastname != "undefined") {
+                    cad = cad + " " + Lastname;
+                }
+                if (!string.IsNullOrEmpty(Lastname2) && Lastname2 != "undefined")
+                {
+                    cad = cad + " " + Lastname2;
+                }
+                return cad;
+            }
+        }
+
         [JsonProperty("email")]
         public string Email { get; set; }
-
-        [JsonProperty("antboxs")]
-        public string Antboxs { get; set; }
 
         [JsonProperty("member_since")]
         public string Member_since { get; set; }
@@ -32,5 +49,23 @@ namespace AntBoxFrontEnd.Services.Customer
         [JsonProperty("status")]
         public bool? Status { get; set; }
 
+        [JsonProperty("antboxs")]
+        public int Antboxsnumber { get; set; }
+
+        [JsonProperty("rfc_id")]
+        public string Rfc_id { get; set; }
+
+        public string Rfcv
+        {
+            get
+            {
+                if (Rfc_id == "undefined")
+                {
+                    return "";
+                }
+                else return Rfc_id;
+            }
+            
+        }
     }
 }

@@ -17,9 +17,14 @@ namespace AntBoxFrontEnd.Controllers
             return View();
         }
 
+        public ActionResult CustomerService()
+        {
+            return View();
+        }
+
         [HttpPost]
         [AllowAnonymous]
-        public ActionResult AntBoxLoginAjax(string username, string password)
+        public ActionResult AntBoxLoginAjax(string type, string username, string password)
         {
             //if (ModelState.IsValid)w
             //{
@@ -44,15 +49,19 @@ namespace AntBoxFrontEnd.Controllers
 
                 if (user != null)
                 {
-                    if (loginObject.Role == "administrator")
+                    if ( (loginObject.Role == "administrator")&&(type == "admin") )
                     {
                         Session["admin"] = user;
                         link = Url.Action("Index", "Admin");
                     }
-                    else if (loginObject.Role == "helpdesk")
+                    else if ((loginObject.Role == "helpdesk" || loginObject.Role == "administrator") && (type == "customerservice"))
                     {
                         Session["helpdesk"] = user;
                         link = Url.Action("Index", "CustomerService");
+                    }
+                    else
+                    {
+                        return Json(new { success = false }, JsonRequestBehavior.AllowGet);
                     }
 
                     return Json(new { success = true, user = user, link = link }, JsonRequestBehavior.AllowGet);
