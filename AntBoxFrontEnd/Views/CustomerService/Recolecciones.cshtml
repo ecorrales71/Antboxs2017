@@ -35,6 +35,11 @@
                 <div class="col-sm-12">
                     <div class="table-responsive">
                         <form id="search" action="" method="get" class="form-solid " novalidate>
+                            @Html.Hidden("total", @Model.Pickups.Total)
+                            @Html.Hidden("pages", @Model.Pickups.Pages)
+                            @Html.Hidden("page", @Model.Page)
+                            @Html.Hidden("idpagination", @Model.Pickups.Pagination_id)
+                            <input type="hidden" id="pagev" value="@Model.Page" />
                             <div class="col-sm-12 pr0 pb0">
                                 <input type="submit" class="btn btn-primary btn-wide pull-right mt10" value="Buscar">
                                 <input type="reset" class="btn btn-primary btn-wide btn_blue pull-right mt10 mr10" value="Borrar campos">
@@ -111,26 +116,105 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-sm-12 pl0 pr0 text-center">
-                    <!-- PAGINATION -->
-                    <ul class="pagination solid">
-                        <li class="pull-left"><a href="#" class="prev"><i class="fa fa-angle-left"></i></a></li>
-                        <li class="pull-right"><a href="#" class="next"><i class="fa fa-angle-right"></i></a></li>
-                        <li class="active"><a href="#">1</a></li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#">4</a></li>
-                        <li><a href="#">…</a></li>
-                        <li><a href="#">36</a></li>
-                    </ul>
-                    <!-- /.pagination -->
-                </div>
-            </div>
+            <div class="pagination solid text-center"></div>
+            
         </div>
         <!-- /.container -->
     </div>
     <!-- /.content -->
 </div>
 <!-- /.wrapper -->
+
+<!-- Modal Large -->
+<div class="modal fade" id="nombre_cliente">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><i class="fa fa-times"></i></button>
+                <h6 class="modal-title">Información del cliente</h6>
+            </div>
+            <div class="modal-body">
+                <div class="modal-body-inside">
+
+                    <div class="row irow-xs pb20">
+                        <div class="col-sm-12 text-center">
+                            <h3 class="title_name">Aguilar Gómez Javier Ignacio</h3>
+                        </div>
+                    </div>
+                    <!-- Tabs -->
+                    <div class="tabs tabs-highlight">
+                        <!-- Nav tabs -->
+                        <ul class="nav nav-tabs">
+                            <li class="active"><a href="#detalle" data-toggle="tab">Detalle</a></li>
+                            <li><a href="#cliente" data-toggle="tab">Cliente</a></li>
+                            <li><a href="#antboxs" data-toggle="tab">Antboxs</a></li>
+                        </ul>
+
+                        <!-- Tab panes -->
+                        <div class="tab-content">
+                            <div class="tab-pane fade in active" id="detalle">
+                                <h6>Fecha</h6>
+                                <p>20 de julio de 2016</p>
+                                <h6>Horario</h6>
+                                <p>12:00 - 13:00 hrs.</p>
+                                <h6>Estatus</h6>
+                                <p>Programado</p>
+                                <h6>Dirección</h6>
+                                <p>Vereda de Santa Fe 26, Col. Lomas de Santa Fé, Álvaro Obregón, Méx, C.P. 01219, México</p>
+                                <h6>Operador</h6>
+                                <p>Joaquín Rodríguez Pérez</p>
+                            </div>
+                            <div class="tab-pane fade" id="cliente">
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam aliquid architectom consequatur dolor eligendi ipsa, maxime natus reiciendis repellat sequi tempore ullam velit. Consequuntur dolores expedita iure suscipit velit vero?</p>
+                            </div>
+                            <div class="tab-pane fade" id="antboxs">
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam aliquid architectom consequatur dolor eligendi ipsa, maxime natus reiciendis repellat sequi tempore ullam velit. Consequuntur dolores expedita iure suscipit velit vero?</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.tabs -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /.modal -->
+
+@section Scripts
+{
+    @Scripts.Render("~/bundles/simplepaginationjs")
+    <script>
+        $(function () {
+
+            Calendar.setup({
+                inputField: "fecha_solicitud",      // id del campo de texto
+                ifFormat: "%Y-%m-%d",       // formato de la fecha, cuando se escriba en el campo de texto
+                button: "solicitud"   // el id del botón que lanzará el calendario
+            });
+
+            Calendar.setup({
+                inputField: "fecha_recoleccion",      // id del campo de texto
+                ifFormat: "%Y-%m-%d",       // formato de la fecha, cuando se escriba en el campo de texto
+                button: "recoleccion"   // el id del botón que lanzará el calendario
+            });
+
+            var currentPage = ( $("#pagev").val() == "" ) ? 1 : parseInt( $("#pagev").val() );
+
+            $('.pagination').pagination({
+                items: $('#total').val(),
+                itemsOnPage: 20,
+                cssStyle: 'light-theme',
+                currentPage: currentPage,
+                onPageClick: function (pageNumber, event) {
+                    event.preventDefault();
+                    $("#vp").val("1");
+                    $("#page").val(pageNumber);
+                    $("#search").append("<input type='hidden' value='1' name='vp' />");
+                    $("#search").submit();
+                }
+            });
+        })
+    </script>
+}
+
 

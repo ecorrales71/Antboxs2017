@@ -35,6 +35,11 @@
                 <div class="col-sm-12">
                     <div class="table-responsive">
                         <form id="search" action="" method="get" class="form-solid " novalidate>
+                            @Html.Hidden("total", @Model.Deliveries.Total)
+                            @Html.Hidden("pages", @Model.Deliveries.Pages)
+                            @Html.Hidden("page", @Model.Page)
+                            <input type="hidden" name="idpagination" value="@Model.Deliveries.Pagination_id" />
+                            <input type="hidden" id="pagev" value="@Model.Page" />
                             <div class="col-sm-12 pr0 pb0">
                                 <input type="submit" class="btn btn-primary btn-wide pull-right mt10" value="Buscar">
                                 <input type="reset" class="btn btn-primary btn-wide btn_blue pull-right mt10 mr10" value="Borrar campos">
@@ -88,7 +93,7 @@
                                         foreach (var item in Model.Deliveries.Deliveries)
                                         {
                                             <tr>
-                                                <td><button type="button" class="btn-link" data-toggle="modal" data-target="#nombre_cliente">@item.Namev</button></td>
+                                                <td><button type="button" class="btn-link open-modal">@item.Namev</button></td>
                                                 <td>@item.Worker.Name</td>
                                                 <td>-</td>
                                                 <td>@item.Date</td>
@@ -111,22 +116,7 @@
                     </div>
                 </div>
             </div>
-            <div class"row">
-                <div class="col-sm-12 pl0 pr0 text-center">
-                    <!-- PAGINATION -->
-                    <ul class="pagination solid">
-                        <li class="pull-left"><a href="#" class="prev"><i class="fa fa-angle-left"></i></a></li>
-                        <li class="pull-right"><a href="#" class="next"><i class="fa fa-angle-right"></i></a></li>
-                        <li class="active"><a href="#">1</a></li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#">4</a></li>
-                        <li><a href="#">…</a></li>
-                        <li><a href="#">36</a></li>
-                    </ul>
-                    <!-- /.pagination -->
-                </div>
-            </div>
+            <div class="pagination solid text-center"></div>
 
         </div>
         <!-- /.container -->
@@ -134,4 +124,216 @@
     <!-- /.content -->
 </div>
 <!-- /.wrapper -->
+
+<!-- Modal Large -->
+<div class="modal fade" id="nombre_cliente">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><i class="fa fa-times"></i></button>
+                <h6 class="modal-title">Información del cliente</h6>
+            </div>
+            <div class="modal-body">
+                <div class="modal-body-inside">
+
+                    <div class="row irow-xs pb20">
+                        <div class="col-sm-12 text-center">
+                            <h3 class="title_name">Aguilar Gómez Javier Ignacio</h3>
+                        </div>
+                    </div>
+                    <!-- Tabs -->
+                    <div class="tabs tabs-highlight">
+                        <!-- Nav tabs -->
+                        <ul class="nav nav-tabs">
+                            <li class="active"><a class="tabdetalle" href="#detalle" data-toggle="tab">Detalle</a></li>
+                            <li><a href="#cliente" class="tabcliente" data-toggle="tab">Cliente</a></li>
+                            <li><a href="#antboxs" class="tabantboxs" data-toggle="tab">Antboxs</a></li>
+                        </ul>
+
+                        <!-- Tab panes -->
+                        <div class="tab-content">
+                            <div class="tab-pane fade in active" id="detalle">
+                                <h6>Fecha</h6>
+                                <p>20 de julio de 2016</p>
+                                <h6>Horario</h6>
+                                <p>12:00 - 13:00 hrs.</p>
+                                <h6>Estatus</h6>
+                                <p>Programado</p>
+                                <h6>Dirección</h6>
+                                <p>Vereda de Santa Fe 26, Col. Lomas de Santa Fé, Álvaro Obregón, Méx, C.P. 01219, México</p>
+                                <h6>Operador</h6>
+                                <p>Joaquín Rodríguez Pérez</p>
+                            </div>
+                            <div class="tab-pane fade" id="cliente">
+                                <div id="loader2" role="alert" style="display: none;">
+                                    <img src="@Url.Content("~/Images/preloader.gif")" />   Cargando informacion... &nbsp;
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <h6>Nombre</h6>
+                                        <p class="nombrec" style="min-height: 24px;"> </p>
+                                        <h6>Apellido Paterno</h6>
+                                        <p class="apellidoc" style="min-height: 24px;"> </p>
+                                        <h6>Apellido Materno</h6>
+                                        <p class="apellido2c" style="min-height: 24px;"> </p>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <h6>Telefono</h6>
+                                        <p class="telefonoc" style="min-height: 24px;"> </p>
+                                        <h6>Celular</h6>
+                                        <p class="celularc" style="min-height: 24px;"> </p>
+                                        <h6>E-mail</h6>
+                                        <p class="emailc" style="min-height: 24px;"> </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="antboxs">
+                                <div id="loader3" role="alert" style="display: none;">
+                                    <img src="@Url.Content("~/Images/preloader.gif")" />   Cargando antboxs... &nbsp;
+                                </div>
+                                <div class="table-responsive">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>Nombre</th>
+                                                <th>Descripcion</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="tantboxs"></tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.tabs -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /.modal -->
+
+@section Scripts
+{
+    @Scripts.Render("~/bundles/simplepaginationjs")
+    <script>
+    $(function () {
+
+        Calendar.setup({
+            inputField: "fecha_solicitud",      // id del campo de texto
+            ifFormat: "%Y-%m-%d",       // formato de la fecha, cuando se escriba en el campo de texto
+            button: "solicitud"   // el id del botón que lanzará el calendario
+        });
+
+        Calendar.setup({
+            inputField: "fecha_entrega",      // id del campo de texto
+            ifFormat: "%Y-%m-%d",       // formato de la fecha, cuando se escriba en el campo de texto
+            button: "entrega"   // el id del botón que lanzará el calendario
+        });
+
+        var currentPage = ($("#pagev").val() == "") ? 1 : parseInt($("#pagev").val());
+
+        $('.pagination').pagination({
+            items: $('#total').val(),
+            itemsOnPage: 20,
+            cssStyle: 'light-theme',
+            currentPage: currentPage,
+            onPageClick: function (pageNumber, event) {
+                event.preventDefault();
+                $("#vp").val("1");
+                $("#page").val(pageNumber);
+                $("#search").append("<input type='hidden' value='1' name='vp' />");
+                $("#search").submit();
+            }
+        });
+
+        $(".open-modal").click(function (event) {
+
+            //$("#loader1").show();
+            $(".tabcuenta").trigger("click");
+            $("#nombre_cliente").modal("show");
+
+            var formData = {};
+            var idCustomer = $(this).attr("data-id");
+            formData.idCustomer = idCustomer;
+
+            $(".title_name").text($(this).text());
+
+            @*$.ajax({
+                    contentType: 'application/json; charset=utf-8',
+                    dataType: 'json',
+                    type: 'GET',
+                    url: '@Url.Action("GetCustomer", "CustomerService")',
+                    data: formData,
+                    success: function (data) {
+                        console.log("success data");
+                        console.log(data);
+                        $("#loader1").hide();
+                        if (data) {
+
+                            $(".nombrec").text(data.Name);
+                            $(".apellidoc").text(data.LastName);
+                            $(".apellido2c").text(data.Lastname2);
+                            $(".telefonoc").text(data.Phone);
+                            $(".celularc").text(data.Mobile_phone);
+                            $(".emailc").text(data.Email);
+
+                        }
+                    }, error: function (error) {
+                        //mostrarMensaje(form, "userMensaje", "Error al registrar usuario intentelo de nuevo", "alert-warning");
+                    }, complete: function (data) {
+                        //console.log(data);
+                    }
+                });*@
+        });
+
+        @*$(".tabantboxs").click(function () {
+
+                $("#loader3").show();
+                $(".tantboxs").html("");
+
+                var formData = {};
+                var idCustomer = $("#idcustomer").val();
+                formData.idCustomer = idCustomer;
+
+                $.ajax({
+                    contentType: 'application/json; charset=utf-8',
+                    dataType: 'json',
+                    type: 'GET',
+                    url: '@Url.Action("GetAntboxs", "CustomerService")',
+                    data: formData,
+                    success: function (data) {
+                        console.log("success data");
+                        console.log(data);
+                        $("#loader3").hide();
+                        if (data.success.Antboxs) {
+
+                            var antboxv = {};
+                            var cadResult = "";
+                            var descripcionv = "";
+                            for (var i = 0; i < data.success.Antboxs.length; i++) {
+                                antboxv = data.success.Antboxs[i];
+                                var strVar = "<tr>";
+                                strVar += "<td>" + antboxv.Name + " - " + antboxv.Folio + "<\/tD>";
+                                strVar += "<td>" + antboxv.Descriptionv + "<\/td>";
+                                strVar += "</tr>";
+                                cadResult += strVar;
+                            }
+
+                            $(".tantboxs").html(cadResult);
+
+                        }
+                    }, error: function (error) {
+                        //mostrarMensaje(form, "userMensaje", "Error al registrar usuario intentelo de nuevo", "alert-warning");
+                    }, complete: function (data) {
+                        //console.log(data);
+                    }
+                });
+            });*@
+    })
+    </script>
+}
+
+
+
 

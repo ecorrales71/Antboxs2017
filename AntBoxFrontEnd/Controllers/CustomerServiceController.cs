@@ -1,7 +1,10 @@
 ﻿using AntBoxFrontEnd.Infrastructure;
 using AntBoxFrontEnd.Models;
+using AntBoxFrontEnd.Services.AntBoxes;
 using AntBoxFrontEnd.Services.Customer;
 using AntBoxFrontEnd.Services.CustomerService;
+using AntBoxFrontEnd.Services.Payments;
+using AntBoxFrontEnd.Services.Tasks;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,15 +19,27 @@ namespace AntBoxFrontEnd.Controllers
     {
         // Listado de clientes
         // GET: /CustomerService/
-        public ActionResult Index(string name, string email, string rfc, int? antboxs, string status)
+        public ActionResult Index(string name, string email, string rfc, int? antboxs, string status, int? page, string idpagination, string vp)
         {
             var servicio = new CustomerServices(ServiceConfiguration.GetApiKey());
 
             CustomerListModel model = new CustomerListModel();
             PaginationCustomerResponse result = new PaginationCustomerResponse();
+
+            if (string.IsNullOrEmpty(vp))
+            {
+                page = 1;
+                model.Page = 1;
+                idpagination = null;
+            }
+            else
+            {
+                model.Page = page;
+            }
+
             try
             {
-                result = servicio.ListCustomer(1, name, email, rfc, antboxs, status);
+                result = servicio.ListCustomer(page, name, email, rfc, antboxs, status, idpagination);
             }
             catch (Exception ex)
             {
@@ -47,15 +62,27 @@ namespace AntBoxFrontEnd.Controllers
             return View();
         }
 
-        public ActionResult Entregas(string name, string tipo, string operador, string antboxs, string fecha_solicitud, string fecha_recoleccion, string horario, string status)
+        public ActionResult Entregas(string name, string tipo, string operador, string antboxs, string fecha_solicitud, string fecha_recoleccion, string horario, string status, int? page, string idpagination, string vp)
         {
             var servicio = new CSServices(ServiceConfiguration.GetApiKey());
 
             DeliveryListModel model = new DeliveryListModel();
+
+            if (string.IsNullOrEmpty(vp))
+            {
+                page = 1;
+                model.Page = 1;
+                idpagination = null;
+            }
+            else
+            {
+                model.Page = page;
+            }
+
             PaginationDelivery result = new PaginationDelivery();
             try
             {
-                result = servicio.ListDeliveries(1, name, tipo, operador, antboxs, fecha_solicitud, fecha_recoleccion, horario, status);
+                result = servicio.ListDeliveries(page, name, tipo, operador, antboxs, fecha_solicitud, fecha_recoleccion, horario, status, idpagination);
             }
             catch (Exception ex)
             {
@@ -77,15 +104,27 @@ namespace AntBoxFrontEnd.Controllers
             return View(model);
         }
 
-        public ActionResult Recolecciones(string name, string tipo, string operador, string antboxs, string fecha_solicitud, string fecha_recoleccion, string horario, string status)
+        public ActionResult Recolecciones(string name, string tipo, string operador, string antboxs, string fecha_solicitud, string fecha_recoleccion, string horario, string status, int? page, string idpagination, string vp)
         {
             var servicio = new CSServices(ServiceConfiguration.GetApiKey());
 
             PickupListModel model = new PickupListModel();
             PaginationPickup result = new PaginationPickup();
+
+            if (string.IsNullOrEmpty(vp))
+            {
+                page = 1;
+                idpagination = null;
+                model.Page = 1;
+            }
+            else
+            {
+                model.Page = page;
+            }
+
             try
             {
-                result = servicio.ListPickups(1, name, tipo, operador, antboxs, fecha_solicitud, fecha_recoleccion, horario, status);
+                result = servicio.ListPickups(page, name, tipo, operador, antboxs, fecha_solicitud, fecha_recoleccion, horario, status, idpagination);
             }
             catch (Exception ex)
             {
@@ -111,6 +150,59 @@ namespace AntBoxFrontEnd.Controllers
         {
             Session["helpdesk"] = null;
             return RedirectToAction("CustomerService", "Login");
+        }
+
+        public JsonResult GetCustomer(string idCustomer)
+        {
+            var service = new CustomerServices(ServiceConfiguration.GetApiKey());
+
+            var result = service.SearchCustomer(idCustomer);
+
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetPayments(string idCustomer)
+        {
+            var service = new PaymentService(ServiceConfiguration.GetApiKey());
+
+            var result = service.ListCharges(idCustomer);
+
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetAntboxs(string idCustomer)
+        {
+            var servicio = new AntBoxesServices(ServiceConfiguration.GetApiKey());
+
+            PaginationAntBoxes result = new PaginationAntBoxes();
+            try
+            {
+                result = servicio.ListAntBoxes(idCustomer, AntBoxStatusEnum.Defualt, 1);
+            }
+            catch (Exception ex)
+            {
+            }
+            if (result == null)
+            {
+                result = new PaginationAntBoxes();
+            }
+            return Json(new { success = result }, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetHistorial(string idCustomer)
+        {
+            var servicio = new TaskService(ServiceConfiguration.GetApiKey());
+
+            PaginationCustomerTask result = new PaginationCustomerTask();
+            try
+            {
+                result = servicio.ListTaskByCustomer(idCustomer, 1);
+            }
+            catch (Exception ex)
+            {
+            }
+
+            return Json(new { success = result }, JsonRequestBehavior.AllowGet);
         }
 	}
     public class RedirectingActionHelpDeskAttribute : ActionFilterAttribute

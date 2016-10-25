@@ -35,6 +35,11 @@
                 <div class="col-sm-12">
                     <div class="table-responsive">
                         <form id="search" action="" method="get" class="form-solid " novalidate>
+                            @Html.Hidden("total", @Model.Customers.Total)
+                            @Html.Hidden("pages", @Model.Customers.Pages)
+                            @Html.Hidden("page", @Model.Page)
+                            <input type="hidden" name="idpagination" value="@Model.Customers.Pagination_id" />
+                            <input type="hidden" id="pagev" value="@Model.Page" />
                             <div class="col-sm-12 pr0 pb0">
                                 <input type="submit" class="btn btn-primary btn-wide pull-right mt10" value="Buscar">
                                 <input type="reset" class="btn btn-primary btn-wide btn_blue pull-right mt10 mr10" value="Borrar campos">
@@ -62,7 +67,9 @@
                                         foreach (var item in Model.Customers.Customers)
                                         {
                                             <tr>
-                                                <td><button type="button" class="btn-link" data-toggle="modal" data-target="#nombre_cliente">@item.Namev</button></td>
+                                                <td>
+                                                    <button type="button" class="btn-link open-modal" data-id="@item.Id" >@item.Namev</button>
+                                                </td>
                                                 <td>@item.Email</td>
                                                 <td>@item.Rfcv</td>
                                                 <td>@item.Antboxsnumber</td>
@@ -82,6 +89,7 @@
                     </div>
                 </div>
             </div>
+            <div class="pagination solid text-center"></div>
             <!-- <div class"row">
                 <div class="col-sm-12 pt10 pl0 pr0 text-center">
                     <ul class="pagination solid">
@@ -103,12 +111,357 @@
     <!-- /.content -->
 </div>
 <!-- /.wrapper -->
+
+<!-- Modal Large -->
+<div class="modal fade" id="nombre_cliente">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><i class="fa fa-times"></i></button>
+                <h6 class="modal-title">Información del cliente</h6>
+            </div>
+            <div class="modal-body">
+                <div class="modal-body-inside">
+
+                    <div class="row irow-xs pb20">
+                        <div class="col-sm-12 text-center">
+                            <h3 class="title_name">Aguilar Gómez Javier Ignacio</h3>
+                        </div>
+                    </div>
+                    <!-- Tabs -->
+                    <div class="tabs tabs-highlight">
+                        <!-- Nav tabs -->
+                        <input type="hidden" id="idcustomer" value="" />
+                        <ul class="nav nav-tabs">
+                            <li class="active"><a class="tabcuenta" href="#cuenta" data-toggle="tab">Cuenta</a></li>
+                            <li><a href="#pagos" class="tabpagos" data-toggle="tab">Pagos</a></li>
+                            <li><a href="#antboxs" class="tabantboxs" data-toggle="tab">Antboxs</a></li>
+                            <li><a href="#historial" class="tabhistorial" data-toggle="tab">Historial</a></li>
+                        </ul>
+
+                        <!-- Tab panes -->
+                        <div class="tab-content">
+                            <div class="tab-pane fade in active" id="cuenta">
+                                <div id="loader1" role="alert" style="display: none;">
+                                    <img src="@Url.Content("~/Images/preloader.gif")" />   Cargando informacion... &nbsp;
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <h6>Nombre</h6>
+                                        <p class="nombrec" style="min-height: 24px;"> </p>
+                                        <h6>Apellido Paterno</h6>
+                                        <p class="apellidoc" style="min-height: 24px;"> </p>
+                                        <h6>Apellido Materno</h6>
+                                        <p class="apellido2c" style="min-height: 24px;"> </p>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <h6>Telefono</h6>
+                                        <p class="telefonoc" style="min-height: 24px;"> </p>
+                                        <h6>Celular</h6>
+                                        <p class="celularc" style="min-height: 24px;"> </p>
+                                        <h6>E-mail</h6>
+                                        <p class="emailc" style="min-height: 24px;"> </p>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                            <div class="tab-pane fade" id="pagos">
+                                <div id="loader2" role="alert" style="display: none;">
+                                    <img src="@Url.Content("~/Images/preloader.gif")" />   Cargando pagos... &nbsp;
+                                </div>
+                                <div class="table-responsive">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>Fecha</th>
+                                                <th>Estatus</th>
+                                                <th>Monto</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="tpagos">
+                                            
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="antboxs">
+                                <div id="loader3" role="alert" style="display: none;">
+                                    <img src="@Url.Content("~/Images/preloader.gif")" />   Cargando antboxs... &nbsp;
+                                </div>
+                                <div class="table-responsive">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>Nombre</th>
+                                                <th>Descripcion</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="tantboxs"></tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="historial">
+                                <div id="loader4" role="alert" style="display: none;">
+                                    <img src="@Url.Content("~/Images/preloader.gif")" />   Cargando historial... &nbsp;
+                                </div>
+                                <div class="table-responsive">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>Tipo</th>
+                                                <th>Fecha</th>
+                                                <th>Lugar</th>
+                                                <th>Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="thistorial"></tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.tabs -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /.modal -->
+
 @section Scripts
 {
+@Scripts.Render("~/bundles/simplepaginationjs")
     <script>
-        $(function () {
-            $("#status").val($("#statusvalue").val());
-        })
+    $(function () {
+        $("#status").val($("#statusvalue").val());
+
+        var currentPage = ($("#pagev").val() == "") ? 1 : parseInt($("#pagev").val());
+
+        $('.pagination').pagination({
+            items: $('#total').val(),
+            itemsOnPage: 20,
+            cssStyle: 'light-theme',
+            currentPage: currentPage,
+            onPageClick: function (pageNumber, event) {
+                event.preventDefault();
+                $("#vp").val("1");
+                $("#page").val(pageNumber);
+                $("#search").append("<input type='hidden' value='1' name='vp' />");
+                $("#search").submit();
+            }
+        });
+
+        $(".open-modal").click(function (event) {
+
+            $(".nombrec").text("");
+            $(".apellidoc").text("");
+            $(".apellido2c").text("");
+            $(".telefonoc").text("");
+            $(".celularc").text("");
+            $(".emailc").text("");
+
+            $("#loader1").show();
+            $(".tabcuenta").trigger("click");
+            $("#nombre_cliente").modal("show");
+
+            var formData = {};
+            var idCustomer = $(this).attr("data-id");
+            formData.idCustomer = idCustomer;
+            $("#idcustomer").val(idCustomer);
+            $(".title_name").text($(this).text());
+
+            $.ajax({
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                type: 'GET',
+                url: '@Url.Action("GetCustomer", "CustomerService")',
+                data: formData,
+                success: function (data) {
+                    console.log("success data");
+                    console.log(data);
+                    $("#loader1").hide();
+                    if (data) {
+
+                        $(".nombrec").text(data.Name);
+                        $(".apellidoc").text(data.LastName);
+                        $(".apellido2c").text(data.Lastname2);
+                        $(".telefonoc").text(data.Phone);
+                        $(".celularc").text(data.Mobile_phone);
+                        $(".emailc").text(data.Email);
+
+                    }
+                }, error: function (error) {
+                    //mostrarMensaje(form, "userMensaje", "Error al registrar usuario intentelo de nuevo", "alert-warning");
+                }, complete: function (data) {
+                    //console.log(data);
+                }
+            });
+        });
+
+        $(".tabpagos").click(function () {
+
+            $("#loader2").show();
+            $(".tpagos").html("");
+
+            var formData = {};
+            var idCustomer = $("#idcustomer").val();
+            formData.idCustomer = idCustomer;
+
+            $.ajax({
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                type: 'GET',
+                url: '@Url.Action("GetPayments", "CustomerService")',
+                data: formData,
+                success: function (data) {
+                    console.log("success data");
+                    console.log(data);
+                    $("#loader2").hide();
+                    if (data) {
+
+                        var paymentv = {};
+                        var cadResult = "";
+                        for (var i = 0; i < data.length; i++) {
+                            paymentv = data[i];
+                            var strVar = "<tr>";
+                            strVar += "<td>" + paymentv.Creation_date + "<\/td>";
+                            strVar += "<td>" + paymentv.Status + "<\/td>";
+                            strVar += "<td>" + paymentv.Amount + "<\/td>";
+                            strVar += "</tr>";
+                            cadResult += strVar;
+                        }
+
+                        $(".tpagos").html(cadResult);
+
+                    }
+                }, error: function (error) {
+                    //mostrarMensaje(form, "userMensaje", "Error al registrar usuario intentelo de nuevo", "alert-warning");
+                }, complete: function (data) {
+                    //console.log(data);
+                }
+            });
+        });
+
+        $(".tabantboxs").click(function () {
+
+            $("#loader3").show();
+            $(".tantboxs").html("");
+
+            var formData = {};
+            var idCustomer = $("#idcustomer").val();
+            formData.idCustomer = idCustomer;
+
+            $.ajax({
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                type: 'GET',
+                url: '@Url.Action("GetAntboxs", "CustomerService")',
+                data: formData,
+                success: function (data) {
+                    console.log("success data");
+                    console.log(data);
+                    $("#loader3").hide();
+                    if (data.success.Antboxs) {
+
+                        var antboxv = {};
+                        var cadResult = "";
+                        var descripcionv = "";
+                        for (var i = 0; i < data.success.Antboxs.length; i++) {
+                            antboxv = data.success.Antboxs[i];
+                            var strVar = "<tr>";
+                            strVar += "<td>" + antboxv.Name + " - " + antboxv.Folio + "<\/tD>";
+                            strVar += "<td>" + antboxv.Descriptionv + "<\/td>";
+                            strVar += "</tr>";
+                            cadResult += strVar;
+                        }
+
+                        $(".tantboxs").html(cadResult);
+
+                    }
+                }, error: function (error) {
+                    //mostrarMensaje(form, "userMensaje", "Error al registrar usuario intentelo de nuevo", "alert-warning");
+                }, complete: function (data) {
+                    //console.log(data);
+                }
+            });
+        });
+
+        $(".tabhistorial").click(function () {
+
+            $("#loader4").show();
+            $(".thistorial").html("");
+
+            var formData = {};
+            var idCustomer = $("#idcustomer").val();
+            formData.idCustomer = idCustomer;
+
+            $.ajax({
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                type: 'GET',
+                url: '@Url.Action("GetHistorial", "CustomerService")',
+                data: formData,
+                success: function (data) {
+                    console.log("success data");
+                    console.log(data);
+                    $("#loader4").hide();
+                    if (data.success.Tasks) {
+
+                        var taskv = {};
+                        var cadResult = "";
+                        var descripcionv = "";
+                        for (var i = 0; i < data.success.Tasks.length; i++) {
+                            taskv = data.success.Tasks[i];
+                            var type = (taskv.Type == "pickup") ? "Recolección" : "Entrega";
+                            var status = "En progreso";
+                            var address = taskv.Address.Street + " " + taskv.Address.External_number + ", " + taskv.Address.Neighborhood + ", " + taskv.Address.City + ", C.P. " + taskv.Address.Zipcode + ".";
+                            if (taskv.Status == "completed") status = "Completado";
+                            else if (taskv.Status == "canceled") status = "Cancelado";
+
+                            var strVar = "<tr>";
+                            strVar += "<td>" + type + "<\/tD>";
+                            strVar += "<td>" + timeConverter(taskv.completeAfter) + "<\/td>";
+                            strVar += "<td>" + address + "<\/td>";
+                            strVar += "<td>" + status + "<\/td>";
+                            strVar += "</tr>";
+                            cadResult += strVar;
+                        }
+
+                        $(".thistorial").html(cadResult);
+
+                    }
+                }, error: function (error) {
+                    //mostrarMensaje(form, "userMensaje", "Error al registrar usuario intentelo de nuevo", "alert-warning");
+                }, complete: function (data) {
+                    //console.log(data);
+                }
+            });
+        });
+    })
+
+    function timeConverter(UNIX_timestamp) {
+        var a = new Date(UNIX_timestamp);
+        var year = a.getUTCFullYear();
+        var month = a.getUTCMonth() + 1;
+        month = ('0' + month).slice(-2);
+        var date = a.getUTCDate();
+        date = ('0' + date).slice(-2);
+        var time = date + '/' + month + '/' + year + ' ' + formatAMPM(a);
+        return time;
+    }
+
+    function formatAMPM(date) {
+        var hours = date.getUTCHours();
+        var minutes = date.getUTCMinutes();
+        var seconds = date.getUTCSeconds();
+        var ampm = hours >= 12 ? 'PM' : 'AM';
+        hours = hours % 12;
+        hours = hours ? hours : 12; // the hour '0' should be '12'
+        minutes = ('0' + minutes).slice(-2);
+        seconds = ('0' + seconds).slice(-2);
+        var strTime = hours + ':' + minutes + ':' + seconds + ' ' + ampm;
+        return strTime;
+    }
     </script>
 }
 
