@@ -27,6 +27,12 @@ namespace AntBoxFrontEnd.Services.Zipcodes
         [JsonProperty("state")]
         public string State { get; set; }
 
+        [JsonProperty("status")]
+        public string Status { get; set; }
+
+        [JsonProperty("creation_date")]
+        public string Creation_date { get; set; }
+
 
     }
 }

@@ -33,6 +33,6 @@ namespace AntBoxFrontEnd.Models
 
         public string Status { get; set; }
 
-
+        public int? Page { get; set; }
     }
 }

@@ -13,7 +13,7 @@ namespace AntBoxFrontEnd.Services.CustomerService
         {
         }
 
-        public virtual PaginationDelivery ListDeliveries(int currentPage, string name, string tipo, string operador, string antboxs, string fecha_solicitud, string fecha_recoleccion, string horario, string status, string idPagination = null, RequestOptions requestOptions = null)
+        public virtual PaginationDelivery ListDeliveries(int? currentPage, string name, string tipo, string operador, string antboxs, string fecha_solicitud, string fecha_recoleccion, string horario, string status, string idPagination = null, RequestOptions requestOptions = null)
         {
             try
             {
@@ -21,6 +21,10 @@ namespace AntBoxFrontEnd.Services.CustomerService
 
                 var parameters = new Dictionary<string, string>();
 
+                if (currentPage == null)
+                {
+                    currentPage = 1;
+                }
                 if (!string.IsNullOrEmpty(idPagination))
                 {
                     parameters.Add("pagination_id", idPagination);
@@ -61,7 +65,7 @@ namespace AntBoxFrontEnd.Services.CustomerService
             }
         }
 
-        public virtual PaginationPickup ListPickups(int currentPage, string name, string tipo, string operador, string antboxs, string fecha_solicitud, string fecha_recoleccion, string horario, string status, string idPagination = null, RequestOptions requestOptions = null)
+        public virtual PaginationPickup ListPickups(int? currentPage, string name, string tipo, string operador, string antboxs, string fecha_solicitud, string fecha_recoleccion, string horario, string status, string idPagination = null, RequestOptions requestOptions = null)
         {
             try
             {
@@ -69,6 +73,10 @@ namespace AntBoxFrontEnd.Services.CustomerService
 
                 var parameters = new Dictionary<string, string>();
 
+                if (currentPage == null)
+                {
+                    currentPage = 1;
+                }
                 if (!string.IsNullOrEmpty(idPagination))
                 {
                     parameters.Add("pagination_id", idPagination);

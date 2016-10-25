@@ -26,6 +26,13 @@ namespace AntBoxFrontEnd.Models
 
         public string Status { get; set; }
 
+        public int? Page { get; set; }
 
+        public string Vp { 
+            get 
+            {
+                return "0";
+            } 
+        }
     }
 }

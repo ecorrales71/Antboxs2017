@@ -201,11 +201,18 @@ namespace AntBoxFrontEnd.Services.Payments
             {
                 requestOptions = SetupRequestOptions(requestOptions);
 
-                var parameters = new Dictionary<string, string> { { "id", id } };
+                
+
+                DateTime thisDate1 = new DateTime(2011, 6, 10);
+                DateTime today = DateTime.Today;
+
+                var parameters = new Dictionary<string, string>();
+                parameters.Add("from", thisDate1.ToString("yyyy-MM-dd"));
+                parameters.Add("to", today.ToString("yyyy-MM-dd"));
 
                 var encodedParams = Infrastructure.UrlHelper.BuildURLParametersString(parameters);
 
-                var charges = Requestor.Get<List<ChargeResponse>>(UrlsConstants.Payment + "/" + id, requestOptions);
+                var charges = Requestor.Get<List<ChargeResponse>>(UrlsConstants.Payment + "/" + id + encodedParams, requestOptions);
 
                 return charges;
             }catch(Exception ex)

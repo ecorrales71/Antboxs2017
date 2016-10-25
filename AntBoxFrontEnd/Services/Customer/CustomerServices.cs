@@ -15,7 +15,7 @@ namespace AntBoxFrontEnd.Services.Customer
 {
     public class CustomerServices : Services
     {
-        const int itemPerPage = 100;
+        const int itemPerPage = 20;
         public int Page { get; set; }
 
         public CustomerServices(string apiKey) : base(apiKey)
@@ -103,7 +103,7 @@ namespace AntBoxFrontEnd.Services.Customer
         }
 
 
-        public virtual PaginationCustomerResponse ListCustomer(int currentPage, string name, string email, string rfc, int? antboxs, string status, string idPagination = null, RequestOptions requestOptions = null)
+        public virtual PaginationCustomerResponse ListCustomer(int? currentPage, string name, string email, string rfc, int? antboxs, string status, string idPagination = null, RequestOptions requestOptions = null)
         {
             PaginationCustomerResponse customers = new PaginationCustomerResponse();
 
@@ -113,10 +113,12 @@ namespace AntBoxFrontEnd.Services.Customer
 
                 var parameters = new Dictionary<string, string>();
 
-                
+                if (currentPage == null)
+                {
+                    currentPage = 1;
+                }
                 if (!string.IsNullOrEmpty(idPagination))
                 {
-                    parameters.Add("items_per_page", itemPerPage.ToString());
                     parameters.Add("pagination_id", idPagination);
                     parameters.Add("page_number", currentPage.ToString());
                 }
