@@ -100,6 +100,41 @@ namespace AntBoxFrontEnd.Services.AntBoxes
             }
         }
 
+        public virtual PaginationAntBoxes ListAntBoxesTasks(string id, string folio, AntBoxStatusEnum status, int currentPage, string idPagination = null, RequestOptions requestOptions = null)
+        {
+            try
+            {
+                requestOptions = SetupRequestOptions(requestOptions);
+
+                var parameters = new Dictionary<string, string>();
+
+                parameters.Add("items_per_page", itemPerPage.ToString());
+                parameters.Add("folio", folio);
+
+                var e = AntBoxStatusEnum.Stored;
+
+                if (!string.IsNullOrEmpty(idPagination))
+                {
+                    parameters.Add("pagination_id", idPagination);
+                    parameters.Add("page_number", currentPage.ToString());
+                }
+
+                if (status.ToString() != AntBoxStatusEnum.Defualt.ToString())
+                    parameters.Add("status", status.ToString());
+
+                var encodedParams = Infrastructure.UrlHelper.BuildURLParametersString(parameters);
+
+                var antBoxes = Requestor.Get<PaginationAntBoxes>(UrlsConstants.AntBoxList + "/" + id + encodedParams, requestOptions);
+
+                return antBoxes;
+            }
+            catch (Exception ex)
+            {
+                LogManager.Write(ex.Message + " " + ex.InnerException, LogManager.Error);
+                return null;
+            }
+        }
+
         public virtual PaginationAntBoxes ListAntBoxesCustomerService(int currentPage, string idPagination = null, RequestOptions requestOptions = null)
         {
             try

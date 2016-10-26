@@ -93,11 +93,11 @@
                                         foreach (var item in Model.Pickups.Pickups)
                                         {
                                             <tr>
-                                                <td><button type="button" class="btn-link" data-toggle="modal" data-target="#nombre_cliente">@item.Namev</button></td>
+                                                <td><button type="button" class="btn-link open-modal" data-id-customer="@item.Customer_id" data-folio="@item.Folio">@item.Namev</button></td>
                                                 <td>@item.Worker.Name</td>
-                                                <td>-</td>
-                                                <td>@item.Date</td>
-                                                <td>@item.Requested_at</td>
+                                                <td>@item.Antboxs</td>
+                                                <td>@item.Solicitud</td>
+                                                <td>@item.Recoleccion</td>
                                                 <td>@item.Time</td>
                                                 @if (item.Status == "inprogress")
                                                 {
@@ -144,15 +144,20 @@
                     <!-- Tabs -->
                     <div class="tabs tabs-highlight">
                         <!-- Nav tabs -->
+                        <input type="hidden" id="idcustomer" value="" />
+                        <input type="hidden" id="folio" value="" />
                         <ul class="nav nav-tabs">
                             <li class="active"><a href="#detalle" data-toggle="tab">Detalle</a></li>
-                            <li><a href="#cliente" data-toggle="tab">Cliente</a></li>
-                            <li><a href="#antboxs" data-toggle="tab">Antboxs</a></li>
+                            <li><a href="#cliente" class="tabcliente" data-toggle="tab">Cliente</a></li>
+                            <li><a href="#antboxs" class="tabantboxs" data-toggle="tab">Antboxs</a></li>
                         </ul>
 
                         <!-- Tab panes -->
                         <div class="tab-content">
                             <div class="tab-pane fade in active" id="detalle">
+                                <div id="loader1" role="alert" style="display: none;">
+                                    <img src="@Url.Content("~/Images/preloader.gif")" />   Cargando informacion... &nbsp;
+                                </div>
                                 <h6>Fecha</h6>
                                 <p>20 de julio de 2016</p>
                                 <h6>Horario</h6>
@@ -165,10 +170,43 @@
                                 <p>Joaquín Rodríguez Pérez</p>
                             </div>
                             <div class="tab-pane fade" id="cliente">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam aliquid architectom consequatur dolor eligendi ipsa, maxime natus reiciendis repellat sequi tempore ullam velit. Consequuntur dolores expedita iure suscipit velit vero?</p>
+                                <div id="loader2" role="alert" style="display: none;">
+                                    <img src="@Url.Content("~/Images/preloader.gif")" />   Cargando informacion... &nbsp;
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <h6>Nombre</h6>
+                                        <p class="nombrec" style="min-height: 24px;"> </p>
+                                        <h6>Apellido Paterno</h6>
+                                        <p class="apellidoc" style="min-height: 24px;"> </p>
+                                        <h6>Apellido Materno</h6>
+                                        <p class="apellido2c" style="min-height: 24px;"> </p>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <h6>Telefono</h6>
+                                        <p class="telefonoc" style="min-height: 24px;"> </p>
+                                        <h6>Celular</h6>
+                                        <p class="celularc" style="min-height: 24px;"> </p>
+                                        <h6>E-mail</h6>
+                                        <p class="emailc" style="min-height: 24px;"> </p>
+                                    </div>
+                                </div>
                             </div>
                             <div class="tab-pane fade" id="antboxs">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam aliquid architectom consequatur dolor eligendi ipsa, maxime natus reiciendis repellat sequi tempore ullam velit. Consequuntur dolores expedita iure suscipit velit vero?</p>
+                                <div id="loader3" role="alert" style="display: none;">
+                                    <img src="@Url.Content("~/Images/preloader.gif")" />   Cargando antboxs... &nbsp;
+                                </div>
+                                <div class="table-responsive">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>Nombre</th>
+                                                <th>Descripcion</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="tantboxs"></tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -212,6 +250,113 @@
                     $("#search").append("<input type='hidden' value='1' name='vp' />");
                     $("#search").submit();
                 }
+            });
+
+            $(".open-modal").click(function (event) {
+
+                //$("#loader1").show();
+                $(".tabdetalle").trigger("click");
+                $("#nombre_cliente").modal("show");
+
+                var formData = {};
+                var idCustomer = $(this).attr("data-id-customer");
+                var folio = $(this).attr("data-folio");
+                formData.idCustomer = idCustomer;
+
+                $(".title_name").text($(this).text());
+                $("#idcustomer").val(idCustomer);
+                $("#folio").val(folio);
+
+            });
+
+            $(".tabcliente").click(function () {
+
+                $("#loader2").show();
+                $(".nombrec").text("");
+                $(".apellidoc").text("");
+                $(".apellido2c").text("");
+                $(".telefonoc").text("");
+                $(".celularc").text("");
+                $(".emailc").text("");
+
+                var formData = {};
+                var idCustomer = $("#idcustomer").val();
+                formData.idCustomer = idCustomer;
+            
+
+                $.ajax({
+                    contentType: 'application/json; charset=utf-8',
+                    dataType: 'json',
+                    type: 'GET',
+                    url: '@Url.Action("GetCustomer", "CustomerService")',
+                    data: formData,
+                    success: function (data) {
+                        console.log("success data");
+                        console.log(data);
+                        $("#loader2").hide();
+                        if (data) {
+
+                            $(".nombrec").text(data.Name);
+                            $(".apellidoc").text(data.LastName);
+                            $(".apellido2c").text(data.Lastname2);
+                            $(".telefonoc").text(data.Phone);
+                            $(".celularc").text(data.Mobile_phone);
+                            $(".emailc").text(data.Email);
+
+                        }
+                    }, error: function (error) {
+                        //mostrarMensaje(form, "userMensaje", "Error al registrar usuario intentelo de nuevo", "alert-warning");
+                    }, complete: function (data) {
+                        //console.log(data);
+                    }
+                });
+            });
+
+            $(".tabantboxs").click(function () {
+
+                $("#loader3").show();
+                $(".tantboxs").html("");
+
+                var formData = {};
+                var idCustomer = $("#idcustomer").val();
+                var folio = $("#folio").val();
+                formData.idCustomer = idCustomer;
+                formData.type = "1";
+                formData.folio = folio;
+
+                $.ajax({
+                    contentType: 'application/json; charset=utf-8',
+                    dataType: 'json',
+                    type: 'GET',
+                    url: '@Url.Action("GetAntboxsTasks", "CustomerService")',
+                    data: formData,
+                    success: function (data) {
+                        console.log("success data");
+                        console.log(data);
+                        $("#loader3").hide();
+                        if (data.success.Antboxs) {
+
+                            var antboxv = {};
+                            var cadResult = "";
+                            var descripcionv = "";
+                            for (var i = 0; i < data.success.Antboxs.length; i++) {
+                                antboxv = data.success.Antboxs[i];
+                                var strVar = "<tr>";
+                                strVar += "<td>" + antboxv.Name + " - " + antboxv.Folio + "<\/tD>";
+                                strVar += "<td>" + antboxv.Descriptionv + "<\/td>";
+                                strVar += "</tr>";
+                                cadResult += strVar;
+                            }
+
+                            $(".tantboxs").html(cadResult);
+
+                        }
+                    }, error: function (error) {
+                        //mostrarMensaje(form, "userMensaje", "Error al registrar usuario intentelo de nuevo", "alert-warning");
+                    }, complete: function (data) {
+                        //console.log(data);
+                    }
+                });
             });
         })
     </script>

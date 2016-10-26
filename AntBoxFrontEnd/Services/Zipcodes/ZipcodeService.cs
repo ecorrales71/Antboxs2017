@@ -80,7 +80,7 @@ namespace AntBoxFrontEnd.Services.Zipcodes
             return true;
         }
 
-        public virtual List<ZipCodeResponse> ListZipCode(int currentPage, string idPagination = null, RequestOptions requestOptions = null)
+        public virtual List<ZipCodeResponse> ListZipCode(int? currentPage, string codigo, string estado, string municipio, string colonia, string registro, bool? status, string idPagination = null, RequestOptions requestOptions = null)
         {
             List<ZipCodeResponse> coupons = new List<ZipCodeResponse>();
 
@@ -90,17 +90,34 @@ namespace AntBoxFrontEnd.Services.Zipcodes
 
                 var parameters = new Dictionary<string, string>();
 
-                parameters.Add("items_per_page", itemPerPage.ToString());
-
-                if (!string.IsNullOrEmpty(idPagination))
+                if (!string.IsNullOrEmpty(codigo))
                 {
-                    parameters.Add("pagination_id", idPagination);
-                    parameters.Add("page_number", currentPage.ToString());
+                    parameters.Add("code", codigo);
+                }
+                if (status != null)
+                {
+                    parameters.Add("status", status.ToString());
+                }
+                if (!string.IsNullOrEmpty(estado))
+                {
+                    parameters.Add("state", estado);
+                }
+                if (!string.IsNullOrEmpty(municipio))
+                {
+                    parameters.Add("delegation", municipio);
+                }
+                if (!string.IsNullOrEmpty(colonia))
+                {
+                    parameters.Add("neighborhood", colonia);
+                }
+                if (!string.IsNullOrEmpty(registro))
+                {
+                    parameters.Add("registered_at", registro);
                 }
 
                 var encodedParams = Infrastructure.UrlHelper.BuildURLParametersString(parameters);
 
-                coupons = Requestor.Get<List<ZipCodeResponse>>(UrlsConstants.CodeList + encodedParams, requestOptions);
+                coupons = Requestor.Get<List<ZipCodeResponse>>(UrlsConstants.Zipcode + encodedParams, requestOptions);
 
             }
             catch (Exception ex)

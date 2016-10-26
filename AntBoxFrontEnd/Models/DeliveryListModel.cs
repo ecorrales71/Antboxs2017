@@ -27,7 +27,7 @@ namespace AntBoxFrontEnd.Models
 
         public string Solicitud { get; set; }
 
-        public string Recoleccion { get; set; }
+        public string Entrega { get; set; }
 
         public string Horario { get; set; }
 

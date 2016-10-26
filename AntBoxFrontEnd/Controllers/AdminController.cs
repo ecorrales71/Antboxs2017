@@ -6,6 +6,7 @@ using AntBoxFrontEnd.Services.Coupon;
 using AntBoxFrontEnd.Services.Customer;
 using AntBoxFrontEnd.Services.Login;
 using AntBoxFrontEnd.Services.User;
+using AntBoxFrontEnd.Services.Zipcodes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -64,9 +65,42 @@ namespace AntBoxFrontEnd.Controllers
             return View(boxresponse);
         }
 
-        public ActionResult Codigos()
+        public ActionResult Codigos(string codigo, string estado, string municipio, string colonia, string registro, bool? status, int? page, string idpagination, string vp)
         {
-            return View();
+
+            var servicio = new ZipcodeService(ServiceConfiguration.GetApiKey());
+
+            ZipCodeModel model = new ZipCodeModel();
+
+            if (string.IsNullOrEmpty(vp))
+            {
+                page = 1;
+                model.Page = 1;
+                idpagination = null;
+            }
+            else
+            {
+                model.Page = page;
+            }
+
+            List<ZipCodeResponse> result = new List<ZipCodeResponse>();
+            try
+            {
+                result = servicio.ListZipCode(page, codigo, estado, municipio, colonia, registro, status, idpagination);
+            }
+            catch (Exception ex)
+            {
+            }
+
+            model.Zipcodes = result;
+            model.Codigo = codigo;
+            model.Estado = estado;
+            model.Municipio = municipio;
+            model.Colonia = colonia;
+            model.Registro = registro;
+            model.Status = status;
+
+            return View(model);
         }
 
         public ActionResult Cupones()

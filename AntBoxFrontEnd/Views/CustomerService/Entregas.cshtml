@@ -63,7 +63,7 @@
                                                 <span class="input-group-btn">
                                                     <button type="button" id="entrega" class="btn btn-primary pull-right"><i class="fa fa-calendar"></i></button>
                                                 </span>
-                                                <input class="form-control" type="text" id="fecha_recoleccion" name="fecha_recoleccion" placeholder="Recolección" value="@Model.Recoleccion">
+                                                <input class="form-control" type="text" id="fecha_entrega" name="fecha_entrega" placeholder="Entrega" value="@Model.Entrega">
                                             </div>
                                         </th>
                                         <th>
@@ -93,11 +93,11 @@
                                         foreach (var item in Model.Deliveries.Deliveries)
                                         {
                                             <tr>
-                                                <td><button type="button" class="btn-link open-modal">@item.Namev</button></td>
+                                                <td><button type="button" class="btn-link open-modal" data-id-customer="@item.Customer_id" data-folio="@item.Folio">@item.Namev</button></td>
                                                 <td>@item.Worker.Name</td>
-                                                <td>-</td>
-                                                <td>@item.Date</td>
-                                                <td>@item.Requested_at</td>
+                                                <td>@item.Antboxs</td>
+                                                <td>@item.Solicitud</td>
+                                                <td>@item.Entrega</td>
                                                 <td>@item.Time</td>
                                                 @if (item.Status == "inprogress")
                                                 {
@@ -144,6 +144,8 @@
                     <!-- Tabs -->
                     <div class="tabs tabs-highlight">
                         <!-- Nav tabs -->
+                        <input type="hidden" id="idcustomer" value="" />
+                        <input type="hidden" id="folio" value="" />
                         <ul class="nav nav-tabs">
                             <li class="active"><a class="tabdetalle" href="#detalle" data-toggle="tab">Detalle</a></li>
                             <li><a href="#cliente" class="tabcliente" data-toggle="tab">Cliente</a></li>
@@ -153,6 +155,9 @@
                         <!-- Tab panes -->
                         <div class="tab-content">
                             <div class="tab-pane fade in active" id="detalle">
+                                <div id="loader1" role="alert" style="display: none;">
+                                    <img src="@Url.Content("~/Images/preloader.gif")" />   Cargando informacion... &nbsp;
+                                </div>
                                 <h6>Fecha</h6>
                                 <p>20 de julio de 2016</p>
                                 <h6>Horario</h6>
@@ -250,14 +255,17 @@
         $(".open-modal").click(function (event) {
 
             //$("#loader1").show();
-            $(".tabcuenta").trigger("click");
+            $(".tabdetalle").trigger("click");
             $("#nombre_cliente").modal("show");
 
             var formData = {};
-            var idCustomer = $(this).attr("data-id");
+            var idCustomer = $(this).attr("data-id-customer");
+            var folio = $(this).attr("data-folio");
             formData.idCustomer = idCustomer;
 
             $(".title_name").text($(this).text());
+            $("#idcustomer").val(idCustomer);
+            $("#folio").val(folio);
 
             @*$.ajax({
                     contentType: 'application/json; charset=utf-8',
@@ -287,49 +295,95 @@
                 });*@
         });
 
-        @*$(".tabantboxs").click(function () {
+        $(".tabcliente").click(function () {
 
-                $("#loader3").show();
-                $(".tantboxs").html("");
+            $("#loader2").show();
+            $(".nombrec").text("");
+            $(".apellidoc").text("");
+            $(".apellido2c").text("");
+            $(".telefonoc").text("");
+            $(".celularc").text("");
+            $(".emailc").text("");
 
-                var formData = {};
-                var idCustomer = $("#idcustomer").val();
-                formData.idCustomer = idCustomer;
+            var formData = {};
+            var idCustomer = $("#idcustomer").val();
+            formData.idCustomer = idCustomer;
+            
 
-                $.ajax({
-                    contentType: 'application/json; charset=utf-8',
-                    dataType: 'json',
-                    type: 'GET',
-                    url: '@Url.Action("GetAntboxs", "CustomerService")',
-                    data: formData,
-                    success: function (data) {
-                        console.log("success data");
-                        console.log(data);
-                        $("#loader3").hide();
-                        if (data.success.Antboxs) {
+            $.ajax({
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                type: 'GET',
+                url: '@Url.Action("GetCustomer", "CustomerService")',
+                data: formData,
+                success: function (data) {
+                    console.log("success data");
+                    console.log(data);
+                    $("#loader2").hide();
+                    if (data) {
 
-                            var antboxv = {};
-                            var cadResult = "";
-                            var descripcionv = "";
-                            for (var i = 0; i < data.success.Antboxs.length; i++) {
-                                antboxv = data.success.Antboxs[i];
-                                var strVar = "<tr>";
-                                strVar += "<td>" + antboxv.Name + " - " + antboxv.Folio + "<\/tD>";
-                                strVar += "<td>" + antboxv.Descriptionv + "<\/td>";
-                                strVar += "</tr>";
-                                cadResult += strVar;
-                            }
+                        $(".nombrec").text(data.Name);
+                        $(".apellidoc").text(data.LastName);
+                        $(".apellido2c").text(data.Lastname2);
+                        $(".telefonoc").text(data.Phone);
+                        $(".celularc").text(data.Mobile_phone);
+                        $(".emailc").text(data.Email);
 
-                            $(".tantboxs").html(cadResult);
-
-                        }
-                    }, error: function (error) {
-                        //mostrarMensaje(form, "userMensaje", "Error al registrar usuario intentelo de nuevo", "alert-warning");
-                    }, complete: function (data) {
-                        //console.log(data);
                     }
-                });
-            });*@
+                }, error: function (error) {
+                    //mostrarMensaje(form, "userMensaje", "Error al registrar usuario intentelo de nuevo", "alert-warning");
+                }, complete: function (data) {
+                    //console.log(data);
+                }
+            });
+        });
+
+        $(".tabantboxs").click(function () {
+
+            $("#loader3").show();
+            $(".tantboxs").html("");
+
+            var formData = {};
+            var idCustomer = $("#idcustomer").val();
+            var folio = $("#folio").val();
+            formData.idCustomer = idCustomer;
+            formData.type = "1";
+            formData.folio = folio;
+
+            $.ajax({
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                type: 'GET',
+                url: '@Url.Action("GetAntboxsTasks", "CustomerService")',
+                data: formData,
+                success: function (data) {
+                    console.log("success data");
+                    console.log(data);
+                    $("#loader3").hide();
+                    if (data.success.Antboxs) {
+
+                        var antboxv = {};
+                        var cadResult = "";
+                        var descripcionv = "";
+                        for (var i = 0; i < data.success.Antboxs.length; i++) {
+                            antboxv = data.success.Antboxs[i];
+                            var strVar = "<tr>";
+                            strVar += "<td>" + antboxv.Name + " - " + antboxv.Folio + "<\/tD>";
+                            strVar += "<td>" + antboxv.Descriptionv + "<\/td>";
+                            strVar += "</tr>";
+                            cadResult += strVar;
+                        }
+
+                        $(".tantboxs").html(cadResult);
+
+                    }
+                }, error: function (error) {
+                    //mostrarMensaje(form, "userMensaje", "Error al registrar usuario intentelo de nuevo", "alert-warning");
+                }, complete: function (data) {
+                    //console.log(data);
+                }
+            });
+        });
     })
     </script>
 }

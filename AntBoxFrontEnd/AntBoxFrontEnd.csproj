@@ -288,7 +288,7 @@
     <Compile Include="Models\abTask.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\abAddress.cs" />
-    <Compile Include="Models\CouponModel - Copy.cs" />
+    <Compile Include="Models\ZipCodeModel.cs" />
     <Compile Include="Models\OrderListModel.cs" />
     <Compile Include="Models\DeliveryListModel.cs" />
     <Compile Include="Models\PickupListModel.cs" />

@@ -99,7 +99,7 @@ namespace AntBoxFrontEnd.Controllers
             return View(model);
         }
 
-        public ActionResult Entregas(string name, string tipo, string operador, string antboxs, string fecha_solicitud, string fecha_recoleccion, string horario, string status, int? page, string idpagination, string vp)
+        public ActionResult Entregas(string name, string tipo, string operador, string antboxs, string fecha_solicitud, string fecha_entrega, string horario, string status, int? page, string idpagination, string vp)
         {
             var servicio = new CSServices(ServiceConfiguration.GetApiKey());
 
@@ -119,7 +119,7 @@ namespace AntBoxFrontEnd.Controllers
             PaginationDelivery result = new PaginationDelivery();
             try
             {
-                result = servicio.ListDeliveries(page, name, tipo, operador, antboxs, fecha_solicitud, fecha_recoleccion, horario, status, idpagination);
+                result = servicio.ListDeliveries(page, name, tipo, operador, antboxs, fecha_solicitud, fecha_entrega, horario, status, idpagination);
             }
             catch (Exception ex)
             {
@@ -135,7 +135,7 @@ namespace AntBoxFrontEnd.Controllers
             model.Operador = operador;
             model.Antboxs = antboxs;
             model.Solicitud = fecha_solicitud;
-            model.Recoleccion = fecha_recoleccion;
+            model.Entrega = fecha_entrega;
             model.Horario = horario;
 
             return View(model);
@@ -239,6 +239,25 @@ namespace AntBoxFrontEnd.Controllers
             {
             }
 
+            return Json(new { success = result }, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetAntboxsTasks(string idCustomer, string folio, string type)
+        {
+            var servicio = new AntBoxesServices(ServiceConfiguration.GetApiKey());
+
+            PaginationAntBoxes result = new PaginationAntBoxes();
+            try
+            {
+                result = servicio.ListAntBoxesTasks(idCustomer, folio, AntBoxStatusEnum.Defualt, 1);
+            }
+            catch (Exception ex)
+            {
+            }
+            if (result == null)
+            {
+                result = new PaginationAntBoxes();
+            }
             return Json(new { success = result }, JsonRequestBehavior.AllowGet);
         }
 	}

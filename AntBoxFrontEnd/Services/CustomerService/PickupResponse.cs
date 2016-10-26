@@ -10,6 +10,10 @@ namespace AntBoxFrontEnd.Services.CustomerService
 {
     public class PickupResponse : Response
     {
+
+        [JsonProperty("customer_id")]
+        public string Customer_id { get; set; }
+
         [JsonProperty("name")]
         public string Name { get; set; }
 
@@ -25,6 +29,9 @@ namespace AntBoxFrontEnd.Services.CustomerService
         [JsonProperty("folio")]
         public string Folio { get; set; }
 
+        [JsonProperty("antboxs")]
+        public string Antboxs { get; set; }
+        
         [JsonProperty("requested_at")]
         public string Requested_at { get; set; }
 
@@ -58,6 +65,38 @@ namespace AntBoxFrontEnd.Services.CustomerService
                     cad = cad + " " + Lastname2;
                 }
                 return cad;
+            }
+        }
+
+        public string Solicitud
+        {
+            get
+            {
+                return formatdate(Requested_at, "dd-MM-yyyy HH:mm:ss");
+                
+            }
+        }
+
+        public string Recoleccion
+        {
+            get
+            {
+                return formatdate(Date, "yyyy-MM-dd");
+
+            }
+        }
+
+        private string formatdate(string date, string format)
+        {
+            try
+            {
+                DateTime dt = DateTime.ParseExact(date, format,
+                                   System.Globalization.CultureInfo.InvariantCulture);
+                return dt.ToString(@"dd\/MM\/yyyy");
+            }
+            catch
+            {
+                return date;
             }
         }
 

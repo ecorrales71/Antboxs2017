@@ -1,4 +1,5 @@
-﻿@{
+﻿@model AntBoxFrontEnd.Models.ZipCodeModel
+@{
     ViewBag.Title = "Codigos";
 }
 <!-- WRAPPER -->
@@ -34,20 +35,19 @@
             <div class="row">
                 <div class="col-sm-12">
                     <div class="table-responsive tabla_cp">
-                        <table id="tabla" class="table table-bordered">
-                            <form id="search" action="../../php/email.php" method="post" class="contact-form form-solid " novalidate>
-                                <div class="col-sm-12 pr0 pb0">
-                                    <input type="submit" class="btn btn-primary btn-wide pull-right mt10" value="Buscar">
-                                    <input type="reset" class="btn btn-primary btn-wide btn_blue pull-right mt10 mr10" value="Borrar campos">
-                                </div>
+                        <form id="search" method="get" class="form-solid " novalidate>
+                            <div class="col-sm-12 pr0 pb0">
+                                <input type="submit" class="btn btn-primary btn-wide pull-right mt10" value="Buscar">
+                                <input type="reset" class="btn btn-primary btn-wide btn_blue pull-right mt10 mr10" value="Borrar campos">
+                            </div>
+                            <table id="tabla" class="table table-bordered">
+
                                 <thead>
                                     <tr>
-                                        <th><input type="text" name="name" id="send-form-name" placeholder="Código Postal"></th>
-                                        <th><input type="text" name="name" id="send-form-name" placeholder="Estado"></th>
-                                        <th><input type="text" name="name" id="send-form-name" placeholder="Municipio"></th>
-                                        <th><input type="text" name="name" id="send-form-name" placeholder="Colonia"></th>
-                                        <th><input type="text" name="name" id="send-form-name" placeholder="Latitud"></th>
-                                        <th><input type="text" name="name" id="send-form-name" placeholder="Longitud"></th>
+                                        <th><input type="text" name="name" id="send-form-name" placeholder="Código Postal" value="@Model.Codigo"></th>
+                                        <th><input type="text" name="name" id="send-form-name" placeholder="Estado" value="@Model.Estado"></th>
+                                        <th><input type="text" name="name" id="send-form-name" placeholder="Municipio" value="@Model.Municipio"></th>
+                                        <th><input type="text" name="name" id="send-form-name" placeholder="Colonia" value="@Model.Colonia"></th>
                                         <th>
                                             <div class="input-group mb0">
                                                 <span class="input-group-btn">
@@ -65,86 +65,36 @@
                                         </th>
                                     </tr>
                                 </thead>
-                            </form>
-                            <tbody>
-                                <tr>
-                                    <td>45782</td>
-                                    <td>CDMX</td>
-                                    <td>Azcapotzalco</td>
-                                    <td>Nueva Santa María</td>
-                                    <td>23.00</td>
-                                    <td>12.43</td>
-                                    <td>2016-05-20</td>
-                                    <td>Activo</td>
-                                </tr>
-                                <tr>
-                                    <td>35890</td>
-                                    <td>CDMX</td>
-                                    <td>Azcapotzalco</td>
-                                    <td>Electricistas</td>
-                                    <td>23.00</td>
-                                    <td>12.43</td>
-                                    <td>2016-06-01</td>
-                                    <td>Activo</td>
-                                </tr>
-                                <tr>
-                                    <td>13780</td>
-                                    <td>CDMX</td>
-                                    <td>Azcapotzalco</td>
-                                    <td>Petrolera</td>
-                                    <td>23.00</td>
-                                    <td>12.43</td>
-                                    <td>2016-07-15</td>
-                                    <td>Activo</td>
-                                </tr>
-                                <tr>
-                                    <td>45782</td>
-                                    <td>CDMX</td>
-                                    <td>Azcapotzalco</td>
-                                    <td>Nueva Santa María</td>
-                                    <td>23.00</td>
-                                    <td>12.43</td>
-                                    <td>2016-05-20</td>
-                                    <td>Activo</td>
-                                </tr>
-                                <tr>
-                                    <td>35890</td>
-                                    <td>CDMX</td>
-                                    <td>Azcapotzalco</td>
-                                    <td>Electricistas</td>
-                                    <td>23.00</td>
-                                    <td>12.43</td>
-                                    <td>2016-06-01</td>
-                                    <td>Activo</td>
-                                </tr>
-                                <tr>
-                                    <td>13780</td>
-                                    <td>CDMX</td>
-                                    <td>Azcapotzalco</td>
-                                    <td>Petrolera</td>
-                                    <td>23.00</td>
-                                    <td>12.43</td>
-                                    <td>2016-07-15</td>
-                                    <td>Activo</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                                <tbody>
+                                    @if (Model.Zipcodes != null)
+                                    {
+                                        foreach (var item in Model.Zipcodes)
+                                        {
+                                            <tr>
+                                                <td>
+                                                    <button type="button" class="btn-link open-modal" data-id="@item.Id">@item.Zipcode</button>
+                                                </td>
+                                                <td>@item.State</td>
+                                                <td>@item.Delegation</td>
+                                                <td>@item.Neighborhood</td>
+                                                <td>@item.Date_creation</td>
+                                                @if (item.Status == true)
+                                                {
+                                                    <td>Activo</td>
+                                                }
+                                                else
+                                                {
+                                                    <td>Inactivo</td>
+                                                }
+                                            </tr>
+                                        }
+                                    }
+                                </tbody>
+                            </table>
+                        </form>
                     </div>
                 </div>
-                <div class="col-sm-12 text-center mb10">
-                    <!-- PAGINATION -->
-                    <ul class="pagination solid">
-                        <li class="pull-left"><a href="#" class="prev"><i class="fa fa-angle-left"></i></a></li>
-                        <li class="pull-right"><a href="#" class="next"><i class="fa fa-angle-right"></i></a></li>
-                        <li class="active"><a href="#">1</a></li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#">4</a></li>
-                        <li><a href="#">…</a></li>
-                        <li><a href="#">36</a></li>
-                    </ul>
-                    <!-- /.pagination -->
-                </div>
+                @*<div class="pagination solid text-center"></div>*@
                 <div class="col-sm-12 pt10">
                     <input type="button" class="btn btn-primary btn-wide pull-left" data-toggle="modal" data-target="#crear_codigo" value="Crear Nuevo">
                     <input id="" type="button" class="btn btn-primary btn_blue btn-wide pull-right" onclick="eliminarItem()" value="Eliminar">

@@ -9,11 +9,8 @@ namespace AntBoxFrontEnd.Services.Zipcodes
     public class ZipCodeResponse : Response
     {
 
-        [JsonProperty("longitude")]
-        public decimal Logitude { get; set; }
-
-        [JsonProperty("latitude")]
-        public decimal Latitude { get; set; }
+        [JsonProperty("id")]
+        public string Id { get; set; }
 
         [JsonProperty("neighborhood")]
         public string Neighborhood { get; set; }
@@ -28,10 +25,18 @@ namespace AntBoxFrontEnd.Services.Zipcodes
         public string State { get; set; }
 
         [JsonProperty("status")]
-        public string Status { get; set; }
+        public bool Status { get; set; }
 
         [JsonProperty("creation_date")]
         public string Creation_date { get; set; }
+
+        public string Date_creation {
+            get
+            {
+                DateTime dt = Convert.ToDateTime(Creation_date);
+                return dt.ToString(@"dd\/MM\/yyyy hh:mm:ss tt");
+            }
+        }
 
 
     }

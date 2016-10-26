@@ -13,7 +13,7 @@ namespace AntBoxFrontEnd.Services.CustomerService
         {
         }
 
-        public virtual PaginationDelivery ListDeliveries(int? currentPage, string name, string tipo, string operador, string antboxs, string fecha_solicitud, string fecha_recoleccion, string horario, string status, string idPagination = null, RequestOptions requestOptions = null)
+        public virtual PaginationDelivery ListDeliveries(int? currentPage, string name, string tipo, string operador, string antboxs, string fecha_solicitud, string fecha_entrega, string horario, string status, string idPagination = null, RequestOptions requestOptions = null)
         {
             try
             {
@@ -39,9 +39,9 @@ namespace AntBoxFrontEnd.Services.CustomerService
                 {
                     parameters.Add("requested_at", fecha_solicitud);
                 }
-                if (!string.IsNullOrEmpty(fecha_recoleccion))
+                if (!string.IsNullOrEmpty(fecha_entrega))
                 {
-                    parameters.Add("delivery_at_date", fecha_recoleccion);
+                    parameters.Add("delivery_at_date", fecha_entrega);
                 }
                 if (!string.IsNullOrEmpty(horario))
                 {
@@ -50,6 +50,10 @@ namespace AntBoxFrontEnd.Services.CustomerService
                 if (!string.IsNullOrEmpty(status))
                 {
                     parameters.Add("delivery_at_time", status);
+                }
+                if (!string.IsNullOrEmpty(antboxs))
+                {
+                    parameters.Add("antboxs", antboxs);
                 }
 
                 var encodedParams = Infrastructure.UrlHelper.BuildURLParametersString(parameters);
@@ -102,6 +106,10 @@ namespace AntBoxFrontEnd.Services.CustomerService
                 if (!string.IsNullOrEmpty(status))
                 {
                     parameters.Add("delivery_at_time", status);
+                }
+                if (!string.IsNullOrEmpty(antboxs))
+                {
+                    parameters.Add("antboxs", antboxs);
                 }
 
                 var encodedParams = Infrastructure.UrlHelper.BuildURLParametersString(parameters);

@@ -67,5 +67,23 @@ namespace AntBoxFrontEnd.Services.CustomerService
             }
         }
 
+        public string Requested_date
+        {
+            get
+            {
+                try
+                {
+                    DateTime dt = DateTime.ParseExact(Requested_at, "dd-MM-yyyy HH:mm:ss",
+                                       System.Globalization.CultureInfo.InvariantCulture);
+                    return dt.ToString("yyyy-MM-dd");
+                }
+                catch
+                {
+                    return Requested_at;
+                }
+
+            }
+        }
+
     }
 }
