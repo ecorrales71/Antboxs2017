@@ -116,5 +116,57 @@ namespace AntBoxFrontEnd.Services.CustomerService
                 return null;
             }
         }
+
+        public virtual PaginationOrder ListOrders(int? currentPage, string name, string pedido, string codigo, string recoleccion, string registro, string idPagination = null, RequestOptions requestOptions = null)
+        {
+            try
+            {
+                requestOptions = SetupRequestOptions(requestOptions);
+
+                var parameters = new Dictionary<string, string>();
+
+                if (currentPage == null)
+                {
+                    currentPage = 1;
+                }
+                if (!string.IsNullOrEmpty(idPagination))
+                {
+                    parameters.Add("pagination_id", idPagination);
+                    parameters.Add("page_number", currentPage.ToString());
+                }
+
+                if (!string.IsNullOrEmpty(name))
+                {
+                    parameters.Add("name", name);
+                }
+                if (!string.IsNullOrEmpty(pedido))
+                {
+                    parameters.Add("folio", pedido);
+                }
+                if (!string.IsNullOrEmpty(codigo))
+                {
+                    parameters.Add("code", codigo);
+                }
+                if (!string.IsNullOrEmpty(recoleccion))
+                {
+                    parameters.Add("pickup", recoleccion);
+                }
+                if (!string.IsNullOrEmpty(registro))
+                {
+                    parameters.Add("registered_at", registro);
+                }
+
+                var encodedParams = Infrastructure.UrlHelper.BuildURLParametersString(parameters);
+
+                var orders = Requestor.Get<PaginationOrder>(UrlsConstants.OrderListCS + encodedParams, requestOptions);
+
+                return orders;
+            }
+            catch (Exception ex)
+            {
+                LogManager.Write(ex.Message + " " + ex.InnerException, LogManager.Error);
+                return null;
+            }
+        }
     }
 }

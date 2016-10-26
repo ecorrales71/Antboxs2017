@@ -57,9 +57,46 @@ namespace AntBoxFrontEnd.Controllers
             return View(model);
         }
 
-        public ActionResult Antboxs()
+        public ActionResult Antboxs(string name, string pedido, string codigo, string registro, string recoleccion, string entrega, string status, int? page, string idpagination, string vp)
         {
-            return View();
+            var servicio = new CSServices(ServiceConfiguration.GetApiKey());
+
+            OrderListModel model = new OrderListModel();
+
+            if (string.IsNullOrEmpty(vp))
+            {
+                page = 1;
+                model.Page = 1;
+                idpagination = null;
+            }
+            else
+            {
+                model.Page = page;
+            }
+
+            PaginationOrder result = new PaginationOrder();
+            try
+            {
+                result = servicio.ListOrders(page, name, pedido, codigo, recoleccion, registro, idpagination);
+            }
+            catch (Exception ex)
+            {
+            }
+            if (result == null)
+            {
+                result = new PaginationOrder();
+            }
+
+            model.Orders = result;
+            model.Name = name;
+            model.Pedido = pedido;
+            model.Codigo = codigo;
+            model.Registro = registro;
+            model.Recoleccion = recoleccion;
+            model.Entrega = entrega;
+            model.Status = status;
+
+            return View(model);
         }
 
         public ActionResult Entregas(string name, string tipo, string operador, string antboxs, string fecha_solicitud, string fecha_recoleccion, string horario, string status, int? page, string idpagination, string vp)

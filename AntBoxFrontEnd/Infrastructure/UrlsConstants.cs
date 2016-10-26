@@ -68,6 +68,8 @@ namespace AntBoxFrontEnd.Infrastructure
 
         public static String PickupListCS { get { return BaseUrl + "/cs/pickup"; } }
 
+        public static String OrderListCS { get { return BaseUrl + "/cs/order"; } }
+
         public static String Contact { get { return BaseUrl + "/contact"; } } 
 
         public static String ValidateAddress { get { return BaseUrl + "/customer-address/check"; } }
