@@ -10,6 +10,9 @@ namespace AntBoxFrontEnd.Services.CustomerService
 {
     public class OrderResponse : Response
     {
+        [JsonProperty("customer_id")]
+        public string Customer_id { get; set; }
+
         [JsonProperty("id")]
         public string Id { get; set; }
 

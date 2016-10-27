@@ -90,7 +90,7 @@
                                         foreach (var item in Model.Orders.Orders)
                                         {
                                             <tr>
-                                                <td><button type="button" class="btn-link open-modal">@item.Namev</button></td>
+                                                <td><button type="button" class="btn-link open-modal" data-id="@item.Customer_id" data-folio="@item.Folio">@item.Namev</button></td>
                                                 <td>@item.Folio</td>
                                                 <td>@item.Code</td>
                                                 <td>@item.Requested_date</td>
@@ -121,6 +121,53 @@
 </div>
 <!-- /.wrapper -->
 
+<!-- Modal Large -->
+<div class="modal fade antboxs" id="nombre_cliente">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><i class="fa fa-times"></i></button>
+                <h6 class="modal-title">Información del cliente</h6>
+            </div>
+            <div class="modal-body">
+                <div class="modal-body-inside">
+
+                    <div class="row irow-xs pb20">
+                        <div class="col-sm-12 text-center">
+                            <h3 class="title_name">Aguilar Gómez Javier Ignacio</h3>
+                        </div>
+                    </div>
+                    <!-- Tabs -->
+                    <div class="tabs tabs-highlight">
+                        <!-- Nav tabs -->
+                        <input type="hidden" id="idcustomer" value="" />
+                        <input type="hidden" id="folio" value="" />
+                        <ul class="nav nav-tabs">
+                            <li class="active"><a href="#antboxs" data-toggle="tab">Antboxs</a></li>
+                        </ul>
+
+                        <!-- Tab panes -->
+                        <div class="tab-content">
+                            <div class="tab-pane fade in active">
+                                <input type="hidden" id="total-modal" value="" />
+                                <input type="hidden" id="page-modal" value="" />
+                                <input type="hidden" id="paginationid-modal" value="" />
+                                <div id="loader1" role="alert" style="display: none;">
+                                    <img src="@Url.Content("~/Images/preloader.gif")" />   Cargando antboxs... &nbsp;
+                                </div>
+                                <div class="antboxs-content"></div>
+                                <div class="pagination-modal solid text-center"></div>
+                            </div>
+                        </div>
+                        <!-- /.tabs -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /.modal -->
+
 @section Scripts
 {
 @Scripts.Render("~/bundles/simplepaginationjs")
@@ -142,6 +189,99 @@
                 $("#search").submit();
             }
         });
+
+        $('.pagination-modal').pagination({
+            items: 0,
+            itemsOnPage: 20,
+            cssStyle: 'light-theme',
+            currentPage: currentPage,
+            onPageClick: function (pageNumber, event) {
+                event.preventDefault();
+                $("#vp").val("1");
+                $("#page").val(pageNumber);
+                $("#search").append("<input type='hidden' value='1' name='vp' />");
+                $("#search").submit();
+            }
+        });
+
+        $(".open-modal").click(function (event) {
+
+            $(".antboxs-content").html("");
+            $("#loader1").show();
+            $(".tabcuenta").trigger("click");
+            $("#nombre_cliente").modal("show");
+
+            var formData = {};
+            var idCustomer = $(this).attr("data-id");
+            var folio = $(this).attr("data-folio");
+            formData.idCustomer = idCustomer;
+            formData.folio = folio;
+            $("#idcustomer").val(idCustomer);
+            $("#folio").val(folio);
+            $(".title_name").text($(this).text());
+
+            callbackHttp(formData, true);
+        });
+
+        function callbackHttp(formData, verif)
+        {
+            $.ajax({
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                type: 'GET',
+                url: '@Url.Action("GetAntboxsTasks", "CustomerService")',
+                data: formData,
+                success: function (data) {
+                    console.log("success data");
+                    console.log(data);
+                    $("#loader1").hide();
+                    if (data.success.Antboxs) {
+
+                        var antboxv = {};
+                        var cadResult = "";
+                        var descripcionv = "";
+                        for (var i = 0; i < data.success.Antboxs.length; i++) {
+                            antboxv = data.success.Antboxs[i];
+
+                            var strVar = "";
+                            strVar += "<div class=\"card card-border-dashed card-border-color magnific-wrap mb10\">";
+                            strVar += "    <div class=\"row\">";
+                            strVar += "        <div class=\"col-sm-3 col-xs-12\">";
+                            strVar += "            <figure class=\"figure\">";
+                            strVar += "                <img src=\"\/images\/antboxs_3.jpg\" alt=\"\">";
+                            strVar += "            <\/figure>";
+                            strVar += "        <\/div>";
+                            strVar += "        <div class=\"col-sm-9 col-xs-12 antboxs_txt\">";
+                            strVar += "            <h4>" + antboxv.Name + " - " + antboxv.Folio + "<\/h4>";
+                            strVar += "            <p>" + antboxv.Descriptionv + "<\/p>";
+                            strVar += "        <\/div>";
+                            strVar += "    <\/div>";
+                            strVar += "<\/div>";
+
+                            cadResult += strVar;
+                        }
+
+                        $(".antboxs-content").html(cadResult);
+                        $("#total-modal").val(data.success.Antboxs.Total);
+                        $("#paginationid-modal").val(data.success.Antboxs.Pagination_id);
+
+                        if (verif)
+                        {
+                            $('.pagination-modal').pagination('updateItems', data.success.Antboxs.Total);
+                            $('.pagination-modal').pagination('selectPage', 1);
+                        }
+
+                        var currentPageModal = ($("#page-modal").val() == "") ? 1 : parseInt($("#page-modal").val());
+
+                    }
+                }, error: function (error) {
+                    //mostrarMensaje(form, "userMensaje", "Error al registrar usuario intentelo de nuevo", "alert-warning");
+                }, complete: function (data) {
+                    //console.log(data);
+                    $("#loader1").hide();
+                }
+            });
+        }
 
     })
 </script>

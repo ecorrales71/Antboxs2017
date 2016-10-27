@@ -33,8 +33,21 @@ namespace AntBoxFrontEnd.Services.Zipcodes
         public string Date_creation {
             get
             {
-                DateTime dt = Convert.ToDateTime(Creation_date);
-                return dt.ToString(@"dd\/MM\/yyyy hh:mm:ss tt");
+                return formatdate(Creation_date, "dd-MM-yyyy HH:mm:ss");
+            }
+        }
+
+        private string formatdate(string date, string format)
+        {
+            try
+            {
+                DateTime dt = DateTime.ParseExact(date, format,
+                                   System.Globalization.CultureInfo.InvariantCulture);
+                return dt.ToString(@"dd\/MM\/yyyy");
+            }
+            catch
+            {
+                return date;
             }
         }
 
