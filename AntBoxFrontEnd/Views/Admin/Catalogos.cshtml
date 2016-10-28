@@ -43,7 +43,6 @@
                         <table id="tabla" class="table table-bordered">
                             <thead>
                                 <tr>
-                                    <th></th>
                                     <th>Modelo</th>
                                     <th>Dimensiones</th>
                                     <th>Etiqueta</th>
@@ -60,7 +59,6 @@
                                 @foreach (var item in Model.Boxes.Boxes)
                                 {
                                     <tr data-id="@item.Id">
-                                        <td><input type="checkbox" data-id="@item.Id" class="select-box" /></td>
                                         <td class="tmodel">@item.Model</td>
                                         <td class="tsize">@item.Size</td>
                                         <td class="tlabel">@item.Label</td>
@@ -367,12 +365,6 @@
         });
         $(".editar-box-button").click(function (event) {
 
-            var countCheckbox = $("#tabla").find('input:checkbox:checked').length;
-            if (countCheckbox == 0)
-            {
-                alert("Debe seleccionar un box para editar");
-                return false;
-            }
             console.log("editar box");
             var form = $("#form-editar");
 
@@ -380,7 +372,7 @@
 
             formData.id = actualEdicion;
 
-            if (actualEdicion != null) {
+            if (actualElement != null) {
                 $("#editar-id").val(actualEdicion);
 
                 $.ajax({
@@ -421,6 +413,8 @@
                         console.log(data);
                     }
                 });
+            } else {
+                alert("Debe seleccionar un catálogo para editar");
             }
 
         });
@@ -463,43 +457,38 @@
                         console.log(data);
                     }
                 });
-            }
+            } 
             
         });
         $(".eliminar-box").click(function (event) {
             var countCheckbox = $("#tabla").find('input:checkbox:checked').length;
             console.log(countCheckbox);
-            var mensaje = "Esta seguro que desea eliminar los antbox seleccionados?";
-            if (countCheckbox == 1) {
-                var mensaje = "Esta seguro que desea eliminar el box " + actualLabel + "?";
-            } else if (countCheckbox == 0){
-                alert("Debe seleccionar al menos un box para editar");
-                return false;
-            }
-            if (confirm(mensaje)) {
-                var formData = {};
-                formData.id = actualEdicion;
-                if (countCheckbox > 1)
-                {
-                    $("#tabla").find('input:checkbox:checked').each(function () {
-                        formData = {};
-                        formData.id = $(this).attr("data-id");
-                        deleteBox(formData, $(this));
-                    })
-                } else if (countCheckbox == 1)
-                {
+            var mensaje = "Esta seguro que desea eliminar el antbox " + actualLabel + "?";
+            if (actualElement != null)
+            {
+                if (confirm(mensaje)) {
+                    var formData = {};
+                    formData.id = actualEdicion;
                     deleteBox(formData, actualElement);
                 }
+            } else {
+                alert("Debe seleccionar un catálogo para eliminar");
             }
+            
         });
         var actualEdicion = null;
-        var actualNombre = "";
+        var actualLabel = "";
         var actualElement = null;
-        $(document).on("change", ".select-box", function (event) {
-            if ($(this).is(":checked")) {
+        $(document).on("click", "#tabla tr", function () {
+            $(this).toggleClass('line_selected').siblings().removeClass('line_selected');
+            if ($(this).hasClass('line_selected')) {
                 actualElement = $(this);
-                actualEdicion = $(this).attr("data-id");
+                actualEdicion = $(this).closest("tr").attr("data-id");
                 actualLabel = $(this).closest("tr").find(".tlabel").text();
+            } else {
+                actualEdicion = null;
+                actualNombre = "";
+                actualElement = null;
             }
         });
 

@@ -20,12 +20,15 @@ namespace AntBoxFrontEnd.Services.Zipcodes
         {
         }
 
-        public List<ZipCodeResponse> SearchZipCode (string zipcode, RequestOptions requestOptions = null)
+        public List<ZipCodeResponse> SearchZipCode (string zipcode, string neighborhood = null, RequestOptions requestOptions = null)
         {
             requestOptions = SetupRequestOptions(requestOptions);
 
             var parameters = new Dictionary<string, string> { { "code", zipcode} };
-
+            if (!string.IsNullOrEmpty(neighborhood))
+            {
+                parameters.Add("neighborhood", neighborhood);
+            }
             var encodedContent = Infrastructure.UrlHelper.BuildURLParametersString(parameters);
 
             var zipResponse = Requestor.Get<List<ZipCodeResponse>>(UrlsConstants.ZipCode + encodedContent, requestOptions);

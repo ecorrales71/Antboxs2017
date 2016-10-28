@@ -64,7 +64,7 @@ namespace AntBoxFrontEnd.Controllers
             }
         }
 
-        public JsonResult DeleteCode(string id)
+        public JsonResult DeleteZipCode(string id)
         {
             var couponService = new ZipcodeService(ServiceConfiguration.GetApiKey());
 
@@ -77,11 +77,11 @@ namespace AntBoxFrontEnd.Controllers
             return Json(new { success = result, responseText = "Ocurrio un error al borrar el registro" }, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult GetCode(string id)
+        public JsonResult GetZipCode(string id, string neighborhood)
         {
             var couponService = new ZipcodeService(ServiceConfiguration.GetApiKey());
 
-            var result = couponService.SearchZipCode(id);
+            var result = couponService.SearchZipCode(id, neighborhood);
 
             return Json(result, JsonRequestBehavior.AllowGet);
         }

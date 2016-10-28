@@ -172,32 +172,35 @@
                                 <p><i class="fa fa-exclamation-triangle"></i> <strong>Regístra una dirección como mínimo.</strong><br />Recuerda que para realizar cualquier factura deberás tener por lo menos un dato de facturación.</p>
                             </div>
                         </div>
-                        <div class="col-sm-12 back_gris pt30 pb20 mb30">
-                            <div class="media-left">
-                                <div class="icon icon-color icon-size-4">
-                                    <i class="fa fa-file-text"></i>
+                        <div class="content-datos-facturacion">
+                            <div class="col-sm-12 back_gris pt30 pb20 mb30">
+                                <div class="media-left">
+                                    <div class="icon icon-color icon-size-4">
+                                        <i class="fa fa-file-text"></i>
+                                    </div>
+                                </div>
+                                <div class="media-body" data-id="">
+                                    <h4 class="identificaciont">Facturación Empresa A</h4>
+                                    <p>Nombre o Razón Social: <span class="nombreempresat">Empresa A, S.A de C.V.</span><br>spanRFC: <span class="razonsocialt">IDRM852805IV6</span></p>
+                                    <button type="button" class="btn btn-primary btn-sm pull-right ml10 open-editar-facturacion" data-toggle="modal" data-target="#editar_facturacion">Editar</button>
+                                    <button type="button" class="btn btn-primary btn-sm pull-right btn_blue" onclick="eliminarItem()">Eliminar</button>
                                 </div>
                             </div>
-                            <div class="media-body">
-                                <h4>Facturación Empresa A</h4>
-                                <p>Nombre o Razón Social: Empresa A, S.A de C.V.<br>RFC: IDRM852805IV6</p>
-                                <button type="button" class="btn btn-primary btn-sm pull-right ml10" data-toggle="modal" data-target="#editar_facturacion">Editar</button>
-                                <button type="button" class="btn btn-primary btn-sm pull-right btn_blue" onclick="eliminarItem()">Eliminar</button>
-                            </div>
-                        </div>
-                        <div class="col-sm-12 back_gris pt30 pb20 mb30">
-                            <div class="media-left">
-                                <div class="icon icon-color icon-size-4">
-                                    <i class="fa fa-file-text"></i>
+                            <div class="col-sm-12 back_gris pt30 pb20 mb30">
+                                <div class="media-left">
+                                    <div class="icon icon-color icon-size-4">
+                                        <i class="fa fa-file-text"></i>
+                                    </div>
+                                </div>
+                                <div class="media-body" data-id="">
+                                    <h4>Facturación Empresa B</h4>
+                                    <p>Nombre o Razón Social: Empresa B, S.A de C.V.<br>RFC: GIWS810885IV3</p>
+                                    <button type="button" class="btn btn-primary btn-sm pull-right ml10" data-toggle="modal" data-target="#editar_facturacion">Editar</button>
+                                    <button type="button" class="btn btn-primary btn-sm pull-right btn_blue" onclick="eliminarItem()">Eliminar</button>
                                 </div>
                             </div>
-                            <div class="media-body">
-                                <h4>Facturación Empresa B</h4>
-                                <p>Nombre o Razón Social: Empresa B, S.A de C.V.<br>RFC: GIWS810885IV3</p>
-                                <button type="button" class="btn btn-primary btn-sm pull-right ml10" data-toggle="modal" data-target="#editar_facturacion">Editar</button>
-                                <button type="button" class="btn btn-primary btn-sm pull-right btn_blue" onclick="eliminarItem()">Eliminar</button>
-                            </div>
                         </div>
+                        
                     </div>
                     
                     <div class="row mt20">
@@ -205,37 +208,40 @@
                             <hr id="registrar_nuevos_datos_facturacion" class="hr-dashed mt40 mb0" />
                         </div>
                     </div>
+                    
                     <div class="row pl30 pr30">
+                        <div id="loader1" role="alert" style="display: none;">
+                            <img src="@Url.Content("~/Images/preloader.gif")" />   Cargando antboxs... &nbsp;
+                        </div>
                         <div class="irow-xs pb30">
                             <h3>Regístra nuevos datos de facturación</h3>
                             <p>Registra tus datos de facturación para tus recibos. Asígnale un nombre para identificarla fácilmente más adelante.</p>
                         </div>
-                        <form action="../../php/email.php" method="post" class="contact-form form-solid" novalidate>
+                        <form method="post" class="form-afacturacion form-solid" novalidate>
                             <div class="row">
                                 <div class="col-sm-6">
                                     <div class="form-group">
-                                        <label for="send-form-name">Nombre de Identificación*</label>
-                                        <input type="text" name="name" id="send-form-name">
+                                        <label for="aidentificacion">Nombre de Identificación*</label>
+                                        <input type="text" name="Identificacion" id="aidentificacion">
                                     </div>
                                     <div class="form-group">
-                                        <label for="send-form-email">Nombre o Razón Social*</label>
-                                        <input type="text" name="email" id="send-form-email">
+                                        <label for="arazonsocial">Nombre o Razón Social*</label>
+                                        <input type="text" name="Razonsocial" id="arazonsocial">
                                     </div>
                                     <div class="form-group">
-                                        <label for="send-form-email">RFC*</label>
-                                        <input type="text" name="email" id="send-form-email">
+                                        <label for="arfc">RFC*</label>
+                                        <input type="text" name="Rfc" id="arfc">
                                     </div>
 
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="form-group">
-                                        <label for="send-form-message">Referencias y Comentarios</label>
-                                        <textarea name="message" id="send-form-message"></textarea>
+                                        <label for="areferencias">Referencias y Comentarios</label>
+                                        <textarea name="Referencias" id="areferencias"></textarea>
                                     </div>
                                 </div>
                                 <div class="col-sm-12 mt10">
-                                    <input type="submit" class="btn btn-primary btn-wide pull-right" value="Guardar">
-                                    <p class="succs-msg">Мensaje enviado</p>
+                                    <input type="submit" data-verif="1" class="btn btn-primary btn-wide pull-right guardar-facturacion" value="Guardar">
                                 </div>
                             </div>
                         </form>
@@ -340,35 +346,38 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal"><i class="fa fa-times"></i></button>
-                <h6 class="modal-title">Editar dirección</h6>
+                <h6 class="modal-title">Editar datos de facturación</h6>
             </div>
             <div class="modal-body">
-                <form action="../../php/email.php" method="post" class="contact-form form-solid" novalidate>
+                <div id="loader2" role="alert" style="display: none;">
+                    <img src="@Url.Content("~/Images/preloader.gif")" />   Guardando datos de facturacion... &nbsp;
+                </div>
+                <form method="post" class="form-efacturacion form-solid" novalidate>
+                    <input type="hidden" name="idFacturacion" id="idFacturacion" value="" />
                     <div class="row">
                         <div class="col-sm-6">
                             <div class="form-group">
-                                <label for="send-form-name">Nombre de Identificación*</label>
-                                <input type="text" name="name" id="send-form-name">
+                                <label for="identificacion">Nombre de Identificación*</label>
+                                <input type="text" name="Identificacion" id="identificacion">
                             </div>
                             <div class="form-group">
-                                <label for="send-form-email">Nombre o Razón Social*</label>
-                                <input type="text" name="email" id="send-form-email">
+                                <label for="razonsocial">Nombre o Razón Social*</label>
+                                <input type="text" name="Razonsocial" id="razonsocial">
                             </div>
                             <div class="form-group">
-                                <label for="send-form-email">RFC*</label>
-                                <input type="text" name="email" id="send-form-email">
+                                <label for="rfc">RFC*</label>
+                                <input type="text" name="Rfc" id="rfc">
                             </div>
 
                         </div>
                         <div class="col-sm-6 pl0_modal">
                             <div class="form-group">
-                                <label for="send-form-message">Referencias y Comentarios</label>
-                                <textarea name="message" id="send-form-message"></textarea>
+                                <label for="referencias">Referencias y Comentarios</label>
+                                <textarea name="Referencias" id="referencias"></textarea>
                             </div>
                         </div>
                         <div class="col-sm-12 mt10">
-                            <input type="submit" class="btn btn-primary btn-wide pull-right" value="Guardar">
-                            <p class="succs-msg">Мensaje enviado</p>
+                            <input type="submit" data-verif="2" class="btn btn-primary btn-wide pull-right guardar-facturacion" value="Guardar">
                         </div>
                     </div>
                 </form>
@@ -545,8 +554,6 @@ function goto_rndf(reload)
         }, sucess_callbak, error_callbak);
     };
 
-    
-
     function MakeMainCardAjax(cardId) {
 
         $.ajax({
@@ -659,5 +666,84 @@ function goto_rndf(reload)
                 }
             });
     };
+    var verif = 1;
+    var element = {};
+    var formelementg = "";
+    $(function () {
+        $(document).on("click", ".guardar-facturacion", function () {
+            verif = $(this).attr("data-verif");
+            formelementg = ".form-afacturacion";
+            var formData = $(".form-afacturacion").serialize();
+            element = $(this);
+            http(url, formData, callbacksucces(), ".form-afacturacion", "#loader1");
+        });
+        $(document).on("click", ".open-editar-facturacion", function () {
+            element = $(this);
+            var idFacturacion = $(this).parent().attr("data-id");
+            $("#idFacturacion").val(idFacturacion);
+            $("#editar_facturacion").modal("open");
+        });
+    });
+    function callbackSuccess(data)
+    {
+        if (data.success)
+        {
+            if (verif == 1)
+            {
+                cadhtml = htmlFacturacion($("#aidentificacion").val(), $("#arazonsocial").val(), $("#areferencias").val());
+                $(".content-datos-facturacion").append(cadhtml);
+            } else {
+                element.parent().find(".identificaciont").text($("#aidentificacion").val());
+                element.parent().find(".nombreempresat").text($("#arazonsocial").val());
+                element.parent().find(".razonsocialt").text($("#arfc").val());
+            }
+        } else {
+            var mensaje = (verif == 1) ? "Error al agregar datos de facturacion" : "Error al editar datos de facturacion";
+            mostrarError(formelementg, mensaje);
+        }
+    }
+    function mostrarError(formelement, mensaje)
+    {
+        $(formelement).prepend(
+            '<div class="alert alert-error alert-dismissible fade in" id="RegisterCardError"> <button type="button" class="close" data-dismiss="alert"> <i class="fa fa-times"></i></button><p><i class="fa fa-exclamation-triangle"></i>' + mensaje + '</p></div>');
+        window.setTimeout(function ()
+        { $("#RegisterCardError").alert('close'); }, 10000);
+    }
+    function htmlFacturacion(identificacion, razonsocial, rfc) {
+        var strVar = "";
+        strVar += "<div class=\"col-sm-12 back_gris pt30 pb20 mb30\">";
+        strVar += "    <div class=\"media-left\">";
+        strVar += "        <div class=\"icon icon-color icon-size-4\">";
+        strVar += "            <i class=\"fa fa-file-text\"><\/i>";
+        strVar += "        <\/div>";
+        strVar += "    <\/div>";
+        strVar += "    <div class=\"media-body\">";
+        strVar += "        <h4>" + identificacion + "<\/h4>";
+        strVar += "        <p>Nombre o Razón Social: " + razonsocial + "<br>RFC: " + rfc + "<\/p>";
+        strVar += "        <button type=\"button\" class=\"btn btn-primary btn-sm pull-right ml10\" data-toggle=\"modal\" data-target=\"#editar_facturacion\">Editar<\/button>";
+        strVar += "        <button type=\"button\" class=\"btn btn-primary btn-sm pull-right btn_blue\" onclick=\"eliminarItem()\">Eliminar<\/button>";
+        strVar += "    <\/div>";
+        strVar += "<\/div>";
+
+        return strVar;
+    }
+    function limpiarCampos(formelement, loader) {
+        $(loader).hide();
+        $(formelement).find('input:text, textarea').each(function () {
+            $(this).val("");
+        });
+    }
+    function http(url, formdata, callbacksucces, formelement, loader)
+    {
+        $(loader).show();
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: formdata,
+            success: callbacksucces,
+            complete: limpiarCampos(formelement, loader)
+        })
+    }
+    
 </script>
     }

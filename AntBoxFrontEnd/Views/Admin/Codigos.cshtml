@@ -70,21 +70,19 @@
                                     {
                                         foreach (var item in Model.Zipcodes)
                                         {
-                                            <tr>
-                                                <td>
-                                                    <button type="button" class="btn-link open-modal" data-id="@item.Id">@item.Zipcode</button>
-                                                </td>
-                                                <td>@item.State</td>
-                                                <td>@item.Delegation</td>
-                                                <td>@item.Neighborhood</td>
-                                                <td>@item.Date_creation</td>
+                                            <tr data-id="@item.Zipcode">
+                                                <td class="tzipcode">@item.Zipcode</td>
+                                                <td class="tstate">@item.State</td>
+                                                <td class="tdelegation">@item.Delegation</td>
+                                                <td class="tneighborhood">@item.Neighborhood</td>
+                                                <td class="tdatecreation">@item.Date_creation</td>
                                                 @if (item.Status == true)
                                                 {
-                                                    <td>Activo</td>
+                                                    <td class="tstatus">Activo</td>
                                                 }
                                                 else
                                                 {
-                                                    <td>Inactivo</td>
+                                                    <td class="tstatus">Inactivo</td>
                                                 }
                                             </tr>
                                         }
@@ -97,8 +95,8 @@
                 @*<div class="pagination solid text-center"></div>*@
                 <div class="col-sm-12 pt10">
                     <input type="button" class="btn btn-primary btn-wide pull-left" data-toggle="modal" data-target="#crear_codigo" value="Crear Nuevo">
-                    <input id="" type="button" class="btn btn-primary btn_blue btn-wide pull-right" onclick="eliminarItem()" value="Eliminar">
-                    <input type="button" class="btn btn-primary btn-wide pull-right mr10" data-toggle="modal" data-target="#editar_codigo" value="Editar">
+                    <input id="" type="button" class="btn btn-primary btn_blue btn-wide pull-right eliminar-codigo" value="Eliminar">
+                    <input type="button" class="btn btn-primary btn-wide pull-right mr10 editar-codigo-button" value="Editar">
                 </div>
             </div>
         </div>
@@ -116,34 +114,34 @@
                 <h6 class="modal-title">Crear Código Postal</h6>
             </div>
             <div class="modal-body">
-                <form action="../../php/email.php" method="post" class="contact-form form-solid" novalidate>
+                <form method="post" class="form-agregar form-solid" novalidate>
                     <div class="row">
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label for="send-form-name">Código Postal</label>
-                                <input type="text" name="name" id="send-form-name">
+                                <input type="text" name="zipcode" id="send-form-name">
                             </div>
                             <div class="form-group">
                                 <label for="send-form-name">Estado</label>
-                                <input type="text" name="name" id="send-form-name">
+                                <input type="text" name="state" id="send-form-name">
                             </div>
                             <div class="form-group">
                                 <label for="send-form-name">Municipio</label>
-                                <input type="text" name="name" id="send-form-name">
+                                <input type="text" name="delegation" id="send-form-name">
                             </div>
                             <div class="form-group">
                                 <label for="send-form-name">Colonia</label>
-                                <input type="text" name="name" id="send-form-name">
+                                <input type="text" name="neighborhood" id="send-form-name">
                             </div>
                             <div class="form-group">
                                 <label for="send-form-name">Latitud</label>
-                                <input type="text" name="name" id="send-form-name">
+                                <input type="text" name="latitude" id="send-form-name">
                             </div>
                         </div>
                         <div class="col-sm-6 pl0_modal">
                             <div class="form-group">
                                 <label for="send-form-name">Longitud</label>
-                                <input type="text" name="name" id="send-form-name">
+                                <input type="text" name="longitude" id="send-form-name">
                             </div>
                             <div class="form-group">
                                 <label for="textbox">Fecha</label>
@@ -156,18 +154,18 @@
                             </div>
                             <div class="form-group">
                                 <label for="form-select">Estatus</label>
-                                <select id="form-select" class="select_codigo">
+                                <select id="status" class="select_codigo">
                                     <option value="Activo">Activo</option>
                                     <option value="Inactivo">Inactivo</option>
                                 </select>
                             </div>
                             <div class="form-group">
                                 <label for="send-form-name">Cargar Archivo</label>
-                                <input type="file" name="name" id="send-form-name">
+                                <input type="file" name="file" id="send-form-name">
                             </div>
                         </div>
                         <div class="col-sm-12">
-                            <input type="submit" class="btn btn-primary btn-wide pull-right mt10" value="Crear">
+                            <input type="submit" class="btn btn-primary btn-wide pull-right mt10 crear-codigo" value="Crear">
                         </div>
                     </div>
                 </form>
@@ -186,34 +184,34 @@
                 <h6 class="modal-title">Editar Código Postal</h6>
             </div>
             <div class="modal-body">
-                <form action="../../php/email.php" method="post" class="contact-form form-solid" novalidate>
+                <form method="post" class="form-editar form-solid" novalidate>
                     <div class="row">
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label for="send-form-name">Código Postal</label>
-                                <input type="text" name="name" id="send-form-name">
+                                <input type="text" name="zipcode" id="send-form-name">
                             </div>
                             <div class="form-group">
                                 <label for="send-form-name">Estado</label>
-                                <input type="text" name="name" id="send-form-name">
+                                <input type="text" name="state" id="send-form-name">
                             </div>
                             <div class="form-group">
                                 <label for="send-form-name">Municipio</label>
-                                <input type="text" name="name" id="send-form-name">
+                                <input type="text" name="delegation" id="send-form-name">
                             </div>
                             <div class="form-group">
                                 <label for="send-form-name">Colonia</label>
-                                <input type="text" name="name" id="send-form-name">
+                                <input type="text" name="neighborhood" id="send-form-name">
                             </div>
                             <div class="form-group">
                                 <label for="send-form-name">Latitud</label>
-                                <input type="text" name="name" id="send-form-name">
+                                <input type="text" name="latitude" id="send-form-name">
                             </div>
                         </div>
                         <div class="col-sm-6 pl0_modal">
                             <div class="form-group">
                                 <label for="send-form-name">Longitud</label>
-                                <input type="text" name="name" id="send-form-name">
+                                <input type="text" name="longitude" id="send-form-name">
                             </div>
                             <div class="form-group">
                                 <label for="textbox">Fecha</label>
@@ -226,14 +224,14 @@
                             </div>
                             <div class="form-group">
                                 <label for="form-select">Estatus</label>
-                                <select id="form-select" class="select_codigo">
+                                <select id="status" class="select_codigo">
                                     <option value="Activo">Activo</option>
                                     <option value="Inactivo">Inactivo</option>
                                 </select>
                             </div>
                         </div>
                         <div class="col-sm-12">
-                            <input type="submit" class="btn btn-primary btn-wide pull-right mt10" value="Crear">
+                            <input type="submit" class="btn btn-primary btn-wide pull-right mt10 modificar-codigo" value="Crear">
                         </div>
                     </div>
                 </form>
@@ -259,13 +257,320 @@
         ifFormat: "%Y-%m-%d",       // formato de la fecha, cuando se escriba en el campo de texto
         button: "actualizacion"   // el id del botón que lanzará el calendario
     });
-</script>
-<script type="text/javascript">
     Calendar.setup({
         inputField: "fecha_actualizacion_edit",      // id del campo de texto
         ifFormat: "%Y-%m-%d",       // formato de la fecha, cuando se escriba en el campo de texto
         button: "actualizacion_edit"   // el id del botón que lanzará el calendario
     });
+
+    $.fn.serializeObject = function () {
+        var o = {};
+        var a = this.serializeArray();
+        $.each(a, function () {
+            if (o[this.name] !== undefined) {
+                if (!o[this.name].push) {
+                    o[this.name] = [o[this.name]];
+                }
+                o[this.name].push(this.value || '');
+            } else {
+                o[this.name] = this.value || '';
+            }
+        });
+        return o;
+    };
+    $(function () {
+        $(".crear-codigo").click(function (event) {
+            event.preventDefault();
+            console.log("crear codigo");
+            var form = $("#form-agregar");
+
+            if (form.valid()) {
+                modalToClose = $("#crear_codigo");
+                var formData = $("#form-agregar").serializeObject();
+
+                formData.Status = (formData.Status == "Activo") ? true : false;
+
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("CreateZipCode", "ZipCode")',
+                    data: formData,
+                    success: function (data) {
+                        if (data.success) {
+                            verifCloseModal = true;
+                            mostrarMensaje(form, "userMensaje", "Codigo registrado", "alert-warning");
+
+                            $("#tabla").find("tbody").html("");
+                            var dataPagination = { page: 1, idpagination: $("#idpagination").val() }
+                            var codigosResult = "";
+
+                            $("#loader").show();
+
+                            $.ajax({
+                                type: 'POST',
+                                url: '@Url.Action("PaginationAjax", "ZipCode")',
+                                data: dataPagination,
+                                success: function (data) {
+
+                                    for (var i = 0; i < data.Zipcodes.length; i++) {
+
+                                        var codigov = data.Zipcodes[i];
+                                        var cadHtml = "";
+                                        cadHtml += "<tr data-id=\"" + boxv.Id + "\">";
+                                        cadHtml += "    <td><input type=\"checkbox\" data-id=\"" + boxv.Id + "\" class=\"select-box\" \/><\/td>";
+                                        cadHtml += "    <td class=\"tmodel\">" + boxv.Model + "<\/td>";
+                                        cadHtml += "    <td class=\"tsize\">" + boxv.Size + "<\/td>";
+                                        cadHtml += "    <td class=\"tlabel\">" + boxv.Label + "<\/td>";
+                                        cadHtml += "    <td class=\"tprice\">" + boxv.Price + "<\/td>";
+                                        cadHtml += "    <td class=\"tsecure_label\">" + boxv.Secure_label + "<\/td>";
+                                        cadHtml += "    <td class=\"tsecure\">" + boxv.Secure + "<\/td>";
+                                        cadHtml += "    <td class=\"tslu\">" + boxv.Slu + "<\/td>";
+                                        cadHtml += "    <td class=\"tname\">" + boxv.Registered_by.Name + "<\/td>";
+                                        cadHtml += "    <td class=\"tactivation_date\">" + boxv.Activation_date + "<\/td>";
+                                        var statusname = "Activo"
+                                        if (!codigov.Status)
+                                            statusname = "Inactivo"
+                                        cadHtml += "    <td class=\"tstatus\">" + statusname + "<\/td>";
+                                        cadHtml += "<\/tr>";
+
+
+                                        codigosResult = codigosResult + cadHtml;
+
+                                    }
+
+                                    $("#loader").hide();
+                                    $("#tabla").find("tbody").html(codigosResult);
+
+                                }
+                            });
+
+                        } else {
+                            mostrarMensaje(form, "userMensaje", "Error al registrar el codigo, intentelo de nuevo", "alert-warning");
+                        }
+                    }, error: function (error) {
+                        mostrarMensaje(form, "userMensaje", "Error al registrar codigo intentelo de nuevo", "alert-warning");
+                    }, complete: function (data) {
+                        console.log(data);
+                    }
+                });
+            }
+
+        });
+        $(".editar-codigo-button").click(function (event) {
+
+            console.log("editar codigo");
+            var form = $("#form-editar");
+
+            var formData = {};
+
+            formData.id = actualEdicion;
+            formData.neighborhood = actualNeighborhood;
+
+            if (actualElement != null) {
+                $("#editar-id").val(actualEdicion);
+
+                $.ajax({
+                    contentType: 'application/json; charset=utf-8',
+                    dataType: 'json',
+                    type: 'GET',
+                    url: '@Url.Action("GetZipCode", "ZipCode")',
+                    data: formData,
+                    success: function (data) {
+                        console.log("success data");
+                        console.log(data);
+                        if (data) {
+                            form.find("#model").val(data.Model);
+                            form.find("#size").val(data.Size);
+                            form.find("#label").val(data.Label);
+                            form.find("#price").val(data.Price);
+                            form.find("#secure_label").val(data.Secure_label);
+                            form.find("#secure").val(data.Secure);
+                            form.find("#slu").val(data.Slu);
+                            form.find("#registered_by").val(data.Registered_by.Id);
+                            form.find("#registered_by").trigger("chosen:updated");
+                            form.find("#fecha_activacion_edit").val(data.Activation_date);
+                            var statusname = "Activo"
+                            if (!data.Status)
+                                statusname = "Inactivo"
+                            form.find("#status").val(statusname);
+                            form.find("#status").trigger("chosen:updated");
+
+                            $("#editar_codigo").modal("show");
+                        }
+                    }, error: function (error) {
+                        mostrarMensaje(form, "userMensaje", "Error al registrar código intentelo de nuevo", "alert-warning");
+                    }, statusCode: {
+                        404: function () {
+                            alert("page not found");
+                        }
+                    }, complete: function (data) {
+                        console.log(data);
+                    }
+                });
+            } else {
+                alert("Debe seleccionar un código para editar");
+            }
+
+        });
+        $(".modificar-codigo").click(function (event) {
+            event.preventDefault();
+            modalToClose = $("#editar_codigo");
+            console.log("modificar codigo");
+            var form = $("#form-editar");
+
+            if (form.valid()) {
+                var formData = $("#form-editar").serializeObject();
+
+                formData.status = (formData.status == "Activo") ? true : false;
+
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("UpdateZipCode", "ZipCode")',
+                    data: formData,
+                    success: function (data) {
+                        if (data.success) {
+                            mostrarMensaje(form, "userMensaje", "Código modificado", "alert-warning");
+                            verifCloseModal = true;
+                            actualElement.closest("tr").find(".tmodel").text(form.find("#model").val());
+                            actualElement.closest("tr").find(".tsize").text(form.find("#size").val());
+                            actualElement.closest("tr").find(".tlabel").text(form.find("#label").val());
+                            actualElement.closest("tr").find(".tprice").text(form.find("#price").val());
+                            actualElement.closest("tr").find(".tsecure_label").text(form.find("#secure_label").val());
+                            actualElement.closest("tr").find(".tsecure").text(form.find("#secure").val());
+                            actualElement.closest("tr").find(".tslu").text(form.find("#slu").val());
+                            actualElement.closest("tr").find(".tname").text(form.find("#registered_by option:selected").text());
+                            actualElement.closest("tr").find(".tactivation_date").text(form.find("#fecha_activacion").val());
+                            actualElement.closest("tr").find(".tstatus").text(form.find("#status").val());
+                        } else {
+                            mostrarMensaje(form, "userMensaje", "Error al modificar código intentelo de nuevo", "alert-warning");
+                        }
+                    }, error: function (error) {
+                        mostrarMensaje(form, "userMensaje", "Error al modificar código intentelo de nuevo", "alert-warning");
+                    }, complete: function (data) {
+                        console.log(data);
+                    }
+                });
+            }
+
+        });
+        $(".eliminar-codigo").click(function (event) {
+            var countCheckbox = $("#tabla").find('input:checkbox:checked').length;
+            console.log(countCheckbox);
+            var mensaje = "Esta seguro que desea eliminar el código " + actualLabel + "?";
+            if (actualElement != null) {
+                if (confirm(mensaje)) {
+                    var formData = {};
+                    formData.id = actualEdicion;
+                    deleteBox(formData, actualElement);
+                }
+            } else {
+                alert("Debe seleccionar un código para eliminar");
+            }
+
+        });
+        var actualEdicion = null;
+        var actualLabel = "";
+        var actualNeighborhood = "";
+        var actualElement = null;
+        $(document).on("click", "#tabla tr", function () {
+            $(this).toggleClass('line_selected').siblings().removeClass('line_selected');
+            if ($(this).hasClass('line_selected')) {
+                actualElement = $(this);
+                actualEdicion = $(this).closest("tr").attr("data-id");
+                actualLabel = $(this).closest("tr").find(".tzipcode").text();
+                actualNeighborhood = $(this).closest("tr").find(".tneighborhood").text();
+            } else {
+                actualEdicion = null;
+                actualNombre = "";
+                actualElement = null;
+            }
+        });
+
+        //-------------------------JQuery Validate----------------------
+        $('#form-agregar').validate({
+            rules: {
+                Model: {
+                    required: true
+                },
+                Size: {
+                    required: true
+                },
+                Label: {
+                    required: true
+                },
+                Price: {
+                    required: true
+                },
+                "Registered_by": {
+                    required: true
+                }
+            },
+            highlight: function (element) {
+                $(element).closest('.form-group').addClass('has-error');
+            },
+            unhighlight: function (element) {
+                $(element).closest('.form-group').removeClass('has-error');
+            },
+            errorElement: 'span',
+            errorClass: 'help-block',
+            errorPlacement: function (error, element) {
+                if (element.parent('.input-group').length) {
+                    error.insertAfter(element.parent());
+                } else {
+                    error.insertAfter(element);
+                }
+            }
+        });
+
+        $('#form-editar').validate({
+            rules: {
+                model: {
+                    required: true
+                },
+                size: {
+                    required: true
+                },
+                label: {
+                    required: true
+                },
+                price: {
+                    required: true
+                },
+                "registered_by": {
+                    required: true
+                }
+            },
+            highlight: function (element) {
+                $(element).closest('.form-group').addClass('has-error');
+            },
+            unhighlight: function (element) {
+                $(element).closest('.form-group').removeClass('has-error');
+            },
+            errorElement: 'span',
+            errorClass: 'help-block',
+            errorPlacement: function (error, element) {
+                if (element.parent('.input-group').length) {
+                    error.insertAfter(element.parent());
+                } else {
+                    error.insertAfter(element);
+                }
+            }
+        });
+    });
+    function deleteBox(formData, element) {
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("DeleteZipCode", "ZipCode")',
+            data: formData,
+            success: function (data) {
+                alert("Box eliminado correctamente");
+                element.closest("tr").remove();
+            }, error: function (error) {
+                alert("Error al eliminar código, intentelo nuevamente");
+            }, complete: function (data) {
+                console.log(data);
+            }
+        });
+    }
 </script>
 
 }

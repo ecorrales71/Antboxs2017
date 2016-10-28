@@ -43,7 +43,6 @@
                     <table id="tabla" class="table table-bordered">
                         <thead>
                             <tr>
-                                <th></th>
                                 <th>Usuario</th>
                                 <th>Nombre</th>
                                 <th>A. Paterno</th>
@@ -57,7 +56,6 @@
                             @foreach (var item in Model.Users)
                             {
                                 <tr data-id="@item.Id">
-                                    <td><input type="checkbox" data-id="@item.Id" class="select-user" /></td>
                                     <td class="tusername">@item.Username</td>
                                     <td class="tname">@item.Name</td>
                                     <td class="tlastname">@item.Lastname</td>
@@ -245,6 +243,7 @@
         return o;
     };
     $(function () {
+        
         $(".registrar-usuario").click(function (event) {
             event.preventDefault();
             if ($("#form-agregar").valid())
@@ -366,6 +365,7 @@
             event.preventDefault();
             console.log("registrar usuario");
             var form = $("#form-editar");
+
             if (form.valid()) {
                 var formData = $("#form-editar").serializeObject();
                 modalToClose = $("#editar_usuario");
@@ -400,34 +400,46 @@
             
         });
         $(".eliminar-usuario").click(function (event) {
-            if (confirm("Esta seguro que desea eliminar el usuario " + actualNombre + " " + actualApellido + "?")) {
-                var formData = {};
-                formData.id = actualEdicion;
-                $.ajax({
-                    type: 'POST',
-                    url: '@Url.Action("DeleteUser", "User")',
-                    data: formData,
-                    success: function (data) {
-                        alert("Usuario eliminado correctamente");
-                        actualElement.closest("tr").remove();
-                    }, error: function (error) {
-                        alert("Error al eliminar usuario, intentelo nuevamente");
-                    }, complete: function (data) {
-                        console.log(data);
-                    }
-                });
+            if (actualEdicion != null) {
+                if (confirm("Esta seguro que desea eliminar el usuario " + actualNombre + " " + actualApellido + "?")) {
+                    var formData = {};
+                    formData.id = actualEdicion;
+                    $.ajax({
+                        type: 'POST',
+                        url: '@Url.Action("DeleteUser", "User")',
+                        data: formData,
+                        success: function (data) {
+                            alert("Usuario eliminado correctamente");
+                            actualElement.closest("tr").remove();
+                        }, error: function (error) {
+                            alert("Error al eliminar usuario, intentelo nuevamente");
+                        }, complete: function (data) {
+                            console.log(data);
+                        }
+                    });
+                }
+            } else {
+                alert("Debe seleccionar un usuario para eliminar")
             }
+            
         });
         var actualEdicion = null;
         var actualNombre = "";
         var actualApellido = "";
         var actualElement = null;
-        $(document).on("change", ".select-user", function (event) {
-            if ($(this).is(":checked")) {
+        $(document).on("click", "#tabla tr", function () {
+            $(this).toggleClass('line_selected').siblings().removeClass('line_selected');
+            if ($(this).hasClass('line_selected'))
+            {
                 actualElement = $(this);
-                actualEdicion = $(this).attr("data-id");
+                actualEdicion = $(this).closest("tr").attr("data-id");
                 actualNombre = $(this).closest("tr").find(".tname").text();
                 actualApellido = $(this).closest("tr").find(".tlastname").text();
+            } else {
+                actualEdicion = null;
+                actualNombre = "";
+                actualApellido = "";
+                actualElement = null;
             }
         });
 
