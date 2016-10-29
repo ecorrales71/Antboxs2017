@@ -122,23 +122,29 @@ namespace AntBoxFrontEnd.Controllers
                         var csv = new List<string[]>(); // or, List<YourClass>
                         var lines = System.IO.File.ReadAllLines(fname);
                         List<ZipCodeRequestOptionsCsv> zipcodes = new List<ZipCodeRequestOptionsCsv>();
+                        var count = 0;
                         foreach (string line in lines)
                         {
-                            string[] linea = line.Split(',');
-                            var item = new ZipCodeRequestOptionsCsv
+                            if (count > 0)
                             {
-                                State = linea[0],
-                                Delegation = linea[1],
-                                Zipcode = linea[2],
-                                Neighborhood = linea[3],
-                                Latitude = linea[4],
-                                Longitude = linea[5]
-                            };
-                            zipcodes.Add(item);
+                                string[] linea = line.Split(',');
+                                var item = new ZipCodeRequestOptionsCsv
+                                {
+                                    State = linea[0],
+                                    Delegation = linea[1],
+                                    Zipcode = linea[2],
+                                    Neighborhood = linea[3],
+                                    Latitude = linea[4],
+                                    Longitude = linea[5]
+                                };
+                                zipcodes.Add(item);
+                            }
+                            count = count + 1;
                         }
                         string json = new
                             System.Web.Script.Serialization.JavaScriptSerializer().Serialize(zipcodes);
 
+                        
                         return Json(json);
                     }
                     // Returns message that successfully uploaded  
