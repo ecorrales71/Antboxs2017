@@ -1,0 +1,68 @@
+﻿@model AntBoxFrontEnd.Models.BoxModel
+@{
+    ViewBag.Title = "Admin - Catalogos";
+}
+<!-- WRAPPER -->
+<div class="wrapper">
+    <!-- PAGE TITLE -->
+    <header class="pagetitle pagetitle-sm">
+        <div class="container">
+            <div class="divtable irow">
+                <div class="divcell">
+                    <i class="fa fa-archive"></i>
+                    <span class="title">Administración de Usuarios</span>
+                    <div class="divider"></div>
+                    <span class="subtitle">Almacenamiento Seguro, Fácil y Conveniente</span>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- /.pagetitle -->
+    <!-- CONTENT -->
+    <div class="content catalogos">
+        <!-- CONTAINER -->
+        <div class="container">
+            <div class="row irow-xs">
+                <form id="search" method="get" class="form-solid " novalidate>
+                    <div class="col-sm-6">
+                        <h1>Reportes</h1>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- /.container -->
+        <!-- CONTAINER -->
+        <div class="container mt30">
+            <div class="row text-center cards" >
+                <div class="col-md-3 col-sm-6">
+                    <a href="@Url.Action("ReporteUsuarios", "Admin")" style="background-color: #3598dc; display: block; color: #fff; padding: 15px;">
+                        <i class="fa fa-users" style="font-size: 32px; margin-bottom: 10px; color: #fff;"></i>
+                        <h4 style="color: #fff;">Usuarios / Prospectos</h4>
+                    </a>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <a href="@Url.Action("ReportePagos", "Admin")" style="background-color: #e7505a; display: block; color: #fff; padding: 15px;">
+                        <i class="fa fa-credit-card" style="font-size: 32px; margin-bottom: 10px; color: #fff;"></i>
+                        <h4 style="color: #fff;">Pagos</h4>
+                    </a>
+                </div>
+                <div class="col-md-3 col-sm-6" >
+                    <a href="@Url.Action("ReporteEntregas", "Admin")" style="background-color: #32c5d2; display: block; color: #fff; padding: 15px;">
+                        <i class="fa fa-archive" style="font-size: 32px; margin-bottom: 10px; color: #fff;"></i>
+                        <h4 style="color: #fff;">Entregas</h4>
+                    </a>
+                </div>
+                <div class="col-md-3 col-sm-6" >
+                    <a href="@Url.Action("ReporteRecolecciones", "Admin")" style="background-color: #8E44AD; display: block; color: #fff; padding: 15px;">
+                        <i class="fa fa-truck" style="font-size: 32px; margin-bottom: 10px; color: #fff;"></i>
+                        <h4 style="color: #fff;">Recolecciones</h4>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <!-- /.container -->
+    </div>
+    <!-- /.content -->
+</div>
+<!-- /.wrapper -->
+}

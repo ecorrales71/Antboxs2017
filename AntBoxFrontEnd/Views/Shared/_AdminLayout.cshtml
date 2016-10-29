@@ -38,8 +38,9 @@
                             <li><a href='@Url.Action("Index", "Admin")'><i class="fa fa-user pull-right"></i>Usuarios</a></li>
                             <li><a href='@Url.Action("Catalogos", "Admin")'><i class="fa fa-building pull-right"></i>Catálogos</a></li>
                             <li><a href='@Url.Action("Codigos", "Admin")'><i class="fa fa-archive pull-right"></i>Códigos</a></li>
-                            <li><a href='@Url.Action("Cupones", "Admin")'><i class="fa fa-history pull-right"></i>Cupones</a></li>
+                            <li><a href='@Url.Action("Cupones", "Admin")'><i class="fa fa-history pull-right"></i>Cupones</a></li
                             <li><a href='@Url.Action("Cuenta", "Admin")'><i class="fa fa-credit-card pull-right"></i>Cuenta</a></li>
+                            <li><a href='@Url.Action("Reportes", "Admin")'><i class="fa fa-credit-card pull-right"></i>Reportes</a></li>
                             <li><a href='@Url.Action("Logout", "Admin")'><i class="fa fa-sign-out pull-right"></i>Cerrar Sesión</a></li>
                         </ul>
                     </li>
@@ -62,6 +63,9 @@
                     </li>
                     <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "Cupones" ? "active" : "")">
                         <a href="@Url.Action("Cupones", "Admin")">Cupones</a>
+                    </li>
+                    <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "Reportes" ? "active" : "")">
+                        <a href="@Url.Action("Reportes", "Admin")">Reportes</a>
                     </li>
                 </ul>
             </div>

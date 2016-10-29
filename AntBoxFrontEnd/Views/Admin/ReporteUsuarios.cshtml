@@ -1,0 +1,530 @@
+﻿@model AntBoxFrontEnd.Services.User.PaginationUser
+@{
+    ViewBag.Title = "Admin - Usuarios";
+}
+<!-- WRAPPER -->
+<div class="wrapper">
+<!-- PAGE TITLE -->
+<header class="pagetitle pagetitle-sm">
+    <div class="container">
+        <div class="divtable irow">
+            <div class="divcell">
+                <i class="fa fa-archive"></i>
+                <span class="title">Administración de Usuarios</span>
+                <div class="divider"></div>
+                <span class="subtitle">Almacenamiento Seguro, Fácil y Conveniente</span>
+            </div>
+        </div>
+    </div>
+</header>
+<!-- /.pagetitle -->
+<!-- CONTENT -->
+<div class="content usuarios">
+    <!-- CONTAINER -->
+    <div class="container">
+        <div class="row irow-xs">
+            <div class="col-sm-12">
+                <h1>Usuarios</h1>
+            </div>
+        </div>
+    </div>
+    <!-- /.container -->
+    <!-- CONTAINER -->
+    <div class="container mt30">
+        @Html.Hidden("idpagination", @Model.Pagination_id)
+        @Html.Hidden("total", @Model.Total)
+        @Html.Hidden("pages", @Model.Pages)
+        <div id="loader" role="alert" style="display: none;">
+            <img src="@Url.Content("~/Images/preloader.gif")" />   Cargando usuarios... &nbsp;
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="table-responsive">
+                    <table id="tabla" class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Usuario</th>
+                                <th>Nombre</th>
+                                <th>A. Paterno</th>
+                                <th>A. Materno</th>
+                                <th>Perfil</th>
+                                <th>E-mail</th>
+                                <th>Celular</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.Users)
+                            {
+                                <tr data-id="@item.Id">
+                                    <td class="tusername">@item.Username</td>
+                                    <td class="tname">@item.Name</td>
+                                    <td class="tlastname">@item.Lastname</td>
+                                    <td class="tlastname2">@item.Lastname2v</td>
+                                    <td class="tprofile">@item.System_profile</td>
+                                    <td class="temail">@item.Email</td>
+                                    <td class="tmobile_phone">@item.Mobile_phone</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                        </div>
+                        <div class="col-sm-12 mt10">
+                            <input type="button" class="btn btn-primary btn-wide pull-left" data-toggle="modal" data-target="#crear_usuario" value="Crear Nuevo">
+                            <input id="" type="button" class="btn btn-primary btn_blue btn-wide pull-right eliminar-usuario" onclick="eliminarItem()" value="Eliminar">
+                            <input type="button" class="btn btn-primary btn-wide pull-right mr10 editar-usuario-button" value="Editar">
+                        </div>
+                    </div>
+                </div>
+                <!-- /.container -->
+            </div>
+            <!-- /.content -->
+            <!-- Modal Medium -->
+            <div class="modal fade" id="crear_usuario">
+                <div class="modal-dialog modal-md">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal"><i class="fa fa-times"></i></button>
+                            <h6 class="modal-title">Crear Usuario</h6>
+                        </div>
+                        <div class="modal-body">
+                            <form method="post" id="form-agregar" novalidate>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label for="send-form-name">Usuario</label>
+                                            <input type="text" name="Username" id="username">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="send-form-name">Nombre(s)</label>
+                                            <input type="text" name="Name" id="name">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="send-form-name">Apellido Paterno</label>
+                                            <input type="text" name="Lastname" id="lastname">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="send-form-name">Apellido Materno</label>
+                                            <input type="text" name="Lastname2" id="Lastname2">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="profile">Perfil</label>
+                                            <select id="profile" name="Profile">
+                                                <option value="administrator">Administrador</option>
+                                                <option value="helpdesk">Servicio al Cliente</option>
+                                                <option value="worker">Operador</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 pl0_modal">
+                                        <div class="form-group">
+                                            <label for="send-form-name">E-mail</label>
+                                            <input type="email" name="Email" id="email">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="send-form-name">Celular</label>
+                                            <input type="text" name="Mobile_phone" id="mobile_phone">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="send-form-name">Contraseña</label>
+                                            <input type="password" name="Password" id="passwordAgregar">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="send-form-name">Confirmar contraseña</label>
+                                            <input type="password" name="Passwordconfirm" id="password-confirm">
+                                        </div>
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" name="change_password2" id="change_password2">
+                                                El usuario puede cambiar su contraseña al iniciar sesión por primera vez.
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <input type="submit" class="btn btn-primary btn-wide pull-right mt10 registrar-usuario" value="Registrar">
+                                    </div>
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.modal -->
+            <!-- Modal Medium -->
+            <div class="modal fade" id="editar_usuario">
+                <div class="modal-dialog modal-md">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal"><i class="fa fa-times"></i></button>
+                            <h6 class="modal-title">Editar Usuario</h6>
+                        </div>
+                        <div class="modal-body">
+                            <form method="post" id="form-editar" novalidate>
+                                <input type="hidden" name="id" id="editar-id" value="" />
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label for="send-form-name">Usuario</label>
+                                            <input type="text" name="username" id="username">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="send-form-name">Nombre(s)</label>
+                                            <input type="text" name="name" id="name">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="send-form-name">Apellido Paterno</label>
+                                            <input type="text" name="lastname" id="lastname">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="send-form-name">Apellido Materno</label>
+                                            <input type="text" name="lastname2" id="lastname2">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="profile">Perfil</label>
+                                            <select id="profile" name="profile">
+                                                <option value="administrator">Administrador</option>
+                                                <option value="helpdesk">Servicio al Cliente</option>
+                                                <option value="worker">Operador</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 pl0_modal">
+                                        <div class="form-group">
+                                            <label for="send-form-name">E-mail</label>
+                                            <input type="email" name="email" id="email">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="send-form-name">Celular</label>
+                                            <input type="text" name="mobile_phone" id="mobile_phone">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="send-form-name">Contraseña</label>
+                                            <input type="password" name="password" id="password">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="send-form-name">Confirmar contraseña</label>
+                                            <input type="password" name="password-confirm" id="password-confirm">
+                                        </div>
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" name="change_password2" id="change_password2">
+                                                El usuario puede cambiar su contraseña al iniciar sesión por primera vez.
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <input type="submit" class="btn btn-primary btn-wide pull-right mt10 modificar-usuario" value="Guardar">
+                                    </div>
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+@section Scripts
+{
+<script>
+    $.fn.serializeObject = function () {
+        var o = {};
+        var a = this.serializeArray();
+        $.each(a, function () {
+            if (o[this.name] !== undefined) {
+                if (!o[this.name].push) {
+                    o[this.name] = [o[this.name]];
+                }
+                o[this.name].push(this.value || '');
+            } else {
+                o[this.name] = this.value || '';
+            }
+        });
+        return o;
+    };
+    $(function () {
+        
+        $(".registrar-usuario").click(function (event) {
+            event.preventDefault();
+            if ($("#form-agregar").valid())
+            {
+                console.log("registrar usuario");
+                var form = $("#form-agregar");
+                var formData = $("#form-agregar").serializeObject();
+                modalToClose = $("#editar_usuario");
+
+                formData.Change_password = form.find("#change_password2").prop("checked");
+
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("CreateUser", "User")',
+                    data: formData,
+                    success: function (data) {
+                        if (data.success) {
+                            verifCloseModal = true;
+                            mostrarMensaje(form, "userMensaje", "Usuario registrado", "alert-warning");
+
+                            $("#tabla").find("tbody").html("");
+                            var dataPagination = { page: 1, idpagination: $("#idpagination").val() }
+                            var usersResult = "";
+
+                            $("#loader").show();
+
+                            $.ajax({
+                                type: 'POST',
+                                url: '@Url.Action("PaginationAjax", "User")',
+                                data: dataPagination,
+                                success: function (data) {
+
+                                    for (var i = 0; i < data.Users.length; i++) {
+
+                                        var userv = data.Users[i];
+                                        var cadHtml = "";
+                                        cadHtml += "<tr data-id=\""+userv.Id+"\">";
+                                        cadHtml += "    <td><input type=\"checkbox\" data-id=\""+userv.Id+"\" class=\"select-user\" \/><\/td>";
+                                        cadHtml += "    <td class=\"tusername\">"+userv.Username+"<\/td>";
+                                        cadHtml += "    <td class=\"tname\">"+userv.Name+"<\/td>";
+                                        cadHtml += "    <td class=\"tlastname\">"+userv.Lastname+"<\/td>";
+                                        cadHtml += "    <td class=\"tlastname2\">"+userv.Lastname2+"<\/td>";
+                                        cadHtml += "    <td class=\"tprofile\">"+userv.System_profile+"<\/td>";
+                                        cadHtml += "    <td class=\"temail\">"+userv.Email+"<\/td>";
+                                        cadHtml += "    <td class=\"tmobile_phone\">" + userv.Mobile_phone + "<\/td>";
+                                        cadHtml += "<\/tr>";
+
+                                        usersResult = usersResult + cadHtml;
+
+                                    }
+
+                                    $("#loader").hide();
+                                    $("#tabla").find("tbody").html(usersResult);
+
+                                }
+                            });
+
+                        } else {
+                            mostrarMensaje(form, "userMensaje", "Error al registrar usuario intentelo de nuevo", "alert-warning");
+                        }
+                    }, error: function (error) {
+                        mostrarMensaje(form, "userMensaje", "Error al registrar usuario intentelo de nuevo", "alert-warning");
+                    }, complete: function (data) {
+                        console.log(data);
+                    }
+                });
+            }
+            
+        });
+        $(".editar-usuario-button").click(function (event) {
+
+            console.log("registrar usuario");
+            var form = $("#form-editar");
+            var formData = {};
+
+            formData.id = actualEdicion;
+
+            if (actualEdicion != null) {
+                $("#editar-id").val(actualEdicion);
+
+                $.ajax({
+                    contentType: 'application/json; charset=utf-8',
+                    dataType: 'json',
+                    type: 'GET',
+                    url: '@Url.Action("GetUser", "User")',
+                    data: formData,
+                    success: function (data) {
+                        console.log("success data");
+                        console.log(data);
+                        if (data) {
+                            form.find("#name").val(data.Name);
+                            form.find("#lastname").val(data.Lastname);
+                            form.find("#lastname2").val(data.Lastname2);
+                            form.find("#email").val(data.Email);
+                            form.find("#mobile_phone").val(data.Mobile_phone);
+                            form.find("#profile").val(data.Profile);
+                            form.find("#profile").trigger("chosen:updated");
+                            form.find("#username").val(data.Username);
+                            form.find("#change_password2").prop("checked", data.Change_password);
+
+                            $("#editar_usuario").modal("show");
+                        }
+                    }, error: function (error) {
+                        mostrarMensaje(form, "userMensaje", "Error al registrar usuario intentelo de nuevo", "alert-warning");
+                    }, statusCode: {
+                        404: function () {
+                            alert("page not found");
+                        }
+                    }, complete: function (data) {
+                        console.log(data);
+                    }
+                });
+            } else {
+                alert("Debe seleccionar un usuario para editar");
+            }
+
+        });
+        $(".modificar-usuario").click(function (event) {
+            event.preventDefault();
+            console.log("registrar usuario");
+            var form = $("#form-editar");
+
+            if (form.valid()) {
+                var formData = $("#form-editar").serializeObject();
+                modalToClose = $("#editar_usuario");
+
+                formData.change_password = form.find("#change_password2").prop("checked");
+
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("UpdateUser", "User")',
+                    data: formData,
+                    success: function (data) {
+                        if (data.success) {
+                            mostrarMensaje(form, "userMensaje", "Usuario modificado", "alert-warning");
+                            verifCloseModal = true;
+                            actualElement.closest("tr").find(".tname").text(form.find("#name").val());
+                            actualElement.closest("tr").find(".tlastname").text(form.find("#lastname").val());
+                            actualElement.closest("tr").find(".tlastname2").text(form.find("#lastname2").val());
+                            actualElement.closest("tr").find(".temail").text(form.find("#email").val());
+                            actualElement.closest("tr").find(".tmobile_phone").text(form.find("#mobile_phone").val());
+                            actualElement.closest("tr").find(".tprofile").text(form.find("#profile").val());
+                            actualElement.closest("tr").find(".tusername").text(form.find("#username").val());
+                        } else {
+                            mostrarMensaje(form, "userMensaje", "Error al modificar usuario intentelo de nuevo", "alert-warning");
+                        }
+                    }, error: function (error) {
+                        mostrarMensaje(form, "userMensaje", "Error al modificar usuario intentelo de nuevo", "alert-warning");
+                    }, complete: function (data) {
+                        console.log(data);
+                    }
+                });
+            }
+            
+        });
+        $(".eliminar-usuario").click(function (event) {
+            if (actualEdicion != null) {
+                if (confirm("Esta seguro que desea eliminar el usuario " + actualNombre + " " + actualApellido + "?")) {
+                    var formData = {};
+                    formData.id = actualEdicion;
+                    $.ajax({
+                        type: 'POST',
+                        url: '@Url.Action("DeleteUser", "User")',
+                        data: formData,
+                        success: function (data) {
+                            alert("Usuario eliminado correctamente");
+                            actualElement.closest("tr").remove();
+                        }, error: function (error) {
+                            alert("Error al eliminar usuario, intentelo nuevamente");
+                        }, complete: function (data) {
+                            console.log(data);
+                        }
+                    });
+                }
+            } else {
+                alert("Debe seleccionar un usuario para eliminar")
+            }
+            
+        });
+        var actualEdicion = null;
+        var actualNombre = "";
+        var actualApellido = "";
+        var actualElement = null;
+        $(document).on("click", "#tabla tr", function () {
+            $(this).toggleClass('line_selected').siblings().removeClass('line_selected');
+            if ($(this).hasClass('line_selected'))
+            {
+                actualElement = $(this);
+                actualEdicion = $(this).closest("tr").attr("data-id");
+                actualNombre = $(this).closest("tr").find(".tname").text();
+                actualApellido = $(this).closest("tr").find(".tlastname").text();
+            } else {
+                actualEdicion = null;
+                actualNombre = "";
+                actualApellido = "";
+                actualElement = null;
+            }
+        });
+
+        //-------------------------JQuery Validate----------------------
+        $('#form-agregar').validate({
+            rules: {
+                Username: {
+                    required: true
+                },
+                Name: {
+                    required: true
+                },
+                Lastname: {
+                    required: true
+                },
+                Password: {
+                    required: true
+                },
+                Profile: {
+                    required: true
+                },
+                Email: {
+                    email: true,
+                    required: true
+                },
+                Passwordconfirm: {
+                    required: true,
+                    equalTo: "#passwordAgregar"
+                }
+            },
+            highlight: function (element) {
+                $(element).closest('.form-group').addClass('has-error');
+            },
+            unhighlight: function (element) {
+                $(element).closest('.form-group').removeClass('has-error');
+            },
+            errorElement: 'span',
+            errorClass: 'help-block',
+            errorPlacement: function (error, element) {
+                if (element.parent('.input-group').length) {
+                    error.insertAfter(element.parent());
+                } else {
+                    error.insertAfter(element);
+                }
+            }
+        });
+
+        $('#form-editar').validate({
+            rules: {
+                username: {
+                    minlength: 6,
+                    maxlength: 8,
+                    required: true
+                },
+                Name: {
+                    required: true
+                },
+                lastname: {
+                    required: true
+                },
+                profile: {
+                    required: true
+                },
+                email: {
+                    email: true,
+                    required: true
+                }
+            },
+            highlight: function (element) {
+                $(element).closest('.form-group').addClass('has-error');
+            },
+            unhighlight: function (element) {
+                $(element).closest('.form-group').removeClass('has-error');
+            },
+            errorElement: 'span',
+            errorClass: 'help-block',
+            errorPlacement: function (error, element) {
+                if (element.parent('.input-group').length) {
+                    error.insertAfter(element.parent());
+                } else {
+                    error.insertAfter(element);
+                }
+            }
+        });
+    });
+    
+</script>
+}

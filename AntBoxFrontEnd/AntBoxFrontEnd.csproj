@@ -349,11 +349,14 @@
     <Compile Include="Services\Customer\CustomerResponse.cs" />
     <Compile Include="Services\Customer\CustomerServices.cs" />
     <Compile Include="Services\Customer\PaginationCustomerResponse.cs" />
+    <Compile Include="Services\Listing\ListingServices.cs" />
     <Compile Include="Services\Login\LoginCreateOptions.cs" />
     <Compile Include="Services\Login\LoginService.cs" />
     <Compile Include="Services\Login\UserManager.cs" />
     <Compile Include="Services\MissingResponse.cs" />
     <Compile Include="Services\Payments\CardInfo.cs" />
+    <Compile Include="Services\Payments\PaginationPayments.cs" />
+    <Compile Include="Services\Payments\PaymentObject.cs" />
     <Compile Include="Services\Payments\CardObject.cs" />
     <Compile Include="Services\Payments\Charge.cs" />
     <Compile Include="Services\Payments\ChargeResponse.cs" />
@@ -764,6 +767,8 @@
     <Content Include="Views\CustomerService\Recolecciones.cshtml" />
     <Content Include="Views\CustomerService\Entregas.cshtml" />
     <Content Include="Views\Login\CustomerService.cshtml" />
+    <Content Include="Views\Admin\Reportes.cshtml" />
+    <Content Include="Views\Admin\ReporteUsuarios.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Content\Admin\CSV\" />

@@ -4,7 +4,10 @@ using AntBoxFrontEnd.Services.Boxes;
 using AntBoxFrontEnd.Services.Code;
 using AntBoxFrontEnd.Services.Coupon;
 using AntBoxFrontEnd.Services.Customer;
+using AntBoxFrontEnd.Services.CustomerService;
+using AntBoxFrontEnd.Services.Listing;
 using AntBoxFrontEnd.Services.Login;
+using AntBoxFrontEnd.Services.Payments;
 using AntBoxFrontEnd.Services.User;
 using AntBoxFrontEnd.Services.Zipcodes;
 using System;
@@ -148,6 +151,146 @@ namespace AntBoxFrontEnd.Controllers
             return RedirectToAction("Index", "Login");
         }
 
+        public ActionResult Reportes()
+        {
+            return View();
+        }
+
+        public ActionResult ReporteUsuarios(int? page, string from, string to, string status, string idpagination, string vp)
+        {
+            var servicio = new ListingServices(ServiceConfiguration.GetApiKey());
+
+            ReporteUsuariosModel model = new ReporteUsuariosModel();
+
+            if (string.IsNullOrEmpty(vp))
+            {
+                page = 1;
+                model.Page = 1;
+                idpagination = null;
+            }
+            else
+            {
+                model.Page = page;
+            }
+
+            PaginationCustomerResponse result = new PaginationCustomerResponse();
+            try
+            {
+                result = servicio.ListCustomer(page, from, to, status, idpagination);
+            }
+            catch (Exception ex)
+            {
+            }
+
+            model.Usuarios = result;
+            model.From = from;
+            model.To = to;
+            model.Status = status;
+
+            return View(model);
+        }
+
+        public ActionResult ReportePagos(int? page, string from, string to, string type, string idpagination, string vp)
+        {
+            var servicio = new ListingServices(ServiceConfiguration.GetApiKey());
+
+            ReportePagosModel model = new ReportePagosModel();
+
+            if (string.IsNullOrEmpty(vp))
+            {
+                page = 1;
+                model.Page = 1;
+                idpagination = null;
+            }
+            else
+            {
+                model.Page = page;
+            }
+
+            PaginationPayments result = new PaginationPayments();
+            try
+            {
+                result = servicio.ListPayments(page, from, to, type, idpagination);
+            }
+            catch (Exception ex)
+            {
+            }
+
+            model.Pagos = result;
+            model.From = from;
+            model.To = to;
+            model.Type = type;
+
+            return View(model);
+        }
+
+        public ActionResult ReporteEntregas(int? page, string from, string to, string status, string idpagination)
+        {
+            var servicio = new ListingServices(ServiceConfiguration.GetApiKey());
+
+            ReporteDeliveriesModel model = new ReporteDeliveriesModel();
+
+            if (string.IsNullOrEmpty(vp))
+            {
+                page = 1;
+                model.Page = 1;
+                idpagination = null;
+            }
+            else
+            {
+                model.Page = page;
+            }
+
+            PaginationDelivery result = new PaginationDelivery();
+            try
+            {
+                result = servicio.ListDeliveries(page, from, to, status, idpagination);
+            }
+            catch (Exception ex)
+            {
+            }
+
+            model.Deliveries = result;
+            model.From = from;
+            model.To = to;
+            model.Status = status;
+
+            return View(model);
+        }
+
+        public ActionResult ReporteRecolecciones(int? page, string from, string to, string status, string idpagination, string vp)
+        {
+            var servicio = new ListingServices(ServiceConfiguration.GetApiKey());
+
+            ReportePickupsModel model = new ReportePickupsModel();
+
+            if (string.IsNullOrEmpty(vp))
+            {
+                page = 1;
+                model.Page = 1;
+                idpagination = null;
+            }
+            else
+            {
+                model.Page = page;
+            }
+
+            PaginationPickup result = new PaginationPickup();
+            try
+            {
+                result = servicio.ListPickups(page, from, to, status, idpagination);
+            }
+            catch (Exception ex)
+            {
+            }
+
+            model.Pickups = result;
+            model.From = from;
+            model.To = to;
+            model.Status = status;
+
+            return View(model);
+        }
 
     }
     public class RedirectingActionAttribute : ActionFilterAttribute
