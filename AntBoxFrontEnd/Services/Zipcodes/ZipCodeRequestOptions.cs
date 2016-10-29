@@ -12,9 +12,6 @@ namespace AntBoxFrontEnd.Services.Zipcodes
         [JsonProperty("zipcode")]
         public string Zipcode { get; set; }
 
-        [JsonProperty("country")]
-        public string Country { get; set; }
-
         [JsonProperty("state")]
         public string State { get; set; }
 

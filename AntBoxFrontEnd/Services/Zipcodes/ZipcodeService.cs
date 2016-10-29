@@ -45,7 +45,7 @@ namespace AntBoxFrontEnd.Services.Zipcodes
 
             try
             {
-                var customerResponse = Requestor.Post<MissingError>(UrlsConstants.Code, requestOptions, PostData);
+                var customerResponse = Requestor.Post<MissingError>(UrlsConstants.ZipCode, requestOptions, PostData);
             }
             catch (Exception ex)
             {
@@ -69,7 +69,7 @@ namespace AntBoxFrontEnd.Services.Zipcodes
 
             try
             {
-                var customerResponse = Requestor.Put<MissingResponse>(UrlsConstants.Code + "/" + id, requestOptions, PostData);
+                var customerResponse = Requestor.Put<MissingResponse>(UrlsConstants.ZipCode + "/" + id, requestOptions, PostData);
             }
             catch (Exception ex)
             {
@@ -137,7 +137,7 @@ namespace AntBoxFrontEnd.Services.Zipcodes
 
             try
             {
-                Requestor.Delete(UrlsConstants.Code + "/" + id, requestOptions);
+                Requestor.Delete(UrlsConstants.Zipcode + "/" + id, requestOptions);
 
             }
             catch (Exception ex)

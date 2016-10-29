@@ -1,4 +1,4 @@
-﻿@model IEnumerable<AntBoxFrontEnd.Services.Payments.CardObject>
+﻿@model AntBoxFrontEnd.Models.PagosModel
 @{
     ViewBag.Title = "Index";
 }
@@ -98,7 +98,7 @@
                         </div>
                         <div id="editCardResult"></div>
                         <div id="CardList">
-                            @Html.Partial("_CustomerCards", Model)
+                            @Html.Partial("_CustomerCards", Model.Cards)
                         </div>
                     </div>
                     
@@ -173,32 +173,22 @@
                             </div>
                         </div>
                         <div class="content-datos-facturacion">
-                            <div class="col-sm-12 back_gris pt30 pb20 mb30">
-                                <div class="media-left">
-                                    <div class="icon icon-color icon-size-4">
-                                        <i class="fa fa-file-text"></i>
+                            @foreach (var item in Model.Address)
+                            {
+                                <div class="col-sm-12 back_gris pt30 pb20 mb30">
+                                    <div class="media-left">
+                                        <div class="icon icon-color icon-size-4">
+                                            <i class="fa fa-file-text"></i>
+                                        </div>
+                                    </div>
+                                    <div class="media-body" data-id="">
+                                        <h4 class="identificaciont">@item.Alias</h4>
+                                        <p>Nombre o Razón Social: <span class="nombreempresat">Empresa A, S.A de C.V.</span><br>spanRFC: <span class="razonsocialt">IDRM852805IV6</span></p>
+                                        <button type="button" class="btn btn-primary btn-sm pull-right ml10 open-editar-facturacion" data-toggle="modal" data-target="#editar_facturacion">Editar</button>
+                                        <button type="button" class="btn btn-primary btn-sm pull-right btn_blue" onclick="eliminarItem()">Eliminar</button>
                                     </div>
                                 </div>
-                                <div class="media-body" data-id="">
-                                    <h4 class="identificaciont">Facturación Empresa A</h4>
-                                    <p>Nombre o Razón Social: <span class="nombreempresat">Empresa A, S.A de C.V.</span><br>spanRFC: <span class="razonsocialt">IDRM852805IV6</span></p>
-                                    <button type="button" class="btn btn-primary btn-sm pull-right ml10 open-editar-facturacion" data-toggle="modal" data-target="#editar_facturacion">Editar</button>
-                                    <button type="button" class="btn btn-primary btn-sm pull-right btn_blue" onclick="eliminarItem()">Eliminar</button>
-                                </div>
-                            </div>
-                            <div class="col-sm-12 back_gris pt30 pb20 mb30">
-                                <div class="media-left">
-                                    <div class="icon icon-color icon-size-4">
-                                        <i class="fa fa-file-text"></i>
-                                    </div>
-                                </div>
-                                <div class="media-body" data-id="">
-                                    <h4>Facturación Empresa B</h4>
-                                    <p>Nombre o Razón Social: Empresa B, S.A de C.V.<br>RFC: GIWS810885IV3</p>
-                                    <button type="button" class="btn btn-primary btn-sm pull-right ml10" data-toggle="modal" data-target="#editar_facturacion">Editar</button>
-                                    <button type="button" class="btn btn-primary btn-sm pull-right btn_blue" onclick="eliminarItem()">Eliminar</button>
-                                </div>
-                            </div>
+                            }
                         </div>
                         
                     </div>

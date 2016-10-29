@@ -46,6 +46,22 @@ namespace AntBoxFrontEnd.Services.User
             }
         }
 
+        [JsonProperty("lastname2v")]
+        public string Lastname2v
+        {
+            get
+            {
+                if (Lastname2 == "undefined")
+                {
+                    return "";
+                }
+                else
+                {
+                    return Lastname2;
+                }
+            }
+        }
+
         [JsonProperty("status")]
         public string Status { get; set; }
 

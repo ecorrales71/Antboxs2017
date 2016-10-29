@@ -3,6 +3,7 @@ using AntBoxFrontEnd.Services.Code;
 using AntBoxFrontEnd.Services.Zipcodes;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -44,7 +45,6 @@ namespace AntBoxFrontEnd.Controllers
 
                 ZipCodeUpdateOptions cu = new ZipCodeUpdateOptions
                 {
-                    Country = country,
                     State = state,
                     Neighborhood = neighborhood,
                     Delegation = delegation,
@@ -85,5 +85,75 @@ namespace AntBoxFrontEnd.Controllers
 
             return Json(result, JsonRequestBehavior.AllowGet);
         }
+
+        [HttpPost]
+        public ActionResult UploadFile()
+        {
+            // Checking no of files injected in Request object  
+            if (Request.Files.Count > 0)
+            {
+                try
+                {
+                    //  Get all files from Request object  
+                    HttpFileCollectionBase files = Request.Files;
+                    string fname = "";
+                    for (int i = 0; i < files.Count; i++)
+                    {
+                        //string path = AppDomain.CurrentDomain.BaseDirectory + "Uploads/";  
+                        //string filename = Path.GetFileName(Request.Files[i].FileName);  
+
+                        HttpPostedFileBase file = files[i];
+
+                        // Checking for Internet Explorer  
+                        if (Request.Browser.Browser.ToUpper() == "IE" || Request.Browser.Browser.ToUpper() == "INTERNETEXPLORER")
+                        {
+                            string[] testfiles = file.FileName.Split(new char[] { '\\' });
+                            fname = testfiles[testfiles.Length - 1];
+                        }
+                        else
+                        {
+                            fname = file.FileName;
+                        }
+
+                        // Get the complete folder path and store the file inside it.  
+                        fname = Path.Combine(Server.MapPath("~/Content/Admin/CSV/"), fname);
+                        file.SaveAs(fname);
+
+                        var csv = new List<string[]>(); // or, List<YourClass>
+                        var lines = System.IO.File.ReadAllLines(fname);
+                        List<ZipCodeRequestOptionsCsv> zipcodes = new List<ZipCodeRequestOptionsCsv>();
+                        foreach (string line in lines)
+                        {
+                            string[] linea = line.Split(',');
+                            var item = new ZipCodeRequestOptionsCsv
+                            {
+                                State = linea[0],
+                                Delegation = linea[1],
+                                Zipcode = linea[2],
+                                Neighborhood = linea[3],
+                                Latitude = linea[4],
+                                Longitude = linea[5]
+                            };
+                            zipcodes.Add(item);
+                        }
+                        string json = new
+                            System.Web.Script.Serialization.JavaScriptSerializer().Serialize(zipcodes);
+
+                        return Json(json);
+                    }
+                    // Returns message that successfully uploaded  
+
+                    return Json("File Uploaded Successfully!");
+                }
+                catch (Exception ex)
+                {
+                    return Json("Error occurred. Error details: " + ex.Message);
+                }
+            }
+            else
+            {
+                return Json("No files selected.");
+            }
+        }  
 	}
 }

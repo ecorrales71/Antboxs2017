@@ -23,9 +23,15 @@
         <!-- CONTAINER -->
         <div class="container">
             <div class="row irow-xs">
-                <div class="col-sm-12">
-                    <h1>Catálogos</h1>
-                </div>
+                <form id="search" method="get" class="form-solid " novalidate>
+                    <div class="col-sm-6">
+                        <h1>Catálogos</h1>
+                    </div>
+                    <div class="col-sm-6">
+                        <input type="hidden" name="status" value="@Model.StatusValue" />
+                        <input type="submit" class="btn btn-primary btn-wide pull-right mt10" value="@Model.StatusName">
+                    </div>
+                </form>
             </div>
         </div>
         <!-- /.container -->
@@ -40,6 +46,9 @@
             <div class="row">
                 <div class="col-sm-12">
                     <div class="table-responsive">
+                        
+                            
+                        
                         <table id="tabla" class="table table-bordered">
                             <thead>
                                 <tr>
@@ -67,7 +76,7 @@
                                         <td class="tsecure">@item.Secure</td>
                                         <td class="tslu">@item.Slu</td>
                                         <td class="tname">@item.Registered_by.Name</td>
-                                        <td class="tactivation_date">@item.Activation_date</td>
+                                        <td class="tactivation_date">@item.Fecha_activacion</td>
                                         <td class="tstatus">@item.Statusname</td>
                                     </tr>
                                 }
@@ -146,12 +155,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="textbox">Fecha de Activación</label>
-                                <div class="input-group mb0">
-                                    <span class="input-group-btn">
-                                        <button type="button" id="activacion" class="btn btn-primary pull-right"><i class="fa fa-calendar"></i></button>
-                                    </span>
-                                    <input class="form-control" type="text" id="fecha_activacion" name="Activation_date">
-                                </div>
+                                <input class="form-control" type="text" id="fecha_activacion" readonly="readonly" name="Activation_date">
                             </div>
                             <div class="form-group">
                                 <label for="Status">Estatus</label>
@@ -232,12 +236,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="textbox">Fecha de Activación</label>
-                                <div class="input-group mb0">
-                                    <span class="input-group-btn">
-                                        <button type="button" id="activacion_edit" class="btn btn-primary pull-right"><i class="fa fa-calendar"></i></button>
-                                    </span>
-                                    <input class="form-control" type="text" id="fecha_activacion_edit" name="activation_date">
-                                </div>
+                                <input class="form-control" type="text" id="fecha_activacion_edit" readonly="readonly" name="activation_date">
                             </div>
                             <div class="form-group">
                                 <label for="form-select">Estatus</label>
@@ -261,16 +260,21 @@
 @section Scripts
 {
 <script type="text/javascript">
-    Calendar.setup({
-        inputField: "fecha_activacion",      // id del campo de texto
-        ifFormat: "%Y-%m-%d",       // formato de la fecha, cuando se escriba en el campo de texto
-        button: "activacion"   // el id del botón que lanzará el calendario
-    });
-    Calendar.setup({
-        inputField: "fecha_activacion_edit",      // id del campo de texto
-        ifFormat: "%Y-%m-%d",       // formato de la fecha, cuando se escriba en el campo de texto
-        button: "activacion_edit"   // el id del botón que lanzará el calendario
-    });
+    function fechaActual() {
+        var today = new Date();
+        var dd = today.getDate();
+        var mm = today.getMonth() + 1; //January is 0!
+
+        var yyyy = today.getFullYear();
+        if (dd < 10) {
+            dd = '0' + dd
+        }
+        if (mm < 10) {
+            mm = '0' + mm
+        }
+        var today = dd + '/' + mm + '/' + yyyy;
+        return today;
+    }
     $.fn.serializeObject = function () {
         var o = {};
         var a = this.serializeArray();
@@ -394,7 +398,7 @@
                             form.find("#slu").val(data.Slu);
                             form.find("#registered_by").val(data.Registered_by.Id);
                             form.find("#registered_by").trigger("chosen:updated");
-                            form.find("#fecha_activacion_edit").val(data.Activation_date);
+                            form.find("#fecha_activacion_edit").val(data.Fecha_activacion);
                             var statusname = "Activo"
                             if (!data.Status)
                                 statusname = "Inactivo"
@@ -562,6 +566,10 @@
                 }
             }
         });
+
+        $('#crear_antboxs').on('show.bs.modal', function (e) {
+            $("#fecha_activacion").val(fechaActual());
+        })
     });
     function deleteBox(formData, element) {
         $.ajax({

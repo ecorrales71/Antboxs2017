@@ -41,7 +41,7 @@ namespace AntBoxFrontEnd.Controllers
             return View();
         }
 
-        public ActionResult Catalogos()
+        public ActionResult Catalogos(string status)
         {
 
             var servicio = new BoxesService(ServiceConfiguration.GetApiKey());
@@ -49,10 +49,16 @@ namespace AntBoxFrontEnd.Controllers
 
             PaginationBoxesResponse result = new PaginationBoxesResponse();
             PaginationUser resultUsers = new PaginationUser();
+            var statusValue = StatusBoxes.Active;
             try
             {
                 resultUsers = servicioUser.ListUsersPagination(1);
-                result = servicio.ListBoxesPagination(StatusBoxes.All, null, 1, null, "size,label,price,secure_label,secure,status,activation_date,slu");
+                
+                if (!string.IsNullOrEmpty(status))
+                {
+                    statusValue = status;
+                }
+                result = servicio.ListBoxesPagination(statusValue, null, 1, null, "size,label,price,secure_label,secure,status,activation_date,slu");
             }
             catch (Exception ex)
             {
@@ -61,6 +67,7 @@ namespace AntBoxFrontEnd.Controllers
             BoxModel boxresponse = new BoxModel();
             boxresponse.Boxes = result;
             boxresponse.Users = resultUsers.Users;
+            boxresponse.Status = statusValue;
 
             return View(boxresponse);
         }

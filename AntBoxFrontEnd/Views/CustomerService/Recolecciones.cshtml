@@ -92,20 +92,20 @@
                                     {
                                         foreach (var item in Model.Pickups.Pickups)
                                         {
-                                            <tr>
-                                                <td><button type="button" class="btn-link open-modal" data-id-customer="@item.Customer_id" data-folio="@item.Folio">@item.Namev</button></td>
-                                                <td>@item.Worker.Name</td>
+                                            <tr data-address="@item.Address_id" data-id-customer="@item.Customer_id" data-folio="@item.Folio">
+                                                <td><button type="button" class="btn-link open-modal">@item.Namev</button></td>
+                                                <td class="tworker">@item.Worker.Name</td>
                                                 <td>@item.Antboxs</td>
-                                                <td>@item.Solicitud</td>
+                                                <td class="tsolicitud">@item.Solicitud</td>
                                                 <td>@item.Recoleccion</td>
-                                                <td>@item.Time</td>
+                                                <td class="thorario">@item.Time</td>
                                                 @if (item.Status == "inprogress")
                                                 {
-                                                    <td>En camino</td>
+                                                    <td class="tstatus">En camino</td>
                                                 }
                                                 else
                                                 {
-                                                    <td>Programado</td>
+                                                    <td class="tstatus">Programado</td>
                                                 }
                                             </tr>
                                         }
@@ -146,6 +146,7 @@
                         <!-- Nav tabs -->
                         <input type="hidden" id="idcustomer" value="" />
                         <input type="hidden" id="folio" value="" />
+                        <input type="hidden" id="addressid" value="" />
                         <ul class="nav nav-tabs">
                             <li class="active"><a href="#detalle" data-toggle="tab">Detalle</a></li>
                             <li><a href="#cliente" class="tabcliente" data-toggle="tab">Cliente</a></li>
@@ -159,15 +160,15 @@
                                     <img src="@Url.Content("~/Images/preloader.gif")" />   Cargando informacion... &nbsp;
                                 </div>
                                 <h6>Fecha</h6>
-                                <p>20 de julio de 2016</p>
+                                <p class="pfecha"></p>
                                 <h6>Horario</h6>
-                                <p>12:00 - 13:00 hrs.</p>
+                                <p class="phorario"></p>
                                 <h6>Estatus</h6>
-                                <p>Programado</p>
+                                <p class="pstatus"></p>
                                 <h6>Dirección</h6>
-                                <p>Vereda de Santa Fe 26, Col. Lomas de Santa Fé, Álvaro Obregón, Méx, C.P. 01219, México</p>
+                                <p class="paddress"></p>
                                 <h6>Operador</h6>
-                                <p>Joaquín Rodríguez Pérez</p>
+                                <p class="pworker"></p>
                             </div>
                             <div class="tab-pane fade" id="cliente">
                                 <div id="loader2" role="alert" style="display: none;">
@@ -254,18 +255,50 @@
 
             $(".open-modal").click(function (event) {
 
-                //$("#loader1").show();
+                $("#loader1").show();
                 $(".tabdetalle").trigger("click");
                 $("#nombre_cliente").modal("show");
 
                 var formData = {};
-                var idCustomer = $(this).attr("data-id-customer");
-                var folio = $(this).attr("data-folio");
-                formData.idCustomer = idCustomer;
+                var idCustomer = $(this).closest("tr").attr("data-id-customer");
+                var folio = $(this).closest("tr").attr("data-folio");
+                var idAddress = $(this).closest("tr").attr("data-address");
+                formData.idAddress = idAddress;
 
                 $(".title_name").text($(this).text());
                 $("#idcustomer").val(idCustomer);
                 $("#folio").val(folio);
+                $("#addressid").val(idAddress);
+
+                $(".pfecha").text($(this).closest("tr").find(".tsolicitud").text()); 
+                $(".phorario").text($(this).closest("tr").find(".thorario").text().replace("-", " - ") + " hrs");
+                $(".pstatus").text($(this).closest("tr").find(".tstatus").text());
+                $(".pworker").text($(this).closest("tr").find(".tworker").text());
+
+                $.ajax({
+                    contentType: 'application/json; charset=utf-8',
+                    dataType: 'json',
+                    type: 'GET',
+                    url: '@Url.Action("GetAddress", "CustomerService")',
+                    data: formData,
+                    success: function (data) {
+                        console.log("success data");
+                        console.log(data);
+                        $("#loader1").hide();
+                        if (data) {
+
+                            console.log("success data1");
+                            var address = data.Street + " " + data.External_number + ", " + data.Neighborhood + ", " + data.City + ", C.P. " + data.Zipcode + ".";
+                            console.log(address);
+                            $(".paddress").text(address);
+
+                        }
+                    }, error: function (error) {
+                        //mostrarMensaje(form, "userMensaje", "Error al registrar usuario intentelo de nuevo", "alert-warning");
+                    }, complete: function (data) {
+                        //console.log(data);
+                    }
+                });
 
             });
 

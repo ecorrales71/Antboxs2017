@@ -157,17 +157,35 @@ namespace AntBoxFrontEnd.Controllers
             }
 
             var ps = new PaymentService(ServiceConfiguration.GetApiKey());
+            PagosModel model = new PagosModel();
 
             List<CardObject> result = new List<CardObject>();
+            List<AntBoxAddressViewModel> antBoxResult = new List<AntBoxAddressViewModel>();
             try
             {
                 result = ps.ListPaymetCards(((CustomerResponse)Session["customer"]).Id);
+                
+                var addressService = new AddressService(ServiceConfiguration.GetApiKey());
+                var resultAddress = addressService.ListAddresses(((CustomerResponse)Session["customer"]).Id, 1);
+                
+                result.ForEach(r =>
+                {
+                    var dir = addressService.SearchAddress(r.Id);
+                    var map = Mapper.Map<AddressResponse, AntBoxAddressViewModel>(dir);
+                    if (!string.IsNullOrEmpty(map.Rfc_id))
+                    {
+                        antBoxResult.Add(map);
+                    }
+                });
             }
             catch (Exception ex)
             {
             }
 
-            return View(result);
+            model.Cards = result;
+            model.Address = antBoxResult;
+
+            return View(model);
         }
 
 

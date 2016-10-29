@@ -1,5 +1,6 @@
 ﻿using AntBoxFrontEnd.Infrastructure;
 using AntBoxFrontEnd.Models;
+using AntBoxFrontEnd.Services.Address;
 using AntBoxFrontEnd.Services.AntBoxes;
 using AntBoxFrontEnd.Services.Customer;
 using AntBoxFrontEnd.Services.CustomerService;
@@ -194,6 +195,15 @@ namespace AntBoxFrontEnd.Controllers
             var service = new CustomerServices(ServiceConfiguration.GetApiKey());
 
             var result = service.SearchCustomer(idCustomer);
+
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetAddress(string idAddress)
+        {
+            var service = new AddressService(ServiceConfiguration.GetApiKey());
+
+            var result = service.SearchAddress(idAddress);
 
             return Json(result, JsonRequestBehavior.AllowGet);
         }

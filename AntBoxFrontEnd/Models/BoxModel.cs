@@ -17,5 +17,36 @@ namespace AntBoxFrontEnd.Models
 
         public List<UserResponse> Users { get; set; }
 
+        public string Status { get; set; }
+
+        public string StatusName {
+            get
+            {
+                if (Status == "active")
+                {
+                    return "Ver inactivos";
+                }
+                else
+                {
+                    return "Ver activos";
+                }
+            }
+        }
+
+        public string StatusValue
+        {
+            get
+            {
+                if (Status == "active")
+                {
+                    return "inactive";
+                }
+                else
+                {
+                    return "active";
+                }
+            }
+        }
+
     }
 }

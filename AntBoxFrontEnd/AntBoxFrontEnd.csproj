@@ -288,6 +288,7 @@
     <Compile Include="Models\abTask.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\abAddress.cs" />
+    <Compile Include="Models\PagosModel.cs" />
     <Compile Include="Models\ZipCodeModel.cs" />
     <Compile Include="Models\OrderListModel.cs" />
     <Compile Include="Models\DeliveryListModel.cs" />
@@ -384,6 +385,7 @@
     <Compile Include="Services\Worker\WorkerService.cs" />
     <Compile Include="Services\Worker\WorkerUpdateOptions.cs" />
     <Compile Include="Services\Zipcodes\PaginationZipCodesResponse.cs" />
+    <Compile Include="Services\Zipcodes\ZipCodeRequestOptionsCsv.cs" />
     <Compile Include="Services\Zipcodes\ZipCodeUpdateOptions.cs" />
     <Compile Include="Services\Zipcodes\ZipCodeRequestOptions.cs" />
     <Compile Include="Services\Zipcodes\ZipCodeResponse.cs" />
@@ -764,6 +766,7 @@
     <Content Include="Views\Login\CustomerService.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Content\Admin\CSV\" />
     <Folder Include="Views\Addresses\" />
     <Folder Include="Views\AntBoxAddress\" />
     <Folder Include="Views\Antbox\" />

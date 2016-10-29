@@ -7,8 +7,11 @@ using System.Web;
 
 namespace AntBoxFrontEnd.Services.Zipcodes
 {
-    public class ZipCodeUpdateOptions
+    public class ZipCodeRequestOptionsCsv
     {
+        [JsonProperty("zipcode")]
+        public string Zipcode { get; set; }
+
         [JsonProperty("state")]
         public string State { get; set; }
 
@@ -17,5 +20,12 @@ namespace AntBoxFrontEnd.Services.Zipcodes
 
         [JsonProperty("delegation")]
         public string Delegation { get; set; }
+
+        [JsonProperty("latitude")]
+        public string Latitude { get; set; }
+
+        [JsonProperty("longitude")]
+        public string Longitude { get; set; }
+
     }
 }

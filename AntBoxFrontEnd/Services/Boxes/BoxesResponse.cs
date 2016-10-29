@@ -56,6 +56,29 @@ namespace AntBoxFrontEnd.Services.Boxes
         [JsonProperty("registered_by")]
         public CustomerResponse Registered_by { get; set; }
 
+        public string Fecha_activacion
+        {
+            get
+            {
+                return formatdate(Activation_date, "yyyy-MM-dd");
+
+            }
+        }
+
+        private string formatdate(string date, string format)
+        {
+            try
+            {
+                DateTime dt = DateTime.ParseExact(date, format,
+                                   System.Globalization.CultureInfo.InvariantCulture);
+                return dt.ToString(@"dd\/MM\/yyyy");
+            }
+            catch
+            {
+                return date;
+            }
+        }
+
 
     }
 }
