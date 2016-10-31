@@ -94,19 +94,22 @@
                             <tbody>
                                 @if (Model.Pickups != null)
                                 {
-                                    foreach (var item in Model.Pickups.Pickups)
+                                    if (Model.Pickups.Pickups != null)
                                     {
-                                        <tr>
-                                            <td class="tname">@item.Name</td>
-                                            <td class="tlastname">@item.Lastname</td>
-                                            <td class="tlastname2">@item.Lastname2v</td>
-                                            <td class="temail">@item.Email</td>
-                                            <td class="temail">@item.Antboxs</td>
-                                            <td class="temail">@item.Solicitud</td>
-                                            <td class="temail">@item.Recoleccion</td>
-                                            <td class="temail">@item.Time</td>
-                                            <td class="temail">@item.Estatus</td>
-                                        </tr>
+                                        foreach (var item in Model.Pickups.Pickups)
+                                        {
+                                            <tr>
+                                                <td class="tname">@item.Name</td>
+                                                <td class="tlastname">@item.Lastname</td>
+                                                <td class="tlastname2">@item.Lastname2v</td>
+                                                <td class="temail">@item.Email</td>
+                                                <td class="temail">@item.Antboxs</td>
+                                                <td class="temail">@item.Solicitud</td>
+                                                <td class="temail">@item.Recoleccion</td>
+                                                <td class="temail">@item.Time</td>
+                                                <td class="temail">@item.Estatus</td>
+                                            </tr>
+                                        }
                                     }
                                 }
                             </tbody>

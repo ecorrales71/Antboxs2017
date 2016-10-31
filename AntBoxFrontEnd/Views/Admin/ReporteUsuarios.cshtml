@@ -92,25 +92,28 @@
                             <tbody>
                                 @if (Model.Usuarios != null)
                                 {
-                                    foreach (var item in Model.Usuarios.Customers)
+                                    if (Model.Usuarios.Customers != null)
                                     {
-                                        <tr data-id="@item.Id">
-                                            <td class="tname">@item.Name</td>
-                                            <td class="tlastname">@item.Lastname</td>
-                                            <td class="tlastname2">@item.Lastname2v</td>
-                                            <td class="temail">@item.Email</td>
-                                            <td class="temail">@item.MiembroDesde</td>
-                                            <td class="temail">@item.Antboxsnumber</td>
-                                            @if(item.Status == true)
-                                            {
-                                                <td class="temail">Si</td>
-                                            }
-                                            else
-                                            {
-                                                <td class="temail">No</td>
-                                            }
+                                        foreach (var item in Model.Usuarios.Customers)
+                                        {
+                                            <tr data-id="@item.Id">
+                                                <td class="tname">@item.Name</td>
+                                                <td class="tlastname">@item.Lastname</td>
+                                                <td class="tlastname2">@item.Lastname2v</td>
+                                                <td class="temail">@item.Email</td>
+                                                <td class="temail">@item.MiembroDesde</td>
+                                                <td class="temail">@item.Antboxsnumber</td>
+                                                @if(item.Status == true)
+                                                {
+                                                    <td class="temail">Si</td>
+                                                }
+                                                else
+                                                {
+                                                    <td class="temail">No</td>
+                                                }
                                             
-                                        </tr>
+                                            </tr>
+                                        }
                                     }
                                 }
                             </tbody>

@@ -91,16 +91,19 @@
                             <tbody>
                                 @if (Model.Pagos != null)
                                 {
-                                    foreach (var item in Model.Pagos.Payments)
+                                    if (Model.Pagos.Payments != null)
                                     {
-                                        <tr>
-                                            <td class="tname">@item.Name</td>
-                                            <td class="tlastname">@item.Lastname</td>
-                                            <td class="tlastname2">@item.Lastname2v</td>
-                                            <td class="temail">@item.Email</td>
-                                            <td class="temail">@item.Rfc</td>
-                                            <td class="temail">@item.Amount</td>
-                                        </tr>
+                                        foreach (var item in Model.Pagos.Payments)
+                                        {
+                                            <tr>
+                                                <td class="tname">@item.Name</td>
+                                                <td class="tlastname">@item.Lastname</td>
+                                                <td class="tlastname2">@item.Lastname2v</td>
+                                                <td class="temail">@item.Email</td>
+                                                <td class="temail">@item.Rfc</td>
+                                                <td class="temail">@item.Amount</td>
+                                            </tr>
+                                        }
                                     }
                                 }
                             </tbody>
