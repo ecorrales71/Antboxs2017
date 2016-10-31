@@ -1,4 +1,5 @@
-﻿using AntBoxFrontEnd.Infrastructure;
+﻿using AntBoxFrontEnd.Code;
+using AntBoxFrontEnd.Infrastructure;
 using AntBoxFrontEnd.Models;
 using AntBoxFrontEnd.Services.Boxes;
 using AntBoxFrontEnd.Services.Code;
@@ -10,12 +11,16 @@ using AntBoxFrontEnd.Services.Login;
 using AntBoxFrontEnd.Services.Payments;
 using AntBoxFrontEnd.Services.User;
 using AntBoxFrontEnd.Services.Zipcodes;
+using AutoMapper;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using System.Web.UI;
+using System.Web.UI.WebControls;
 
 namespace AntBoxFrontEnd.Controllers
 {
@@ -224,7 +229,7 @@ namespace AntBoxFrontEnd.Controllers
             return View(model);
         }
 
-        public ActionResult ReporteEntregas(int? page, string from, string to, string status, string idpagination)
+        public ActionResult ReporteEntregas(int? page, string from, string to, string status, string idpagination, string vp)
         {
             var servicio = new ListingServices(ServiceConfiguration.GetApiKey());
 
@@ -291,6 +296,153 @@ namespace AntBoxFrontEnd.Controllers
 
             return View(model);
         }
+
+        [HttpGet]
+        public FileContentResult ExportToExcelUsers(int? page, string from, string to, string status, string idpagination, string vp)
+        {
+
+            var servicio = new ListingServices(ServiceConfiguration.GetApiKey());
+
+            if (string.IsNullOrEmpty(vp))
+            {
+                page = 1;
+                idpagination = null;
+            }
+
+            PaginationCustomerResponse result = new PaginationCustomerResponse();
+            try
+            {
+                result = servicio.ListCustomer(page, from, to, status, idpagination);
+            }
+            catch (Exception ex)
+            {
+            }
+
+            List<CustomerListingResponse> technologies = result.Customers;
+
+            var columns1 = new Dictionary<string, string>();
+            columns1.Add("Name", "Nombre");
+            columns1.Add("Lastname", "A. Paterno");
+            columns1.Add("Lastname2v", "A. Materno");
+            columns1.Add("Email", "Email");
+            columns1.Add("MiembroDesde", "Miembro desde");
+            columns1.Add("Antboxsnumber", "Numero de Antboxs");
+            columns1.Add("Activo", "Activo");
+
+            byte[] filecontent = ExcelExportHelper.ExportExcel(technologies, "Clientes", false, columns1);
+            return File(filecontent, ExcelExportHelper.ExcelContentType, "Clientes.xlsx");
+        }
+
+        [HttpGet]
+        public FileContentResult ExportToExcelPayments(int? page, string from, string to, string status, string idpagination, string vp)
+        {
+
+            var servicio = new ListingServices(ServiceConfiguration.GetApiKey());
+
+            if (string.IsNullOrEmpty(vp))
+            {
+                page = 1;
+                idpagination = null;
+            }
+
+            PaginationPayments result = new PaginationPayments();
+            try
+            {
+                result = servicio.ListPayments(page, from, to, status, idpagination);
+            }
+            catch (Exception ex)
+            {
+            }
+
+            List<PaymentObject> payments = result.Payments;
+
+            var columns1 = new Dictionary<string, string>();
+            columns1.Add("Name", "Nombre");
+            columns1.Add("Lastname", "A. Paterno");
+            columns1.Add("Lastname2v", "A. Materno");
+            columns1.Add("Email", "Email");
+            columns1.Add("Rfc", "RFC");
+            columns1.Add("Amount", "Monto");
+
+            byte[] filecontent = ExcelExportHelper.ExportExcel(payments, "Pagos", false, columns1);
+            return File(filecontent, ExcelExportHelper.ExcelContentType, "Pagos.xlsx");
+        }
+
+        [HttpGet]
+        public FileContentResult ExportToExcelPickups(int? page, string from, string to, string status, string idpagination, string vp)
+        {
+
+            var servicio = new ListingServices(ServiceConfiguration.GetApiKey());
+
+            if (string.IsNullOrEmpty(vp))
+            {
+                page = 1;
+                idpagination = null;
+            }
+
+            PaginationPickup result = new PaginationPickup();
+            try
+            {
+                result = servicio.ListPickups(page, from, to, status, idpagination);
+            }
+            catch (Exception ex)
+            {
+            }
+
+            List<PickupResponse> payments = result.Pickups;
+
+            var columns1 = new Dictionary<string, string>();
+            columns1.Add("Name", "Nombre");
+            columns1.Add("Lastname", "A. Paterno");
+            columns1.Add("Lastname2v", "A. Materno");
+            columns1.Add("Email", "Email");
+            columns1.Add("Antboxs", "Antboxs");
+            columns1.Add("Solicitud", "Solicitud");
+            columns1.Add("Recoleccion", "Recoleccion");
+            columns1.Add("Time", "Horario");
+            columns1.Add("Estatus", "Estatus");
+
+            byte[] filecontent = ExcelExportHelper.ExportExcel(payments, "Recolecciones", false, columns1);
+            return File(filecontent, ExcelExportHelper.ExcelContentType, "Recolecciones.xlsx");
+        }
+
+        [HttpGet]
+        public FileContentResult ExportToExcelDeliveries(int? page, string from, string to, string status, string idpagination, string vp)
+        {
+
+            var servicio = new ListingServices(ServiceConfiguration.GetApiKey());
+
+            if (string.IsNullOrEmpty(vp))
+            {
+                page = 1;
+                idpagination = null;
+            }
+
+            PaginationDelivery result = new PaginationDelivery();
+            try
+            {
+                result = servicio.ListDeliveries(page, from, to, status, idpagination);
+            }
+            catch (Exception ex)
+            {
+            }
+
+            List<DeliveryResponse> payments = result.Deliveries;
+
+            var columns1 = new Dictionary<string, string>();
+            columns1.Add("Name", "Nombre");
+            columns1.Add("Lastname", "A. Paterno");
+            columns1.Add("Lastname2v", "A. Materno");
+            columns1.Add("Email", "Email");
+            columns1.Add("Antboxs", "Antboxs");
+            columns1.Add("Solicitud", "Solicitud");
+            columns1.Add("Entrega", "Entrega");
+            columns1.Add("Time", "Horario");
+            columns1.Add("Estatus", "Estatus");
+
+            byte[] filecontent = ExcelExportHelper.ExportExcel(payments, "Entregas", false, columns1);
+            return File(filecontent, ExcelExportHelper.ExcelContentType, "Entregas.xlsx");
+        } 
 
     }
     public class RedirectingActionAttribute : ActionFilterAttribute

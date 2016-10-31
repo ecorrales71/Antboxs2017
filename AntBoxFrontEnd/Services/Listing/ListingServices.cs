@@ -60,6 +60,50 @@ namespace AntBoxFrontEnd.Services.Listing
             }
         }
 
+        public virtual PaginationCustomerReport ListCustomerReport(int? currentPage, string from, string to, string status, string idPagination = null, RequestOptions requestOptions = null)
+        {
+            try
+            {
+                requestOptions = SetupRequestOptions(requestOptions);
+
+                var parameters = new Dictionary<string, string>();
+
+                if (currentPage == null)
+                {
+                    currentPage = 1;
+                }
+                if (!string.IsNullOrEmpty(idPagination))
+                {
+                    parameters.Add("pagination_id", idPagination);
+                    parameters.Add("page_number", currentPage.ToString());
+                }
+
+                if (!string.IsNullOrEmpty(from))
+                {
+                    parameters.Add("from", from);
+                }
+                if (!string.IsNullOrEmpty(to))
+                {
+                    parameters.Add("to", to);
+                }
+                if (!string.IsNullOrEmpty(status))
+                {
+                    parameters.Add("status", status.ToString());
+                }
+
+                var encodedParams = Infrastructure.UrlHelper.BuildURLParametersString(parameters);
+
+                var customers = Requestor.Get<PaginationCustomerReport>(UrlsConstants.ListingCustomer + encodedParams, requestOptions);
+
+                return customers;
+            }
+            catch (Exception ex)
+            {
+                LogManager.Write(ex.Message + " " + ex.InnerException, LogManager.Error);
+                return null;
+            }
+        }
+
         public virtual PaginationPayments ListPayments(int? currentPage, string from, string to, string type, string idPagination = null, RequestOptions requestOptions = null)
         {
             try

@@ -1,6 +1,6 @@
-﻿@model AntBoxFrontEnd.Models.ReporteUsuariosModel
+﻿@model AntBoxFrontEnd.Models.ReporteDeliveriesModel
 @{
-    ViewBag.Title = "Admin - Usuarios";
+    ViewBag.Title = "Admin - Entregas";
 }
 <!-- WRAPPER -->
 <div class="wrapper">
@@ -24,7 +24,7 @@
         <div class="container">
             <div class="row irow-xs">
                 <div class="col-sm-12">
-                    <h1>Usuarios</h1>
+                    <h1>Entregas</h1>
                 </div>
             </div>
         </div>
@@ -33,13 +33,13 @@
         <div class="container mt30">
             <div class="row">
                 <form action="" method="get" id="form-buscar">
-                    @if (Model.Usuarios != null)
+                    @if (Model.Deliveries != null)
                     {
-                        @Html.Hidden("idpagination", @Model.Usuarios.Pagination_id)
-                        @Html.Hidden("total", @Model.Usuarios.Total)
-                        @Html.Hidden("pages", @Model.Usuarios.Pages)
+                        @Html.Hidden("idpagination", @Model.Deliveries.Pagination_id)
+                        @Html.Hidden("total", @Model.Deliveries.Total)
+                        @Html.Hidden("pages", @Model.Deliveries.Pages)
                         @Html.Hidden("page", @Model.Page)
-                        <input type="hidden" name="idpagination" value="@Model.Usuarios.Pagination_id" />
+                        <input type="hidden" name="idpagination" value="@Model.Deliveries.Pagination_id" />
                     }
                     <input type="hidden" id="pagev" value="@Model.Page" />
                     <div class="col-sm-6 col-md-3">
@@ -65,14 +65,14 @@
                         </div>
                     </div>
                     <div class="col-sm-6 col-md-6">
-                        <a href="@Url.Action("ExportToExcelUsers", "Admin")" class="btn btn-primary btn-wide pull-right mt10 export-excel">Exportar</a>
+                        <a href="@Url.Action("ExportToExcelPickups", "Admin")" class="btn btn-primary btn-wide pull-right mt10 export-excel">Exportar</a>
                         <input type="submit" class="btn btn-primary btn-wide pull-right mt10" value="Buscar">
                     </div>
                 </form>
             </div>
 
             <div id="loader" role="alert" style="display: none;">
-                <img src="@Url.Content("~/Images/preloader.gif")" />   Cargando usuarios... &nbsp;
+                <img src="@Url.Content("~/Images/preloader.gif")" />   Cargando entregas... &nbsp;
             </div>
             <div class="row">
                 <div class="col-sm-12">
@@ -84,32 +84,28 @@
                                     <th>A. Paterno</th>
                                     <th>A. Materno</th>
                                     <th>E-mail</th>
-                                    <th>Miembro desde</th>
-                                    <th>Antbox</th>
-                                    <th>Activo</th>
+                                    <th>Antboxs</th>
+                                    <th>Solicitud</th>
+                                    <th>Entrega</th>
+                                    <th>Horario</th>
+                                    <th>Estatus</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @if (Model.Usuarios != null)
+                                @if (Model.Deliveries != null)
                                 {
-                                    foreach (var item in Model.Usuarios.Customers)
+                                    foreach (var item in Model.Deliveries.Deliveries)
                                     {
-                                        <tr data-id="@item.Id">
+                                        <tr>
                                             <td class="tname">@item.Name</td>
                                             <td class="tlastname">@item.Lastname</td>
                                             <td class="tlastname2">@item.Lastname2v</td>
                                             <td class="temail">@item.Email</td>
-                                            <td class="temail">@item.MiembroDesde</td>
-                                            <td class="temail">@item.Antboxsnumber</td>
-                                            @if(item.Status == true)
-                                            {
-                                                <td class="temail">Si</td>
-                                            }
-                                            else
-                                            {
-                                                <td class="temail">No</td>
-                                            }
-                                            
+                                            <td class="temail">@item.Antboxs</td>
+                                            <td class="temail">@item.Solicitud</td>
+                                            <td class="temail">@item.Entrega</td>
+                                            <td class="temail">@item.Time</td>
+                                            <td class="temail">@item.Estatus</td>
                                         </tr>
                                     }
                                 }

@@ -26,6 +26,21 @@ namespace AntBoxFrontEnd.Services.CustomerService
         [JsonProperty("lastname2")]
         public string Lastname2 { get; set; }
 
+        public string Lastname2v
+        {
+            get
+            {
+                if (Lastname2 == "undefined")
+                {
+                    return "";
+                }
+                else
+                {
+                    return Lastname2;
+                }
+            }
+        }
+
         [JsonProperty("email")]
         public string Email { get; set; }
 
@@ -40,9 +55,6 @@ namespace AntBoxFrontEnd.Services.CustomerService
 
         [JsonProperty("date")]
         public string Date { get; set; }
-
-        [JsonProperty("time")]
-        public string Time { get; set; }
 
         [JsonProperty("worker")]
         public WorkerResponse Worker { get; set; }
@@ -86,6 +98,24 @@ namespace AntBoxFrontEnd.Services.CustomerService
             {
                 return formatdate(Date, "yyyy-MM-dd");
 
+            }
+        }
+
+        [JsonProperty("time")]
+        public string Time { get; set; }
+
+        public string Estatus
+        {
+            get
+            {
+                if (Status == "inprogress")
+                {
+                    return "En progreso";
+                }
+                else
+                {
+                    return "Completado";
+                }
             }
         }
 

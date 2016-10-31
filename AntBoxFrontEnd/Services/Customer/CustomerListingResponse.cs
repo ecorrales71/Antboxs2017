@@ -40,6 +40,22 @@ namespace AntBoxFrontEnd.Services.Customer
             }
         }
 
+        [JsonProperty("lastname2v")]
+        public string Lastname2v
+        {
+            get
+            {
+                if (Lastname2 == "undefined")
+                {
+                    return "";
+                }
+                else
+                {
+                    return Lastname2;
+                }
+            }
+        }
+
         [JsonProperty("email")]
         public string Email { get; set; }
 
@@ -48,9 +64,6 @@ namespace AntBoxFrontEnd.Services.Customer
 
         [JsonProperty("status")]
         public bool? Status { get; set; }
-
-        [JsonProperty("antboxs")]
-        public int Antboxsnumber { get; set; }
 
         [JsonProperty("rfc_id")]
         public string Rfc_id { get; set; }
@@ -67,5 +80,82 @@ namespace AntBoxFrontEnd.Services.Customer
             }
             
         }
+
+        public string MiembroDesde
+        {
+            get
+            {
+                return formatdate(Member_since, "dd-MM-yyyy HH:mm:ss");
+
+            }
+        }
+
+        [JsonProperty("antboxs")]
+        public int Antboxsnumber { get; set; }
+
+        private string formatdate(string date, string format)
+        {
+            try
+            {
+                DateTime dt = DateTime.ParseExact(date, format,
+                                   System.Globalization.CultureInfo.InvariantCulture);
+                return dt.ToString(@"dd\/MM\/yyyy");
+            }
+            catch
+            {
+                return date;
+            }
+        }
+
+        public string Activo
+        {
+            get
+            {
+                if (Status == true)
+                {
+                    return "Si";
+                }
+                else
+                {
+                    return "No";
+                }
+            }
+        }
+    }
+
+    public class CustomerListingReport : Response
+    {
+        [JsonProperty("name")]
+        public string Name { get; set; }
+
+        [JsonProperty("lastname")]
+        public string Lastname { get; set; }
+
+        [JsonProperty("email")]
+        public string Email { get; set; }
+
+        public string Emailv
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(Email))
+                {
+                    return "";
+                }
+                else
+                {
+                    return Email;
+                }
+            }
+        }
+    }
+
+    public class CustomerListingReportMap : Response
+    {
+        public string Name { get; set; }
+
+        public string Lastname { get; set; }
+
+        public string Emailv { get; set; }
     }
 }

@@ -15,26 +15,40 @@ namespace AntBoxFrontEnd.Services.Payments
         [JsonProperty("lastname")]
         public string Lastname { get; set; }
 
-
         [JsonProperty("lastname2")]
         public string Lastname2 { get; set; }
 
+        public string Lastname2v
+        {
+            get
+            {
+                if (Lastname2 == "undefined")
+                {
+                    return "";
+                }
+                else
+                {
+                    return Lastname2;
+                }
+            }
+        }
+
         [JsonProperty("email")]
-        public CardInfo Email { get; set; }
+        public string Email { get; set; }
 
         [JsonProperty("rfc")]
-        public CardInfo Rfc { get; set; }
+        public string Rfc { get; set; }
 
         [JsonProperty("type")]
-        public CardInfo Type { get; set; }
+        public string Type { get; set; }
 
         [JsonProperty("folio")]
-        public CardInfo Folio { get; set; }
+        public string Folio { get; set; }
 
         [JsonProperty("amount")]
-        public CardInfo Amount { get; set; }
+        public string Amount { get; set; }
 
         [JsonProperty("payment_id")]
-        public CardInfo Payment_id  { get; set; }
+        public string Payment_id { get; set; }
     }
 }
