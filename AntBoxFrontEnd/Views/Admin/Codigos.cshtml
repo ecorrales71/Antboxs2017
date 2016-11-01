@@ -36,6 +36,15 @@
                 <div class="col-sm-12">
                     <div class="table-responsive tabla_cp">
                         <form id="search" method="get" class="form-solid " novalidate>
+                            @if (@Model.Zipcodes != null)
+                            {
+                                @Html.Hidden("total", @Model.Zipcodes.Total)
+                                @Html.Hidden("pages", @Model.Zipcodes.Pages)
+                                @Html.Hidden("page", @Model.Page)
+                                <input type="hidden" name="idpagination" value="@Model.Zipcodes.Pagination_id" />
+                            }
+                            
+                            <input type="hidden" id="pagev" value="@Model.Page" />
                             <div class="col-sm-12 pr0 pb0">
                                 <input type="submit" class="btn btn-primary btn-wide pull-right mt10" value="Buscar">
                                 <input type="reset" class="btn btn-primary btn-wide btn_blue pull-right mt10 mr10" value="Borrar campos">
@@ -66,33 +75,37 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @if (Model.Zipcodes != null)
+                                    @if (@Model.Zipcodes != null)
                                     {
-                                        foreach (var item in Model.Zipcodes)
+                                        if (Model.Zipcodes.Zip_codes != null)
                                         {
-                                            <tr data-id="@item.Id" data-zipcode="@item.Zipcode">
-                                                <td class="tzipcode">@item.Zipcode</td>
-                                                <td class="tstate">@item.State</td>
-                                                <td class="tdelegation">@item.Delegation</td>
-                                                <td class="tneighborhood">@item.Neighborhood</td>
-                                                <td class="tdatecreation">@item.Date_creation</td>
-                                                @if (item.Status == true)
-                                                {
-                                                    <td class="tstatus">Activo</td>
-                                                }
-                                                else
-                                                {
-                                                    <td class="tstatus">Inactivo</td>
-                                                }
-                                            </tr>
+                                            foreach (var item in Model.Zipcodes.Zip_codes)
+                                            {
+                                                <tr data-id="@item.Id" data-zipcode="@item.Zipcode">
+                                                    <td class="tzipcode">@item.Zipcode</td>
+                                                    <td class="tstate">@item.State</td>
+                                                    <td class="tdelegation">@item.Delegation</td>
+                                                    <td class="tneighborhood">@item.Neighborhood</td>
+                                                    <td class="tdatecreation">@item.Date_creation</td>
+                                                    @if (item.Status == true)
+                                                    {
+                                                        <td class="tstatus">Activo</td>
+                                                    }
+                                                    else
+                                                    {
+                                                        <td class="tstatus">Inactivo</td>
+                                                    }
+                                                </tr>
+                                            }
                                         }
                                     }
+                                    
                                 </tbody>
                             </table>
                         </form>
                     </div>
                 </div>
-                @*<div class="pagination solid text-center"></div>*@
+                <div class="pagination solid text-center"></div>
                 <div class="col-sm-12 pt10">
                     <input type="button" class="btn btn-primary btn-wide pull-left" data-toggle="modal" data-target="#crear_codigo" value="Crear Nuevo">
                     <input id="" type="button" class="btn btn-primary btn_blue btn-wide pull-right eliminar-codigo" value="Eliminar">
@@ -218,6 +231,7 @@
 <!-- /.modal -->
 @section Scripts
 {
+@Scripts.Render("~/bundles/simplepaginationjs")
 <script type="text/javascript">
     Calendar.setup({
         inputField: "fecha_registro_busqueda",      // id del campo de texto
@@ -277,6 +291,22 @@
         }  
     }
     $(function () {
+
+        var currentPage = ($("#pagev").val() == "") ? 1 : parseInt($("#pagev").val());
+
+        $('.pagination').pagination({
+            items: $('#total').val(),
+            itemsOnPage: 20,
+            cssStyle: 'light-theme',
+            currentPage: currentPage,
+            onPageClick: function (pageNumber, event) {
+                event.preventDefault();
+                $("#vp").val("1");
+                $("#page").val(pageNumber);
+                $("#search").append("<input type='hidden' value='1' name='vp' />");
+                $("#search").submit();
+            }
+        });
         $(".crear-codigo").click(function (event) {
             event.preventDefault();
             console.log("crear codigo");

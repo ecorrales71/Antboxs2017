@@ -245,6 +245,7 @@
     <Compile Include="Controllers\AntBoxAddressesController.cs" />
     <Compile Include="Controllers\AntBoxController.cs" />
     <Compile Include="Controllers\CatalogoController.cs" />
+    <Compile Include="Controllers\BillingAddressController.cs" />
     <Compile Include="Controllers\ZipCodeController.cs" />
     <Compile Include="Controllers\CodeController.cs" />
     <Compile Include="Controllers\CouponController.cs" />
@@ -313,6 +314,12 @@
     <Compile Include="Models\OrderViewModel.cs" />
     <Compile Include="Models\ProcessOrderModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\BillingAddress\BillingAddressRequestOptions.cs" />
+    <Compile Include="Services\BillingAddress\BillingAddressResponse.cs" />
+    <Compile Include="Services\BillingAddress\BillingAddressResponseList.cs" />
+    <Compile Include="Services\BillingAddress\BillingAddressService.cs" />
+    <Compile Include="Services\BillingAddress\BillingAddressUpdateOptions.cs" />
+    <Compile Include="Services\BillingAddress\PaginationBillingAddresses.cs" />
     <Compile Include="Services\Address\AddressResponse.cs" />
     <Compile Include="Services\Address\AddressUpdateOptions.cs" />
     <Compile Include="Services\Address\AddressRequestOptions.cs" />

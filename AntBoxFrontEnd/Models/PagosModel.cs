@@ -1,4 +1,5 @@
 ﻿using AntBoxFrontEnd.Entities;
+using AntBoxFrontEnd.Services.BillingAddress;
 using AntBoxFrontEnd.Services.Code;
 using AntBoxFrontEnd.Services.Customer;
 using AntBoxFrontEnd.Services.CustomerService;
@@ -17,6 +18,6 @@ namespace AntBoxFrontEnd.Models
     {
         public List<CardObject> Cards { get; set; }
 
-        public List<AntBoxAddressViewModel> Address { get; set; }
+        public List<BillingAddressResponse> Address { get; set; }
     }
 }

@@ -16,6 +16,7 @@ using AntBoxFrontEnd.Services.Boxes;
 using System.Web.Configuration;
 using AntBoxFrontEnd.Services.Tasks;
 using AntBoxFrontEnd.Services.AntBoxes;
+using AntBoxFrontEnd.Services.BillingAddress;
 
 namespace AntBoxFrontEnd.Controllers
 {
@@ -160,30 +161,20 @@ namespace AntBoxFrontEnd.Controllers
             PagosModel model = new PagosModel();
 
             List<CardObject> result = new List<CardObject>();
-            List<AntBoxAddressViewModel> antBoxResult = new List<AntBoxAddressViewModel>();
+            List<BillingAddressResponse> resultaddress = new List<BillingAddressResponse>();
             try
             {
                 result = ps.ListPaymetCards(((CustomerResponse)Session["customer"]).Id);
-                
-                var addressService = new AddressService(ServiceConfiguration.GetApiKey());
-                var resultAddress = addressService.ListAddresses(((CustomerResponse)Session["customer"]).Id, 1);
-                
-                result.ForEach(r =>
-                {
-                    var dir = addressService.SearchAddress(r.Id);
-                    var map = Mapper.Map<AddressResponse, AntBoxAddressViewModel>(dir);
-                    if (!string.IsNullOrEmpty(map.Rfc_id))
-                    {
-                        antBoxResult.Add(map);
-                    }
-                });
+
+                var servicio = new BillingAddressService(ServiceConfiguration.GetApiKey());
+                resultaddress = servicio.ListBillingAddresses(((CustomerResponse)Session["customer"]).Id, 1);
             }
             catch (Exception ex)
             {
             }
 
             model.Cards = result;
-            model.Address = antBoxResult;
+            model.Address = resultaddress;
 
             return View(model);
         }

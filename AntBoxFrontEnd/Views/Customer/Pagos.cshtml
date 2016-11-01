@@ -173,22 +173,26 @@
                             </div>
                         </div>
                         <div class="content-datos-facturacion">
-                            @foreach (var item in Model.Address)
+                            @if (Model.Address != null)
                             {
-                                <div class="col-sm-12 back_gris pt30 pb20 mb30">
-                                    <div class="media-left">
-                                        <div class="icon icon-color icon-size-4">
-                                            <i class="fa fa-file-text"></i>
+                                foreach (var item in Model.Address)
+                                {
+                                    <div class="col-sm-12 back_gris pt30 pb20 mb30">
+                                        <div class="media-left">
+                                            <div class="icon icon-color icon-size-4">
+                                                <i class="fa fa-file-text"></i>
+                                            </div>
+                                        </div>
+                                        <div class="media-body" data-id="@item.Id">
+                                            <h4 class="identificaciont">@item.Alias</h4>
+                                            <p>Nombre o Razón Social: <span class="nombreempresat">Empresa A, S.A de C.V.</span><br>spanRFC: <span class="razonsocialt">IDRM852805IV6</span></p>
+                                            <button type="button" class="btn btn-primary btn-sm pull-right ml10 open-editar-facturacion">Editar</button>
+                                            <button type="button" class="btn btn-primary btn-sm pull-right btn_blue" onclick="eliminarItem()">Eliminar</button>
                                         </div>
                                     </div>
-                                    <div class="media-body" data-id="">
-                                        <h4 class="identificaciont">@item.Alias</h4>
-                                        <p>Nombre o Razón Social: <span class="nombreempresat">Empresa A, S.A de C.V.</span><br>spanRFC: <span class="razonsocialt">IDRM852805IV6</span></p>
-                                        <button type="button" class="btn btn-primary btn-sm pull-right ml10 open-editar-facturacion" data-toggle="modal" data-target="#editar_facturacion">Editar</button>
-                                        <button type="button" class="btn btn-primary btn-sm pull-right btn_blue" onclick="eliminarItem()">Eliminar</button>
-                                    </div>
-                                </div>
+                                }
                             }
+                            
                         </div>
                         
                     </div>
@@ -212,22 +216,22 @@
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label for="aidentificacion">Nombre de Identificación*</label>
-                                        <input type="text" name="Identificacion" id="aidentificacion">
+                                        <input type="text" name="Alias" id="aidentificacion">
                                     </div>
                                     <div class="form-group">
                                         <label for="arazonsocial">Nombre o Razón Social*</label>
-                                        <input type="text" name="Razonsocial" id="arazonsocial">
+                                        <input type="text" name="Bussiness_name" id="arazonsocial">
                                     </div>
                                     <div class="form-group">
                                         <label for="arfc">RFC*</label>
-                                        <input type="text" name="Rfc" id="arfc">
+                                        <input type="text" name="Rfc_id" id="arfc">
                                     </div>
 
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label for="areferencias">Referencias y Comentarios</label>
-                                        <textarea name="Referencias" id="areferencias"></textarea>
+                                        <textarea name="References" id="areferencias"></textarea>
                                     </div>
                                 </div>
                                 <div class="col-sm-12 mt10">
@@ -343,27 +347,27 @@
                     <img src="@Url.Content("~/Images/preloader.gif")" />   Guardando datos de facturacion... &nbsp;
                 </div>
                 <form method="post" class="form-efacturacion form-solid" novalidate>
-                    <input type="hidden" name="idFacturacion" id="idFacturacion" value="" />
+                    <input type="hidden" name="id" id="idFacturacion" value="" />
                     <div class="row">
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label for="identificacion">Nombre de Identificación*</label>
-                                <input type="text" name="Identificacion" id="identificacion">
+                                <input type="text" name="alias" id="eidentificacion">
                             </div>
                             <div class="form-group">
                                 <label for="razonsocial">Nombre o Razón Social*</label>
-                                <input type="text" name="Razonsocial" id="razonsocial">
+                                <input type="text" name="razonsocial" id="erazonsocial">
                             </div>
                             <div class="form-group">
                                 <label for="rfc">RFC*</label>
-                                <input type="text" name="Rfc" id="rfc">
+                                <input type="text" name="rfc" id="erfc">
                             </div>
 
                         </div>
                         <div class="col-sm-6 pl0_modal">
                             <div class="form-group">
                                 <label for="referencias">Referencias y Comentarios</label>
-                                <textarea name="Referencias" id="referencias"></textarea>
+                                <textarea name="referencias" id="ereferencias"></textarea>
                             </div>
                         </div>
                         <div class="col-sm-12 mt10">
@@ -659,37 +663,68 @@ function goto_rndf(reload)
     var verif = 1;
     var element = {};
     var formelementg = "";
+    var loaderg = "";
+    var aliasg = "";
+    var verifm = true;
     $(function () {
-        $(document).on("click", ".guardar-facturacion", function () {
+        $(document).on("click", ".guardar-facturacion", function (event) {
+            event.preventDefault();
             verif = $(this).attr("data-verif");
-            formelementg = ".form-afacturacion";
-            var formData = $(".form-afacturacion").serialize();
+            
             element = $(this);
-            http(url, formData, callbacksucces(), ".form-afacturacion", "#loader1");
+            if (verif == "1")
+            {
+                formelementg = ".form-afacturacion";
+                loaderg = "#loader1";
+                var formData = $(".form-afacturacion").serialize();
+                verifm = true;
+                http('@Url.Action("CreateBillingAddress", "BillingAddress")', formData, callbackSuccess, ".form-afacturacion", loaderg);
+            } else {
+                formelementg = ".form-1facturacion";
+                var formData = $(".form-1facturacion").serialize();
+                loaderg = "#loader2";
+                verifm = true;
+                http('@Url.Action("UpdateBillingAddress", "BillingAddress")', formData, callbackSuccess, ".form-efacturacion", loaderg);
+            }
         });
         $(document).on("click", ".open-editar-facturacion", function () {
             element = $(this);
-            var idFacturacion = $(this).parent().attr("data-id");
-            $("#idFacturacion").val(idFacturacion);
-            $("#editar_facturacion").modal("open");
+            aliasg = element.parent().find(".identificaciont").text();
+            var id = $(this).parent().attr("data-id");
+            var formData = {};
+            formData.id = id;
+            $("#idFacturacion").val(id);
+            verifm = false;
+            http('@Url.Action("GetBillingAddress", "BillingAddress")', formData, callbackSuccess, ".form-efacturacion", "");
         });
     });
     function callbackSuccess(data)
     {
-        if (data.success)
-        {
-            if (verif == 1)
-            {
-                cadhtml = htmlFacturacion($("#aidentificacion").val(), $("#arazonsocial").val(), $("#areferencias").val());
-                $(".content-datos-facturacion").append(cadhtml);
+        if (verifm) {
+            if (data.success) {
+                if (verif == 1) {
+                    cadhtml = htmlFacturacion($("#aidentificacion").val(), $("#arazonsocial").val(), $("#areferencias").val());
+                    $(".content-datos-facturacion").append(cadhtml);
+                } else {
+                    element.parent().find(".identificaciont").text($("#eidentificacion").val());
+                    element.parent().find(".nombreempresat").text($("#erazonsocial").val());
+                    element.parent().find(".razonsocialt").text($("#erfc").val());
+                }
+                limpiarCampos(formelementg, loaderg);
             } else {
-                element.parent().find(".identificaciont").text($("#aidentificacion").val());
-                element.parent().find(".nombreempresat").text($("#arazonsocial").val());
-                element.parent().find(".razonsocialt").text($("#arfc").val());
+                var mensaje = (verif == 1) ? "Error al agregar datos de facturacion" : "Error al editar datos de facturacion";
+                mostrarError(formelementg, mensaje);
             }
         } else {
-            var mensaje = (verif == 1) ? "Error al agregar datos de facturacion" : "Error al editar datos de facturacion";
-            mostrarError(formelementg, mensaje);
+            if (data)
+            {
+                $("#eidentificacion").val(aliasg);
+                $("#erazonsocial").val(data.Bussiness_name);
+                $("#erfc").val(data.Rfc_id);
+                $("#ereferencias").val(data.References);
+                $("#editar_facturacion").modal("show");
+                
+            }
         }
     }
     function mostrarError(formelement, mensaje)
@@ -723,15 +758,14 @@ function goto_rndf(reload)
             $(this).val("");
         });
     }
-    function http(url, formdata, callbacksucces, formelement, loader)
+    function http(url, formdata, callbackSuccess, formelement, loader)
     {
-        $(loader).show();
+        if (verifm) $(loader).show();
         $.ajax({
             type: 'POST',
             url: url,
             data: formdata,
-            success: callbacksucces,
-            complete: limpiarCampos(formelement, loader)
+            success: callbackSuccess
         })
     }
     

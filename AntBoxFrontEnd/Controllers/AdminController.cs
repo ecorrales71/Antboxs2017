@@ -98,7 +98,7 @@ namespace AntBoxFrontEnd.Controllers
                 model.Page = page;
             }
 
-            List<ZipCodeResponse> result = new List<ZipCodeResponse>();
+            PaginationZipCodesResponse result = new PaginationZipCodesResponse();
             try
             {
                 result = servicio.ListZipCode(page, codigo, estado, municipio, colonia, registro, status, idpagination);

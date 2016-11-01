@@ -80,7 +80,11 @@ namespace AntBoxFrontEnd.Infrastructure
 
         public static String Contact { get { return BaseUrl + "/contact"; } }
 
-        public static String Zipcode { get { return BaseUrl + "/zipcode"; } } 
+        public static String Zipcode { get { return BaseUrl + "/zipcode"; } }
+
+        public static String BillingAddress { get { return BaseUrl + "/address-billing"; } }
+
+        public static String CustomerBillingAddressSearch { get { return BaseUrl + "/address-billing/search"; } } 
 
         public static String ValidateAddress { get { return BaseUrl + "/customer-address/check"; } }
 

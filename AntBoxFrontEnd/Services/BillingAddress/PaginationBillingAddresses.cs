@@ -1,13 +1,12 @@
-﻿using AntBoxFrontEnd.Services.Address;
-using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using Newtonsoft.Json;
 
-namespace AntBoxFrontEnd.Services.Zipcodes
+namespace AntBoxFrontEnd.Services.BillingAddress
 {
-    public class PaginationZipCodesResponse
+    public class PaginationBillingAddresses
     {
         [JsonProperty("pagination_id")]
         public string Pagination_id { get; set; }
@@ -18,7 +17,8 @@ namespace AntBoxFrontEnd.Services.Zipcodes
         [JsonProperty("pages")]
         public int Pages { get; set; }
 
-        [JsonProperty("zipcodes")]
-        public List<ZipCodeResponse> Zip_codes { get; set; }
+        [JsonProperty("addresses")]
+        public List<BillingAddressResponse> Addresses { get; set; }
+
     }
 }

@@ -23,8 +23,14 @@ namespace AntBoxFrontEnd.Controllers
                     return Json(new { success = false, responseText = "Opción no permitida" }, JsonRequestBehavior.AllowGet);
                 }
 
+                List<ZipCodeRequestOptions> zipcodes = new List<ZipCodeRequestOptions>();
+                zipcodes.Add(modelCode);
+
+                string json = new
+                            System.Web.Script.Serialization.JavaScriptSerializer().Serialize(zipcodes);
+
                 var ser = new ZipcodeService(ServiceConfiguration.GetApiKey());
-                var res = ser.CreateZipCode(modelCode);
+                var res = ser.CreateZipCodes(json);
                 return Json(new { success = res, responseText = "Codigo zip registrado correctamente" }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
@@ -66,9 +72,9 @@ namespace AntBoxFrontEnd.Controllers
 
         public JsonResult DeleteZipCode(string id)
         {
-            var couponService = new ZipcodeService(ServiceConfiguration.GetApiKey());
+            var zipCodeService = new ZipcodeService(ServiceConfiguration.GetApiKey());
 
-            var result = couponService.DeleteZipCode(id);
+            var result = zipCodeService.DeleteZipCode(id);
 
 
             if (result)
@@ -96,6 +102,7 @@ namespace AntBoxFrontEnd.Controllers
                 {
                     //  Get all files from Request object  
                     HttpFileCollectionBase files = Request.Files;
+                    var zipCodeService = new ZipcodeService(ServiceConfiguration.GetApiKey());
                     string fname = "";
                     for (int i = 0; i < files.Count; i++)
                     {
@@ -144,8 +151,9 @@ namespace AntBoxFrontEnd.Controllers
                         string json = new
                             System.Web.Script.Serialization.JavaScriptSerializer().Serialize(zipcodes);
 
-                        
-                        return Json(json);
+                        bool success = zipCodeService.CreateZipCodes(json);
+
+                        return Json(success);
                     }
                     // Returns message that successfully uploaded  
 

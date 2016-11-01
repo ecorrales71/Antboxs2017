@@ -56,6 +56,25 @@ namespace AntBoxFrontEnd.Services.Zipcodes
             return true;
         }
 
+        public virtual Boolean CreateZipCodes(string createOptions, RequestOptions requestOptions = null)
+        {
+            requestOptions = SetupRequestOptions(requestOptions);
+
+            StringContent PostData = new StringContent(createOptions, Encoding.UTF8, "application/json");
+
+            try
+            {
+                var customerResponse = Requestor.Post<MissingError>(UrlsConstants.ZipCode, requestOptions, PostData);
+            }
+            catch (Exception ex)
+            {
+                LogManager.Write(ex.Message + " " + ex.InnerException, LogManager.Error);
+
+                return false;
+            }
+            return true;
+        }
+
         public virtual Boolean UpdateZipCode(ZipCodeUpdateOptions createOptions, string id, RequestOptions requestOptions = null)
         {
             requestOptions = SetupRequestOptions(requestOptions);
@@ -83,9 +102,9 @@ namespace AntBoxFrontEnd.Services.Zipcodes
             return true;
         }
 
-        public virtual List<ZipCodeResponse> ListZipCode(int? currentPage, string codigo, string estado, string municipio, string colonia, string registro, bool? status, string idPagination = null, RequestOptions requestOptions = null)
+        public virtual PaginationZipCodesResponse ListZipCode(int? currentPage, string codigo, string estado, string municipio, string colonia, string registro, bool? status, string idPagination = null, RequestOptions requestOptions = null)
         {
-            List<ZipCodeResponse> coupons = new List<ZipCodeResponse>();
+            PaginationZipCodesResponse coupons = new PaginationZipCodesResponse();
 
             try
             {
@@ -93,6 +112,15 @@ namespace AntBoxFrontEnd.Services.Zipcodes
 
                 var parameters = new Dictionary<string, string>();
 
+                if (currentPage == null)
+                {
+                    currentPage = 1;
+                }
+                if (!string.IsNullOrEmpty(idPagination))
+                {
+                    parameters.Add("pagination_id", idPagination);
+                    parameters.Add("page_number", currentPage.ToString());
+                }
                 if (!string.IsNullOrEmpty(codigo))
                 {
                     parameters.Add("code", codigo);
@@ -117,10 +145,11 @@ namespace AntBoxFrontEnd.Services.Zipcodes
                 {
                     parameters.Add("registered_at", registro);
                 }
+                parameters.Add("enable_pagination", "true");
 
                 var encodedParams = Infrastructure.UrlHelper.BuildURLParametersString(parameters);
 
-                coupons = Requestor.Get<List<ZipCodeResponse>>(UrlsConstants.Zipcode + encodedParams, requestOptions);
+                coupons = Requestor.Get<PaginationZipCodesResponse>(UrlsConstants.Zipcode + encodedParams, requestOptions);
 
             }
             catch (Exception ex)

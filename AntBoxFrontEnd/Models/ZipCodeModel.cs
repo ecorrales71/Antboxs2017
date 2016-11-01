@@ -14,7 +14,7 @@ namespace AntBoxFrontEnd.Models
 {
     public class ZipCodeModel
     {
-        public List<ZipCodeResponse> Zipcodes { get; set; }
+        public PaginationZipCodesResponse Zipcodes { get; set; }
 
         public string Codigo { get; set; }
         
