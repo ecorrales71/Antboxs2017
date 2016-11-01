@@ -177,7 +177,7 @@
                             {
                                 foreach (var item in Model.Address)
                                 {
-                                    <div class="col-sm-12 back_gris pt30 pb20 mb30">
+                                    <div class="col-sm-12 back_gris pt30 pb20 mb30 div-facturacion">
                                         <div class="media-left">
                                             <div class="icon icon-color icon-size-4">
                                                 <i class="fa fa-file-text"></i>
@@ -185,9 +185,9 @@
                                         </div>
                                         <div class="media-body" data-id="@item.Id">
                                             <h4 class="identificaciont">@item.Alias</h4>
-                                            <p>Nombre o Razón Social: <span class="nombreempresat">Empresa A, S.A de C.V.</span><br>spanRFC: <span class="razonsocialt">IDRM852805IV6</span></p>
+                                            <p>Nombre o Razón Social: <span class="nombreempresat">@item.Bussiness_name</span><br>RFC: <span class="razonsocialt">@item.Rfc_id</span></p>
                                             <button type="button" class="btn btn-primary btn-sm pull-right ml10 open-editar-facturacion">Editar</button>
-                                            <button type="button" class="btn btn-primary btn-sm pull-right btn_blue" onclick="eliminarItem()">Eliminar</button>
+                                            <button type="button" class="btn btn-primary btn-sm pull-right btn_blue eliminar-facturacion">Eliminar</button>
                                         </div>
                                     </div>
                                 }
@@ -420,31 +420,31 @@ function goto_rndf(reload)
                         window.setTimeout(function ()
                         { $("#RegisterCardSuccess").alert('close'); }, 10000);
                         window.setTimeout(function () {
-                        $.ajax({
-                            type: 'POST',
-                            url: '@Url.Action("GetCardsAjax", "Payment")',
-                            data: { deviceId: deviceSessionId, state: "inactive", token: token_id },
-                            success: function (result) {
-                                if (result.success == false) {
+                            $.ajax({
+                                type: 'POST',
+                                url: '@Url.Action("GetCardsAjax", "Payment")',
+                                data: { deviceId: deviceSessionId, state: "inactive", token: token_id },
+                                success: function (result) {
+                                    if (result.success == false) {
+                                        $('#newCardResult').prepend(
+                                        '<div class="alert alert-error alert-dismissible fade in" id="GetCardsError"> <button type="button" class="close" data-dismiss="alert"> <i class="fa fa-times"></i></button><p><i class="fa fa-exclamation-triangle"></i>' + 'ERROR al traer los datos de las tarjetas, intente refrescar la pagina.</p></div>');
+                                        window.setTimeout(function ()
+                                        { $("#GetCardsError").alert('close'); }, 10000);
+
+                                    }
+                                    else {
+                                        $('#CardList').html(result);
+                                    }
+                                },
+                                error: function (emp) {
                                     $('#newCardResult').prepend(
-                                    '<div class="alert alert-error alert-dismissible fade in" id="GetCardsError"> <button type="button" class="close" data-dismiss="alert"> <i class="fa fa-times"></i></button><p><i class="fa fa-exclamation-triangle"></i>' + 'ERROR al traer los datos de las tarjetas, intente refrescar la pagina.</p></div>');
+                                        '<div class="alert alert-error alert-dismissible fade in" id="GetCardsError"> <button type="button" class="close" data-dismiss="alert"> <i class="fa fa-times"></i></button><p><i class="fa fa-exclamation-triangle"></i>' + '[ERROR ' + response.status + '] al traer los datos de las tarjetas, intente refrescar la pagina.</p></div>');
                                     window.setTimeout(function ()
                                     { $("#GetCardsError").alert('close'); }, 10000);
-                                    
-                                }
-                                else {
-                                    $('#CardList').html(result);
-                                }
-                            },
-                            error: function (emp) {
-                                $('#newCardResult').prepend(
-                                    '<div class="alert alert-error alert-dismissible fade in" id="GetCardsError"> <button type="button" class="close" data-dismiss="alert"> <i class="fa fa-times"></i></button><p><i class="fa fa-exclamation-triangle"></i>' + '[ERROR ' + response.status + '] al traer los datos de las tarjetas, intente refrescar la pagina.</p></div>');
-                                window.setTimeout(function ()
-                                { $("#GetCardsError").alert('close'); }, 10000);
 
-                            }
-                        });
-                    }, 1000);
+                                }
+                            });
+                        }, 1000);
                     }
                     else {
                         $('#newCardResult').prepend(
@@ -469,8 +469,7 @@ function goto_rndf(reload)
             var desc = "ERROR [" + response.status + "] " + response.data.description != undefined ? response.data.description : response.message;
             //alert("ERROR [" + response.status + "] " + desc);
             //$("#pay-button").prop("disabled", false);
-            switch (response.status)
-            {
+            switch (response.status) {
                 case 2001:
                     desc = "La cuenta de banco con esta CLABE ya se encuentra registrada en el cliente.";
                     break;
@@ -561,30 +560,30 @@ function goto_rndf(reload)
                     window.setTimeout(function ()
                     { $("#RegisterCardSuccess").alert('close'); }, 10000);
                     window.setTimeout(function () {
-                    $.ajax({
-                        type: 'POST',
-                        url: '@Url.Action("GetCardsAjax", "Payment")',
-                        data: {},
-                        success: function (result) {
-                            if (result.success == false) {
+                        $.ajax({
+                            type: 'POST',
+                            url: '@Url.Action("GetCardsAjax", "Payment")',
+                            data: {},
+                            success: function (result) {
+                                if (result.success == false) {
+                                    $('#editCardResult').prepend(
+                                    '<div class="alert alert-error alert-dismissible fade in" id="GetCardsError"> <button type="button" class="close" data-dismiss="alert"> <i class="fa fa-times"></i></button><p><i class="fa fa-exclamation-triangle"></i>' + 'ERROR al traer los datos de las tarjetas, intente refrescar la pagina.</p></div>');
+                                    window.setTimeout(function ()
+                                    { $("#GetCardsError").alert('close'); }, 10000);
+
+                                }
+                                else {
+                                    $('#CardList').html(result);
+                                }
+                            },
+                            error: function (emp) {
                                 $('#editCardResult').prepend(
-                                '<div class="alert alert-error alert-dismissible fade in" id="GetCardsError"> <button type="button" class="close" data-dismiss="alert"> <i class="fa fa-times"></i></button><p><i class="fa fa-exclamation-triangle"></i>' + 'ERROR al traer los datos de las tarjetas, intente refrescar la pagina.</p></div>');
+                                    '<div class="alert alert-error alert-dismissible fade in" id="GetCardsError"> <button type="button" class="close" data-dismiss="alert"> <i class="fa fa-times"></i></button><p><i class="fa fa-exclamation-triangle"></i>' + '[ERROR ' + response.status + '] al traer los datos de las tarjetas, intente refrescar la pagina.</p></div>');
                                 window.setTimeout(function ()
                                 { $("#GetCardsError").alert('close'); }, 10000);
 
                             }
-                            else {
-                                $('#CardList').html(result);
-                            }
-                        },
-                        error: function (emp) {
-                            $('#editCardResult').prepend(
-                                '<div class="alert alert-error alert-dismissible fade in" id="GetCardsError"> <button type="button" class="close" data-dismiss="alert"> <i class="fa fa-times"></i></button><p><i class="fa fa-exclamation-triangle"></i>' + '[ERROR ' + response.status + '] al traer los datos de las tarjetas, intente refrescar la pagina.</p></div>');
-                            window.setTimeout(function ()
-                            { $("#GetCardsError").alert('close'); }, 10000);
-
-                        }
-                    });
+                        });
                     }, 1000);
                 }
                 else {
@@ -605,60 +604,60 @@ function goto_rndf(reload)
     }
     function DeleteCardAjax(cardId) {
 
-            $.ajax({
-                type: 'POST',
-                url: '@Url.Action("DeleteCardAjax", "Payment")',
-                data: { id: cardId },
-                success: function (result) {
-                    if (result.success == true) {
-                        $('#editCardResult').prepend(
-                            '<div class="alert alert-success alert-dismissible fade in" id="RegisterCardSuccess"> <button type="button" class="close" data-dismiss="alert"> <i class="fa fa-times"></i></button><p><i class="fa fa-check"></i>Tarjeta eliminada</p></div>');
-                        window.setTimeout(function ()
-                        { $("#RegisterCardSuccess").alert('close'); }, 10000);
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("DeleteCardAjax", "Payment")',
+            data: { id: cardId },
+            success: function (result) {
+                if (result.success == true) {
+                    $('#editCardResult').prepend(
+                        '<div class="alert alert-success alert-dismissible fade in" id="RegisterCardSuccess"> <button type="button" class="close" data-dismiss="alert"> <i class="fa fa-times"></i></button><p><i class="fa fa-check"></i>Tarjeta eliminada</p></div>');
+                    window.setTimeout(function ()
+                    { $("#RegisterCardSuccess").alert('close'); }, 10000);
 
-                        window.setTimeout(function () {
-                            $.ajax({
-                                type: 'POST',
-                                url: '@Url.Action("GetCardsAjax", "Payment")',
-                                data: {},
-                                success: function (result) {
-                                    if (result.success == false) {
-                                        $('#editCardResult').prepend(
-                                        '<div class="alert alert-error alert-dismissible fade in" id="GetCardsError"> <button type="button" class="close" data-dismiss="alert"> <i class="fa fa-times"></i></button><p><i class="fa fa-exclamation-triangle"></i>' + 'ERROR al traer los datos de las tarjetas, intente refrescar la pagina.</p></div>');
-                                        window.setTimeout(function ()
-                                        { $("#GetCardsError").alert('close'); }, 10000);
-
-                                    }
-                                    else {
-                                        $('#CardList').html(result);
-                                    }
-                                },
-                                error: function (emp) {
+                    window.setTimeout(function () {
+                        $.ajax({
+                            type: 'POST',
+                            url: '@Url.Action("GetCardsAjax", "Payment")',
+                            data: {},
+                            success: function (result) {
+                                if (result.success == false) {
                                     $('#editCardResult').prepend(
-                                        '<div class="alert alert-error alert-dismissible fade in" id="GetCardsError"> <button type="button" class="close" data-dismiss="alert"> <i class="fa fa-times"></i></button><p><i class="fa fa-exclamation-triangle"></i>' + '[ERROR ' + response.status + '] al traer los datos de las tarjetas, intente refrescar la pagina.</p></div>');
+                                    '<div class="alert alert-error alert-dismissible fade in" id="GetCardsError"> <button type="button" class="close" data-dismiss="alert"> <i class="fa fa-times"></i></button><p><i class="fa fa-exclamation-triangle"></i>' + 'ERROR al traer los datos de las tarjetas, intente refrescar la pagina.</p></div>');
                                     window.setTimeout(function ()
                                     { $("#GetCardsError").alert('close'); }, 10000);
 
                                 }
-                            });
-                        }, 1000);
-                        
-                    }
-                    else {
-                        $('#editCardResult').prepend(
-                        '<div class="alert alert-error alert-dismissible fade in" id="RegisterCardError"> <button type="button" class="close" data-dismiss="alert"> <i class="fa fa-times"></i></button><p><i class="fa fa-exclamation-triangle"></i>' + 'ERROR al eliminar la tarjeta.</p></div>');
-                        window.setTimeout(function ()
-                        { $("#RegisterCardError").alert('close'); }, 10000);
-                    }
-                },
-                error: function (emp) {
-                    $('#editCardResult').prepend(
-                        '<div class="alert alert-error alert-dismissible fade in" id="RegisterCardError"> <button type="button" class="close" data-dismiss="alert"> <i class="fa fa-times"></i></button><p><i class="fa fa-exclamation-triangle"></i>' + '[ERROR ' + response.status + '] al intentar registrar la tarjeta en Antbox.</p></div>');
-                    window.setTimeout(function ()
-                    { $("#RegisterCardError").alert('close'); }, 10000);
+                                else {
+                                    $('#CardList').html(result);
+                                }
+                            },
+                            error: function (emp) {
+                                $('#editCardResult').prepend(
+                                    '<div class="alert alert-error alert-dismissible fade in" id="GetCardsError"> <button type="button" class="close" data-dismiss="alert"> <i class="fa fa-times"></i></button><p><i class="fa fa-exclamation-triangle"></i>' + '[ERROR ' + response.status + '] al traer los datos de las tarjetas, intente refrescar la pagina.</p></div>');
+                                window.setTimeout(function ()
+                                { $("#GetCardsError").alert('close'); }, 10000);
+
+                            }
+                        });
+                    }, 1000);
 
                 }
-            });
+                else {
+                    $('#editCardResult').prepend(
+                    '<div class="alert alert-error alert-dismissible fade in" id="RegisterCardError"> <button type="button" class="close" data-dismiss="alert"> <i class="fa fa-times"></i></button><p><i class="fa fa-exclamation-triangle"></i>' + 'ERROR al eliminar la tarjeta.</p></div>');
+                    window.setTimeout(function ()
+                    { $("#RegisterCardError").alert('close'); }, 10000);
+                }
+            },
+            error: function (emp) {
+                $('#editCardResult').prepend(
+                    '<div class="alert alert-error alert-dismissible fade in" id="RegisterCardError"> <button type="button" class="close" data-dismiss="alert"> <i class="fa fa-times"></i></button><p><i class="fa fa-exclamation-triangle"></i>' + '[ERROR ' + response.status + '] al intentar registrar la tarjeta en Antbox.</p></div>');
+                window.setTimeout(function ()
+                { $("#RegisterCardError").alert('close'); }, 10000);
+
+            }
+        });
     };
     var verif = 1;
     var element = {};
@@ -670,18 +669,17 @@ function goto_rndf(reload)
         $(document).on("click", ".guardar-facturacion", function (event) {
             event.preventDefault();
             verif = $(this).attr("data-verif");
-            
-            element = $(this);
-            if (verif == "1")
-            {
+
+            if (verif == "1") {
+                element = $(this);
                 formelementg = ".form-afacturacion";
                 loaderg = "#loader1";
                 var formData = $(".form-afacturacion").serialize();
                 verifm = true;
                 http('@Url.Action("CreateBillingAddress", "BillingAddress")', formData, callbackSuccess, ".form-afacturacion", loaderg);
             } else {
-                formelementg = ".form-1facturacion";
-                var formData = $(".form-1facturacion").serialize();
+                formelementg = ".form-efacturacion";
+                var formData = $(".form-efacturacion").serialize();
                 loaderg = "#loader2";
                 verifm = true;
                 http('@Url.Action("UpdateBillingAddress", "BillingAddress")', formData, callbackSuccess, ".form-efacturacion", loaderg);
@@ -697,22 +695,39 @@ function goto_rndf(reload)
             verifm = false;
             http('@Url.Action("GetBillingAddress", "BillingAddress")', formData, callbackSuccess, ".form-efacturacion", "");
         });
+        $(document).on("click", ".eliminar-facturacion", function () {
+            element = $(this);
+            aliasg = element.parent().find(".identificaciont").text();
+            var id = $(this).parent().attr("data-id");
+            var formData = {};
+            formData.id = id;
+            verif = 3;
+            verifm = true;
+            if (confirm("Esta seguro que desea eliminar la direccion de facturacion " + aliasg + "?")) {
+                http('@Url.Action("DeleteBillingAddress", "BillingAddress")', formData, callbackSuccess, ".form-efacturacion", "");
+            }
+        });
     });
     function callbackSuccess(data)
     {
         if (verifm) {
             if (data.success) {
                 if (verif == 1) {
-                    cadhtml = htmlFacturacion($("#aidentificacion").val(), $("#arazonsocial").val(), $("#areferencias").val());
+                    cadhtml = htmlFacturacion($("#aidentificacion").val(), $("#arazonsocial").val(), $("#areferencias").val(), data.objectaddress.Id);
                     $(".content-datos-facturacion").append(cadhtml);
-                } else {
+                } else if (verif == 2) {
                     element.parent().find(".identificaciont").text($("#eidentificacion").val());
                     element.parent().find(".nombreempresat").text($("#erazonsocial").val());
                     element.parent().find(".razonsocialt").text($("#erfc").val());
+                    $("#editar_facturacion").modal("hide");
+                } else if (verif == 3)
+                {
+                    element.closest(".div-facturacion").remove();
                 }
-                limpiarCampos(formelementg, loaderg);
+                if (verif != 3) limpiarCampos(formelementg, loaderg);
             } else {
                 var mensaje = (verif == 1) ? "Error al agregar datos de facturacion" : "Error al editar datos de facturacion";
+                var mensaje = (verif == 3) ? "Error al eliminar datos de facturacion" : mensaje;
                 mostrarError(formelementg, mensaje);
             }
         } else {
@@ -723,7 +738,6 @@ function goto_rndf(reload)
                 $("#erfc").val(data.Rfc_id);
                 $("#ereferencias").val(data.References);
                 $("#editar_facturacion").modal("show");
-                
             }
         }
     }
@@ -734,19 +748,19 @@ function goto_rndf(reload)
         window.setTimeout(function ()
         { $("#RegisterCardError").alert('close'); }, 10000);
     }
-    function htmlFacturacion(identificacion, razonsocial, rfc) {
+    function htmlFacturacion(identificacion, razonsocial, rfc, id) {
         var strVar = "";
-        strVar += "<div class=\"col-sm-12 back_gris pt30 pb20 mb30\">";
+        strVar += "<div class=\"col-sm-12 back_gris pt30 pb20 mb30  div-facturacion\">";
         strVar += "    <div class=\"media-left\">";
         strVar += "        <div class=\"icon icon-color icon-size-4\">";
         strVar += "            <i class=\"fa fa-file-text\"><\/i>";
         strVar += "        <\/div>";
         strVar += "    <\/div>";
-        strVar += "    <div class=\"media-body\">";
-        strVar += "        <h4>" + identificacion + "<\/h4>";
-        strVar += "        <p>Nombre o Razón Social: " + razonsocial + "<br>RFC: " + rfc + "<\/p>";
-        strVar += "        <button type=\"button\" class=\"btn btn-primary btn-sm pull-right ml10\" data-toggle=\"modal\" data-target=\"#editar_facturacion\">Editar<\/button>";
-        strVar += "        <button type=\"button\" class=\"btn btn-primary btn-sm pull-right btn_blue\" onclick=\"eliminarItem()\">Eliminar<\/button>";
+        strVar += "    <div class=\"media-body\" data-id=\"" + id + "\">";
+        strVar += "        <h4 class=\"identificaciont\">" + identificacion + "<\/h4>";
+        strVar += "        <p>Nombre o Razón Social: <span class=\"nombreempresat\">" + razonsocial + "</span><br>RFC: <span class=\"razonsocialt\">" + rfc + "</span><\/p>";
+        strVar += "        <button type=\"button\" class=\"btn btn-primary btn-sm pull-right ml10 open-editar-facturacion\" >Editar<\/button>";
+        strVar += "        <button type=\"button\" class=\"btn btn-primary btn-sm pull-right btn_blue eliminar-facturacion\" >Eliminar<\/button>";
         strVar += "    <\/div>";
         strVar += "<\/div>";
 
@@ -765,9 +779,12 @@ function goto_rndf(reload)
             type: 'POST',
             url: url,
             data: formdata,
-            success: callbackSuccess
+            success: callbackSuccess,
+            error: function (error) {
+                console.log(error);
+            }
         })
     }
-    
+
 </script>
     }

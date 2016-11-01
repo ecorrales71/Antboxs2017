@@ -35,6 +35,9 @@
             <div class="row">
                 <div class="col-sm-12">
                     <div class="table-responsive tabla_cp">
+                        <div id="loader1" role="alert" style="display: none;">
+                            <img src="@Url.Content("~/Images/preloader.gif")" />    Cargando archivo... &nbsp;
+                        </div>
                         <form id="search" method="get" class="form-solid " novalidate>
                             @if (@Model.Zipcodes != null)
                             {
@@ -66,6 +69,7 @@
                                             </div>
                                         </th>
                                         <th>
+                                            <input type="hidden" name="statusv" id="statusv" value="@Model.Status" />
                                             <select id="status" name="status">
                                                 <option value="" selected="selected">Estatus</option>
                                                 <option value="Activo">Activo</option>
@@ -127,6 +131,9 @@
                 <h6 class="modal-title">Crear Código Postal</h6>
             </div>
             <div class="modal-body">
+                <div id="loader2" role="alert" style="display: none;">
+                    <img src="@Url.Content("~/Images/preloader.gif")" />   Cargando antboxs... &nbsp;
+                </div>
                 <form method="post" class="form-agregar form-solid" novalidate>
                     <div class="row">
                         <div class="col-sm-6">
@@ -212,7 +219,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="form-select">Estatus</label>
-                                <select id="status" class="select_codigo">
+                                <select id="status" name="status" class="select_codigo">
                                     <option value="Activo">Activo</option>
                                     <option value="Inactivo">Inactivo</option>
                                 </select>
@@ -272,6 +279,7 @@
               
             // Adding one more key to FormData object  
             // fileData.append('username', ‘Manas’);  
+            $("#loader1").show();
   
             $.ajax({  
                 url: '@Url.Action("UploadFile", "ZipCode")',
@@ -279,10 +287,12 @@
                 contentType: false, // Not to set any content header  
                 processData: false, // Not to process data  
                 data: fileData,  
-                success: function (result) {  
+                success: function (result) {
+                    $("#loader1").hide();
                     mostrarMensaje(form, "codigoMensaje", result, "alert-warning");
                 },  
                 error: function (err) {
+                    $("#loader1").hide();
                     mostrarMensaje(form, "codigoMensaje", err.statusText, "alert-warning");
                 }  
             });  
@@ -291,6 +301,8 @@
         }  
     }
     $(function () {
+           
+        $("#status").val($("#statusv").val());
 
         var currentPage = ($("#pagev").val() == "") ? 1 : parseInt($("#pagev").val());
 

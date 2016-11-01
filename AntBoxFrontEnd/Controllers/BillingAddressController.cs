@@ -26,7 +26,12 @@ namespace AntBoxFrontEnd.Controllers
 
                 var ser = new BillingAddressService(ServiceConfiguration.GetApiKey());
                 var res = ser.CreateBillingAddress(modelBillingAddress);
-                return Json(new { success = res, responseText = "Direccion de facturación registrada correctamente" }, JsonRequestBehavior.AllowGet);
+                bool verif = true;
+                if (res == null)
+                {
+                    verif = false;
+                }
+                return Json(new { success = verif, objectaddress = res, responseText = "Direccion de facturación registrada correctamente" }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {

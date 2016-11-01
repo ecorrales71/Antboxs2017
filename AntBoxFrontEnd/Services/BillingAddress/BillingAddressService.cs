@@ -38,24 +38,25 @@ namespace AntBoxFrontEnd.Services.BillingAddress
         }
 
 
-        public virtual Boolean CreateBillingAddress(BillingAddressRequestOptions createOptions, RequestOptions requestOptions = null)
+        public virtual InsertResponse CreateBillingAddress(BillingAddressRequestOptions createOptions, RequestOptions requestOptions = null)
         {
             requestOptions = SetupRequestOptions(requestOptions);
 
             string serilizedObj = JsonConvert.SerializeObject(createOptions, new JsonSerializerSettings() { NullValueHandling = NullValueHandling.Ignore }).ToString();
             StringContent PostData = new StringContent(serilizedObj, Encoding.UTF8, "application/json");
 
+            var customerResponse = new InsertResponse();
             try
             {
-                var customerResponse = Requestor.Post<MissingResponse>(UrlsConstants.BillingAddress, requestOptions, PostData);
+                customerResponse = Requestor.Post<InsertResponse>(UrlsConstants.BillingAddress, requestOptions, PostData);
             }
             catch (Exception ex)
             {
                 //Todo log
                 LogManager.Write(ex.Message + " " + ex.InnerException, LogManager.Error);
-                return false;
+                return null;
             }
-            return true;
+            return customerResponse;
         }
 
         public virtual Boolean CreateBillingAddressForCustomer(BillingAddressRequestOptions createOptions, RequestOptions requestOptions = null)
@@ -148,7 +149,7 @@ namespace AntBoxFrontEnd.Services.BillingAddress
                 var parameters = new Dictionary<string, string>();
 
                 parameters.Add("items_per_page", itemPerPage.ToString());
-
+                parameters.Add("include", "alias,bussiness_name,rfc_id,references");
 
                 if (!string.IsNullOrEmpty(idPagination))
                 {

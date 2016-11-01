@@ -10,22 +10,22 @@ namespace AntBoxFrontEnd.Services.Zipcodes
     public class ZipCodeRequestOptionsCsv
     {
         [JsonProperty("zipcode")]
-        public string Zipcode { get; set; }
+        public string zipcode { get; set; }
 
         [JsonProperty("state")]
-        public string State { get; set; }
+        public string state { get; set; }
 
         [JsonProperty("neighborhood")]
-        public string Neighborhood { get; set; }
+        public string neighborhood { get; set; }
 
         [JsonProperty("delegation")]
-        public string Delegation { get; set; }
+        public string delegation { get; set; }
 
         [JsonProperty("latitude")]
-        public string Latitude { get; set; }
+        public string latitude { get; set; }
 
         [JsonProperty("longitude")]
-        public string Longitude { get; set; }
+        public string longitude { get; set; }
 
     }
 }

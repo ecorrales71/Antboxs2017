@@ -100,15 +100,22 @@ namespace AntBoxFrontEnd.Code
                 // format cells - add borders  
                 using (ExcelRange r = workSheet.Cells[startRowFrom + 1, 1, startRowFrom + dataTable.Rows.Count, dataTable.Columns.Count])  
                 {  
-                    r.Style.Border.Top.Style = ExcelBorderStyle.Thin;  
-                    r.Style.Border.Bottom.Style = ExcelBorderStyle.Thin;  
-                    r.Style.Border.Left.Style = ExcelBorderStyle.Thin;  
-                    r.Style.Border.Right.Style = ExcelBorderStyle.Thin;  
+                    try
+                    {
+                        r.Style.Border.Top.Style = ExcelBorderStyle.Thin;  
+                        r.Style.Border.Bottom.Style = ExcelBorderStyle.Thin;  
+                        r.Style.Border.Left.Style = ExcelBorderStyle.Thin;  
+                        r.Style.Border.Right.Style = ExcelBorderStyle.Thin;  
   
-                    r.Style.Border.Top.Color.SetColor(System.Drawing.Color.Black);  
-                    r.Style.Border.Bottom.Color.SetColor(System.Drawing.Color.Black);  
-                    r.Style.Border.Left.Color.SetColor(System.Drawing.Color.Black);  
-                    r.Style.Border.Right.Color.SetColor(System.Drawing.Color.Black);  
+                        r.Style.Border.Top.Color.SetColor(System.Drawing.Color.Black);  
+                        r.Style.Border.Bottom.Color.SetColor(System.Drawing.Color.Black);  
+                        r.Style.Border.Left.Color.SetColor(System.Drawing.Color.Black);  
+                        r.Style.Border.Right.Color.SetColor(System.Drawing.Color.Black);
+                    }
+                    catch (Exception e)
+                    {
+                        
+                    }
                 }
 
                 for (int i = dataTable.Columns.Count - 1; i >= 0; i--)

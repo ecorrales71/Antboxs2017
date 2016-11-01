@@ -102,7 +102,7 @@ namespace AntBoxFrontEnd.Services.Zipcodes
             return true;
         }
 
-        public virtual PaginationZipCodesResponse ListZipCode(int? currentPage, string codigo, string estado, string municipio, string colonia, string registro, bool? status, string idPagination = null, RequestOptions requestOptions = null)
+        public virtual PaginationZipCodesResponse ListZipCode(int? currentPage, string codigo, string estado, string municipio, string colonia, string registro, string status, string idPagination = null, RequestOptions requestOptions = null)
         {
             PaginationZipCodesResponse coupons = new PaginationZipCodesResponse();
 
@@ -125,9 +125,15 @@ namespace AntBoxFrontEnd.Services.Zipcodes
                 {
                     parameters.Add("code", codigo);
                 }
-                if (status != null)
+                if (!string.IsNullOrEmpty(status))
                 {
-                    parameters.Add("status", status.ToString());
+                    if (status == "Activo")
+                    {
+                        parameters.Add("status", "true");
+                    } else if (status == "Inactivo")
+                    {
+                        parameters.Add("status", "false");
+                    }
                 }
                 if (!string.IsNullOrEmpty(estado))
                 {

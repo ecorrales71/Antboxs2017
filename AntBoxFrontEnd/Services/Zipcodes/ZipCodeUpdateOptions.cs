@@ -17,5 +17,8 @@ namespace AntBoxFrontEnd.Services.Zipcodes
 
         [JsonProperty("delegation")]
         public string Delegation { get; set; }
+
+        [JsonProperty("status")]
+        public bool? Status { get; set; }
     }
 }

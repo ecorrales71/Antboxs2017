@@ -10,16 +10,16 @@ namespace AntBoxFrontEnd.Services.Zipcodes
     public class ZipCodeRequestOptions
     {
         [JsonProperty("zipcode")]
-        public string Zipcode { get; set; }
+        public string zipcode { get; set; }
 
         [JsonProperty("state")]
-        public string State { get; set; }
+        public string state { get; set; }
 
         [JsonProperty("neighborhood")]
-        public string Neighborhood { get; set; }
+        public string neighborhood { get; set; }
 
         [JsonProperty("delegation")]
-        public string Delegation { get; set; }
+        public string delegation { get; set; }
 
     }
 }

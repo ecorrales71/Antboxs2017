@@ -26,7 +26,7 @@ namespace AntBoxFrontEnd.Models
         
         public string Registro { get; set; }
 
-        public bool? Status { get; set; }
+        public string Status { get; set; }
 
         public int? Page { get; set; }
 

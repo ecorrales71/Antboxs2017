@@ -40,7 +40,7 @@ namespace AntBoxFrontEnd.Controllers
             }
         }
 
-        public JsonResult UpdateZipCode(string id, string country, string state, string neighborhood, string delegation)
+        public JsonResult UpdateZipCode(string id, string country, string state, string neighborhood, string delegation, bool? status)
         {
             try
             {
@@ -54,6 +54,7 @@ namespace AntBoxFrontEnd.Controllers
                     State = state,
                     Neighborhood = neighborhood,
                     Delegation = delegation,
+                    Status = status
                 };
 
                 var couponService = new ZipcodeService(ServiceConfiguration.GetApiKey());
@@ -137,12 +138,12 @@ namespace AntBoxFrontEnd.Controllers
                                 string[] linea = line.Split(',');
                                 var item = new ZipCodeRequestOptionsCsv
                                 {
-                                    State = linea[0],
-                                    Delegation = linea[1],
-                                    Zipcode = linea[2],
-                                    Neighborhood = linea[3],
-                                    Latitude = linea[4],
-                                    Longitude = linea[5]
+                                    state = linea[0],
+                                    delegation = linea[1],
+                                    zipcode = linea[2],
+                                    neighborhood = linea[3],
+                                    latitude = linea[4],
+                                    longitude = linea[5]
                                 };
                                 zipcodes.Add(item);
                             }

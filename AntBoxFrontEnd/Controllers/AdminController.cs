@@ -80,7 +80,7 @@ namespace AntBoxFrontEnd.Controllers
             return View(boxresponse);
         }
 
-        public ActionResult Codigos(string codigo, string estado, string municipio, string colonia, string registro, bool? status, int? page, string idpagination, string vp)
+        public ActionResult Codigos(string codigo, string estado, string municipio, string colonia, string registro, string status, int? page, string idpagination, string vp)
         {
 
             var servicio = new ZipcodeService(ServiceConfiguration.GetApiKey());
@@ -318,7 +318,15 @@ namespace AntBoxFrontEnd.Controllers
             {
             }
 
-            List<CustomerListingResponse> technologies = result.Customers;
+            List<CustomerListingResponse> technologies;
+            if (result != null)
+            {
+                technologies = result.Customers;
+            }
+            else
+            {
+                technologies = new List<CustomerListingResponse>();
+            }
 
             var columns1 = new Dictionary<string, string>();
             columns1.Add("Name", "Nombre");
@@ -354,7 +362,15 @@ namespace AntBoxFrontEnd.Controllers
             {
             }
 
-            List<PaymentObject> payments = result.Payments;
+            List<PaymentObject> payments;
+            if (result != null)
+            {
+                payments = result.Payments;
+            }
+            else
+            {
+                payments = new List<PaymentObject>();
+            }
 
             var columns1 = new Dictionary<string, string>();
             columns1.Add("Name", "Nombre");
@@ -389,7 +405,15 @@ namespace AntBoxFrontEnd.Controllers
             {
             }
 
-            List<PickupResponse> payments = result.Pickups;
+            List<PickupResponse> payments;
+            if (result != null)
+            {
+                payments = result.Pickups;
+            }
+            else
+            {
+                payments = new List<PickupResponse>();
+            }
 
             var columns1 = new Dictionary<string, string>();
             columns1.Add("Name", "Nombre");
@@ -427,7 +451,15 @@ namespace AntBoxFrontEnd.Controllers
             {
             }
 
-            List<DeliveryResponse> payments = result.Deliveries;
+            List<DeliveryResponse> payments;
+            if (result != null)
+            {
+                payments = result.Deliveries;
+            }
+            else
+            {
+                payments = new List<DeliveryResponse>();
+            }
 
             var columns1 = new Dictionary<string, string>();
             columns1.Add("Name", "Nombre");
