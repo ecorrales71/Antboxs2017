@@ -44,7 +44,6 @@
                         <table id="tabla-coupon" class="table table-bordered">
                             <thead>
                                 <tr>
-                                    <th></th>
                                     <th>Cupón</th>
                                     <th>Cantidad</th>
                                     <th>Porcentaje</th>
@@ -63,7 +62,6 @@
                                         foreach (var item in Model.Coupons.Coupons)
                                         {
                                         <tr>
-                                            <td><input type="checkbox" data-id="@item.Id" class="select-coupon" /></td>
                                             <td class="tname">@item.Name</td>
                                             <td class="tquantity">@item.Quantity</td>
                                             <td class="tdiscount">@item.Discount%</td>
@@ -272,211 +270,7 @@
     </div>
 </div>
 <!-- /.modal -->
-<!-- CÓDIGOS -->
-<!-- Modal Medium -->
-<div class="modal fade" id="crear_code">
-    <div class="modal-dialog modal-md">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"><i class="fa fa-times"></i></button>
-                <h6 class="modal-title">Crear Código de Descuento</h6>
-            </div>
-            <div class="modal-body">
-                <form id="form-agregar-code" method="post" class="contact-form form-solid" novalidate>
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label for="">Código</label>
-                                <div class="input-group mb0">
-                                    <span class="input-group-btn">
-                                        <button type="button" class="btn btn-primary getNewPass"><i class="fa fa-refresh"></i></button>
-                                    </span>
-                                    <input type="text" name="Code" class="form-control" rel="gp" data-size="6" data-character-set="a-z,A-Z">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="Amount">Monto</label>
-                                <input type="text" name="Amount" id="Amount">
-                            </div>
-                            <div class="form-group">
-                                <label for="textbox">Inicio</label>
-                                <div class="input-group mb0">
-                                    <span class="input-group-btn">
-                                        <button type="button" id="codigo_inicio" class="btn btn-primary pull-right"><i class="fa fa-calendar"></i></button>
-                                    </span>
-                                    <input class="form-control" type="text" id="fecha_codigo_inicio" name="From">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="textbox">Vigencia</label>
-                                <div class="input-group mb0">
-                                    <span class="input-group-btn">
-                                        <button type="button" id="codigo_vigencia" class="btn btn-primary pull-right"><i class="fa fa-calendar"></i></button>
-                                    </span>
-                                    <input class="form-control" type="text" id="fecha_codigo_vigencia" name="To">
-                                </div>
-                            </div>
-                            <div class="checkbox">
-                                <label>
-                                    <input type="checkbox" name="optionsCheckbox">
-                                    Sin Vigencia
-                                </label>
-                            </div>
-                            <div class="form-group">
-                                <label for="Quantity">Cantidad</label>
-                                <input type="text" name="Quantity" id="Quantity">
-                            </div>
-                        </div>
-                        <div class="col-sm-6 pl0_modal">
-                            <div class="form-group">
-                                <label for="">Utilizados</label>
-                                <input type="text" name="" id="">
-                            </div>
-                            <div class="form-group">
-                                <label for="Created_by">Creado por</label>
-                                <select id="Created_by" name="Created_by">
-                                    @if (Model.Users != null)
-                                    {
-                                        foreach (var item in Model.Users)
-                                        {
-                                            if (item != null)
-                                            {
-                                                   <option value='@item.Id.ToString()'>@item.Name @item.Lastname</option>
-                                            }
-                                        }
-                                    }
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="textbox">Creación de Cupón</label>
-                                <div class="input-group mb0">
-                                    <span class="input-group-btn">
-                                        <button type="button" id="codigo_creacion" class="btn btn-primary pull-right"><i class="fa fa-calendar"></i></button>
-                                    </span>
-                                    <input class="form-control" type="text" id="fecha_codigo_creacion" name="fecha_codigo_creacion">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="Status">Estatus</label>
-                                <select id="Status" name="Status">
-                                    <option value="Activo">Activo</option>
-                                    <option value="Inactivo">Inactivo</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-sm-12">
-                            <input type="submit" class="btn btn-primary btn-wide pull-right mt10 crear-code" value="Crear">
-                        </div>
-                    </div>
-                </form>
 
-            </div>
-        </div>
-    </div>
-</div>
-<!-- /.modal -->
-<!-- Modal Medium -->
-<div class="modal fade" id="editar_code">
-    <div class="modal-dialog modal-md">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"><i class="fa fa-times"></i></button>
-                <h6 class="modal-title">Editar Código de Descuento</h6>
-            </div>
-            <div class="modal-body">
-                <form id="form-editar-code" method="post" class="contact-form form-solid" novalidate>
-                    <input type="hidden" name="id" id="editar-id-code" value="" />
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label for="">Código</label>
-                                <div class="input-group mb0">
-                                    <span class="input-group-btn">
-                                        <button type="button" class="btn btn-primary getNewPass"><i class="fa fa-refresh"></i></button>
-                                    </span>
-                                    <input type="text" name="Code" id="Code" class="form-control" rel="gp" data-size="6" data-character-set="a-z,A-Z">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="Amount">Monto</label>
-                                <input type="text" name="Amount" id="Amount">
-                            </div>
-                            <div class="form-group">
-                                <label for="textbox">Inicio</label>
-                                <div class="input-group mb0">
-                                    <span class="input-group-btn">
-                                        <button type="button" id="codigo_inicio_edit" class="btn btn-primary pull-right"><i class="fa fa-calendar"></i></button>
-                                    </span>
-                                    <input class="form-control" type="text" id="fecha_codigo_inicio_edit" name="From">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="textbox">Vigencia</label>
-                                <div class="input-group mb0">
-                                    <span class="input-group-btn">
-                                        <button type="button" id="codigo_vigencia_edit" class="btn btn-primary pull-right"><i class="fa fa-calendar"></i></button>
-                                    </span>
-                                    <input class="form-control" type="text" id="fecha_codigo_vigencia_edit" name="To">
-                                </div>
-                            </div>
-                            <div class="checkbox">
-                                <label>
-                                    <input type="checkbox" name="optionsCheckbox">
-                                    Sin Vigencia
-                                </label>
-                            </div>
-                            <div class="form-group">
-                                <label for="Quantity">Cantidad</label>
-                                <input type="text" name="Quantity" id="Quantity">
-                            </div>
-                        </div>
-                        <div class="col-sm-6 pl0_modal">
-                            <div class="form-group">
-                                <label for="">Utilizados</label>
-                                <input type="text" name="" id="">
-                            </div>
-                            <div class="form-group">
-                                <label for="Created_by">Creado por</label>
-                                <select id="Created_by" name="Created_by">
-                                    @if (Model.Users != null)
-                                    {
-                                        foreach (var item in Model.Users)
-                                        {
-                                            if (item != null)
-                                            {
-                                                   <option value='@item.Id.ToString()'>@item.Name @item.Lastname</option>
-                                            }
-                                        }
-                                    }
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="textbox">Creación de Cupón</label>
-                                <div class="input-group mb0">
-                                    <span class="input-group-btn">
-                                        <button type="button" id="codigo_creacion_edit" class="btn btn-primary pull-right"><i class="fa fa-calendar"></i></button>
-                                    </span>
-                                    <input class="form-control" type="text" id="fecha_codigo_creacion_edit" name="fecha_codigo_creacion_edit">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="Status">Estatus</label>
-                                <select id="Status" name="Status">
-                                    <option value="Activo">Activo</option>
-                                    <option value="Inactivo">Inactivo</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-sm-12">
-                            <input type="submit" class="btn btn-primary btn-wide pull-right mt10 modificar-code" value="Guardar">
-                        </div>
-                    </div>
-                </form>
-
-            </div>
-        </div>
-    </div>
-</div>
 <!-- /.modal -->
 @section css {
     @Styles.Render("~/Content/simplepaginationcss")
@@ -516,37 +310,6 @@
         inputField: "fecha_cupon_creacion_edit",      // id del campo de texto
         ifFormat: "%Y-%m-%d",       // formato de la fecha, cuando se escriba en el campo de texto
         button: "cupon_creacion_edit"   // el id del botón que lanzará el calendario
-    });
-<!-- CÓDIGOS -->
-    Calendar.setup({
-        inputField: "fecha_codigo_inicio",      // id del campo de texto
-        ifFormat: "%Y-%m-%d",       // formato de la fecha, cuando se escriba en el campo de texto
-        button: "codigo_inicio"   // el id del botón que lanzará el calendario
-    });
-    Calendar.setup({
-        inputField: "fecha_codigo_vigencia",      // id del campo de texto
-        ifFormat: "%Y-%m-%d",       // formato de la fecha, cuando se escriba en el campo de texto
-        button: "codigo_vigencia"   // el id del botón que lanzará el calendario
-    });
-    Calendar.setup({
-        inputField: "fecha_codigo_creacion",      // id del campo de texto
-        ifFormat: "%Y-%m-%d",       // formato de la fecha, cuando se escriba en el campo de texto
-        button: "codigo_creacion"   // el id del botón que lanzará el calendario
-    });
-    Calendar.setup({
-        inputField: "fecha_codigo_inicio_edit",      // id del campo de texto
-        ifFormat: "%Y-%m-%d",       // formato de la fecha, cuando se escriba en el campo de texto
-        button: "codigo_inicio_edit"   // el id del botón que lanzará el calendario
-    });
-    Calendar.setup({
-        inputField: "fecha_codigo_vigencia_edit",      // id del campo de texto
-        ifFormat: "%Y-%m-%d",       // formato de la fecha, cuando se escriba en el campo de texto
-        button: "codigo_vigencia_edit"   // el id del botón que lanzará el calendario
-    });
-    Calendar.setup({
-        inputField: "fecha_codigo_creacion_edit",      // id del campo de texto
-        ifFormat: "%Y-%m-%d",       // formato de la fecha, cuando se escriba en el campo de texto
-        button: "codigo_creacion_edit"   // el id del botón que lanzará el calendario
     });
 </script>
 @Scripts.Render("~/bundles/couponjs")

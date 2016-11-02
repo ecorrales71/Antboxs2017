@@ -42,7 +42,7 @@
                             <input type="hidden" id="pagev" value="@Model.Page" />
                             <div class="col-sm-12 pr0 pb0">
                                 <input type="submit" class="btn btn-primary btn-wide pull-right mt10" value="Buscar">
-                                <input type="reset" class="btn btn-primary btn-wide btn_blue pull-right mt10 mr10" value="Borrar campos">
+                                <input type="button" class="btn btn-primary btn-wide btn_blue pull-right mt10 mr10 ver-todos" value="Ver todos">
                             </div>
                             <table class="table table-bordered">
                                 <thead>
@@ -223,6 +223,10 @@
             callbackHttp(formData, true);
         });
 
+        $(".ver-todos").click(function () {
+            window.location.href = '@Url.Action("Antboxs", "CustomerService")';
+        });
+
         function callbackHttp(formData, verif)
         {
             $.ajax({
@@ -265,8 +269,7 @@
                         $("#total-modal").val(data.success.Antboxs.Total);
                         $("#paginationid-modal").val(data.success.Antboxs.Pagination_id);
 
-                        if (verif)
-                        {
+                        if (verif) {
                             $('.pagination-modal').pagination('updateItems', data.success.Antboxs.Total);
                             $('.pagination-modal').pagination('selectPage', 1);
                         }
