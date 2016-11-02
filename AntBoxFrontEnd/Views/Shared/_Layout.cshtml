@@ -249,11 +249,11 @@
                         <form id="LoginForm">
                             <div class="form-group">
                                 <label for="username">Usuario</label>
-                                <input type="text" name="username" id="username">
+                                <input type="text" name="username" id="usernamer">
                             </div>
                             <div class="form-group">
                                 <label for="password">Contraseña</label>
-                                <input type="password" name="password" id="password">
+                                <input type="password" name="password" id="passwordr">
                             </div>
                             @*<div class="form-group">
                                 <a href="recuperar-password.php">¿Olvidaste tu contraseña?</a>
@@ -375,6 +375,16 @@
             $("#txtname").focus();
         })
     })
+    $("#usernamer").keypress(function (e) {
+        if (e.which == 13) {
+            $("#passwordr").focus();
+        }
+    })
+    $("#passwordr").keypress(function (e) {
+        if (e.which == 13) {
+            $('#btnLogin').trigger("click");
+        }
+    })
     $('#btnLogin').click(function () {
         $.ajax({
             type: 'POST',
@@ -388,7 +398,7 @@
                     { $("#LoginFailAlert").alert('close'); }, 2000);
                 }
                 else {
-                    $('#login-info').html(result);
+                    window.location.href = '@Url.Action("Index", "Customer")';
                 }
             },
             error: function (emp) {
