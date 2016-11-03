@@ -201,8 +201,6 @@ namespace AntBoxFrontEnd.Services.Payments
             {
                 requestOptions = SetupRequestOptions(requestOptions);
 
-                
-
                 DateTime thisDate1 = new DateTime(2011, 6, 10);
                 DateTime today = DateTime.Today;
 

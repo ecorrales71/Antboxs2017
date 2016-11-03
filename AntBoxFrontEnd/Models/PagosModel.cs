@@ -19,5 +19,7 @@ namespace AntBoxFrontEnd.Models
         public List<CardObject> Cards { get; set; }
 
         public List<BillingAddressResponse> Address { get; set; }
+
+        public List<ChargeResponse> Payments { get; set; }
     }
 }

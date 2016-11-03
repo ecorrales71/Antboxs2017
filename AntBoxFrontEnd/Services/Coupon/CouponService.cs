@@ -93,6 +93,29 @@ namespace AntBoxFrontEnd.Services.Coupon
             return coupon;
         }
 
+        public virtual List<CouponResponse> SearchCouponName(string name, RequestOptions requestOptions = null)
+        {
+            PaginationCouponsResponse coupons = new PaginationCouponsResponse();
+            
+            try
+            {
+                requestOptions = SetupRequestOptions(requestOptions);
+
+                var parameters = new Dictionary<string, string> { { "name", name } };
+                var encodedParams = UrlHelper.BuildURLParametersString(parameters);
+
+                coupons = Requestor.Get<PaginationCouponsResponse>(UrlsConstants.CouponList + encodedParams, requestOptions);
+
+            }
+            catch (Exception ex)
+            {
+                LogManager.Write(ex.Message + " " + ex.InnerException, LogManager.Error);
+                return null;
+            }
+
+            return coupons.Coupons;
+        }
+
 
         public virtual PaginationCouponsResponse ListCoupon(int currentPage, string idPagination = null, RequestOptions requestOptions = null)
         {

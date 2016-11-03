@@ -28,6 +28,31 @@
                             <h3>Recibos y facturación</h3>
                             <p>Revisa tus recibos de pago y emite tus facturas del mes en curso. Recuerda que antes de facturar debes tener registrada tus datos fiscales en la parte inferior de esta página.</p>
                         </div>
+                        @if (Model.Payments != null)
+                        {
+                            foreach (var item in Model.Payments)
+                            {
+                                <div class="col-sm-12 back_gris pt15 pb20 mb10">
+                                    <div class="media-left">
+                                        <div class="icon icon-color icon-size-4">
+                                            <i class="fa fa-file-text-o"></i>
+                                        </div>
+                                    </div>
+                                    <div class="media-body w100 pt10">
+                                        @if(item.Status == "completed")
+                                        {
+                                            <h4>Pagado</h4>
+                                        }
+                                        <p>@item.Fecha</p>
+                                        <button type="button" class="btn btn-primary btn-sm pull-right pb10 ml10" onclick="verRecibo()">Ver Recibo</button>
+                                        @if(item.verifinmonth(item.FechaObject))
+                                        {
+                                            <button type="button" class="btn btn-primary btn-sm btn_blue pull-right pb10 ml10" data-toggle="modal" data-target="#enviar_factura">Enviar Facturar</button>
+                                        }
+                                    </div>
+                                </div>
+                            }
+                        }
                         @*<div class="col-sm-12 back_gris pt15 pb20 mb10">
                             <div class="media-left">
                                 <div class="icon icon-color icon-size-4">

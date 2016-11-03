@@ -4,6 +4,7 @@ using AntBoxFrontEnd.Models;
 using AntBoxFrontEnd.Services.Address;
 using AntBoxFrontEnd.Services.AntBoxes;
 using AntBoxFrontEnd.Services.Boxes;
+using AntBoxFrontEnd.Services.Coupon;
 using AntBoxFrontEnd.Services.Customer;
 using AntBoxFrontEnd.Services.Login;
 using AntBoxFrontEnd.Services.Payments;
@@ -650,9 +651,32 @@ namespace AntBoxFrontEnd.Controllers
             return Json(new { success = false }, JsonRequestBehavior.AllowGet);
         }
 
-        public decimal GetDisccount(string codgo)
+        public JsonResult GetDisccount(string cupon)
         {
-            return Convert.ToDecimal(0.00);
+
+            var servicio = new CouponService(ServiceConfiguration.GetApiKey());
+            List<CouponResponse> result = new List<CouponResponse>();
+            result = servicio.SearchCouponName(cupon);
+                        
+
+            //convertir fecha from to to date time
+            //verificar si aplica y devolver true o false
+
+            return Json(new { success = result }, JsonRequestBehavior.AllowGet);
+        }
+
+        private string formatdate(string date, string format)
+        {
+            try
+            {
+                DateTime dt = DateTime.ParseExact(date, format,
+                                   System.Globalization.CultureInfo.InvariantCulture);
+                return dt.ToString(@"dd\/MM\/yyyy");
+            }
+            catch
+            {
+                return date;
+            }
         }
 
     }

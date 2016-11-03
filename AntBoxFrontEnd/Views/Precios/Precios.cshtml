@@ -168,6 +168,21 @@
         $(".amount").each(function () {
             $(this).text($(this).text().replace(",", "."));
         });
+
+        $(".aplicar-cupon").click(function () {
+            var couponcode = $("#coupon_code").val();
+            formData = {};
+            formData.cupon = couponcode;
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("GetDisccount", "Precios")',
+                // data: $('#frmNewAddress').serialize(),
+                data: formData,
+                success: function (d) {
+
+                }
+            });
+        })
     })
 
     function AddBox(ide) {

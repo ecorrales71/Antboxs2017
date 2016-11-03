@@ -33,7 +33,7 @@ namespace AntBoxFrontEnd.Controllers
             }
         }
 
-        public JsonResult UpdateCoupon(string id, string name, decimal discount, decimal quantity, string From, string To, string Created_by, bool status)
+        public JsonResult UpdateCoupon(string id, string name, decimal discount, decimal quantity, string From, string To, string Created_by, string status)
         {
             try
             {

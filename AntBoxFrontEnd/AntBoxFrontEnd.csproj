@@ -372,6 +372,7 @@
     <Compile Include="Services\Login\UserManager.cs" />
     <Compile Include="Services\MissingResponse.cs" />
     <Compile Include="Services\Payments\CardInfo.cs" />
+    <Compile Include="Services\Payments\PaginationCharges.cs" />
     <Compile Include="Services\Payments\PaginationPayments.cs" />
     <Compile Include="Services\Payments\PaymentObject.cs" />
     <Compile Include="Services\Payments\CardObject.cs" />

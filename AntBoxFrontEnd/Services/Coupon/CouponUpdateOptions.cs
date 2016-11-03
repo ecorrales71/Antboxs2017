@@ -28,7 +28,7 @@ namespace AntBoxFrontEnd.Services.Coupon
         public string Created_by { get; set; }
 
         [JsonProperty("status")]
-        public bool Status { get; set; }
+        public string Status { get; set; }
 
     }
 }

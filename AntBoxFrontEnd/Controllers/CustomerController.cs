@@ -158,13 +158,16 @@ namespace AntBoxFrontEnd.Controllers
             }
 
             var ps = new PaymentService(ServiceConfiguration.GetApiKey());
+            var service = new PaymentService(ServiceConfiguration.GetApiKey());
             PagosModel model = new PagosModel();
 
             List<CardObject> result = new List<CardObject>();
             List<BillingAddressResponse> resultaddress = new List<BillingAddressResponse>();
+            List<ChargeResponse> resultPayments = new List<ChargeResponse>();
             try
             {
                 result = ps.ListPaymetCards(((CustomerResponse)Session["customer"]).Id);
+                resultPayments = service.ListCharges(((CustomerResponse)Session["customer"]).Id);
 
                 var servicio = new BillingAddressService(ServiceConfiguration.GetApiKey());
                 resultaddress = servicio.ListBillingAddresses(((CustomerResponse)Session["customer"]).Id, 1);
@@ -175,10 +178,10 @@ namespace AntBoxFrontEnd.Controllers
 
             model.Cards = result;
             model.Address = resultaddress;
+            model.Payments = resultPayments;
 
             return View(model);
         }
-
 
         // GET: Customer/Details/5
         public ActionResult Details(int id)
