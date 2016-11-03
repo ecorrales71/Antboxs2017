@@ -657,7 +657,27 @@ namespace AntBoxFrontEnd.Controllers
             var servicio = new CouponService(ServiceConfiguration.GetApiKey());
             List<CouponResponse> result = new List<CouponResponse>();
             result = servicio.SearchCouponName(cupon);
-                        
+            
+            if (result != null)
+            {
+                DateTime dateini = formatdate(result[0].From, "yyyy-MM-dd");
+                DateTime datefin = formatdate(result[0].To, "yyyy-MM-dd");
+                DateTime today = DateTime.Today;
+
+                if (today.Ticks >= dateini.Ticks && today.Ticks <= datefin.Ticks)
+                {
+                    return Json(new { success = true, resposeText = "aplica", discount = result[0].Discount }, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    return Json(new { success = false, resposeText = "no aplica" }, JsonRequestBehavior.AllowGet);
+                }
+
+            }
+            else
+            {
+                return Json(new { success = false, resposeText = "no existe" }, JsonRequestBehavior.AllowGet);
+            }
 
             //convertir fecha from to to date time
             //verificar si aplica y devolver true o false
@@ -665,18 +685,11 @@ namespace AntBoxFrontEnd.Controllers
             return Json(new { success = result }, JsonRequestBehavior.AllowGet);
         }
 
-        private string formatdate(string date, string format)
+        private DateTime formatdate(string date, string format)
         {
-            try
-            {
-                DateTime dt = DateTime.ParseExact(date, format,
-                                   System.Globalization.CultureInfo.InvariantCulture);
-                return dt.ToString(@"dd\/MM\/yyyy");
-            }
-            catch
-            {
-                return date;
-            }
+            DateTime dt = DateTime.ParseExact(date, format,
+                                System.Globalization.CultureInfo.InvariantCulture);
+            return dt;
         }
 
     }

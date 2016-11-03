@@ -148,8 +148,11 @@
 <!-- /.wrapper -->
 @section scripts {
     <script type="text/javascript">
-
+        var discount = 0;
     $(function () {
+
+        
+
         $('#quantityvalue').keypress(function (e) {
             var txt = String.fromCharCode(e.which);
             if (!txt.match(/[0-9]/)) {
@@ -179,7 +182,14 @@
                 // data: $('#frmNewAddress').serialize(),
                 data: formData,
                 success: function (d) {
-
+                    if (d.success)
+                    {
+                        discount = d.discount;
+                        recalculateTotal();
+                    } else {
+                        discount = 0;
+                        recalculateTotal();
+                    }
                 }
             });
         })
@@ -296,6 +306,16 @@
         var tax = total - (total / 1.16);
         var taxdeposito = totaldeposit - (totaldeposit / 1.16);
         var subtotal = total / 1.16;
+        var discountsubtotal = 0;
+        if (discount != 0)
+        {
+            discountsubtotal = subtotal * (discount / 100);
+            //subtotal = subtotal - discounttotal;
+            total = total - discountsubtotal;
+            discountObj.text(discountsubtotal.toFixed(2));
+        } else {
+            discountObj.text("0");
+        }
         var subtotaldeposit = totaldeposit / 1.16;
 
         subtotalObj.text(subtotal.toFixed(2));

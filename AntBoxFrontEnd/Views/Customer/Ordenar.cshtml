@@ -443,6 +443,7 @@
    
     <!-- /.modal -->
     <script type="text/javascript">
+        var discount = 0;
         Calendar.setup({
             inputField: "fecha_recoleccion",      // id del campo de texto
             ifFormat: "%Y-%m-%d",       // formato de la fecha, cuando se escriba en el campo de texto
@@ -475,6 +476,26 @@
                     $('.todisplay').fadeOut('slow');
 
             });
+            $(".aplicar-cupon").click(function () {
+                var couponcode = $("#coupon_code").val();
+                formData = {};
+                formData.cupon = couponcode;
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("GetDisccount", "Precios")',
+                    // data: $('#frmNewAddress').serialize(),
+                    data: formData,
+                    success: function (d) {
+                        if (d.success) {
+                            discount = d.discount;
+                            recalculateTotal();
+                        } else {
+                            discount = 0;
+                            recalculateTotal();
+                        }
+                    }
+                });
+            })
         })
     </script>
 
@@ -563,6 +584,7 @@
     </script>
 
     <script type="text/javascript">
+        
         function CambioZipModal() {
             var zipcode = $('#txtZipcode1').val();
             //alert(zipcode);
