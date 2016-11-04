@@ -99,7 +99,7 @@
                     <tbody>
                         <tr class="cart-subtotal">
                             <th>Descuento</th>
-                            <td>
+                            <td style="color: #ba2025;">
                                 $ <span class="amount" id="Discount">@Html.DisplayTextFor(o => o.Discount)</span>
                             </td>
                         </tr>
@@ -299,7 +299,8 @@
         if (discount != 0) {
             discountsubtotal = subtotal * (discount / 100);
             //subtotal = subtotal - discounttotal;
-            total = total - discountsubtotal;
+            tax = (subtotal - discountsubtotal) * 0.16;
+            total = subtotal - discountsubtotal + tax;
             discountObj.text(discountsubtotal.toFixed(2));
         } else {
             discountObj.text("0");

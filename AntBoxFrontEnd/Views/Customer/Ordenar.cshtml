@@ -34,9 +34,6 @@
                                             <div class="irow-xs pb30">
                                                 <h3>Ordena tus Antboxs</h3>
                                                 <p>Ordenar tus Antboxs es muy sencillo, solo indícanos cuántas Antboxs necesitas y a qué direcciones debemos enviártelas.</p>
-                                                <div class="alert alert-warning">
-                                                    <p><i class="fa fa-exclamation-triangle"></i> <strong>¿Ordenas por primera vez?</strong> Recuerda que el periodo mínimo de contratación es por tres meses, aunque si tú lo decides, podrás retirar tus Antboxs antes de ese tiempo.</p>
-                                                </div>
                                             </div>
                                         </div>
                                         <div class="col-sm-6">
@@ -45,7 +42,7 @@
                                                     <!--Agregar a clase para slider: "slider oneslider"-->
                                                     <ul data-fx="crossfade" data-auto="true" data-timeout="4500">
                                                         <li>
-                                                            <img src="~/Images/antboxs_chica.jpg" />
+                                                            <img src="~/Images/antboxs_chica.png" />
                                                         </li>
                                                         <!--<li>
                                                             <a href="">
@@ -493,6 +490,9 @@
                             discount = 0;
                             recalculateTotal();
                         }
+                    }, error: function (e) {
+                        discount = 0;
+                        recalculateTotal();
                     }
                 });
             })

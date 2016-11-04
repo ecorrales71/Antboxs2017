@@ -259,17 +259,7 @@ namespace AntBoxFrontEnd.Controllers
 
         public ActionResult Ordenar()
         {
-
             var order = GetNewOrder();
-
-
-
-
-
-
-
-
-
 
             return View(order);
         }

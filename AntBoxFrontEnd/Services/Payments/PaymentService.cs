@@ -112,7 +112,7 @@ namespace AntBoxFrontEnd.Services.Payments
             }
             catch (Exception ex)
             {
-                LogManager.Write(ex.Message + " " + ex.InnerException, LogManager.Error);
+                //LogManager.Write(ex.Message + " " + ex.InnerException, LogManager.Error);
                 return new List<CardObject>();
             }           
         }
