@@ -209,6 +209,7 @@
 
         $('#LineTotal_' + ide).html(lineSub);
         $('#LineTotal_' + ide).parent().find('.deposit_antbox_total').val(depositSub);
+        $('#cantvalue_' + ide).val(quantity);
         recalculateTotal();
 
 
@@ -251,6 +252,7 @@
             
             $('#LineTotal_' + ide).html(lineSub);
             $('#LineTotal_' + ide).parent().find('.deposit_antbox_total').val(depositSub);
+            $('#cantvalue_' + ide).val(quantity);
         }
         recalculateTotal();
         var boxobj = $('#box_' + ide);
@@ -298,7 +300,12 @@
             if (!isNaN(parseFloat($(this).parent().find('.deposit_antbox_total').val())))
                 totaldeposit += parseFloat($(this).parent().find('.deposit_antbox_total').val());
         });
-
+        var cantTotal = 0;
+        $(".cantvalue").each(function (i) {
+            if (!isNaN($(this).val())) {
+                cantTotal += parseInt($(this).val());
+            }
+        });
         var tax = total - (total / 1.16);
         var taxdeposito = totaldeposit - (totaldeposit / 1.16);
         var subtotal = total / 1.16;
@@ -306,12 +313,23 @@
         if (discount != 0)
         {
             discountsubtotal = subtotal * (discount / 100);
-            //subtotal = subtotal - discounttotal;
             tax = (subtotal - discountsubtotal) * 0.16;
             total = subtotal - discountsubtotal + tax;
             discountObj.text(discountsubtotal.toFixed(2));
         } else {
-            discountObj.text("0");
+            if (cantTotal > 4 && cantTotal < 10) {
+                discountsubtotal = subtotal * (12 / 100);
+                tax = (subtotal - discountsubtotal) * 0.16;
+                total = subtotal - discountsubtotal + tax;
+                discountObj.text(discountsubtotal.toFixed(2));
+            } else if (cantTotal > 9) {
+                discountsubtotal = subtotal * (20 / 100);
+                tax = (subtotal - discountsubtotal) * 0.16;
+                total = subtotal - discountsubtotal + tax;
+                discountObj.text(discountsubtotal.toFixed(2));
+            } else {
+                discountObj.text("0");
+            }
         }
         var subtotaldeposit = totaldeposit / 1.16;
 
