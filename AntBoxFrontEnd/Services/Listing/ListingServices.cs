@@ -36,10 +36,14 @@ namespace AntBoxFrontEnd.Services.Listing
 
                 if (!string.IsNullOrEmpty(from))
                 {
+                    string[] words = from.Split('/');
+                    from = words[2] + '-' + words[1] + '-' + words[0];
                     parameters.Add("from", from);
                 }
                 if (!string.IsNullOrEmpty(to))
                 {
+                    string[] words = to.Split('/');
+                    to = words[2] + '-' + words[1] + '-' + words[0];
                     parameters.Add("to", to);
                 }
                 if (!string.IsNullOrEmpty(status))
@@ -124,10 +128,14 @@ namespace AntBoxFrontEnd.Services.Listing
 
                 if (!string.IsNullOrEmpty(from))
                 {
+                    string[] words = from.Split('/');
+                    from = words[2] + '-' + words[1] + '-' + words[0];
                     parameters.Add("from", from);
                 }
                 if (!string.IsNullOrEmpty(to))
                 {
+                    string[] words = to.Split('/');
+                    to = words[2] + '-' + words[1] + '-' + words[0];
                     parameters.Add("to", to);
                 }
                 if (!string.IsNullOrEmpty(type))
@@ -168,10 +176,14 @@ namespace AntBoxFrontEnd.Services.Listing
 
                 if (!string.IsNullOrEmpty(from))
                 {
+                    string[] words = from.Split('/');
+                    from = words[2] + '-' + words[1] + '-' + words[0];
                     parameters.Add("from", from);
                 }
                 if (!string.IsNullOrEmpty(to))
                 {
+                    string[] words = to.Split('/');
+                    to = words[2] + '-' + words[1] + '-' + words[0];
                     parameters.Add("to", to);
                 }
                 if (!string.IsNullOrEmpty(status))
@@ -212,10 +224,14 @@ namespace AntBoxFrontEnd.Services.Listing
 
                 if (!string.IsNullOrEmpty(from))
                 {
+                    string[] words = from.Split('/');
+                    from = words[2] + '-' + words[1] + '-' + words[0];
                     parameters.Add("from", from);
                 }
                 if (!string.IsNullOrEmpty(to))
                 {
+                    string[] words = to.Split('/');
+                    to = words[2] + '-' + words[1] + '-' + words[0];
                     parameters.Add("to", to);
                 }
                 if (!string.IsNullOrEmpty(status))

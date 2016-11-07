@@ -37,10 +37,14 @@ namespace AntBoxFrontEnd.Services.CustomerService
                 }
                 if (!string.IsNullOrEmpty(fecha_solicitud))
                 {
+                    string[] words = fecha_solicitud.Split('/');
+                    fecha_solicitud = words[2] + '-' + words[1] + '-' + words[0];
                     parameters.Add("requested_at", fecha_solicitud);
                 }
                 if (!string.IsNullOrEmpty(fecha_entrega))
                 {
+                    string[] words = fecha_entrega.Split('/');
+                    fecha_entrega = words[2] + '-' + words[1] + '-' + words[0];
                     parameters.Add("delivery_at_date", fecha_entrega);
                 }
                 if (!string.IsNullOrEmpty(horario))
@@ -49,7 +53,7 @@ namespace AntBoxFrontEnd.Services.CustomerService
                 }
                 if (!string.IsNullOrEmpty(status))
                 {
-                    parameters.Add("delivery_at_time", status);
+                    parameters.Add("status", status);
                 }
                 if (!string.IsNullOrEmpty(antboxs))
                 {
@@ -93,10 +97,14 @@ namespace AntBoxFrontEnd.Services.CustomerService
                 }
                 if (!string.IsNullOrEmpty(fecha_solicitud))
                 {
+                    string[] words = fecha_solicitud.Split('/');
+                    fecha_solicitud = words[2] + '-' + words[1] + '-' + words[0];
                     parameters.Add("requested_at", fecha_solicitud);
                 }
                 if (!string.IsNullOrEmpty(fecha_recoleccion))
                 {
+                    string[] words = fecha_recoleccion.Split('/');
+                    fecha_recoleccion = words[2] + '-' + words[1] + '-' + words[0];
                     parameters.Add("pickup_at_date", fecha_recoleccion);
                 }
                 if (!string.IsNullOrEmpty(horario))
@@ -161,6 +169,8 @@ namespace AntBoxFrontEnd.Services.CustomerService
                 }
                 if (!string.IsNullOrEmpty(registro))
                 {
+                    string[] words = registro.Split('/');
+                    registro = words[2] + '-' + words[1] + '-' + words[0];
                     parameters.Add("registered_at", registro);
                 }
 

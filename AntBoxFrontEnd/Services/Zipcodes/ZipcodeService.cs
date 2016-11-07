@@ -149,6 +149,8 @@ namespace AntBoxFrontEnd.Services.Zipcodes
                 }
                 if (!string.IsNullOrEmpty(registro))
                 {
+                    string[] words = registro.Split('/');
+                    registro = words[2] + '-' + words[1] + '-' + words[0];
                     parameters.Add("registered_at", registro);
                 }
                 parameters.Add("enable_pagination", "true");
