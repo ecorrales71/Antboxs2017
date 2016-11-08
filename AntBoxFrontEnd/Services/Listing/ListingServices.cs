@@ -16,7 +16,7 @@ namespace AntBoxFrontEnd.Services.Listing
         {
         }
 
-        public virtual PaginationCustomerResponse ListCustomer(int? currentPage, string from, string to, string status, string idPagination = null, RequestOptions requestOptions = null)
+        public virtual PaginationCustomerResponse ListCustomer(int? currentPage, string from, string to, string status, string total = null, string idPagination = null, RequestOptions requestOptions = null)
         {
             try
             {
@@ -33,7 +33,10 @@ namespace AntBoxFrontEnd.Services.Listing
                     parameters.Add("pagination_id", idPagination);
                     parameters.Add("page_number", currentPage.ToString());
                 }
-
+                if (!string.IsNullOrEmpty(total))
+                {
+                    parameters.Add("items_per_page", total);
+                }
                 if (!string.IsNullOrEmpty(from))
                 {
                     string[] words = from.Split('/');
@@ -64,7 +67,7 @@ namespace AntBoxFrontEnd.Services.Listing
             }
         }
 
-        public virtual PaginationCustomerReport ListCustomerReport(int? currentPage, string from, string to, string status, string idPagination = null, RequestOptions requestOptions = null)
+        public virtual PaginationCustomerReport ListCustomerReport(int? currentPage, string from, string to, string status, string total = null, string idPagination = null, RequestOptions requestOptions = null)
         {
             try
             {
@@ -80,6 +83,10 @@ namespace AntBoxFrontEnd.Services.Listing
                 {
                     parameters.Add("pagination_id", idPagination);
                     parameters.Add("page_number", currentPage.ToString());
+                }
+                if (!string.IsNullOrEmpty(total))
+                {
+                    parameters.Add("items_per_page", total);
                 }
 
                 if (!string.IsNullOrEmpty(from))
@@ -108,7 +115,7 @@ namespace AntBoxFrontEnd.Services.Listing
             }
         }
 
-        public virtual PaginationPayments ListPayments(int? currentPage, string from, string to, string type, string idPagination = null, RequestOptions requestOptions = null)
+        public virtual PaginationPayments ListPayments(int? currentPage, string from, string to, string type, string total = null, string idPagination = null, RequestOptions requestOptions = null)
         {
             try
             {
@@ -124,6 +131,10 @@ namespace AntBoxFrontEnd.Services.Listing
                 {
                     parameters.Add("pagination_id", idPagination);
                     parameters.Add("page_number", currentPage.ToString());
+                }
+                if (!string.IsNullOrEmpty(total))
+                {
+                    parameters.Add("items_per_page", total);
                 }
 
                 if (!string.IsNullOrEmpty(from))
@@ -156,7 +167,7 @@ namespace AntBoxFrontEnd.Services.Listing
             }
         }
 
-        public virtual PaginationPickup ListPickups(int? currentPage, string from, string to, string status, string idPagination = null, RequestOptions requestOptions = null)
+        public virtual PaginationPickup ListPickups(int? currentPage, string from, string to, string status, string total = null, string idPagination = null, RequestOptions requestOptions = null)
         {
             try
             {
@@ -172,6 +183,10 @@ namespace AntBoxFrontEnd.Services.Listing
                 {
                     parameters.Add("pagination_id", idPagination);
                     parameters.Add("page_number", currentPage.ToString());
+                }
+                if (!string.IsNullOrEmpty(total))
+                {
+                    parameters.Add("items_per_page", total);
                 }
 
                 if (!string.IsNullOrEmpty(from))
@@ -204,7 +219,7 @@ namespace AntBoxFrontEnd.Services.Listing
             }
         }
 
-        public virtual PaginationDelivery ListDeliveries(int? currentPage, string from, string to, string status, string idPagination = null, RequestOptions requestOptions = null)
+        public virtual PaginationDelivery ListDeliveries(int? currentPage, string from, string to, string status, string total = null, string idPagination = null, RequestOptions requestOptions = null)
         {
             try
             {
@@ -220,6 +235,10 @@ namespace AntBoxFrontEnd.Services.Listing
                 {
                     parameters.Add("pagination_id", idPagination);
                     parameters.Add("page_number", currentPage.ToString());
+                }
+                if (!string.IsNullOrEmpty(total))
+                {
+                    parameters.Add("items_per_page", total);
                 }
 
                 if (!string.IsNullOrEmpty(from))

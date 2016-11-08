@@ -181,7 +181,7 @@ namespace AntBoxFrontEnd.Controllers
             PaginationCustomerResponse result = new PaginationCustomerResponse();
             try
             {
-                result = servicio.ListCustomer(page, from, to, status, idpagination);
+                result = servicio.ListCustomer(page, from, to, status, null, idpagination);
             }
             catch (Exception ex)
             {
@@ -215,7 +215,7 @@ namespace AntBoxFrontEnd.Controllers
             PaginationPayments result = new PaginationPayments();
             try
             {
-                result = servicio.ListPayments(page, from, to, type, idpagination);
+                result = servicio.ListPayments(page, from, to, type, null, idpagination);
             }
             catch (Exception ex)
             {
@@ -249,7 +249,7 @@ namespace AntBoxFrontEnd.Controllers
             PaginationDelivery result = new PaginationDelivery();
             try
             {
-                result = servicio.ListDeliveries(page, from, to, status, idpagination);
+                result = servicio.ListDeliveries(page, from, to, status, null, idpagination);
             }
             catch (Exception ex)
             {
@@ -283,7 +283,7 @@ namespace AntBoxFrontEnd.Controllers
             PaginationPickup result = new PaginationPickup();
             try
             {
-                result = servicio.ListPickups(page, from, to, status, idpagination);
+                result = servicio.ListPickups(page, from, to, status, null, idpagination);
             }
             catch (Exception ex)
             {
@@ -298,7 +298,7 @@ namespace AntBoxFrontEnd.Controllers
         }
 
         [HttpGet]
-        public FileContentResult ExportToExcelUsers(int? page, string from, string to, string status, string idpagination, string vp)
+        public FileContentResult ExportToExcelUsers(int? page, string from, string to, string status, string idpagination, string vp, string total)
         {
 
             var servicio = new ListingServices(ServiceConfiguration.GetApiKey());
@@ -312,7 +312,7 @@ namespace AntBoxFrontEnd.Controllers
             PaginationCustomerResponse result = new PaginationCustomerResponse();
             try
             {
-                result = servicio.ListCustomer(page, from, to, status, idpagination);
+                result = servicio.ListCustomer(page, from, to, status, total, idpagination);
             }
             catch (Exception ex)
             {
@@ -342,7 +342,7 @@ namespace AntBoxFrontEnd.Controllers
         }
 
         [HttpGet]
-        public FileContentResult ExportToExcelPayments(int? page, string from, string to, string status, string idpagination, string vp)
+        public FileContentResult ExportToExcelPayments(int? page, string from, string to, string status, string idpagination, string vp, string total)
         {
 
             var servicio = new ListingServices(ServiceConfiguration.GetApiKey());
@@ -356,7 +356,7 @@ namespace AntBoxFrontEnd.Controllers
             PaginationPayments result = new PaginationPayments();
             try
             {
-                result = servicio.ListPayments(page, from, to, status, idpagination);
+                result = servicio.ListPayments(page, from, to, status, total, idpagination);
             }
             catch (Exception ex)
             {
@@ -385,7 +385,7 @@ namespace AntBoxFrontEnd.Controllers
         }
 
         [HttpGet]
-        public FileContentResult ExportToExcelPickups(int? page, string from, string to, string status, string idpagination, string vp)
+        public FileContentResult ExportToExcelPickups(int? page, string from, string to, string status, string idpagination, string vp, string total)
         {
 
             var servicio = new ListingServices(ServiceConfiguration.GetApiKey());
@@ -399,7 +399,7 @@ namespace AntBoxFrontEnd.Controllers
             PaginationPickup result = new PaginationPickup();
             try
             {
-                result = servicio.ListPickups(page, from, to, status, idpagination);
+                result = servicio.ListPickups(page, from, to, status, total, idpagination);
             }
             catch (Exception ex)
             {
@@ -431,7 +431,7 @@ namespace AntBoxFrontEnd.Controllers
         }
 
         [HttpGet]
-        public FileContentResult ExportToExcelDeliveries(int? page, string from, string to, string status, string idpagination, string vp)
+        public FileContentResult ExportToExcelDeliveries(int? page, string from, string to, string status, string total, string idpagination, string vp)
         {
 
             var servicio = new ListingServices(ServiceConfiguration.GetApiKey());
@@ -445,7 +445,7 @@ namespace AntBoxFrontEnd.Controllers
             PaginationDelivery result = new PaginationDelivery();
             try
             {
-                result = servicio.ListDeliveries(page, from, to, status, idpagination);
+                result = servicio.ListDeliveries(page, from, to, status, total, idpagination);
             }
             catch (Exception ex)
             {

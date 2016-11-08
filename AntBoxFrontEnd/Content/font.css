@@ -25,7 +25,11 @@ p, a, address, input, textarea, .active-result, .contact-info, label, .table-res
     font-family: 'Nexa_Light', FontAwesome !important; 
 }
 
-
+.navbar-account span {
+    font-family: 'Nexa_Light', FontAwesome !important; 
+    font-size: 16px !important;
+    line-height: 20px;
+}
 
 .footer .pagetitle i, .footer  .pagetitle h1, .footer  .pagetitle span {
     color: #666 !important;
@@ -39,7 +43,7 @@ p, .page-header p {
 input {
     font-size: 100% !important;
 }
-/*----------------------------- Tamaño fuente de video-galería -----------------------------*/
+/*----------------------------- TamaÃ±o fuente de video-galerÃ­a -----------------------------*/
 .bannercontainer p {
     font-size: 1.2em !important;
     line-height: 1.5em !important;
@@ -74,7 +78,7 @@ p, address, .pagetitle .subtitle, .rs {
     color: #000 !important;
 }
 
-/*Color de fuente background image - Cómo funciona*/
+/*Color de fuente background image - CÃ³mo funciona*/
 .inverse p, .inverse q, .banner p {
     color: #fff !important;
 }
