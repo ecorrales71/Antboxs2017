@@ -937,7 +937,7 @@ function goto_rndf(reload)
         if (verifm) {
             if (data.success) {
                 if (verif == 1) {
-                    cadhtml = htmlFacturacion($("#aidentificacion").val(), $("#arazonsocial").val(), $("#areferencias").val(), data.objectaddress.Id);
+                    cadhtml = htmlFacturacion($("#aidentificacion").val(), $("#arazonsocial").val(), $("#arfc").val(), data.objectaddress.Id);
                     $(".content-datos-facturacion").append(cadhtml);
                 } else if (verif == 2) {
                     element.parent().find(".identificaciont").text($("#eidentificacion").val());
