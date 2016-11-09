@@ -7,8 +7,6 @@
     ViewData.Model.Delegaciones = new List<SelectListItem>() { new SelectListItem { Text = "Selecciona un código postal" } };
  }
 
-    
-
 <!-- WRAPPER -->
 <div class="wrapper">
     <!-- CONTENT -->
@@ -276,18 +274,18 @@
             url: '@Url.Action("CreateAddress", "Home")',            
            // data: $('#frmNewAddress').serialize(),
             data: JSON.stringify({
-                                    "Alias": $("#NAlias").val(),
-                                    "Street": $("#NStreet").val(),
-                                    "Internal_number": $("#NInternal_number").val(),
-                                    "External_number": $("#NExternal_number").val(),
-                                    "Zipcode": $("#NZipcode").val(),
-                                    "Delegation": $("#NcmbDelegations1").val(),
-                                    "Neighborhood": $("#NcmbNeighborhood1").val(),
-                                    "City": $("#NCity").val(),
-                                    "State": $("#NState").val(),
-                                    "Country": $("#NCountry").val(),
-                                    "References": $("#NReferences").val()               
-                                }),
+                "Alias": $("#NAlias").val(),
+                "Street": $("#NStreet").val(),
+                "Internal_number": $("#NInternal_number").val(),
+                "External_number": $("#NExternal_number").val(),
+                "Zipcode": $("#NZipcode").val(),
+                "Delegation": $("#NcmbDelegations1").val(),
+                "Neighborhood": $("#NcmbNeighborhood1").val(),
+                "City": $("#NCity").val(),
+                "State": $("#NState").val(),
+                "Country": $("#NCountry").val(),
+                "References": $("#NReferences").val()               
+            }),
             success: function (result) {
                 if (result.success == false) {
                     $('#frmNewAddress').prepend(

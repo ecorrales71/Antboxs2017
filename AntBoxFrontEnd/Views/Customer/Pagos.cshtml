@@ -297,7 +297,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="send-form-email">E-mail*</label>
-                                        <input type="email" name="Email" id="aemail">
+                                        <input type="email" name="Billing_email" id="aemail">
                                     </div>
                                 </div>
                                 <div class="col-sm-12 mt10">
@@ -474,7 +474,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="send-form-email">E-mail*</label>
-                                <input type="email" name="Email" id="eemail">
+                                <input type="email" name="Billing_email" id="eemail">
                             </div>
                         </div>
                         <div class="col-sm-12 mt10">
@@ -782,14 +782,19 @@ function goto_rndf(reload)
                 formelementg = ".form-afacturacion";
                 loaderg = "#loader1";
                 var formData = $(".form-afacturacion").serialize();
-                verifm = true;
-                http('@Url.Action("CreateBillingAddress", "BillingAddress")', formData, callbackSuccess, ".form-afacturacion", loaderg);
+                
+                if ($('.form-afacturacion').valid()) {
+                    verifm = true;
+                    http('@Url.Action("CreateBillingAddress", "BillingAddress")', formData, callbackSuccess, ".form-afacturacion", loaderg);
+                }
             } else {
                 formelementg = ".form-efacturacion";
                 var formData = $(".form-efacturacion").serialize();
                 loaderg = "#loader2";
                 verifm = true;
-                http('@Url.Action("UpdateBillingAddress", "BillingAddress")', formData, callbackSuccess, ".form-efacturacion", loaderg);
+                if ($('.form-efacturacion').valid()) {
+                    http('@Url.Action("UpdateBillingAddress", "BillingAddress")', formData, callbackSuccess, ".form-efacturacion", loaderg);
+                }
             }
         });
         $(document).on("click", ".open-editar-facturacion", function () {
@@ -812,6 +817,118 @@ function goto_rndf(reload)
             verifm = true;
             if (confirm("Esta seguro que desea eliminar la direccion de facturacion " + aliasg + "?")) {
                 http('@Url.Action("DeleteBillingAddress", "BillingAddress")', formData, callbackSuccess, ".form-efacturacion", "");
+            }
+        });
+        $('.form-afacturacion').validate({
+            rules: {
+                Alias: {
+                    required: true
+                },
+                "Bussiness_name": {
+                    required: true
+                },
+                Street: {
+                    required: true
+                },
+                "External_number": {
+                    required: true
+                },
+                "Rfc_id": {
+                    required: true
+                },
+                Zipcode: {
+                    required: true
+                },
+                Delegation: {
+                    required: true
+                },
+                Neighborhood: {
+                    required: true
+                },
+                City: {
+                    required: true
+                },
+                State: {
+                    required: true
+                },
+                Country: {
+                    required: true
+                },
+                "Billing_email": {
+                    required: true
+                },
+            },
+            highlight: function (element) {
+                $(element).closest('.form-group').addClass('has-error');
+            },
+            unhighlight: function (element) {
+                $(element).closest('.form-group').removeClass('has-error');
+            },
+            errorElement: 'span',
+            errorClass: 'help-block',
+            errorPlacement: function (error, element) {
+                if (element.parent('.input-group').length) {
+                    error.insertAfter(element.parent());
+                } else {
+                    error.insertAfter(element);
+                }
+            }
+        });
+
+        $('.form-efacturacion').validate({
+            rules: {
+                Alias: {
+                    required: true
+                },
+                "Bussiness_name": {
+                    required: true
+                },
+                Street: {
+                    required: true
+                },
+                "External_number": {
+                    required: true
+                },
+                "Rfc_id": {
+                    required: true
+                },
+                Zipcode: {
+                    required: true
+                },
+                Delegation: {
+                    required: true
+                },
+                Neighborhood: {
+                    required: true
+                },
+                City: {
+                    required: true
+                },
+                State: {
+                    required: true
+                },
+                Country: {
+                    required: true
+                },
+                "Billing_email": {
+                    required: true
+                },
+            },
+            highlight: function (element) {
+                $(element).closest('.form-group').addClass('has-error');
+            },
+            unhighlight: function (element) {
+                $(element).closest('.form-group').removeClass('has-error');
+            },
+            errorElement: 'span',
+            errorClass: 'help-block',
+            errorPlacement: function (error, element) {
+                colocaChosen();
+                if (element.parent('.input-group').length) {
+                    error.insertAfter(element.parent());
+                } else {
+                    error.insertAfter(element);
+                }
             }
         });
     });
@@ -843,7 +960,16 @@ function goto_rndf(reload)
                 $("#eidentificacion").val(aliasg);
                 $("#erazonsocial").val(data.Bussiness_name);
                 $("#erfc").val(data.Rfc_id);
-                $("#ereferencias").val(data.References);
+                $("#ecalle").val(data.Street);
+                $("#eext").val(data.External_number);
+                $("#eint").val(data.Internal_number);
+                $("#ezipcode").val(data.Zipcode);
+                $("#emunicipio").val(data.Delegation);
+                $("#ecolonia").val(data.Neighborhood);
+                $("#eciudad").val(data.City);
+                $("#eestado").val(data.State);
+                $("#epais").val(data.Country);
+                $("#eemail").val(data.Billing_email);
                 $("#editar_facturacion").modal("show");
             }
         }
