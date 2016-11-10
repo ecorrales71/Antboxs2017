@@ -142,6 +142,7 @@
 @section scripts {
     <script type="text/javascript">
         var discount = 0;
+        var verifcupon = false;
     $(function () {
 
         
@@ -316,19 +317,24 @@
             tax = (subtotal - discountsubtotal) * 0.16;
             total = subtotal - discountsubtotal + tax;
             discountObj.text(discountsubtotal.toFixed(2));
+            $(".porcentaje").text("(" + discount + "%)");
+            
         } else {
             if (cantTotal > 4 && cantTotal < 10) {
                 discountsubtotal = subtotal * (12 / 100);
                 tax = (subtotal - discountsubtotal) * 0.16;
                 total = subtotal - discountsubtotal + tax;
                 discountObj.text(discountsubtotal.toFixed(2));
+                $(".porcentaje").text("(12%)");
             } else if (cantTotal > 9) {
                 discountsubtotal = subtotal * (20 / 100);
                 tax = (subtotal - discountsubtotal) * 0.16;
                 total = subtotal - discountsubtotal + tax;
                 discountObj.text(discountsubtotal.toFixed(2));
+                $(".porcentaje").text("(20%)");
             } else {
                 discountObj.text("0");
+                $(".porcentaje").text("");
             }
         }
         var subtotaldeposit = totaldeposit / 1.16;

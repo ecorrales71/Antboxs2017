@@ -40,7 +40,7 @@ namespace AntBoxFrontEnd.Controllers
             }
         }
 
-        public JsonResult UpdateBillingAddress(string id, string alias, string razonsocial, string rfc, string referencias)
+        public JsonResult UpdateBillingAddress(string id, string alias, string razonsocial, string rfc, string referencias, string Street, string External_number, string Internal_number, string Zipcode, string Delegation, string Neighborhood, string City, string State, string Country, string Billing_email)
         {
             try
             {
@@ -55,6 +55,16 @@ namespace AntBoxFrontEnd.Controllers
                     Alias = alias,
                     Rfc_id = rfc,
                     References = referencias,
+                    Street = Street,
+                    External_number = External_number,
+                    Internal_number = Internal_number,
+                    Zipcode = Zipcode,
+                    Delegation = Delegation,
+                    Neighborhood = Neighborhood,
+                    City = City,
+                    State = State,
+                    Country = Country,
+                    Billing_email = Billing_email
                 };
 
                 var couponService = new BillingAddressService(ServiceConfiguration.GetApiKey());

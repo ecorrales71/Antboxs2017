@@ -45,10 +45,7 @@
                                         }
                                         <p>@item.Fecha</p>
                                         <button type="button" class="btn btn-primary btn-sm pull-right pb10 ml10" onclick="verRecibo()">Ver Recibo</button>
-                                        @if(item.verifinmonth(item.FechaObject))
-                                        {
-                                            <button type="button" class="btn btn-primary btn-sm btn_blue pull-right pb10 ml10" data-toggle="modal" data-target="#enviar_factura">Enviar Facturar</button>
-                                        }
+                                        <button type="button" class="btn btn-primary btn-sm btn_blue pull-right pb10 ml10 facturar_button">Facturar</button>
                                     </div>
                                 </div>
                             }
@@ -230,7 +227,7 @@
                     
                     <div class="row pl30 pr30">
                         <div id="loader1" role="alert" style="display: none;">
-                            <img src="@Url.Content("~/Images/preloader.gif")" />   Cargando antboxs... &nbsp;
+                            <img src="@Url.Content("~/Images/preloader.gif")" />   Agregando direccion de facturacion... &nbsp;
                         </div>
                         <div class="irow-xs pb30">
                             <h3>Regístra nuevos datos de facturación</h3>
@@ -331,30 +328,16 @@
                             <div class="form-group mb0">
                                 <label for="form-select">Datos de facturación</label>
                                 <select id="form-select">
-                                    <option value>- Selecciona una opción -</option>
-                                    <option value="EmpresaA">Empresa A</option>
-                                    <option value="EmpresaB">Empresa B</option>
+                                    <option value="">- Selecciona una opción -</option>
+                                    @if (Model.Address != null)
+                                    {
+                                        foreach (var item in Model.Address)
+                                        {
+                                            <option value="@item.Id">@item.Alias</option>
+                                        }
+                                    }
                                 </select>
-                                <a href="pagos.php#registrar_nuevos_datos_facturacion" onclick="goto_rndf();" class="pull-right">Nuevos datos de facturación</a>
-
-                            </div>
-                            <div class="form-group mb0">
-                                <label for="form-select">Dirección de facturación</label>
-                                <select id="form-select">
-                                    <option value>- Selecciona una opción -</option>
-                                    <option value="Casa">Casa</option>
-                                    <option value="Oficina">Oficina</option>
-                                    <option value="Facturación">Facturación</option>
-                                </select>
-                                <a href="direcciones.php#registrar_nueva_direccion" class="pull-right">Nueva dirección</a>
-                            </div>
-                            <div class="form-group">
-                                <label for="send-form-name">Email</label>
-                                <input type="email" name="name" id="send-form-name">
-                            </div>
-                            <div class="form-group">
-                                <label for="send-form-message">Descripción</label>
-                                <textarea name="message" id="send-form-message"></textarea>
+                                @*<a href="pagos.php#registrar_nuevos_datos_facturacion" onclick="goto_rndf();" class="pull-right">Nuevos datos de facturación</a>*@
                             </div>
                         </div>
                         <div class="col-sm-12 mt10">
@@ -930,6 +913,10 @@ function goto_rndf(reload)
                     error.insertAfter(element);
                 }
             }
+        });
+
+        $(".facturar_button").click(function () {
+            $("#facturar").modal("show");
         });
     });
     function callbackSuccess(data)

@@ -99,7 +99,7 @@
                 <table class="table">
                     <tbody>
                         <tr class="cart-subtotal">
-                            <th>Descuento</th>
+                            <th>Descuento <span class="porcentaje"></span></th>
                             <td style="color: #ba2025;">
                                 $ <span class="amount" id="Discount">@Html.DisplayTextFor(o => o.Discount)</span>
                             </td>
@@ -310,6 +310,7 @@
             tax = (subtotal - discountsubtotal) * 0.16;
             total = subtotal - discountsubtotal + tax;
             discountObj.text(discountsubtotal.toFixed(2));
+            $(".porcentaje").text("(" + discount + "%)");
         } else {
 
             if (cantTotal > 4 && cantTotal < 10)
@@ -318,14 +319,18 @@
                 tax = (subtotal - discountsubtotal) * 0.16;
                 total = subtotal - discountsubtotal + tax;
                 discountObj.text(discountsubtotal.toFixed(2));
+                $(".porcentaje").text("(12%)");
             } else if (cantTotal > 9)
             {
                 discountsubtotal = subtotal * (20 / 100);
                 tax = (subtotal - discountsubtotal) * 0.16;
                 total = subtotal - discountsubtotal + tax;
                 discountObj.text(discountsubtotal.toFixed(2));
+                $(".porcentaje").text("(20%)");
             } else {
                 discountObj.text("0");
+                $(".porcentaje").text("");
+
             }
         }
         var subtotaldeposit = totaldeposit / 1.16;
