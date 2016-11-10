@@ -327,7 +327,7 @@
                         <div class="col-sm-12">
                             <div class="form-group mb0">
                                 <label for="form-select">Datos de facturación</label>
-                                <select id="form-select">
+                                <select id="dir-facturacion">
                                     <option value="">- Selecciona una opción -</option>
                                     @if (Model.Address != null)
                                     {
@@ -926,6 +926,8 @@ function goto_rndf(reload)
                 if (verif == 1) {
                     cadhtml = htmlFacturacion($("#aidentificacion").val(), $("#arazonsocial").val(), $("#arfc").val(), data.objectaddress.Id);
                     $(".content-datos-facturacion").append(cadhtml);
+                    $("#dir-facturacion").append("<option value='" + data.objectaddress.Id + "'>" + $("#aidentificacion").val() + "</option>");
+                    $("#dir-facturacion").trigger("chosen:updated");
                 } else if (verif == 2) {
                     element.parent().find(".identificaciont").text($("#eidentificacion").val());
                     element.parent().find(".nombreempresat").text($("#erazonsocial").val());
@@ -983,12 +985,11 @@ function goto_rndf(reload)
         strVar += "        <button type=\"button\" class=\"btn btn-primary btn-sm pull-right btn_blue eliminar-facturacion\" >Eliminar<\/button>";
         strVar += "    <\/div>";
         strVar += "<\/div>";
-
         return strVar;
     }
     function limpiarCampos(formelement, loader) {
         $(loader).hide();
-        $(formelement).find('input:text, textarea').each(function () {
+        $(formelement).find('input, textarea').each(function () {
             $(this).val("");
         });
     }
