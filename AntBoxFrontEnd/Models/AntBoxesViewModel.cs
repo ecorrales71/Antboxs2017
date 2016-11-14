@@ -20,6 +20,9 @@ namespace AntBoxFrontEnd.Models
         public decimal OrderTotal { get; set; }
 
         [DataType(DataType.Currency)]
+        public decimal DiscountCoupon { get; set; }
+
+        [DataType(DataType.Currency)]
         public decimal Discount { get; set; }
 
         [DataType(DataType.Currency)]

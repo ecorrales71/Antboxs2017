@@ -102,6 +102,12 @@
                 <table class="table">
                     <tbody>
                         <tr class="cart-subtotal">
+                            <th>Descuento x Cupón <span class="porcentaje-cupon"></span></th>
+                            <td style="color: #ba2025;">
+                                $ <span class="amount" id="DiscountCupon">@Html.DisplayTextFor(o => o.DiscountCoupon)</span>
+                            </td>
+                        </tr>
+                        <tr class="cart-subtotal">
                             <th>Descuento <span class="porcentaje"></span></th>
                             <td style="color: #ba2025;">
                                 $ <span class="amount" id="Discount">@Html.DisplayTextFor(o => o.Discount)</span>

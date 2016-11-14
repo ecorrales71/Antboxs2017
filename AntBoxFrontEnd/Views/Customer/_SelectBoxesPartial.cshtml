@@ -99,6 +99,12 @@
                 <table class="table">
                     <tbody>
                         <tr class="cart-subtotal">
+                            <th>Descuento x Cupón <span class="porcentaje-cupon"></span></th>
+                            <td style="color: #ba2025;">
+                                $ <span class="amount" id="DiscountCupon">@Html.DisplayTextFor(o => o.DiscountCoupon)</span>
+                            </td>
+                        </tr>
+                        <tr class="cart-subtotal">
                             <th>Descuento <span class="porcentaje"></span></th>
                             <td style="color: #ba2025;">
                                 $ <span class="amount" id="Discount">@Html.DisplayTextFor(o => o.Discount)</span>
@@ -280,7 +286,8 @@
         var discountObj =  $( '#Discount' );
         var subtotalObj =  $( '#Subtotal' );
         var taxObj =  $( '#Tax' );
-        var totalObj =  $( '#Total' );
+        var totalObj = $('#Total');
+        var discountCuponObj = $('#DiscountCupon');
 
         var subDepositObj = $('.sub_deposit');
         var ivaDepositObj = $('.iva_deposit');
@@ -305,34 +312,35 @@
         var subtotal = total / 1.16;
         var taxdeposito = totaldeposit - (totaldeposit / 1.16);
         var discountsubtotal = 0;
+        total = subtotal;
+
         if (discount != 0) {
             discountsubtotal = subtotal * (discount / 100);
-            tax = (subtotal - discountsubtotal) * 0.16;
-            total = subtotal - discountsubtotal + tax;
-            discountObj.text(discountsubtotal.toFixed(2));
-            $(".porcentaje").text("(" + discount + "%)");
+            total = total - discountsubtotal;
+            discountCuponObj.text(discountsubtotal.toFixed(2));
+            $(".porcentaje-cupon").text("(" + discount + "%)");
         } else {
-
-            if (cantTotal > 4 && cantTotal < 10)
-            {
-                discountsubtotal = subtotal * (12 / 100);
-                tax = (subtotal - discountsubtotal) * 0.16;
-                total = subtotal - discountsubtotal + tax;
-                discountObj.text(discountsubtotal.toFixed(2));
-                $(".porcentaje").text("(12%)");
-            } else if (cantTotal > 9)
-            {
-                discountsubtotal = subtotal * (20 / 100);
-                tax = (subtotal - discountsubtotal) * 0.16;
-                total = subtotal - discountsubtotal + tax;
-                discountObj.text(discountsubtotal.toFixed(2));
-                $(".porcentaje").text("(20%)");
-            } else {
-                discountObj.text("0");
-                $(".porcentaje").text("");
-
-            }
+            discountCuponObj.text("0");
+            $(".porcentaje-cupon").text("");
         }
+
+        if (cantTotal > 4 && cantTotal < 10) {
+            discountsubtotal = subtotal * (12 / 100);
+            total = total - discountsubtotal;
+            discountObj.text(discountsubtotal.toFixed(2));
+            $(".porcentaje").text("(12%)");
+        } else if (cantTotal > 9) {
+            discountsubtotal = subtotal * (20 / 100);
+            total = total - discountsubtotal;
+            discountObj.text(discountsubtotal.toFixed(2));
+            $(".porcentaje").text("(20%)");
+        } else {
+            discountObj.text("0");
+            $(".porcentaje").text("");
+        }
+
+        tax = total * 0.16;
+        total = total + tax;
         var subtotaldeposit = totaldeposit / 1.16;
 
         subtotalObj.text(subtotal.toFixed(2));

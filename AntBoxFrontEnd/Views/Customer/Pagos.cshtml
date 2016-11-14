@@ -39,13 +39,17 @@
                                         </div>
                                     </div>
                                     <div class="media-body w100 pt10">
-                                        @if(item.Status == "completed")
+                                        @if (item.Status == "completed")
                                         {
                                             <h4>Pagado</h4>
                                         }
+                                        @if (item.Billed == true)
+                                        {
+                                            <div class="sticker_pay completed">Facturado</div>
+                                        }
                                         <p>@item.Fecha</p>
                                         <button type="button" class="btn btn-primary btn-sm pull-right pb10 ml10" onclick="verRecibo()">Ver Recibo</button>
-                                        <button type="button" class="btn btn-primary btn-sm btn_blue pull-right pb10 ml10 facturar_button">Facturar</button>
+                                        <button type="button" class="btn btn-primary btn-sm btn_blue pull-right pb10 ml10 facturar_button" data-id="@item.Id" data-billed="@item.Billed">Facturar</button>
                                     </div>
                                 </div>
                             }
@@ -322,12 +326,16 @@
                 <h6 class="modal-title">Facturar</h6>
             </div>
             <div class="modal-body">
-                <form action="../../php/email.php" method="post" class="contact-form form-solid" novalidate>
+                <form method="post" class="contact-form form-solid form-facturar" novalidate>
+                    <div id="loader-facturacion" role="alert" style="display: none;">
+                        <img src="@Url.Content("~/Images/preloader.gif")" />   Procesando facturacion... &nbsp;
+                    </div>
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group mb0">
+                                <input type="hidden" name="idpago" id="idpago" value="" />
                                 <label for="form-select">Datos de facturación</label>
-                                <select id="dir-facturacion">
+                                <select name="direccion">
                                     <option value="">- Selecciona una opción -</option>
                                     @if (Model.Address != null)
                                     {
@@ -341,7 +349,7 @@
                             </div>
                         </div>
                         <div class="col-sm-12 mt10">
-                            <input type="submit" class="btn btn-primary btn-wide pull-right" value="Facturar">
+                            <input type="submit" class="btn btn-primary btn-wide pull-right facturar-button-form" value="Facturar">
                             <p class="succs-msg">Мensaje enviado</p>
                         </div>
                     </div>
@@ -915,8 +923,50 @@ function goto_rndf(reload)
             }
         });
 
+        var elementButton = null;
+
         $(".facturar_button").click(function () {
+            elementButton = $(this);
+            var id = $(this).attr("data-id");
+            $("#idpago").val(id);
             $("#facturar").modal("show");
+        });
+
+        $('.facturar-button-form').click(function (event) {
+            
+            event.preventDefault();
+            formelementg = ".form-facturar";
+            formdata = $(formelementg).serialize();
+
+            var enlace = '@Url.Action("CreateBilling", "Billing")';
+            if ($(this).attr("data-billed") == "true") {
+                enlace = '@Url.Action("UpdateBilling", "Billing")';
+            }
+
+            console.log(enlace);
+
+            $("#loader-facturacion").show();
+
+            $.ajax({
+                type: 'POST',
+                url: enlace,
+                data: formdata,
+                success: function (data) {
+                    if (data.success)
+                    {
+                        if (!elementButton.parent().find(".sticker_pay").length)
+                        {
+                            elementButton.parent().find("h4").after('<div class="sticker_pay completed">Facturado</div>');
+                        }
+                        $("#facturar").modal("hide");
+                    }
+                    $('#loader-facturacion').hide();
+                },
+                error: function (error) {
+                    console.log(error);
+                    $('#loader-facturacion').hide();
+                }
+            })
         });
     });
     function callbackSuccess(data)

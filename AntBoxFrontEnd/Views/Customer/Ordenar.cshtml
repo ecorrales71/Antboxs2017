@@ -477,24 +477,35 @@
                 var couponcode = $("#coupon_code").val();
                 formData = {};
                 formData.cupon = couponcode;
-                $.ajax({
-                    type: 'POST',
-                    url: '@Url.Action("GetDisccount", "Precios")',
-                    // data: $('#frmNewAddress').serialize(),
-                    data: formData,
-                    success: function (d) {
-                        if (d.success) {
-                            discount = d.discount;
-                            recalculateTotal();
-                        } else {
+                if ($(this).val() == "Aplicar cupón") {
+                    $.ajax({
+                        type: 'POST',
+                        url: '@Url.Action("GetDisccount", "Precios")',
+                        // data: $('#frmNewAddress').serialize(),
+                        data: formData,
+                        success: function (d) {
+                            if (d.success) {
+                                $(".aplicar-cupon").val("Quitar cupón");
+                                discount = d.discount;
+                                recalculateTotal();
+                            } else {
+                                $(".aplicar-cupon").val("Aplicar cupón");
+                                discount = 0;
+                                recalculateTotal();
+                            }
+                        }, error: function (e) {
+                            $(".aplicar-cupon").val("Aplicar cupón");
                             discount = 0;
                             recalculateTotal();
                         }
-                    }, error: function (e) {
-                        discount = 0;
-                        recalculateTotal();
-                    }
-                });
+                    });
+                } else if ($(this).val() == "Quitar cupón") {
+                    $("#coupon_code").val("");
+                    discount = 0;
+                    recalculateTotal();
+                    $(".aplicar-cupon").val("Aplicar cupón");
+                }
+
             })
         })
     </script>
