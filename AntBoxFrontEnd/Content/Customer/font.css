@@ -16,7 +16,7 @@
          url('../fonts/Nexa_Bold-webfont.svg#webfont') format('svg');
 }
 
-header, h1, h2, h3, h4, h5, h6, div, nav, .widget_tag_cloud .tagcloud a, .btn {
+header, h1, h2, h3, h4, h5, h6, div, nav, .widget_tag_cloud .tagcloud a, .btn, .table-responsive table th, .nav-tabs li a, .inicio .mask-light.mask-info p {
     /*font-family: 'Nexa_Bold', FontAwesome !important;*/
     font-family: 'Lato', sans-serif !important;
 }
@@ -61,6 +61,16 @@ p, address, .rs {
     font-size: 115% !important;
 }
 
+.font_recibo_notas {
+    font-size: 100% !important;
+    font-style: italic;
+    color: #ba2025 !important;
+}
+.firma_cliente {
+    font-size: 80% !important;
+    color: black !important;
+    font-style: italic !important;
+}
 /*.font-open-sans
 {
     font-family: 'Open Sans', sans-serif;

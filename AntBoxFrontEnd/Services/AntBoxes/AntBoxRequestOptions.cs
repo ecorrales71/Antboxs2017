@@ -21,6 +21,7 @@ namespace AntBoxFrontEnd.Services.AntBoxes
         [JsonProperty("antboxs")]
         public string[] Antboxs { get; set; }
 
-
+        [JsonProperty("coupon_id")]
+        public string Coupon_id { get; set; }
     }
 }

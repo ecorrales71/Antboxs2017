@@ -58,6 +58,11 @@ namespace AntBoxFrontEnd.Controllers
             return View(model);
         }
 
+        public ActionResult Cuenta()
+        {
+            return View(Session["helpdesk"]);
+        }
+
         public ActionResult Antboxs(string name, string pedido, string codigo, string registro, string recoleccion, string entrega, string status, int? page, string idpagination, string vp)
         {
             var servicio = new CSServices(ServiceConfiguration.GetApiKey());

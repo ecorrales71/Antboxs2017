@@ -86,6 +86,8 @@ namespace AntBoxFrontEnd.Infrastructure
 
         public static String Billing { get { return BaseUrl + "/billing"; } }
 
+        public static String Rules { get { return BaseUrl + "/rules"; } }
+
         public static String CustomerBillingAddressSearch { get { return BaseUrl + "/address-billing/search"; } } 
 
         public static String ValidateAddress { get { return BaseUrl + "/customer-address/check"; } }

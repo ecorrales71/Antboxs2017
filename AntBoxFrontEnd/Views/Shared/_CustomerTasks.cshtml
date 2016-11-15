@@ -16,7 +16,7 @@
                         }
                     </div>
                 </div>
-                <div class="media-body">
+                <div class="media-body w100">
                     @if (item.Type == "pickup")
                     {
                         <h4>Recolección</h4>
@@ -36,6 +36,15 @@
                     {
                         <div class="sticker_mov canceled">Cancelado</div>
                     }
+                    @if (item.Type == "pickup")
+                    {
+                        <button type="button" class="btn btn-primary btn-sm pull-right ml10" data-toggle="modal" data-target="#recibo_recoleccion">Ver Recibo</button>
+                    }
+                    else
+                    {
+                        <button type="button" class="btn btn-primary btn-sm pull-right ml10" data-toggle="modal" data-target="#recibo_entrega">Ver Recibo</button>
+                    }
+                    <button type="button" class="btn btn-primary btn-sm pull-right btn_blue solicitar" data-toggle="modal" data-folio="@Html.DisplayFor(modelItem => item.Folio)" data-id="@Html.DisplayFor(modelItem => item.Id)">Reagendar</button>
                 </div>
             </div>
 

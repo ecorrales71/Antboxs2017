@@ -1,4 +1,5 @@
 ﻿using AntBoxFrontEnd.Services.Payments;
+using AntBoxFrontEnd.Services.Rules;
 using AntBoxFrontEnd.Services.Tasks;
 using System;
 using System.Collections.Generic;
@@ -49,6 +50,7 @@ namespace AntBoxFrontEnd.Models
 
         public List<CardObject> Cards { get; set; }
 
+        public RulesContentResponse Rules { get; set; }
 
         public AntBoxesViewModel Boxes { get; set; }
 

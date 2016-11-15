@@ -259,17 +259,35 @@ ul.pagination .prev, ul.pagination .next {
 }
 /*----------------------------------- MOVIMIENTOS -------------------------------------*/
 
+.img_firma_cliente {
+    width: 200px;
+    text-align: center !important;
+}
+
+.a_center {
+    text-align: center !important;
+}
+.linea_recibo {
+    margin-top: 25px !important;
+    margin-bottom: 25px !important;
+}
+
+.w100 {
+    width: 100%;
+}
 .sticker_mov{
     font-size: 14px;
 
     position: absolute;
     z-index: 2;
-    top: 15px;
-    right: 15px;
+    /*top: 23px;
+    right: 30px;*/
+    top: 0px;
+    left: 0px;
 
     display: block;
 
-    padding: 5px 10px 5px 10px;
+    padding: 3px 10px 3px 10px;
 
     text-align: center;
 
@@ -393,7 +411,7 @@ ul.pagination .prev, ul.pagination .next {
 }
 
 .modal-md .modal-body-inside, .modal-lg .modal-body-inside {
-    padding: 20px 10px 20px 10px !important; 
+    padding: 20px 20px 20px 20px !important; 
 }
 
 .link_red {

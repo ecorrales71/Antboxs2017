@@ -247,7 +247,8 @@
             var count = 0;
 
             $("#loader-solicitar").show();
-            $(".select-antbox:checked").each(function () {
+            console.log($(".select-antbox:checked").length);
+            $(".select-antbox-check:checked").each(function () {
                 var folio = $(this).attr("data-folio");
                 checkeds.push(folio);
 
@@ -260,18 +261,24 @@
                     folioEntrega: folio
                 };
 
+                console.log(formData);
+
                 $.ajax({
                     type: 'POST',
                     url: '@Url.Action("SolicitarAntbox", "AntBox")',
                     data: formData,
                     success: function (result) {
+                        console.log(result);
                         if (result.success == true) {
                             //antbox editado
                             succesed.push(1);
+                            console.log('result succes');
                         } else {
                             succesed.push(0);
+                            console.log('result false');
                         }
                     }, error: function (dataerror) {
+                        console.log(dataerror);
                         succesed.push(0);
                     }, complete: function () {
                         count++;

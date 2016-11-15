@@ -127,8 +127,16 @@
                     @{ 
                         Html.RenderPartial("_BoxesPartialView", Model.Boxes);
                     }
-
-                    
+                    <input type="hidden" class="ivav" value="@Model.Rules.Iva" />
+                    @foreach (var item in Model.Rules.Rules)
+                    {
+                        
+                        <ul class="rules" style="display: none;">
+                            <li class="min">@item.Min</li>
+                            <li class="max">@item.Max</li>
+                            <li class="discount">@item.Discount</li>
+                        </ul>
+                    }
             </form>
         </div>
         <!-- /.container -->
@@ -143,9 +151,21 @@
     <script type="text/javascript">
         var discount = 0;
         var verifcupon = false;
+
+        var rules = [];
+
     $(function () {
 
-        
+
+        $(".rules").each(function () {
+            rules.push({
+                min: parseInt($(this).find(".min").text()),
+                max: ($(this).find(".max").text() == "null") ? -1 : parseInt($(this).find(".max").text()),
+                discount: parseInt($(this).find(".discount").text()),
+            });
+        });
+
+        $(".rules").remove();
 
         $('#quantityvalue').keypress(function (e) {
             var txt = String.fromCharCode(e.which);
@@ -169,37 +189,36 @@
         $(".aplicar-cupon").click(function () {
             var couponcode = $("#coupon_code").val();
             formData = {};
+            formData.version = 2;
             formData.cupon = couponcode;
-            if ($(this).val() == "Aplicar cupón")
+            if ($(this).val() == "Quitar cupón")
             {
-                $.ajax({
-                    type: 'POST',
-                    url: '@Url.Action("GetDisccount", "Precios")',
-                    // data: $('#frmNewAddress').serialize(),
-                    data: formData,
-                    success: function (d) {
-                        if (d.success) {
-                            $(".aplicar-cupon").val("Quitar cupón");
-                            discount = d.discount;
-                            recalculateTotal();
-                        } else {
-                            $(".aplicar-cupon").val("Aplicar cupón");
-                            discount = 0;
-                            recalculateTotal();
-                        }
-                    }, error: function (e) {
-                        discount = 0;
+                formData.cupon = "";
+                $("#coupon_code").val("");
+            }
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("GetDisccount", "Precios")',
+                // data: $('#frmNewAddress').serialize(),
+                data: formData,
+                success: function (d) {
+                    if (d.success) {
+                        $(".aplicar-cupon").val("Quitar cupón");
+                        discount = d.discount;
                         recalculateTotal();
+                    } else {
                         $(".aplicar-cupon").val("Aplicar cupón");
                         discount = 0;
+                        recalculateTotal();
                     }
-                });
-            } else if ($(this).val() == "Quitar cupón") {
-                $("#coupon_code").val("");
-                discount = 0;
-                recalculateTotal();
-                $(".aplicar-cupon").val("Aplicar cupón");
-            }
+                }, error: function (e) {
+                    discount = 0;
+                    recalculateTotal();
+                    $(".aplicar-cupon").val("Aplicar cupón");
+                    discount = 0;
+                }
+            });
+            
         })
     })
 
@@ -287,12 +306,6 @@
         });
     }
 
-
-    function ActualizaCajas() {
-
-    }
-
-
     function recalculateTotal()
     {
         var discountObj = $('#Discount');
@@ -336,19 +349,25 @@
             $(".porcentaje-cupon").text("");
         }
 
-        if (cantTotal > 4 && cantTotal < 10) {
-            discountsubtotal = subtotal * (12 / 100);
-            total = total - discountsubtotal;
-            discountObj.text(discountsubtotal.toFixed(2));
-            $(".porcentaje").text("(12%)");
-        } else if (cantTotal > 9) {
-            discountsubtotal = subtotal * (20 / 100);
-            total = subtotal - discountsubtotal;
-            discountObj.text(discountsubtotal.toFixed(2));
-            $(".porcentaje").text("(20%)");
-        } else {
-            discountObj.text("0");
-            $(".porcentaje").text("");
+        for (var i = 0; i < rules.length; i++) {
+
+            var r = rules[i];
+            var verifNull = ((r.max == -1) && cantTotal >= r.min);
+
+            if ((cantTotal >= r.min && cantTotal <= r.max)||(verifNull))
+            {
+                if (r.discount > 0) {
+                    discountsubtotal = subtotal * (r.discount / 100);
+                    total = total - discountsubtotal;
+                    discountObj.text(discountsubtotal.toFixed(2));
+                    $(".porcentaje").text("(" + r.discount + "%)");
+                } else {
+                    discountObj.text("0");
+                    $(".porcentaje").text("");
+                }
+            }
+            
+            
         }
 
         tax = total * 0.16;

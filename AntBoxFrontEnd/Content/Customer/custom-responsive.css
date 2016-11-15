@@ -37,6 +37,9 @@
         float: left;
         margin-left: 20px;
     }
+    .sapi {
+    	text-align: right !important;
+    }
 
 }
 
@@ -64,6 +67,9 @@
 		padding-right: 15px;
 		clear: left;
 	}*/
+	    .sm_center {
+    	text-align: center !important;
+    }
 }
 
 @media screen and (max-width: 767px){

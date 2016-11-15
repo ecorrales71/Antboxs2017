@@ -4,6 +4,7 @@ using AntBoxFrontEnd.Services.Code;
 using AntBoxFrontEnd.Services.Customer;
 using AntBoxFrontEnd.Services.CustomerService;
 using AntBoxFrontEnd.Services.Payments;
+using AntBoxFrontEnd.Services.Rules;
 using AntBoxFrontEnd.Services.User;
 using Newtonsoft.Json;
 using System;

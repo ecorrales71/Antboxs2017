@@ -17,6 +17,7 @@ using System.Web.Configuration;
 using AntBoxFrontEnd.Services.Tasks;
 using AntBoxFrontEnd.Services.AntBoxes;
 using AntBoxFrontEnd.Services.BillingAddress;
+using AntBoxFrontEnd.Services.Rules;
 
 namespace AntBoxFrontEnd.Controllers
 {
@@ -157,8 +158,9 @@ namespace AntBoxFrontEnd.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
-            var ps = new PaymentService(ServiceConfiguration.GetApiKey());
-            var service = new PaymentService(ServiceConfiguration.GetApiKey());
+            var apikey = ServiceConfiguration.GetApiKey();
+            var ps = new PaymentService(apikey);
+            var service = new PaymentService(apikey);
             PagosModel model = new PagosModel();
 
             List<CardObject> result = new List<CardObject>();
@@ -169,8 +171,9 @@ namespace AntBoxFrontEnd.Controllers
                 result = ps.ListPaymetCards(((CustomerResponse)Session["customer"]).Id);
                 resultPayments = service.ListCharges(((CustomerResponse)Session["customer"]).Id);
 
-                var servicio = new BillingAddressService(ServiceConfiguration.GetApiKey());
+                var servicio = new BillingAddressService(apikey);
                 resultaddress = servicio.ListBillingAddresses(((CustomerResponse)Session["customer"]).Id, 1);
+
             }
             catch (Exception ex)
             {
@@ -260,7 +263,7 @@ namespace AntBoxFrontEnd.Controllers
         public ActionResult Ordenar()
         {
             var order = GetNewOrder();
-
+            Session["couponidadmin"] = null;
             return View(order);
         }
 
@@ -275,10 +278,10 @@ namespace AntBoxFrontEnd.Controllers
                 }
 
                 CustomerResponse customer = (CustomerResponse)Session["customer"];
-
+                var apikey = ServiceConfiguration.GetApiKey();
                 //boxes
-                var servCajas = new BoxesService(ServiceConfiguration.GetApiKey());
-
+                var servCajas = new BoxesService(apikey);
+                var serviceRules = new RulesService(apikey);
                 var cajas = new List<BoxesResponse>();
 
                 cajas= servCajas.ListBoxes(StatusBoxes.Active);
@@ -343,9 +346,8 @@ namespace AntBoxFrontEnd.Controllers
                 BoxesModel.Subtotal = 0;
                 BoxesModel.Total = 0;
 
-
                 orderModel.Boxes = BoxesModel;
-
+                orderModel.Rules = serviceRules.ListRules();
                 //addresss
                 var addressService = new AddressService(ServiceConfiguration.GetApiKey());
 
@@ -607,13 +609,21 @@ namespace AntBoxFrontEnd.Controllers
                 i++;
             }
 
+            string coupon = null;
+            if (Session["couponidhome"] != null)
+            {
+                coupon = Session["couponidhome"].ToString();
+            }
+
             var order = new AntBoxRequestOptions()
             {
                 Checkouts = checkouts,
 
                 Customer_id = ((CustomerResponse)Session["customer"]).Id,
 
-                Worker_id = workerid
+                Worker_id = workerid,
+
+                Coupon_id = coupon
             };
 
             var serv = new AntBoxesServices(ServiceConfiguration.GetApiKey());

@@ -8,6 +8,7 @@ using AntBoxFrontEnd.Services.Coupon;
 using AntBoxFrontEnd.Services.Customer;
 using AntBoxFrontEnd.Services.Login;
 using AntBoxFrontEnd.Services.Payments;
+using AntBoxFrontEnd.Services.Rules;
 using AntBoxFrontEnd.Services.Tasks;
 using AutoMapper;
 using System;
@@ -29,8 +30,8 @@ namespace AntBoxFrontEnd.Controllers
         public ActionResult Index()
         {
             
-             var   model = GetNewOrder();
-
+            var   model = GetNewOrder();
+            Session["couponidhome"] = null;
 
             return View("Precios",model);
         }
@@ -50,7 +51,12 @@ namespace AntBoxFrontEnd.Controllers
                 //CustomerResponse customer = (CustomerResponse)Session["customer"];
 
                 //boxes
-                var servCajas = new BoxesService(ServiceConfiguration.GetApiKey());
+
+                var apikey = ServiceConfiguration.GetApiKey();
+
+                var servCajas = new BoxesService(apikey);
+
+                var servRules = new RulesService(apikey);
 
                 var cajas = new List<BoxesResponse>();
 
@@ -101,27 +107,24 @@ namespace AntBoxFrontEnd.Controllers
                     });
                 }
 
-
-
                 //order
                 var orderModel = new OrderViewModel();
                 var BoxesModel = new AntBoxesViewModel();
 
                 BoxesModel.Order = lineOrders;
                 BoxesModel.ActiveAntBoxes = cajasDTO;
-
-
+                
                 BoxesModel.Discount = 0;
                 BoxesModel.Iva = Convert.ToDecimal(WebConfigurationManager.AppSettings["Iva"]);
                 BoxesModel.OrderTotal = 0;
                 BoxesModel.Subtotal = 0;
                 BoxesModel.Total = 0;
 
-
                 orderModel.Boxes = BoxesModel;
+                orderModel.Rules = servRules.ListRules();
 
                 //addresss
-                var addressService = new AddressService(ServiceConfiguration.GetApiKey());
+                var addressService = new AddressService(apikey);
 
                 //var result = addressService.ListAddresses(customer.Id);
 
@@ -148,7 +151,7 @@ namespace AntBoxFrontEnd.Controllers
 
                 //CARDS
 
-                var ps = new PaymentService(ServiceConfiguration.GetApiKey());
+                var ps = new PaymentService(apikey);
 
                 //List<CardObject> cards = ps.ListPaymetCards(customer.Id);
 
@@ -375,13 +378,22 @@ namespace AntBoxFrontEnd.Controllers
                 i++;
             }
 
+            string coupon = null;
+            if (Session["couponidhome"] != null)
+            {
+                coupon = Session["couponidhome"].ToString();
+            }
+
+
             var order = new AntBoxRequestOptions()
             {
                 Checkouts = checkouts,
 
                 Customer_id = ((CustomerResponse)Session["customer"]).Id,
 
-                Worker_id = workerid
+                Worker_id = workerid,
+
+                Coupon_id = coupon
             };
 
             var serv = new AntBoxesServices(ServiceConfiguration.GetApiKey());
@@ -651,12 +663,19 @@ namespace AntBoxFrontEnd.Controllers
             return Json(new { success = false }, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult GetDisccount(string cupon)
+        public JsonResult GetDisccount(string cupon, string version)
         {
+            string couponname = "couponidhome";
+            if (version == "1")
+            {
+                couponname = "couponidadmin";
+            }
 
             var servicio = new CouponService(ServiceConfiguration.GetApiKey());
             List<CouponResponse> result = new List<CouponResponse>();
             result = servicio.SearchCouponName(cupon);
+
+
             
             if (result != null)
             {
@@ -666,16 +685,20 @@ namespace AntBoxFrontEnd.Controllers
 
                 if (today.Ticks >= dateini.Ticks && today.Ticks <= datefin.Ticks)
                 {
+                    Session[couponname] = cupon;
                     return Json(new { success = true, resposeText = "aplica", discount = result[0].Discount }, JsonRequestBehavior.AllowGet);
+                    
                 }
                 else
                 {
+                    Session[couponname] = null;
                     return Json(new { success = false, resposeText = "no aplica" }, JsonRequestBehavior.AllowGet);
                 }
 
             }
             else
             {
+                Session[couponname] = null;
                 return Json(new { success = false, resposeText = "no existe" }, JsonRequestBehavior.AllowGet);
             }
 

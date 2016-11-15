@@ -10,6 +10,7 @@ namespace AntBoxFrontEnd.Services.Tasks
 {
     public class PaginationCustomerTask
     {
+        public List<AntBoxAddressViewModel> Addresses { get; set; }
         public PaginationCustomerTask()
         {
             Tasks = new List<TaskResponse>(); 

@@ -1,0 +1,137 @@
+﻿@model AntBoxFrontEnd.Services.Customer.CustomerResponse
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="wrapper">
+    <!-- CONTENT -->
+    <div class="content cuenta">
+        <!-- CONTAINER -->
+        <div class="container">
+            <div class="row irow-xs">
+                <div class="col-sm-12">
+                    <h1>Cuenta</h1>
+                    <div class="heading-divider"></div>
+                </div>
+            </div>
+        </div>
+        <!-- /.container -->
+        <!-- CONTAINER -->
+        <div class="container mt30">
+            <div class="row">
+                <div class="col-md-3 pr0 no_portrait">
+                    @Html.Partial("_LeftMenu")
+                </div>
+                <div class="col-md-9">
+                    <div class="row pl30 pr30">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="irow-xs pb30">
+                                    <h3>Datos personales</h3>
+                                    <p>Completa los campos con tus datos personales y mantenlos actualizados. Recuerda guardar tu contraseña en un lugar seguro.</p>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 text-center">
+                                <a href="">
+                                    <img class="img-lg" src="@Url.Content("~/Images/cuenta.png")" width="200" height="100" alt="">
+                                </a>
+                            </div>
+                        </div>
+                        <div class="row pl30 pr30">
+                            <form action="" method="post" class="contact-form form-solid" novalidate id="accountForm">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label for="send-form-name">Nombre(s)*</label>
+                                            <input type="text" name="name" id="name" value="@Model.Name">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="send-form-email">Apellido Paterno*</label>
+                                            <input type="text" name="lastname" id="lastname" value="@Model.LastName">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="send-form-email">Apellido Materno*</label>
+                                            <input type="text" name="lastname2" id="lastname2" value="@Model.Lastname2">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="send-form-email">E-mail*</label>
+                                            <label name="mail" id="mail" >@Model.Email</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label for="send-form-email">Teléfono*</label>
+                                            <input type="text" name="phone" id="phone" value="@Model.Phone">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="send-form-name">Celular</label>
+                                            <input type="text" name="cellphone" id="cellphone" value="@Model.Mobile_phone">
+                                        </div>
+                                        @*<div class="form-group">
+                                                <label for="send-form-email">Contraseña*</label>
+                                                <input type="password" name="password" id="password" value="@Model.Password">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="send-form-email">Confirmar Contraseña*</label>
+                                                <input type="password" name="password2" id="password2">
+                                            </div>*@
+                                    </div>
+                                    <div class="col-sm-12 mt10">
+                                        <input type="button" class="btn btn-primary btn-wide pull-right mt10" value="Guardar" id="btnUpdate">
+                                        <p class="succs-msg">Мensaje enviado</p>
+                                    </div>
+                                </div>
+                            </form>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <hr class="hr-dashed mt0 mb30" />
+                                </div>
+                            </div>
+                            @*<button type="button" class="btn btn-primary btn-sm pull-right btn_blue pull-left" onclick="eliminarCuenta()">Eliminar Cuenta</button>*@
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.container -->
+    </div>
+    <!-- /.content -->
+
+</div>
+<!-- /.wrapper -->
+
+
+
+
+@section scripts {
+    <script>
+        $('#btnUpdate').click(function () {
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("AntBoxUpdateAccountAjax", "Account")',
+                data: $('#accountForm').serialize(),
+                success: function (result) {
+                    if (result.success == false) {
+                        $('#newCardResult').prepend(
+                        '<div class="alert alert-error alert-dismissible fade in" id="GetCardsError"> <button type="button" class="close" data-dismiss="alert"> <i class="fa fa-times"></i></button><p><i class="fa fa-exclamation-triangle"></i>' + 'ERROR al traer los datos de las tarjetas, intente refrescar la pagina.</p></div>');
+                        window.setTimeout(function ()
+                        { $("#GetCardsError").alert('close'); }, 10000);
+
+                    }
+                    else {
+                        var newDoc = document.open("text/html", "replace");
+                        newDoc.write(result);
+                        newDoc.close();
+                    }
+                },
+                error: function (emp) {
+                    $('#newCardResult').prepend(
+                    '<div class="alert alert-error alert-dismissible fade in" id="GetCardsError"> <button type="button" class="close" data-dismiss="alert"> <i class="fa fa-times"></i></button><p><i class="fa fa-exclamation-triangle"></i>' + '[ERROR ' + response.status + '] al traer los datos de las tarjetas, intente refrescar la pagina.</p></div>');
+                    window.setTimeout(function ()
+                    { $("#GetCardsError").alert('close'); }, 10000);
+
+                }
+            });
+        })
+    </script>
+}

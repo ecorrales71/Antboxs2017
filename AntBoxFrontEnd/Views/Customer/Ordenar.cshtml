@@ -59,7 +59,16 @@
                                     </div>
 
                                   @Html.Partial("_SelectBoxesPartial", Model.Boxes)
+                                    <input type="hidden" class="ivav" value="@Model.Rules.Iva" />
+                                    @foreach (var item in Model.Rules.Rules)
+                                    {
 
+                                        <ul class="rules" style="display: none;">
+                                            <li class="min">@item.Min</li>
+                                            <li class="max">@item.Max</li>
+                                            <li class="discount">@item.Discount</li>
+                                        </ul>
+                                    }
                                     <div class="row">
                                         <div class="col-sm-12">
                                             <hr class="hr-dashed mt0 mb40" />
@@ -464,8 +473,17 @@
                 });
             }
         });
-
+        var rules = [];
         $(function () {
+            $(".rules").each(function () {
+                rules.push({
+                    min: parseInt($(this).find(".min").text()),
+                    max: ($(this).find(".max").text() == "null") ? -1 : parseInt($(this).find(".max").text()),
+                    discount: parseInt($(this).find(".discount").text()),
+                });
+            });
+
+            $(".rules").remove();
             $('.checkdisplay').change(function () {
                 if (this.checked)
                     $('.todisplay').fadeIn('slow');
@@ -476,35 +494,33 @@
             $(".aplicar-cupon").click(function () {
                 var couponcode = $("#coupon_code").val();
                 formData = {};
+                formData.version = 1;
                 formData.cupon = couponcode;
-                if ($(this).val() == "Aplicar cupón") {
-                    $.ajax({
-                        type: 'POST',
-                        url: '@Url.Action("GetDisccount", "Precios")',
-                        // data: $('#frmNewAddress').serialize(),
-                        data: formData,
-                        success: function (d) {
-                            if (d.success) {
-                                $(".aplicar-cupon").val("Quitar cupón");
-                                discount = d.discount;
-                                recalculateTotal();
-                            } else {
-                                $(".aplicar-cupon").val("Aplicar cupón");
-                                discount = 0;
-                                recalculateTotal();
-                            }
-                        }, error: function (e) {
+                if ($(this).val() == "Quitar cupón") {
+                    formData.cupon = "";
+                    $("#coupon_code").val("");
+                }
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("GetDisccount", "Precios")',
+                    // data: $('#frmNewAddress').serialize(),
+                    data: formData,
+                    success: function (d) {
+                        if (d.success) {
+                            $(".aplicar-cupon").val("Quitar cupón");
+                            discount = d.discount;
+                            recalculateTotal();
+                        } else {
                             $(".aplicar-cupon").val("Aplicar cupón");
                             discount = 0;
                             recalculateTotal();
                         }
-                    });
-                } else if ($(this).val() == "Quitar cupón") {
-                    $("#coupon_code").val("");
-                    discount = 0;
-                    recalculateTotal();
-                    $(".aplicar-cupon").val("Aplicar cupón");
-                }
+                    }, error: function (e) {
+                        $(".aplicar-cupon").val("Aplicar cupón");
+                        discount = 0;
+                        recalculateTotal();
+                    }
+                });
 
             })
         })

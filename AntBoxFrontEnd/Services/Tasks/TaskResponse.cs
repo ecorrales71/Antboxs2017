@@ -19,6 +19,9 @@ namespace AntBoxFrontEnd.Services.Tasks
         [JsonProperty("notes")]
         public string Notes { get; set; }
 
+        [JsonProperty("folio")]
+        public string Folio { get; set; }
+
         [JsonProperty("type")]
         public string Type { get; set; }
 

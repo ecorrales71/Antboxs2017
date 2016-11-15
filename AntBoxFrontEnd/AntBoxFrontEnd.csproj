@@ -388,6 +388,9 @@
     <Compile Include="Services\Payments\PaymentService.cs" />
     <Compile Include="Services\RequestOptions.cs" />
     <Compile Include="Services\Response.cs" />
+    <Compile Include="Services\Rules\RulesContentResponse.cs" />
+    <Compile Include="Services\Rules\RulesResponse.cs" />
+    <Compile Include="Services\Rules\RulesService.cs" />
     <Compile Include="Services\Services.cs" />
     <Compile Include="Services\ServicesTest.cs" />
     <Compile Include="Services\Tasks\PaginationCustomerTask.cs" />
@@ -478,6 +481,7 @@
     <Content Include="Content\Images\como_funciona_background_antboxs.jpg" />
     <Content Include="Content\Images\cuenta.png" />
     <Content Include="Content\Images\direcciones.png" />
+    <Content Include="Content\Images\firma_cliente.jpg" />
     <Content Include="Content\Images\gridtile.png" />
     <Content Include="Content\Images\guarda-tus-cosas-icono.png" />
     <Content Include="Content\Images\guarda_tus_cosas.png" />
@@ -794,6 +798,7 @@
     <Content Include="Views\Admin\ReportePagos.cshtml" />
     <Content Include="Views\Admin\ReporteRecolecciones.cshtml" />
     <Content Include="Views\Admin\ReporteEntregas.cshtml" />
+    <Content Include="Views\CustomerService\Cuenta.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Content\Admin\CSV\" />
