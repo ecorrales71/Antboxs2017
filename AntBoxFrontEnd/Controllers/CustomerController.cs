@@ -134,12 +134,31 @@ namespace AntBoxFrontEnd.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
-            var servicio = new TaskService(ServiceConfiguration.GetApiKey());
+            var apikey = ServiceConfiguration.GetApiKey();
+            var servicio = new TaskService(apikey);
+            var addressService = new AddressService(apikey);
+            var resultAddress = addressService.ListAddresses(((CustomerResponse)Session["customer"]).Id);
+            var addresses = new List<AntBoxAddressViewModel>();
 
             PaginationCustomerTask result = new PaginationCustomerTask();
             try
             {
                 result = servicio.ListTaskByCustomer(((CustomerResponse)Session["customer"]).Id, 1);
+                if (resultAddress != null && resultAddress.Count > 0)
+                {
+                    resultAddress.ForEach(r =>
+                    {
+                        var dir = addressService.SearchAddress(r.Id);
+                        var map = Mapper.Map<AddressResponse, AntBoxAddressViewModel>(dir);
+                        addresses.Add(map);
+                    });
+
+                    result.Addresses = addresses;
+                }
+                else
+                {
+                    result.Addresses = new List<AntBoxAddressViewModel>();
+                }
             }
             catch (Exception ex)
             {

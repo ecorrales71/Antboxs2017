@@ -377,13 +377,12 @@
 
             event.preventDefault();
 
-            var checkeds = [];
+            var checkeds = ["1"];
             var succesed = [];
             var count = 0;
 
             $("#loader-solicitar").show();
             console.log($(".select-antbox:checked").length);
-            checkeds.push(folio);
 
             var formData = {
                 worker: $("#horario").val(),
@@ -417,7 +416,7 @@
                     count++;
                     if (count == checkeds.length) {
                         var mensaje = "Antboxs solicitados correctamente";
-                        if (checkeds.length > 1) mensaje = "Antbox solicitado correctamente";
+                        if (checkeds.length == 1) mensaje = "Antbox solicitado correctamente";
                         $("#loader-solicitar").hide();
                         if (!$('#SolicitarAntBoxSuccess').length) {
                             $('.form-solicitar-antbox').prepend('<div class="alert alert-success alert-dismissible fade in" id="SolicitarAntBoxSuccess"> <button type="button" class="close" data-dismiss="alert"> <i class="fa fa-times"></i></button><p><i class="fa fa-check"></i>' + mensaje + '</p></div>');

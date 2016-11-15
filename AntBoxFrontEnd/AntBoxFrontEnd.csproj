@@ -247,6 +247,7 @@
     <Compile Include="Controllers\BillingController.cs" />
     <Compile Include="Controllers\CatalogoController.cs" />
     <Compile Include="Controllers\BillingAddressController.cs" />
+    <Compile Include="Controllers\ClientController.cs" />
     <Compile Include="Controllers\ZipCodeController.cs" />
     <Compile Include="Controllers\CodeController.cs" />
     <Compile Include="Controllers\CouponController.cs" />
@@ -299,6 +300,7 @@
     <Compile Include="Models\ReporteDeliveriesModel.cs" />
     <Compile Include="Models\ReportePagosModel.cs" />
     <Compile Include="Models\ReportePickupsModel.cs" />
+    <Compile Include="Models\ReporteProspectosModel.cs" />
     <Compile Include="Models\ReporteUsuariosModel.cs" />
     <Compile Include="Models\ZipCodeModel.cs" />
     <Compile Include="Models\OrderListModel.cs" />
@@ -386,8 +388,12 @@
     <Compile Include="Services\Payments\CreatedCardResponse.cs" />
     <Compile Include="Services\Payments\PaginationListCards.cs" />
     <Compile Include="Services\Payments\PaymentService.cs" />
+    <Compile Include="Services\Client\PaginationClientResponse.cs" />
+    <Compile Include="Services\Client\ClientRequestOptions.cs" />
     <Compile Include="Services\RequestOptions.cs" />
     <Compile Include="Services\Response.cs" />
+    <Compile Include="Services\Client\ClientResponse.cs" />
+    <Compile Include="Services\Client\ClientService.cs" />
     <Compile Include="Services\Rules\RulesContentResponse.cs" />
     <Compile Include="Services\Rules\RulesResponse.cs" />
     <Compile Include="Services\Rules\RulesService.cs" />
@@ -799,6 +805,7 @@
     <Content Include="Views\Admin\ReporteRecolecciones.cshtml" />
     <Content Include="Views\Admin\ReporteEntregas.cshtml" />
     <Content Include="Views\CustomerService\Cuenta.cshtml" />
+    <Content Include="Views\Admin\ReporteProspectos.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Content\Admin\CSV\" />
@@ -806,6 +813,7 @@
     <Folder Include="Views\AntBoxAddress\" />
     <Folder Include="Views\Antbox\" />
     <Folder Include="Views\Catalogo\" />
+    <Folder Include="Views\Client\" />
     <Folder Include="Views\Coupon\" />
     <Folder Include="Views\CustomerAntBox\" />
     <Folder Include="Views\Movimientos\" />

@@ -72,6 +72,8 @@ namespace AntBoxFrontEnd.Infrastructure
 
         public static String ListingCustomer { get { return BaseUrl + "/listing/customer"; } }
 
+        public static String ListingClient { get { return BaseUrl + "/listing/client"; } }
+
         public static String ListingPayments { get { return BaseUrl + "/listing/payment"; } }
 
         public static String ListingPickups { get { return BaseUrl + "/listing/pickup"; } }
@@ -87,6 +89,8 @@ namespace AntBoxFrontEnd.Infrastructure
         public static String Billing { get { return BaseUrl + "/billing"; } }
 
         public static String Rules { get { return BaseUrl + "/rules"; } }
+
+        public static String Client { get { return BaseUrl + "/client"; } }
 
         public static String CustomerBillingAddressSearch { get { return BaseUrl + "/address-billing/search"; } } 
 

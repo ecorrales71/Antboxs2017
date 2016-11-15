@@ -457,6 +457,15 @@
                             '<div class="alert alert-warning" id="zipCodeError"><p class="error-zipcode"><i class="fa fa-exclamation-triangle"></i> <strong>Prueba con otro código postal.</strong> Por el momento nuestro servicio no llega a este domicilio pero te mantendremos informado de las próximas zonas de cobertura.</p></div>'
                         );
                     }
+                    $.ajax({
+                        type: 'POST',
+                        url: '@Url.Action("CreateClient", "Client")',
+                        data: $('#registerForm').serialize(),
+                        success: function (result) {
+                            if (result.success == false) {
+                            }
+                        }
+                    })
                 }
                 else {
                     $('#zipCodeError').html('');

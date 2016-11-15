@@ -1,0 +1,162 @@
+﻿@model AntBoxFrontEnd.Models.ReporteProspectosModel
+@{
+    ViewBag.Title = "Admin - Prospectos";
+}
+<!-- WRAPPER -->
+<div class="wrapper">
+    <!-- PAGE TITLE -->
+    <header class="pagetitle pagetitle-sm">
+        <div class="container">
+            <div class="divtable irow">
+                <div class="divcell">
+                    <i class="fa fa-archive"></i>
+                    <span class="title">Administración de Usuarios</span>
+                    <div class="divider"></div>
+                    <span class="subtitle">Almacenamiento Seguro, Fácil y Conveniente</span>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- /.pagetitle -->
+    <!-- CONTENT -->
+    <div class="content usuarios">
+        <!-- CONTAINER -->
+        <div class="container">
+            <div class="row irow-xs">
+                <div class="col-sm-12">
+                    <h1>Prospectos</h1>
+                </div>
+            </div>
+        </div>
+        <!-- /.container -->
+        <!-- CONTAINER -->
+        <div class="container mt30">
+            <div class="row">
+                <form action="" method="get" id="form-buscar">
+                    @if (Model.Usuarios != null)
+                    {
+                        @Html.Hidden("idpagination", @Model.Usuarios.Pagination_id)
+                        @Html.Hidden("total", @Model.Usuarios.Total)
+                        @Html.Hidden("pages", @Model.Usuarios.Pages)
+                        @Html.Hidden("page", @Model.Page)
+                        <input type="hidden" name="idpagination" value="@Model.Usuarios.Pagination_id" />
+                    }
+                    <input type="hidden" id="pagev" value="@Model.Page" />
+                    <div class="col-sm-6 col-md-3">
+                        <div class="form-group">
+                            <label for="textbox">Inicio</label>
+                            <div class="input-group mb0">
+                                <span class="input-group-btn">
+                                    <button type="button" id="cupon_inicio" class="btn btn-primary pull-right"><i class="fa fa-calendar"></i></button>
+                                </span>
+                                <input class="form-control" type="text" id="from" name="from" value="@Model.From">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-3">
+                        <div class="form-group">
+                            <label for="textbox">Fin</label>
+                            <div class="input-group mb0">
+                                <span class="input-group-btn">
+                                    <button type="button" id="cupon_inicio" class="btn btn-primary pull-right"><i class="fa fa-calendar"></i></button>
+                                </span>
+                                <input class="form-control" type="text" id="to" name="to" value="@Model.To">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-6">
+                        <a href="@Url.Action("ExportToExcelClient", "Admin")" class="btn btn-primary btn-wide pull-right mt10 export-excel">Exportar</a>
+                        <input type="submit" class="btn btn-primary btn-wide pull-right mt10" value="Buscar">
+                    </div>
+                </form>
+            </div>
+
+            <div id="loader" role="alert" style="display: none;">
+                <img src="@Url.Content("~/Images/preloader.gif")" />   Cargando prospectos... &nbsp;
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="table-responsive">
+                        <table id="tabla" class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Nombre</th>
+                                    <th>A. Paterno</th>
+                                    <th>A. Materno</th>
+                                    <th>E-mail</th>
+                                    <th>Zipcode</th>
+                                    <th>Fecha</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model.Usuarios != null)
+                                {
+                                    if (Model.Usuarios.Clients != null)
+                                    {
+                                        foreach (var item in Model.Usuarios.Clients)
+                                        {
+                                            <tr data-id="@item.Id">
+                                                <td class="tname">@item.Name</td>
+                                                <td class="tlastname">@item.Lastname</td>
+                                                <td class="tlastname2">@item.Lastname2v</td>
+                                                <td class="temail">@item.Email</td>
+                                                <td class="tzipcode">@item.Zipcode</td>
+                                                <td class="tfecha">@item.Fecha</td>
+                                            </tr>
+                                        }
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="pagination solid text-center"></div>
+        </div>
+        <!-- /.container -->
+    </div>
+
+@section Scripts
+{
+    @Scripts.Render("~/bundles/simplepaginationjs")
+    <script>
+        $(function () {
+
+            Calendar.setup({
+                inputField: "from",      // id del campo de texto
+                ifFormat: "%d/%m/%Y",       // formato de la fecha, cuando se escriba en el campo de texto
+                button: "solicitud"   // el id del botón que lanzará el calendario
+            });
+
+            Calendar.setup({
+                inputField: "to",      // id del campo de texto
+                ifFormat: "%d/%m/%Y",       // formato de la fecha, cuando se escriba en el campo de texto
+                button: "entrega"   // el id del botón que lanzará el calendario
+            });
+
+            $(".export-excel").click(function (event) {
+                event.preventDefault();
+                var formdata = $("#form-buscar").serialize();
+                var url = $(this).attr("href") + "?" + formdata;
+                window.location.href = url;
+            });
+
+            var currentPage = ($("#pagev").val() == "") ? 1 : parseInt($("#pagev").val());
+
+            $('.pagination').pagination({
+                items: $('#total').val(),
+                itemsOnPage: 20,
+                cssStyle: 'light-theme',
+                currentPage: currentPage,
+                onPageClick: function (pageNumber, event) {
+                    event.preventDefault();
+                    $("#vp").val("1");
+                    $("#page").val(pageNumber);
+                    $("#form-buscar").append("<input type='hidden' value='1' name='vp' />");
+                    $("#form-buscar").submit();
+                }
+            });
+
+        });
+</script>
+}

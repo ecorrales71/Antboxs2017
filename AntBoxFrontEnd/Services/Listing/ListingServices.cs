@@ -1,4 +1,5 @@
 ﻿using AntBoxFrontEnd.Infrastructure;
+using AntBoxFrontEnd.Services.Client;
 using AntBoxFrontEnd.Services.Customer;
 using AntBoxFrontEnd.Services.CustomerService;
 using AntBoxFrontEnd.Services.Payments;
@@ -59,6 +60,57 @@ namespace AntBoxFrontEnd.Services.Listing
                 var customers = Requestor.Get<PaginationCustomerResponse>(UrlsConstants.ListingCustomer + encodedParams, requestOptions);
 
                 return customers;
+            }
+            catch (Exception ex)
+            {
+                LogManager.Write(ex.Message + " " + ex.InnerException, LogManager.Error);
+                return null;
+            }
+        }
+
+        public virtual PaginationClientResponse ListClient(int? currentPage, string from, string to, string zipcode, string total = null, string idPagination = null, RequestOptions requestOptions = null)
+        {
+            try
+            {
+                requestOptions = SetupRequestOptions(requestOptions);
+
+                var parameters = new Dictionary<string, string>();
+
+                if (currentPage == null)
+                {
+                    currentPage = 1;
+                }
+                if (!string.IsNullOrEmpty(idPagination))
+                {
+                    parameters.Add("pagination_id", idPagination);
+                    parameters.Add("page_number", currentPage.ToString());
+                }
+                if (!string.IsNullOrEmpty(total))
+                {
+                    parameters.Add("items_per_page", total);
+                }
+                if (!string.IsNullOrEmpty(from))
+                {
+                    string[] words = from.Split('/');
+                    from = words[2] + '-' + words[1] + '-' + words[0];
+                    parameters.Add("from", from);
+                }
+                if (!string.IsNullOrEmpty(to))
+                {
+                    string[] words = to.Split('/');
+                    to = words[2] + '-' + words[1] + '-' + words[0];
+                    parameters.Add("to", to);
+                }
+                if (!string.IsNullOrEmpty(zipcode))
+                {
+                    parameters.Add("zipcode", zipcode.ToString());
+                }
+
+                var encodedParams = Infrastructure.UrlHelper.BuildURLParametersString(parameters);
+
+                var clients = Requestor.Get<PaginationClientResponse>(UrlsConstants.ListingClient + encodedParams, requestOptions);
+
+                return clients;
             }
             catch (Exception ex)
             {

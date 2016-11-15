@@ -2,6 +2,7 @@
 using AntBoxFrontEnd.Infrastructure;
 using AntBoxFrontEnd.Models;
 using AntBoxFrontEnd.Services.Boxes;
+using AntBoxFrontEnd.Services.Client;
 using AntBoxFrontEnd.Services.Code;
 using AntBoxFrontEnd.Services.Coupon;
 using AntBoxFrontEnd.Services.Customer;
@@ -195,6 +196,40 @@ namespace AntBoxFrontEnd.Controllers
             return View(model);
         }
 
+        public ActionResult ReporteProspectos(int? page, string from, string to, string status, string idpagination, string vp)
+        {
+            var servicio = new ListingServices(ServiceConfiguration.GetApiKey());
+
+            ReporteProspectosModel model = new ReporteProspectosModel();
+
+            if (string.IsNullOrEmpty(vp))
+            {
+                page = 1;
+                model.Page = 1;
+                idpagination = null;
+            }
+            else
+            {
+                model.Page = page;
+            }
+
+            PaginationClientResponse result = new PaginationClientResponse();
+            try
+            {
+                result = servicio.ListClient(page, from, to, status, null, idpagination);
+            }
+            catch (Exception ex)
+            {
+            }
+
+            model.Usuarios = result;
+            model.From = from;
+            model.To = to;
+            model.Status = status;
+
+            return View(model);
+        }
+
         public ActionResult ReportePagos(int? page, string from, string to, string type, string idpagination, string vp)
         {
             var servicio = new ListingServices(ServiceConfiguration.GetApiKey());
@@ -339,6 +374,49 @@ namespace AntBoxFrontEnd.Controllers
 
             byte[] filecontent = ExcelExportHelper.ExportExcel(technologies, "Clientes", false, columns1);
             return File(filecontent, ExcelExportHelper.ExcelContentType, "Clientes.xlsx");
+        }
+
+        [HttpGet]
+        public FileContentResult ExportToExcelClient(int? page, string from, string to, string status, string idpagination, string vp, string total)
+        {
+
+            var servicio = new ListingServices(ServiceConfiguration.GetApiKey());
+
+            if (string.IsNullOrEmpty(vp))
+            {
+                page = 1;
+                idpagination = null;
+            }
+
+            PaginationClientResponse result = new PaginationClientResponse();
+            try
+            {
+                result = servicio.ListClient(page, from, to, status, total, idpagination);
+            }
+            catch (Exception ex)
+            {
+            }
+
+            List<ClientResponse> technologies;
+            if (result != null)
+            {
+                technologies = result.Clients;
+            }
+            else
+            {
+                technologies = new List<ClientResponse>();
+            }
+
+            var columns1 = new Dictionary<string, string>();
+            columns1.Add("Name", "Nombre");
+            columns1.Add("Lastname", "A. Paterno");
+            columns1.Add("Lastname2v", "A. Materno");
+            columns1.Add("Email", "Email");
+            columns1.Add("Zipcode", "Codigo zip");
+            columns1.Add("Fecha", "Fecha");
+
+            byte[] filecontent = ExcelExportHelper.ExportExcel(technologies, "Prospectos", false, columns1);
+            return File(filecontent, ExcelExportHelper.ExcelContentType, "Prospectos.xlsx");
         }
 
         [HttpGet]
