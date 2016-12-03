@@ -1,7 +1,9 @@
 ﻿using AntBoxFrontEnd.Infrastructure;
 using AntBoxFrontEnd.Models;
+using AntBoxFrontEnd.Services.AntBoxes;
 using AntBoxFrontEnd.Services.Customer;
 using AntBoxFrontEnd.Services.Payments;
+using AntBoxFrontEnd.Services.Tasks;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -69,6 +71,23 @@ namespace AntBoxFrontEnd.Controllers
             }
         }
         [HttpPost]
+        public ActionResult GetCardsAjaxJson()
+        {
+            var ps = new PaymentService(ServiceConfiguration.GetApiKey());
+
+            List<CardObject> result = new List<CardObject>();
+            try
+            {
+                result = ps.ListPaymetCards(((CustomerResponse)Session["customer"]).Id);
+
+                return Json(new { success = true, cards = result }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false }, JsonRequestBehavior.AllowGet);
+            }
+        }
+        [HttpPost]
         public ActionResult RegisterCardAjax(string deviceId, string state, string token)
         {
             var ps = new PaymentService(ServiceConfiguration.GetApiKey());
@@ -108,6 +127,31 @@ namespace AntBoxFrontEnd.Controllers
             {
                 return Json(new { success = false }, JsonRequestBehavior.AllowGet);
             }
+        }
+
+        [HttpPost]
+        public ActionResult Recibo(string folio)
+        {
+            //var servicioTask = new TaskService(ServiceConfiguration.GetApiKey());
+            var servicioAntBox = new AntBoxesServices(ServiceConfiguration.GetApiKey());
+            var ps = new PaymentService(ServiceConfiguration.GetApiKey());
+
+            PaginationAntBoxes result = new PaginationAntBoxes();
+            List<PaymentDetailResponse> payments = new List<PaymentDetailResponse>();
+            try
+            {
+                result = servicioAntBox.ListAntBoxesTasks(((CustomerResponse)Session["customer"]).Id, folio, AntBoxStatusEnum.Defualt, 1);
+                payments = ps.PaymentDetail(((CustomerResponse)Session["customer"]).Id, folio);
+            }
+            catch (Exception ex)
+            {
+            }
+            if (result == null)
+            {
+                return Json(new { success = false }, JsonRequestBehavior.AllowGet);
+            }
+            return Json(new { success = true, antbox = result, payments = payments }, JsonRequestBehavior.AllowGet);
+
         }
 
 

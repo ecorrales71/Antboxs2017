@@ -281,6 +281,10 @@ namespace AntBoxFrontEnd.Controllers
 
         public ActionResult Ordenar()
         {
+            if (Session["customer"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             var order = GetNewOrder();
             Session["couponidadmin"] = null;
             return View(order);
@@ -585,7 +589,7 @@ namespace AntBoxFrontEnd.Controllers
                 if (string.IsNullOrEmpty(folioRecoleccion))
                     return Json(new { success = false, responseText = "OCURRIO UN ERROR AL SOLICITAR LAS CAJAS DE RECOLECCION" }, JsonRequestBehavior.AllowGet);
 
-                isTaskPickupCreated = CreatePickupTask(fecRec, horaRec, dirRecolId, workerRec, folioRecoleccion, waitTimeWorker);
+                isTaskPickupCreated = CreateDeliveryTask(fecRec, horaRec, dirRecolId, workerRec, folioRecoleccion);
 
                 if(!isTaskPickupCreated)
                     return Json(new { success = false, responseText = "OCURRIO UN ERROR AL CREAR TAREA DE RECOLECCION" }, JsonRequestBehavior.AllowGet);

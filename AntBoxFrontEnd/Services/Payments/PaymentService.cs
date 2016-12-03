@@ -220,6 +220,33 @@ namespace AntBoxFrontEnd.Services.Payments
             }
         }
 
+        public virtual List<PaymentDetailResponse> PaymentDetail(string customer, string folio, RequestOptions requestOptions = null)
+        {
+            requestOptions = SetupRequestOptions(requestOptions);
+
+            PaymentDetailResponseParent paymentResponse = new PaymentDetailResponseParent();
+            try
+            {
+
+                var parameters = new Dictionary<string, string>();
+                parameters.Add("customer_id", customer);
+                parameters.Add("folio", folio);
+
+                var encodedParams = Infrastructure.UrlHelper.BuildURLParametersString(parameters);
+
+                paymentResponse = Requestor.Post<PaymentDetailResponseParent>(UrlsConstants.PaymentDetail + encodedParams, requestOptions);
+
+
+            }
+            catch (Exception ex)
+            {
+                //Todo log
+                LogManager.Write(ex.Message + " " + ex.InnerException, LogManager.Error);
+                return null;
+            }
+            return paymentResponse.Payments;
+        }
+
 
 
 

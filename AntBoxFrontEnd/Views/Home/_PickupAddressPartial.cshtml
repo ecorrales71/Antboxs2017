@@ -93,18 +93,21 @@
                 <button type="button" id="recoleccion" class="btn btn-primary pull-right"><i class="fa fa-calendar"></i></button>
             </span>
             <input class="form-control" type="text" id="fecha_recoleccion" name="Fecha_recoleccion">
+            <br/>
         </div>
+        <div style='display:none' id="alert_fecha" class="help-block"><label>La fecha debe ser superior a la actual*</label></div>
         <div class="form-group">
             <label for="form-select">* Horario de recolección</label>
             <select id="selHorario" name="Horario" onchange="HorarioRecoleccion()">
                 <option value="">- Selecciona una opción -</option>
-                <option value="09-11">09:00 - 11:00 hrs.</option>
-                <option value="11-13">11:00 - 13:00 hrs.</option>
-                <option value="13-15">13:00 - 15:00 hrs.</option>
-                <option value="15-17">15:00 - 17:00 hrs.</option>
-                <option value="17-19">17:00 - 19:00 hrs.</option>
+                <option  value="">09:00 - 11:00 hrs.</option>
+                <option  value="">11:00 - 13:00 hrs.</option>
+                <option  value="">13:00 - 15:00 hrs.</option>
+                <option value="">15:00 - 17:00 hrs.</option>
+                <option  value="">17:00 - 19:00 hrs.</option>
             </select>
         </div>
+        <div style='display:none' id="alert_horario" class="help-block"><label>No hay trabajadores disponibles para este horario*</label></div>
         <div class="form-group">
             <label for="form-message">Referencias o comentarios</label>
             <textarea name="References" id="txtReferencias"></textarea>

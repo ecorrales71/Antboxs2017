@@ -39,7 +39,14 @@
                     <div id="loader" role="alert" style="display: none;">
                         <img src="@Url.Content("~/Images/preloader.gif")" />   Cargando movimientos... &nbsp;
                     </div>
-                    <div class="pagination solid text-center"></div>
+                    @if (@Model.Total != null)
+                    {
+                        <div class="pagination solid text-center"></div>
+                    }
+                    else
+                    {
+                        <h4>Sin Movimientos</h4>
+                    }
                     <div class="row">
                         <div class="col-sm-12 pl0 pr0 pt20 text-center">
                             <!-- PAGINATION -->
@@ -79,23 +86,23 @@
                         <hr class="hr-semilight linea_recibo" />
                         <div>
                             <p>
-                                Orden de Servicio 3457837
-                                <br />Fecha: 24-10-2016 Hora: 10:00 am
+                                Orden de Servicio <span class="folior">3457837</span>
+                                <br />Fecha: <span class="fechar">24-10-2016</span> Hora: <span class="horar">10:00 am</span>
                             </p>
                             <p>
                                 Eduardo Corrales
-                                <br />Begonias 130-4,
-                                <br />Colonia Nueva Santa Maria,
-                                <br />Delegación Azcapotzalco, C.P. 02800
-                                <br />Cel. 55-3748-5733 Ref. Reja café
+                                <br /><span class="caller"></span>-<span class="externalr"></span>,
+                                <br />Colonia <span class="coloniar"></span>,
+                                <br />Delegación <span class="delegacionr"></span>, C.P. <span class="zipr"></span>
+                                <br />Cel. <span class="cellr"></span> Ref. <span class="referenciar"></span>
                             </p>
                             <p>
-                                Antboxs Medianas: 1
-                                <br />Antboxs Grandes: 2
+                                Antboxs Medianas: <span class="antboxmedianasr">1</span>
+                                <br />Antboxs Grandes: <span class="antboxgrandesr">2</span>
                             </p>
                             <hr class="hr-semilight linea_recibo" />
                         </div>
-                        <div>
+                        <div class="antboxr">
                             <p>
                                 Antboxs Mediana 1 01-3457837-37263527-58261475 R
                                 <br />Candado 1: 37263527	Candado 2: 58261475
@@ -112,10 +119,10 @@
                             </div>
                             <div class="col-sm-7">
                                 <p>
-                                    Rentas:<span class="pull-right">$198.00</span>
-                                    <br />Depósitos:<span class="pull-right">$158.00</span>
-                                    <br />Cargos TC:<span class="pull-right">$356.00</span>
-                                    <br />Reembolso TC:<span class="pull-right">$0.00</span>
+                                    Rentas:<span class="pull-right rentasr">$198.00</span>
+                                    <br />Depósitos:<span class="pull-right depositosr">$158.00</span>
+                                    <br />Cargos TC:<span class="pull-right cargosr">$356.00</span>
+                                    <br />Reembolso TC:<span class="pull-right reembolsor">$0.00</span>
                                 </p>
                             </div>
                         </div>
@@ -277,6 +284,29 @@
 @section scripts {
 @Scripts.Render("~/bundles/simplepaginationjs")
 <script type="text/javascript">
+
+    var tasks = [];
+    @foreach (var item in Model.Tasks)
+    {
+        <text>
+        tasks.push({
+            id : '@item.Id',
+            folio: '@item.Folio',
+            service: '@item.service_time',
+            address: {
+                calle: '@item.Address.Street',
+                external: '@item.Address.External_number',
+                colonia: '@item.Address.Neighborhood',
+                delegacion: '@item.Address.Delegation',
+                zipcode: '@item.Address.Zipcode',
+                referencia: '@item.Address.References',
+            }
+        });
+        </text>
+    }
+
+    console.log(tasks);
+      
     Calendar.setup({
         inputField: "fecha_entrega",      // id del campo de texto
         ifFormat: "%Y-%m-%d",       // formato de la fecha, cuando se escriba en el campo de texto
@@ -478,6 +508,47 @@
             var strTime = hours + ':' + minutes + ':' + seconds + ' ' + ampm;
             return strTime;
         }
+
+        $('.recibo-recoleccion').click(function () {
+            var id = $(this).attr("data-id");
+            $('.recibo_recoleccion').modal("show");
+            for (var i = 0; i < tasks.length; i++) {
+                if (tasks[i].id == id) {
+                    $('.folior').text(tasks[i].folio);
+                    //$('.folior').val(tasks[i].folior);
+                    //$('.folior').val(tasks[i].folior);
+                    $('.caller').text(tasks[i].address.calle);
+                    $('.externalr').text(tasks[i].address.external);
+                    $('.coloniar').text(tasks[i].address.colonia);
+                    $('.delegacionr').text(tasks[i].address.delegacion);
+                    $('.zipr').text(tasks[i].address.zipcode);
+                    //$('.cellr').val(tasks[i].folior);
+                    $('.referenciar').text(tasks[i].address.referencia);
+
+                    $("#recibo_recoleccion").modal("show");
+                }
+            }
+        })
+
+        $('.recibo-entrega').click(function () {
+            var id = $(this).attr("data-id");
+            $('.recibo_entrega').modal("show");
+            for (var i = 0; i < tasks.length; i++)
+            {
+                if (tasks[i].id == id) {
+                    $('.folior').text(tasks[i].folio);
+                    //$('.folior').val(tasks[i].folior);
+                    //$('.folior').val(tasks[i].folior);
+                    $('.caller').text(tasks[i].address.calle);
+                    $('.externalr').text(tasks[i].address.external);
+                    $('.coloniar').text(tasks[i].address.colonia);
+                    $('.delegacionr').text(tasks[i].address.delegacion);
+                    $('.zipr').text(tasks[i].address.zipcode);
+                    //$('.cellr').val(tasks[i].folior);
+                    $('.referenciar').text(tasks[i].address.referencia);
+                }
+            }
+        })
 
     })
 </script>

@@ -149,7 +149,6 @@ namespace AntBoxFrontEnd.Services.Address
 
                 parameters.Add("items_per_page", itemPerPage.ToString());
 
-
                 if (!string.IsNullOrEmpty(idPagination))
                 {
                     parameters.Add("page_number", currentPage.ToString());
@@ -157,6 +156,7 @@ namespace AntBoxFrontEnd.Services.Address
                 }else
                     parameters.Add("page_number", "1");
 
+                parameters.Add("include", "alias,rfc_id,city,country");
 
                 var encodedParams = Infrastructure.UrlHelper.BuildURLParametersString(parameters);
 

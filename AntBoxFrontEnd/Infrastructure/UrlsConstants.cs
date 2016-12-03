@@ -9,8 +9,8 @@ namespace AntBoxFrontEnd.Infrastructure
     {
         // public static String BaseUrl { get { return "http://173.203.159.102:8081/v1"; } }
 
-        public static String Host { get { return "http://173.203.159.101:8082"; } }
-
+        //public static String Host { get { return "http://198.19.143.41:8082"; } }
+        public static String Host { get { return "http://64.28.103.85:8082"; } }
 
         public static String BaseUrl { get { return Host + "/v1"; } }
 
@@ -33,6 +33,8 @@ namespace AntBoxFrontEnd.Infrastructure
         public static String ZipCode { get { return BaseUrl + "/zipcode"; } }
 
         public static String PaymentCard { get { return BaseUrl + "/payment-card"; } }
+
+        public static String PaymentDetail { get { return BaseUrl + "/payment-detail"; } }
 
         public static String Payment { get { return BaseUrl + "/payment"; } }
 

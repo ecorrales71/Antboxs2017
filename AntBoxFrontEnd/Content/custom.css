@@ -333,3 +333,7 @@ a:hover {
 .has-error .chosen-container {
     background-color: #ffc7c7 !important;
 }
+.disablebutton {
+    opacity: .6;
+    cursor: none;
+}

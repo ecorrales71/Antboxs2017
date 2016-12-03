@@ -196,6 +196,22 @@
 @RenderSection("scripts", required: false)
 
 <script>
+    var modalToClose = null;
+    var verifCloseModal = false;
+    function mostrarMensaje(element, ElemVerifExist, mensaje, clase) {
+        if (!$("#" + ElemVerifExist).length) {
+            element.prepend(
+                    '<div class="alert ' + clase + '" role="alert" id="' + ElemVerifExist + '">' + mensaje + '</div>');
+            window.setTimeout(function () {
+                $("#" + ElemVerifExist).alert('close');
+                if ((typeof modalToClose !== "undefined") && (modalToClose != null) && (verifCloseModal)) {
+                    verifCloseModal = false;
+                    modalToClose.modal("hide");
+                }
+            }, 2000);
+        }
+
+    }
     jQuery.extend(jQuery.validator.messages, {
         required: "Este campo es requerido.",
         remote: "Please fix this field.",

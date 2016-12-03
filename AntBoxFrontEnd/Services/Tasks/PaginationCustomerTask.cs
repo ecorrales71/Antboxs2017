@@ -19,7 +19,7 @@ namespace AntBoxFrontEnd.Services.Tasks
         public string Pagination_id { get; set; }
 
         [JsonProperty("total")]
-        public int Total { get; set; }
+        public string Total { get; set; }
 
         [JsonProperty("pages")]
         public int Pages { get; set; }

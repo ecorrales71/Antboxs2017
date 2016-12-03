@@ -60,7 +60,7 @@ namespace AntBoxFrontEnd.Controllers
 
         [HttpPost]
         [AllowAnonymous]
-        public ActionResult AntBoxRegisterAjax(string email, string name, string lastname, string password, string username, string verifoption)
+        public ActionResult AntBoxRegisterAjax(string email, string name, string lastname, string password, string username, string verifoption, string phone)
         {
             var cus = new AntBoxFrontEnd.Services.Customer.CustomerRequestOptions
             {
@@ -71,7 +71,8 @@ namespace AntBoxFrontEnd.Controllers
                 Mobile_phone = "",
                 Password = password,
                 Username=username,
-                Status=true
+                Status=true,
+                Phone = phone
             };
 
             var ser = new CustomerServices(ServiceConfiguration.GetApiKey());

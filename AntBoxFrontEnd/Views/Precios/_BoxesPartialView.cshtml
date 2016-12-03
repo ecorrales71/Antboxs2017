@@ -13,6 +13,12 @@
 <div class="row" id="Precios">
     <input name='TotalBoxes' type="hidden" value='@TotalBoxes' />
     <div class="col-sm-12">
+        <div class="irow-xs pb30">
+            <h3>Antboxs. Calculadora de Costos Mensuales</h3>
+            <p>Mientras más Antboxs solicites y por más tiempo, más ahorras.</p>
+        </div>
+    </div>
+    <div class="col-sm-12">
         <div class="responsive">
             <table class="table shop_table cart">
                 <thead>
@@ -47,7 +53,7 @@
                             </td>
                             <td class="product-quantity">
                                 <a href="" class="minus disabled" onclick='RemoveBox(@rowNo)'>-</a>
-                                <input type="text" class="quantityvalue cant_antboxs" id='quantity_@rowNo' value='@item.Quantity'>
+                                <input type="text" class="quantityvalue cant_antboxs" id='quantity_@rowNo' onkeypress='return onlyNumbers(event);'  value='@item.Quantity'  >
                                 <a href="" class="plus" onclick='AddBox(@rowNo)'>+</a>
                             </td>
                             <td class="product-subtotal no_iphone_portrait">

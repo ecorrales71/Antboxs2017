@@ -37,6 +37,7 @@ namespace AntBoxFrontEnd.Models
         [Display(Name = "* Calle")]
         public string Street { get; set; }
 
+        [Required]
         [Display(Name = "* Núm. exterior")]
         public string External_number { get; set; }
 
@@ -55,6 +56,7 @@ namespace AntBoxFrontEnd.Models
         [Display(Name = "* Delegacion")]
         public string Delegation { get; set; }
 
+        [Required]
         [Display(Name = "* Ciudad")]
         public string City { get; set; }
 

@@ -60,12 +60,20 @@ namespace AntBoxFrontEnd.Controllers
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult SolicitarAntbox (string worker, string address, string fecha, string hora, string referencia, string folioEntrega)
+        public JsonResult SolicitarAntbox (string worker, string address, string fecha, string hora, string referencia, string folioEntrega, string status)
         {
             bool isTaskDeliveryCreated = false;
             try
             {
-                isTaskDeliveryCreated = CreateDeliveryTask(fecha, hora, address, worker, folioEntrega);
+                if (status == "inhouse")
+                {
+                    isTaskDeliveryCreated = CreatePickupTask(fecha, hora, address, worker, folioEntrega);
+                }
+                else
+                {
+                    isTaskDeliveryCreated = CreateDeliveryTask(fecha, hora, address, worker, folioEntrega);
+                }
+                
             } catch (Exception ex)
             {
                 //error
@@ -90,6 +98,27 @@ namespace AntBoxFrontEnd.Controllers
                 Worker_id = worker,
                 Folio = folio,
                 Type = ts.Type_Delivery
+            };
+            return ts.CreateTask(t);
+        }
+
+        private bool CreatePickupTask(string from, string timefrom, string idAddress, string worker, string folio, bool esperar = false)
+        {
+            var fromDate = GetDateFromString(from, timefrom);
+
+            var toDate = fromDate.AddHours(RANGE_HOURS_TO_TASK);
+
+            var ts = new TaskService(ServiceConfiguration.GetApiKey());
+            var t = new TaskRequestOption
+            {
+                Address_id = idAddress,
+                customer_id = ((CustomerResponse)Session["customer"]).Id,
+                from = DateHelpers.ToUnixTime(fromDate),
+                To = DateHelpers.ToUnixTime(toDate),
+                Worker_id = worker,
+                Folio = folio,
+                Type = ts.Type_Pickup,
+                Service_time = esperar
             };
             return ts.CreateTask(t);
         }

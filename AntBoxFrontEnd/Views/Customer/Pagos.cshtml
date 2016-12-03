@@ -139,17 +139,17 @@
                             <p>Puedes registrar tantas tarjetas de crédito como tú decidas.</p>
                         </div>
                         <div class="col-sm-12 pl0 pr0">
-                            <form action="" method="post" class="contact-form form-solid" novalidate>
+                            <form action="" method="post" class="form-solid form-card" novalidate>
                                 <div class="row mt20">
                                     <div class="col-sm-6">
                                         <div class="form-group">
-                                            <label for="send-form-name">Nombre de Tarjeta*</label>
+                                            <label for="send-form-name">*Nombre de Tarjeta</label>
                                             <input type="text" name="name" id="card-holder-name">
                                         </div>
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="form-group">
-                                            <label for="send-form-email">Número de Tarjeta*</label>
+                                            <label for="send-form-email">*Número de Tarjeta</label>
                                             <input type="text" name="numero" id="card-number">
                                         </div>
                                     </div>
@@ -158,19 +158,19 @@
                                 <div class="row">
                                     <div class="col-sm-4">
                                         <div class="form-group">
-                                            <label for="send-form-email">MM*</label>
+                                            <label for="send-form-email">*MM</label>
                                             <input type="text" name="mm" id="card-exp-month">
                                         </div>
                                     </div>
                                     <div class="col-sm-4">
                                         <div class="form-group">
-                                            <label for="send-form-email">YY*</label>
+                                            <label for="send-form-email">*YY</label>
                                             <input type="text" name="yy" id="card-exp-year">
                                         </div>
                                     </div>
                                     <div class="col-sm-4">
                                         <div class="form-group">
-                                            <label for="send-form-email">CVC*</label>
+                                            <label for="send-form-email">*CVC</label>
                                             <input type="text" name="cvv" id="card-cvv">
                                         </div>
                                     </div>
@@ -241,25 +241,25 @@
                             <div class="row">
                                 <div class="col-sm-6">
                                     <div class="form-group">
-                                        <label for="aidentificacion">Nombre de Identificación*</label>
+                                        <label for="aidentificacion">* Nombre de Identificación</label>
                                         <input type="text" name="Alias" id="aidentificacion">
                                     </div>
                                     <div class="form-group">
-                                        <label for="arazonsocial">Nombre o Razón Social*</label>
+                                        <label for="arazonsocial">* Nombre o Razón Social</label>
                                         <input type="text" name="Bussiness_name" id="arazonsocial">
                                     </div>
                                     <div class="form-group">
-                                        <label for="arfc">RFC*</label>
+                                        <label for="arfc">* RFC</label>
                                         <input type="text" name="Rfc_id" id="arfc">
                                     </div>
                                     <div class="form-group">
-                                        <label for="send-form-email">Calle*</label>
+                                        <label for="send-form-email">* Calle</label>
                                         <input type="text" name="Street" id="acalle">
                                     </div>
                                     <div class="row">
                                         <div class="col-sm-6">
                                             <div class="form-group">
-                                                <label for="send-form-email">Núm. Ext.*</label>
+                                                <label for="send-form-email">* Núm. Ext.</label>
                                                 <input type="text" name="External_number" id="aext">
                                             </div>
                                         </div>
@@ -271,33 +271,33 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="send-form-email">Código Postal*</label>
+                                        <label for="send-form-email">* Código Postal</label>
                                         <input type="text" name="Zipcode" id="azipcode">
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="form-group">
-                                        <label for="form-select">Delegación o Municipio*</label>
+                                        <label for="form-select">* Delegación o Municipio</label>
                                         <input type="text" name="Delegation" id="amunicipio">
                                     </div>
                                     <div class="form-group">
-                                        <label for="form-select">Colonia*</label>
+                                        <label for="form-select">* Colonia</label>
                                         <input type="text" name="Neighborhood" id="acolonia">
                                     </div>
                                     <div class="form-group">
-                                        <label for="send-form-email">Ciudad*</label>
+                                        <label for="send-form-email">* Ciudad</label>
                                         <input type="text" name="City" id="aciudad">
                                     </div>
                                     <div class="form-group">
-                                        <label for="send-form-name">Estado*</label>
+                                        <label for="send-form-name">* Estado</label>
                                         <input type="text" name="State" id="aestado">
                                     </div>
                                     <div class="form-group">
-                                        <label for="send-form-email">País*</label>
+                                        <label for="send-form-email">* País</label>
                                         <input type="text" name="Country" id="apais">
                                     </div>
                                     <div class="form-group">
-                                        <label for="send-form-email">E-mail*</label>
+                                        <label for="send-form-email">* E-mail</label>
                                         <input type="email" name="Billing_email" id="aemail">
                                     </div>
                                 </div>
@@ -491,158 +491,162 @@ function goto_rndf(reload)
 @section scripts {
 <script>
     function generate_token() {
-        OpenPay.setId('miqwkvkewii1gqs4ifh2');
-        OpenPay.setApiKey('pk_e70b7a22c6c04239b10b7be3596a1f98');
-        OpenPay.setSandboxMode(true);
+        if ($('.form-card').valid()) {
+            OpenPay.setId('miqwkvkewii1gqs4ifh2');
+            OpenPay.setApiKey('pk_e70b7a22c6c04239b10b7be3596a1f98');
+            OpenPay.setSandboxMode(true);
 
-        var deviceSessionId = OpenPay.deviceData.setup("payment-form", "deviceIdHiddenFieldName");
+            var deviceSessionId = OpenPay.deviceData.setup("payment-form", "deviceIdHiddenFieldName");
 
-        var sucess_callbak = function (response) {
-            var token_id = response.data.id;
+            var sucess_callbak = function (response) {
+                var token_id = response.data.id;
+            
+                    $.ajax({
+                        type: 'POST',
+                        url: '@Url.Action("RegisterCardAjax", "Payment")',
+                        data: { deviceId: deviceSessionId, state: "inactive", token: token_id },
+                        success: function (result) {
 
-            $.ajax({
-                type: 'POST',
-                url: '@Url.Action("RegisterCardAjax", "Payment")',
-                data: { deviceId: deviceSessionId, state: "inactive", token: token_id },
-                success: function (result) {
+                            if (result.success == true) {
+                                $('#card-number').val("")
+                                $('#card-holder-name').val("")
+                                $('#card-exp-year').val("")
+                                $('#card-exp-month').val("")
+                                $('#card-cvv').val("")
 
-                    if (result.success == true) {
-                        $('#card-number').val("")
-                        $('#card-holder-name').val("")
-                        $('#card-exp-year').val("")
-                        $('#card-exp-month').val("")
-                        $('#card-cvv').val("")
+                                $('#newCardResult').prepend(
+                                    '<div class="alert alert-success alert-dismissible fade in" id="RegisterCardSuccess"> <button type="button" class="close" data-dismiss="alert"> <i class="fa fa-times"></i></button><p><i class="fa fa-check"></i>Tarjeta registrada</p></div>');
+                                window.setTimeout(function ()
+                                { $("#RegisterCardSuccess").alert('close'); }, 10000);
+                                window.setTimeout(function () {
+                                    $.ajax({
+                                        type: 'POST',
+                                        url: '@Url.Action("GetCardsAjax", "Payment")',
+                                        data: { deviceId: deviceSessionId, state: "inactive", token: token_id },
+                                        success: function (result) {
+                                            if (result.success == false) {
+                                                $('#newCardResult').prepend(
+                                                '<div class="alert alert-error alert-dismissible fade in" id="GetCardsError"> <button type="button" class="close" data-dismiss="alert"> <i class="fa fa-times"></i></button><p><i class="fa fa-exclamation-triangle"></i>' + 'ERROR al traer los datos de las tarjetas, intente refrescar la pagina.</p></div>');
+                                                window.setTimeout(function ()
+                                                { $("#GetCardsError").alert('close'); }, 10000);
 
-                        $('#newCardResult').prepend(
-                            '<div class="alert alert-success alert-dismissible fade in" id="RegisterCardSuccess"> <button type="button" class="close" data-dismiss="alert"> <i class="fa fa-times"></i></button><p><i class="fa fa-check"></i>Tarjeta registrada</p></div>');
-                        window.setTimeout(function ()
-                        { $("#RegisterCardSuccess").alert('close'); }, 10000);
-                        window.setTimeout(function () {
-                            $.ajax({
-                                type: 'POST',
-                                url: '@Url.Action("GetCardsAjax", "Payment")',
-                                data: { deviceId: deviceSessionId, state: "inactive", token: token_id },
-                                success: function (result) {
-                                    if (result.success == false) {
-                                        $('#newCardResult').prepend(
-                                        '<div class="alert alert-error alert-dismissible fade in" id="GetCardsError"> <button type="button" class="close" data-dismiss="alert"> <i class="fa fa-times"></i></button><p><i class="fa fa-exclamation-triangle"></i>' + 'ERROR al traer los datos de las tarjetas, intente refrescar la pagina.</p></div>');
-                                        window.setTimeout(function ()
-                                        { $("#GetCardsError").alert('close'); }, 10000);
+                                            }
+                                            else {
+                                                $('#CardList').html(result);
+                                            }
+                                        },
+                                        error: function (emp) {
+                                            $('#newCardResult').prepend(
+                                                '<div class="alert alert-error alert-dismissible fade in" id="GetCardsError"> <button type="button" class="close" data-dismiss="alert"> <i class="fa fa-times"></i></button><p><i class="fa fa-exclamation-triangle"></i>' + '[ERROR ' + response.status + '] al traer los datos de las tarjetas, intente refrescar la pagina.</p></div>');
+                                            window.setTimeout(function ()
+                                            { $("#GetCardsError").alert('close'); }, 10000);
 
-                                    }
-                                    else {
-                                        $('#CardList').html(result);
-                                    }
-                                },
-                                error: function (emp) {
-                                    $('#newCardResult').prepend(
-                                        '<div class="alert alert-error alert-dismissible fade in" id="GetCardsError"> <button type="button" class="close" data-dismiss="alert"> <i class="fa fa-times"></i></button><p><i class="fa fa-exclamation-triangle"></i>' + '[ERROR ' + response.status + '] al traer los datos de las tarjetas, intente refrescar la pagina.</p></div>');
-                                    window.setTimeout(function ()
-                                    { $("#GetCardsError").alert('close'); }, 10000);
+                                        }
+                                    });
+                                }, 1000);
+                            }
+                            else {
+                                $('#newCardResult').prepend(
+                                '<div class="alert alert-error alert-dismissible fade in" id="RegisterCardError"> <button type="button" class="close" data-dismiss="alert"> <i class="fa fa-times"></i></button><p><i class="fa fa-exclamation-triangle"></i>' + 'ERROR al traer los datos de las tarjetas, intente refrescar la pagina.</p></div>');
+                                window.setTimeout(function ()
+                                { $("#RegisterCardError").alert('close'); }, 10000);
+                            }
+                        },
+                        error: function (emp) {
+                            $('#newCardResult').prepend(
+                                '<div class="alert alert-error alert-dismissible fade in" id="RegisterCardError"> <button type="button" class="close" data-dismiss="alert"> <i class="fa fa-times"></i></button><p><i class="fa fa-exclamation-triangle"></i>' + '[ERROR ' + response.status + '] al intentar registrar la tarjeta en Antbox.</p></div>');
+                            window.setTimeout(function ()
+                            { $("#RegisterCardError").alert('close'); }, 10000);
 
-                                }
-                            });
-                        }, 1000);
-                    }
-                    else {
-                        $('#newCardResult').prepend(
-                        '<div class="alert alert-error alert-dismissible fade in" id="RegisterCardError"> <button type="button" class="close" data-dismiss="alert"> <i class="fa fa-times"></i></button><p><i class="fa fa-exclamation-triangle"></i>' + 'ERROR al traer los datos de las tarjetas, intente refrescar la pagina.</p></div>');
-                        window.setTimeout(function ()
-                        { $("#RegisterCardError").alert('close'); }, 10000);
-                    }
-                },
-                error: function (emp) {
-                    $('#newCardResult').prepend(
-                        '<div class="alert alert-error alert-dismissible fade in" id="RegisterCardError"> <button type="button" class="close" data-dismiss="alert"> <i class="fa fa-times"></i></button><p><i class="fa fa-exclamation-triangle"></i>' + '[ERROR ' + response.status + '] al intentar registrar la tarjeta en Antbox.</p></div>');
-                    window.setTimeout(function ()
-                    { $("#RegisterCardError").alert('close'); }, 10000);
+                        }
+                    });
+            }
 
+            var error_callbak = function (response) {
+                var desc = "ERROR [" + response.status + "] " + response.data.description != undefined ? response.data.description : response.message;
+                //alert("ERROR [" + response.status + "] " + desc);
+                //$("#pay-button").prop("disabled", false);
+                switch (response.status) {
+                    case 2001:
+                        desc = "La cuenta de banco con esta CLABE ya se encuentra registrada en el cliente.";
+                        break;
+                    case 2002:
+                        desc = "La tarjeta con este número ya se encuentra registrada en el cliente.";
+                        break;
+                    case 2003:
+                        desc = "El cliente con este identificador externo (External ID) ya existe.";
+                        break;
+                    case 2004:
+                        desc = "El dígito verificador del número de tarjeta es inválido de acuerdo al algoritmo Luhn.";
+                        break;
+                    case 2005:
+                        desc = "La fecha de expiración de la tarjeta es anterior a la fecha actual.";
+                        break;
+                    case 2006:
+                        desc = "El código de seguridad de la tarjeta (CVV2) no fue proporcionado.";
+                        break;
+                    case 2007:
+                        desc = "El número de tarjeta es de prueba, solamente puede usarse en Sandbox.";
+                        break;
+                    case 2008:
+                        desc = "La tarjeta no es valida para puntos Santander.";
+                        break;
+                    case 3001:
+                        desc = "La tarjeta fue declinada.";
+                        break;
+                    case 3002:
+                        desc = "La tarjeta ha expirado.";
+                        break;
+                    case 3003:
+                        desc = "La tarjeta no tiene fondos suficientes.";
+                        break;
+                    case 3004:
+                        desc = "La tarjeta ha sido identificada como una tarjeta robada.";
+                        break;
+                    case 3005:
+                        desc = "La tarjeta ha sido rechazada por el sistema antifraudes.";
+                        break;
+                    case 3006:
+                        desc = "La operación no esta permitida para este cliente o esta transacción.";
+                        break;
+                    case 3007:
+                        desc = "Deprecado. La tarjeta fue declinada.";
+                        break;
+                    case 3008:
+                        desc = "La tarjeta no es soportada en transacciones en línea.";
+                        break;
+                    case 3009:
+                        desc = "La tarjeta fue reportada como perdida.";
+                        break;
+                    case 3010:
+                        desc = "El banco ha restringido la tarjeta.";
+                        break;
+                    case 3011:
+                        desc = "El banco ha solicitado que la tarjeta sea retenida. Contacte al banco.";
+                        break;
+                    case 3012:
+                        desc = "Se requiere solicitar al banco autorización para realizar este pago.";
+                        break;
                 }
-            });
+
+                $('#newCardResult').prepend(
+                    '<div class="alert alert-error alert-dismissible fade in" id="LoginFailAlert"> <button type="button" class="close" data-dismiss="alert"> <i class="fa fa-times"></i></button><p><i class="fa fa-exclamation-triangle"></i>' + desc + '</p></div>');
+                window.setTimeout(function ()
+                { $("#LoginFailAlert").alert('close'); }, 100000);
+            };
+
+            OpenPay.token.create({
+                "card_number": $('#card-number').val(),
+                "holder_name": $('#card-holder-name').val(),
+                "expiration_year": $('#card-exp-year').val(),
+                "expiration_month": $('#card-exp-month').val(),
+                "cvv2": $('#card-cvv').val()
+            }, sucess_callbak, error_callbak);
             //$('#token_id').val(token_id);
             //$('#deviceSessionId').val(deviceSessionId);
         };
 
-        var error_callbak = function (response) {
-            var desc = "ERROR [" + response.status + "] " + response.data.description != undefined ? response.data.description : response.message;
-            //alert("ERROR [" + response.status + "] " + desc);
-            //$("#pay-button").prop("disabled", false);
-            switch (response.status) {
-                case 2001:
-                    desc = "La cuenta de banco con esta CLABE ya se encuentra registrada en el cliente.";
-                    break;
-                case 2002:
-                    desc = "La tarjeta con este número ya se encuentra registrada en el cliente.";
-                    break;
-                case 2003:
-                    desc = "El cliente con este identificador externo (External ID) ya existe.";
-                    break;
-                case 2004:
-                    desc = "El dígito verificador del número de tarjeta es inválido de acuerdo al algoritmo Luhn.";
-                    break;
-                case 2005:
-                    desc = "La fecha de expiración de la tarjeta es anterior a la fecha actual.";
-                    break;
-                case 2006:
-                    desc = "El código de seguridad de la tarjeta (CVV2) no fue proporcionado.";
-                    break;
-                case 2007:
-                    desc = "El número de tarjeta es de prueba, solamente puede usarse en Sandbox.";
-                    break;
-                case 2008:
-                    desc = "La tarjeta no es valida para puntos Santander.";
-                    break;
-                case 3001:
-                    desc = "La tarjeta fue declinada.";
-                    break;
-                case 3002:
-                    desc = "La tarjeta ha expirado.";
-                    break;
-                case 3003:
-                    desc = "La tarjeta no tiene fondos suficientes.";
-                    break;
-                case 3004:
-                    desc = "La tarjeta ha sido identificada como una tarjeta robada.";
-                    break;
-                case 3005:
-                    desc = "La tarjeta ha sido rechazada por el sistema antifraudes.";
-                    break;
-                case 3006:
-                    desc = "La operación no esta permitida para este cliente o esta transacción.";
-                    break;
-                case 3007:
-                    desc = "Deprecado. La tarjeta fue declinada.";
-                    break;
-                case 3008:
-                    desc = "La tarjeta no es soportada en transacciones en línea.";
-                    break;
-                case 3009:
-                    desc = "La tarjeta fue reportada como perdida.";
-                    break;
-                case 3010:
-                    desc = "El banco ha restringido la tarjeta.";
-                    break;
-                case 3011:
-                    desc = "El banco ha solicitado que la tarjeta sea retenida. Contacte al banco.";
-                    break;
-                case 3012:
-                    desc = "Se requiere solicitar al banco autorización para realizar este pago.";
-                    break;
-            }
 
-            $('#newCardResult').prepend(
-                '<div class="alert alert-error alert-dismissible fade in" id="LoginFailAlert"> <button type="button" class="close" data-dismiss="alert"> <i class="fa fa-times"></i></button><p><i class="fa fa-exclamation-triangle"></i>' + desc + '</p></div>');
-            window.setTimeout(function ()
-            { $("#LoginFailAlert").alert('close'); }, 100000);
-        };
-
-        OpenPay.token.create({
-            "card_number": $('#card-number').val(),
-            "holder_name": $('#card-holder-name').val(),
-            "expiration_year": $('#card-exp-year').val(),
-            "expiration_month": $('#card-exp-month').val(),
-            "cvv2": $('#card-cvv').val()
-        }, sucess_callbak, error_callbak);
     };
 
     function MakeMainCardAjax(cardId) {
@@ -810,6 +814,42 @@ function goto_rndf(reload)
                 http('@Url.Action("DeleteBillingAddress", "BillingAddress")', formData, callbackSuccess, ".form-efacturacion", "");
             }
         });
+
+        $('.form-card').validate({
+            rules: {
+                name: {
+                    required: true
+                },
+                numero: {
+                    required: true
+                },
+                mm: {
+                    required: true
+                },
+                yy: {
+                    required: true
+                },
+                cvv: {
+                    required: true
+                }
+            },
+            highlight: function (element) {
+                $(element).closest('.form-group').addClass('has-error');
+            },
+            unhighlight: function (element) {
+                $(element).closest('.form-group').removeClass('has-error');
+            },
+            errorElement: 'span',
+            errorClass: 'help-block',
+            errorPlacement: function (error, element) {
+                if (element.parent('.input-group').length) {
+                    error.insertAfter(element.parent());
+                } else {
+                    error.insertAfter(element);
+                }
+            }
+        });
+
         $('.form-afacturacion').validate({
             rules: {
                 Alias: {

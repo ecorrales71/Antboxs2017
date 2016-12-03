@@ -1,6 +1,7 @@
 ﻿using AntBoxFrontEnd.Infrastructure;
 using AntBoxFrontEnd.Models;
 using AntBoxFrontEnd.Services.Address;
+using AntBoxFrontEnd.Services.Customer;
 using AntBoxFrontEnd.Services.Zipcodes;
 using AutoMapper;
 using System;
@@ -96,6 +97,15 @@ namespace AntBoxFrontEnd.Controllers
 
         private JsonResult ListAddresses(string idcustomer)
         {
+
+            if (idcustomer == null)
+            {
+                if (Session["customer"] == null) 
+                {
+                    idcustomer = ((CustomerResponse)Session["customer"]).Id;
+                }
+            }
+
             var addressService = new AddressService(ServiceConfiguration.GetApiKey());
 
             var result = addressService.ListAddresses(idcustomer);

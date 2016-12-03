@@ -33,13 +33,23 @@
                             <p>Programa la solicitud de tus Antboxs en el momento que tú decidas. Agrega una descripción que te permita identificar su contenido fácilmente.</p>
                         </div>
                         <div id="antboxs-container">
-                            @Html.Partial("_CustomerAntboxs", Model.Antboxs)
+                            @if (Model.Total != null)
+                            {
+                                @Html.Partial("_CustomerAntboxs", Model.Antboxs)
+                            }
                         </div>
                     </div>
                     <div id="loader" role="alert" style="display: none;">
                         <img src="@Url.Content("~/Images/preloader.gif")" />   Cargando antboxs... &nbsp;
                     </div>
+                    @if (@Model.Total != null)
+                    {
                     <div class="pagination solid text-center"></div>
+                    }
+                    else
+                    {
+                        <h4>Sin Antboxs</h4>
+                    }
                     <div class="row">
                         <div class="col-sm-12 pl0 pr0 pt20 text-center">
                             <!-- PAGINATION -->
@@ -47,6 +57,7 @@
                             <!-- /.pagination -->
                         </div>
                     </div>
+                    
                 </div>
             </div>
         </div>
@@ -103,11 +114,12 @@
                 <div id="loader-solicitar" role="alert" style="display: none;">
                     <img src="@Url.Content("~/Images/preloader.gif")" />   Solicitando antboxs... &nbsp;
                 </div>
-                <form method="post" class="contact-form form-solid form-solicitar-antbox" novalidate>
+                <form method="post" class="form-solid " id="form-solicitar-antbox">
+                    <input type="hidden" name="status" id="statusantbox" value="" />
                     <div class="row">
                         <div class="col-sm-6">
                             <div class="form-group mb0">
-                                <label for="address">Dirección de entrega</label>
+                                <label for="address">* Dirección de entrega</label>
                                 <select id="address" name="address">
                                     @if (Model.Addresses != null)
                                     {
@@ -122,21 +134,23 @@
                                 </select>
                                 @Html.ActionLink("Nueva direción", "Direcciones", "Customer", new { @class = "pull-right" })
                             </div>
-                            <label for="textbox">Fecha</label>
+                            <label for="textbox">* Fecha</label>
                             <div class="input-group">
                                 <span class="input-group-btn">
                                     <button type="button" id="entrega" class="btn btn-primary pull-right"><i class="fa fa-calendar"></i></button>
                                 </span>
                                 <input class="form-control" type="text" id="fecha_entrega" name="fecha_entrega" disabled="disable">
                             </div>
+                            <div style='display:none' id="alert_fecha" class="help-block"><label>La fecha debe ser superior a la actual*</label></div>
                             <div class="form-group">
                                 <input type="hidden" name="horariostring" id="horariostring" value="" />
-                                <label for="horario">Horario de entrega</label>
-                                <select id="horario" name="horario" >
-                                    <option value>- Selecciona una opción -</option>
+                                <label for="horario">* Horario de entrega</label>
+                                <select id="horario" name="horario" onchange="HorarioRecoleccion()">
+                                    <option value="">- Selecciona una opción -</option>
                                 </select>
                             </div>
                         </div>
+                        <div style='display:none' id="alert_horario" class="help-block"><label>No hay trabajadores disponibles para este horario*</label></div>
                         <div class="col-sm-6 pl0_modal">
                             <div class="form-group">
                                 <label for="referencia">Referencias o comentarios</label>
@@ -163,26 +177,46 @@
 @Scripts.Render("~/bundles/simplepaginationjs")
 <script type="text/javascript">
     Calendar.setup({
-        inputField     :    "fecha_entrega",      // id del campo de texto
-        ifFormat       :    "%Y-%m-%d",       // formato de la fecha, cuando se escriba en el campo de texto
+        inputField: "fecha_entrega",      // id del campo de texto
+        ifFormat: "%Y-%m-%d",       // formato de la fecha, cuando se escriba en el campo de texto
         button: "entrega",   // el id del botón que lanzará el calendario
-        onUpdate: function() {
+        verifModal: true,
+        onUpdate: function () {
             var date = $("#fecha_entrega").val();
-            $.ajax({
-                url: '@Url.Action("getSchedules", "Customer")',
-                type: "GET",
-                data: { "date": date },
-                success: function (schedules) {
-                    // alert("<option value='" + schedules[0].worker + "'>" + schedules[0].Start + " - " + schedules[0].End + " hrs.</option>");
-                    $("#horario").html("");
-                    var items = '<option>Seleccciona un horario disponible</option>';
-                    for (var i = 0; i < schedules.length ; i++) {
-                        items += "<option value='" + schedules[i].worker + "'>" + schedules[i].Start + " - " + schedules[i].End + " hrs.</option>";
-                    }
-                    $('#horario').html(items);
-                    $('#horario').trigger("chosen:updated");
+            var f = new Date();
+            var month = f.getMonth() + 1
+            month = (parseInt(month) < 10) ? "0" + month : month;
+            var day = (parseInt(f.getDate()) < 10) ? "0" + f.getDate() : f.getDate();
+            var fecha_hoy = f.getFullYear() + "-" + month + "-" + day;
+
+            if (date <= fecha_hoy) {
+                document.getElementById('alert_fecha').style.display = 'block';
+                $('#fecha_entrega').css('background', '#ffdede');
+                //alert("La fecha no puede ser menor a la fecha de hoy");
+                $('#fecha_entrega').attr('value') = '';
+            } else {
+                document.getElementById('alert_fecha').style.display = 'none';
+                $('#fecha_entrega').css('background', '');
+                if ($("#fecha_entrega").val() != "") {
+                    $("#fecha_entrega").closest(".form-group").removeClass("has-error");
+                    $("#fecha_entrega").closest(".form-group").find(".help-block").remove();
                 }
-            });
+                $.ajax({
+                    url: '@Url.Action("getSchedules", "Customer")',
+                    type: "GET",
+                    data: { "date": date },
+                    success: function (schedules) {
+                        // alert("<option value='" + schedules[0].worker + "'>" + schedules[0].Start + " - " + schedules[0].End + " hrs.</option>");
+                        $("#horario").html("");
+                        var items = '<option>Seleccciona un horario disponible</option>';
+                        for (var i = 0; i < schedules.length ; i++) {
+                            items += "<option value='" + schedules[i].worker + "'>" + schedules[i].Start + " - " + schedules[i].End + " hrs.</option>";
+                        }
+                        $('#horario').html(items);
+                        $('#horario').trigger("chosen:updated");
+                    }
+                });
+            }
         }
     });
     $(function () {
@@ -204,8 +238,10 @@
 
         $(document).on("click", ".solicitar", function () {
             element = $(this);
-            var elementchecked = $(this).closest("div").find(".select-antbox");
+            var elementchecked = $(this).closest("div").find(".select-antbox-check");
+            $('#statusantbox').val($(this).attr("data-status"));
             elementchecked.prop('checked', true);
+            $("#solicitar").modal("show");
         });
 
         $('.guardar-antbox').click(function (event) {
@@ -213,29 +249,64 @@
             $.ajax({
                 type: 'POST',
                 url: '@Url.Action("UpdateAjax", "AntBox")',
-            data: { id: element.attr('data-id'), name: $('#mname-antbox').val(), description: $('#mdescription-antbox').val() },
-            success: function (result) {
-                if (result.success == true) {
-                    //antbox editado
-                    if (!$('#UpdateAntBoxSuccess').length)
-                    {
-                        $('.form-editar-antbox').prepend('<div class="alert alert-success alert-dismissible fade in" id="UpdateAntBoxSuccess"> <button type="button" class="close" data-dismiss="alert"> <i class="fa fa-times"></i></button><p><i class="fa fa-check"></i>Se ha actualizado la información.</p></div>');
-                        window.setTimeout(function () {
-                            $('#UpdateAntBoxSuccess').hide();
-                        }, 3000);
-                        window.setTimeout(function () {
-                            $('#mname-antbox').val('');
-                            $('#mdescription-antbox').val('');
-                            $('#editar').modal('hide');
-                        }, 500);
-                    }
-                    element.parent().find('.name-antbox').text($('#mname-antbox').val());
-                    element.parent().find('.description-antbox').text($('#mdescription-antbox').val());
-                } else {
+                data: { id: element.attr('data-id'), name: $('#mname-antbox').val(), description: $('#mdescription-antbox').val() },
+                success: function (result) {
+                    if (result.success == true) {
+                        //antbox editado
+                        if (!$('#UpdateAntBoxSuccess').length) {
+                            $('.form-editar-antbox').prepend('<div class="alert alert-success alert-dismissible fade in" id="UpdateAntBoxSuccess"> <button type="button" class="close" data-dismiss="alert"> <i class="fa fa-times"></i></button><p><i class="fa fa-check"></i>Se ha actualizado la información.</p></div>');
+                            window.setTimeout(function () {
+                                $('#UpdateAntBoxSuccess').hide();
+                            }, 3000);
+                            window.setTimeout(function () {
+                                $('#mname-antbox').val('');
+                                $('#mdescription-antbox').val('');
+                                $('#editar').modal('hide');
+                            }, 500);
+                        }
+                        element.parent().find('.name-antbox').text($('#mname-antbox').val());
+                        element.parent().find('.description-antbox').text($('#mdescription-antbox').val());
+                    } else {
 
+                    }
+                }
+            });
+        });
+
+        function colocaChosen() {
+            $(".chosen-container").each(function () {
+                $(this).insertBefore($(this).closest(".form-group").find("select"));
+            })
+        }
+
+        $('#form-solicitar-antbox').validate({
+            rules: {
+                address: {
+                    required: true
+                },
+                "fecha_entrega": {
+                    required: true
+                },
+                horario: {
+                    required: true
+                }
+            },
+            highlight: function (element) {
+                $(element).closest('.form-group').addClass('has-error');
+            },
+            unhighlight: function (element) {
+                $(element).closest('.form-group').removeClass('has-error');
+            },
+            errorElement: 'span',
+            errorClass: 'help-block',
+            errorPlacement: function (error, element) {
+                colocaChosen();
+                if (element.parent('.input-group').length) {
+                    error.insertAfter(element.parent());
+                } else {
+                    error.insertAfter(element);
                 }
             }
-            });
         });
 
         $('.solicitar-antbox').click(function (event) {
@@ -248,64 +319,69 @@
 
             $("#loader-solicitar").show();
             console.log($(".select-antbox:checked").length);
-            $(".select-antbox-check:checked").each(function () {
-                var folio = $(this).attr("data-folio");
-                checkeds.push(folio);
 
-                var formData = {
-                    worker: $("#horario").val(),
-                    address: $("#address").val(),
-                    fecha: $("#fecha_entrega").val(),
-                    hora: $('#horariostring').val(),
-                    referencia: $('#referencia').val(),
-                    folioEntrega: folio
-                };
+            if ($('#form-solicitar-antbox').valid())
+            {
+                $(".select-antbox-check:checked").each(function () {
+                    var folio = $(this).attr("data-folio");
+                    checkeds.push(folio);
 
-                console.log(formData);
+                    var formData = {
+                        worker: $("#horario").val(),
+                        address: $("#address").val(),
+                        fecha: $("#fecha_entrega").val(),
+                        hora: $('#horariostring').val(),
+                        referencia: $('#referencia').val(),
+                        status: $('#statusantbox').val(),
+                        folioEntrega: folio
+                    };
 
-                $.ajax({
-                    type: 'POST',
-                    url: '@Url.Action("SolicitarAntbox", "AntBox")',
-                    data: formData,
-                    success: function (result) {
-                        console.log(result);
-                        if (result.success == true) {
-                            //antbox editado
-                            succesed.push(1);
-                            console.log('result succes');
-                        } else {
+                    console.log(formData);
+
+                    $.ajax({
+                        type: 'POST',
+                        url: '@Url.Action("SolicitarAntbox", "AntBox")',
+                        data: formData,
+                        success: function (result) {
+                            console.log(result);
+                            if (result.success == true) {
+                                //antbox editado
+                                succesed.push(1);
+                                console.log('result succes');
+                            } else {
+                                succesed.push(0);
+                                console.log('result false');
+                            }
+                        }, error: function (dataerror) {
+                            console.log(dataerror);
                             succesed.push(0);
-                            console.log('result false');
-                        }
-                    }, error: function (dataerror) {
-                        console.log(dataerror);
-                        succesed.push(0);
-                    }, complete: function () {
-                        count++;
-                        if (count == checkeds.length)
-                        {
-                            var mensaje = "Antboxs solicitados correctamente";
-                            if (checkeds.length > 1) mensaje = "Antbox solicitado correctamente";
+                        }, complete: function () {
                             $("#loader-solicitar").hide();
-                            if (!$('#SolicitarAntBoxSuccess').length) {
-                                $('.form-solicitar-antbox').prepend('<div class="alert alert-success alert-dismissible fade in" id="SolicitarAntBoxSuccess"> <button type="button" class="close" data-dismiss="alert"> <i class="fa fa-times"></i></button><p><i class="fa fa-check"></i>' + mensaje + '</p></div>');
-                                window.setTimeout(function () {
-                                    $('#SolicitarAntBoxSuccess').remove();
-                                }, 3000);
-                                window.setTimeout(function () {
+                            count++;
+                            if (count == checkeds.length) {
+                                $("#loader-solicitar").hide();
+                                if (succesed[0] == 1)
+                                {
+                                    var mensaje = "Antboxs solicitados correctamente";
+                                    if (checkeds.length > 1) mensaje = "Antbox solicitado correctamente";
+                                    verifCloseModal = true;
+                                    modalToClose = $('#solicitar');
+                                    mostrarMensaje($('#form-solicitar-antbox'), "antboxMensaje", mensaje, "alert-success");
                                     $(".select-antbox:checked").each(function () {
                                         $(this).prop('checked', false);
                                     });
                                     $('#solicitar').modal('hide');
-                                }, 1000);
+                                } else {
+                                    mostrarMensaje($('#form-solicitar-antbox'), "antboxMensaje", "Error al solicitar antbox intentelo de nuevo", "alert-warning");
+                                }
+                                //element.parent().find('.name-antbox').text($('#mname-antbox').val());
+                                //element.parent().find('.description-antbox').text($('#mdescription-antbox').val());
                             }
-                            element.parent().find('.name-antbox').text($('#mname-antbox').val());
-                            element.parent().find('.description-antbox').text($('#mdescription-antbox').val());
                         }
-                    }
+                    });
                 });
-            });
-
+            }
+            
             console.log(checkeds);
 
         });
@@ -326,7 +402,7 @@
 
                 $("#antboxs-container").html('');
                 pageLoading(true);
-                var formData = { idPagination : $('#idpagination').val(), page: pageNumber };
+                var formData = { idPagination: $('#idpagination').val(), page: pageNumber };
                 var cadhtml = "";
                 var antboxsresult = "";
 
@@ -338,8 +414,7 @@
 
                         antboxsresult = "";
 
-                        for (var i = 0; i < result.Antboxs.length; i++)
-                        {
+                        for (var i = 0; i < result.Antboxs.length; i++) {
 
                             var antboxv = result.Antboxs[i];
 
@@ -349,7 +424,7 @@
                             cadhtml += "                    <div class=\"row\">";
                             cadhtml += "                        <div class=\"col-sm-4 col-xs-12\">";
                             cadhtml += "                            <figure class=\"figure\">";
-                            cadhtml += "                                <img src=\"\/images\/antboxs_3.jpg\" alt=\"\">";
+                            cadhtml += "                                <img src=\"" + antboxv.imagen + "\" alt=\"\">";
                             cadhtml += "                                <div class=\"mask mask-dark\">";
                             cadhtml += "                                    <nav>";
                             cadhtml += "                                        <a class=\"icon icon-inverse icon-size-1 icon-theme icon-rounded magnific\" title=\"Antboxs 1\" href=\"\/images\/antboxs_3.jpg\">";
@@ -360,9 +435,13 @@
                             cadhtml += "                            <\/figure>";
                             cadhtml += "                        <\/div>";
                             cadhtml += "                        <div class=\"col-sm-8 col-xs-12 antboxs_txt\" >";
-                            cadhtml += "                            <h4><span class=\"name-antbox\">"+ antboxv.Name +" - "+ antboxv.Folio +"<\/h4>";
+                            cadhtml += "                            <h4><span class=\"name-antbox\">" + antboxv.Name + " - " + antboxv.Folio + " " + antboxv.EnDeposito + "<\/h4>";
                             cadhtml += "                            <p class=\"description-antbox\">" + antboxv.Descriptionv + "<\/p>";
-                            cadhtml += "                            <button type=\"button\" class=\"btn btn-primary btn-sm pull-right ml20 solicitar\" data-toggle=\"modal\" data-folio=\"" + antboxv.Folio + "\" data-id=\"" + antboxv.Id + "\" data-target=\"#solicitar\">Solicitar<\/button>";
+                            cadhtml += "                            <div class=\"checkboxFive\">";
+                            cadhtml += "                                <input type=\"checkbox\" value=\"1\" id=\"checkboxFiveInput-" + antboxv.Id + "\" class=\"select-antbox-check\" name=\"\">";
+                            cadhtml += "                                <label for=\"checkboxFiveInput-" + antboxv.Id + "\" class=\"select-antbox\" data-folio=\"" + antboxv.Folio + "\"></label>";
+                            cadhtml += "                            </div>";
+                            cadhtml += "                            <button type=\"button\" class=\"btn btn-primary btn-sm pull-right ml20 solicitar\" data-toggle=\"modal\" data-folio=\"" + antboxv.Folio + "\" data-id=\"" + antboxv.Id + "\" data-status=\"" + antboxv.Status + "\" data-target=\"#solicitar\">Solicitar<\/button>";
                             cadhtml += "                            <button type=\"button\" class=\"btn btn-primary btn-sm pull-right btn_blue editar\" data-toggle=\"modal\" data-id=\"" + antboxv.Id + "\" data-target=\"#editar\">Editar<\/button>";
                             cadhtml += "                        <\/div>";
                             cadhtml += "                    <\/div>";
@@ -372,26 +451,54 @@
                             antboxsresult += cadhtml;
                         }
 
-                        $("#antboxs-container").html( antboxsresult );
+                        $("#antboxs-container").html(antboxsresult);
 
                         console.log(result);
                         pageLoading(false);
-                   
+
                     }
                 });
 
             }
         });
 
-    function pageLoading(status) {
-        if (status) {
-            $("#loader").css('display', 'block');
+        function pageLoading(status) {
+            if (status) {
+                $("#loader").css('display', 'block');
+            }
+            else {
+                $("#loader").css('display', 'none');
+            }
         }
-        else {
-            $("#loader").css('display', 'none');
-        }
-    }
 
-})
+    })
+
+
+    function HorarioRecoleccion() {
+        var date = $("#fecha_entrega").val();
+        var horario = $("#horario").val();
+        var t = $("#horario option:selected").text();
+
+        $.ajax({
+            url: '@Url.Action("getSchedules", "Customer")',
+            type: "GET",
+            data: { "date": date },
+            success: function (schedules) {
+
+                for (var i = 0; i < schedules.length ; i++) {
+                    var work = schedules[i].Workers;
+                    if (schedules[i].Start + " - " + schedules[i].End + " hrs." == t) {
+                        if (work.length == 0) {
+                            document.getElementById('alert_horario').style.display = 'block';
+                        } else {
+                            document.getElementById('alert_horario').style.display = 'none';
+                        }
+                    }
+                }
+            }
+        });
+    };
+
 </script>
+
 }

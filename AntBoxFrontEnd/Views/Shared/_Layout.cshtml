@@ -288,41 +288,51 @@
                             <input type="hidden" id="verifoption" name="verifoption" value="1" />
                             <div class="form-group">
                                 <label for="name">Nombre</label>
-                                <input type="text" name="name" id="name" maxlength="50">
+                                <input type="text" name="name" id="name" maxlength="50" required="required">
                             </div>
                             <div class="form-group">
                                 <label for="lastname">Apellidos</label>
-                                <input type="text" name="lastname" id="lastname" maxlength="100" >
+                                <input type="text" name="lastname" id="lastname" maxlength="100" required="required" >
                             </div>
                             <div class="form-group">
                                 <label for="email">Email</label>
-                                <input type="email" name="email" id="email" maxlength="100">
+                                <input type="email" name="email" id="email" maxlength="100" required="required">
                             </div>
+                            <div style='display:none' id="alert_email" class="alert"><label>Campo requerido formato email incorrecto*</label></div>
                             <div class="form-group">
                                 <label for="email2">Confirmar Email</label>
-                                <input type="email" name="email2" id="email2" maxlength="100">
+                                <input type="email" name="email2" id="email2" maxlength="100" required="required">
                             </div>
+                            <div style='display:none' id="alert_email2" class="alert"><label>Campo requerido formato email incorrecto*</label></div>
+                            <div style='display:none' id="alert_email3" class="alert"><label>Emails no coinciden*</label></div>
                             <div class="form-group">
                                 <label for="username">Nombre de usuario</label>
-                                <input type="text" name="username" id="username">
+                                <input type="text" name="username" id="username" required="required">
                             </div>
                             <div class="form-group">
                                 <label for="zipcode">Código Postal de Recolección</label>
-                                <input type="text" name="zipCode" id="zipCode" onchange="validateZipCode()" maxlength="5">
+                                <input type="text" name="zipCode" id="zipCode" onchange="validateZipCode()" maxlength="5" required="required">
+                            </div>
+                            <div class="form-group">
+                                <label for="zipcode">Teléfono</label>
+                                <input type="text" name="phone" id="phone" required="required">
                             </div>
                             <div id="zipCodeError"></div>
                             <hr class="hr-sm hr-stroke" />
                             <div class="form-group">
                                 <label for="password">Contraseña</label>
-                                <input type="password" name="password" id="password" maxlength="10">
+                                <input type="password" name="password" id="password" maxlength="10" required="required">
                             </div>
+                            <div style='display:none' id="alert_password" ><label>Debe contener minimo una mayuscula y un numero*</label></div>
                             <div class="form-group">
                                 <label for="password2">Confirmar Contraseña</label>
-                                <input type="password" name="password2" id="password2" maxlength="10">
-                            </div>
+                                <input type="password" name="password2" id="password2" maxlength="10" required="required">
+                             </div>
+                            <div style='display:none' id="alert_password2" ><label>Debe contener minimo una mayuscula y un numero*</label></div>
+                            <div style='display:none' id="alert_password3" ><label>Contraseñas no Coinciden*</label></div>
                             <hr class="hr-sm hr-stroke" />
                             <div class="form-group">
-                                <input type="button" class="btn btn-primary" data-dismiss="modal" value="Registrarme" id="btnRegister">
+                                <input type="button" class="btn btn-primary"  value="Registrarme" id="btnRegister" >
                             </div>
                         </form>
                     </div>
@@ -343,6 +353,7 @@
 @Scripts.Render("~/bundles/jqueryval")
 @RenderSection("scripts", required: false)
 
+<script type="text/javascript" src="~/Scripts/validaciones.js"></script>
 <script>
     $(function () {
         //Validar letras y espacios
@@ -351,18 +362,27 @@
             if (!txt.match(/[A-Za-zñÑáéíóúÁÉÍÓÚ\s]/)) {
                 return false;
             }
+        }).on('keydown', function (e) {
+            if (e.keyCode == 8)
+                $(this).trigger('keypress');
         });
         $('#email, #email2').keypress(function (e) {
             var txt = String.fromCharCode(e.which);
             if (!txt.match(/[A-Za-z0-9ñÑáéíóúÁÉÍÓÚ@@\-\_&'.]/)) {
                 return false;
             }
+        }).on('keydown', function (e) {
+            if (e.keyCode == 8)
+                $(this).trigger('keypress');
         });
         $('#zipCode').keypress(function (e) {
             var txt = String.fromCharCode(e.which);
             if (!txt.match(/[0-9]/)) {
                 return false;
             }
+        }).on('keydown', function (e) {
+            if (e.keyCode == 8)
+                $(this).trigger('keypress');
         });
         function isValidEmail(mail) {
             return /^\w+([\.\+\-]?\w+)*@@\w+([\.-]?\w+)*(\.\w{2,4})+$/.test(mail);
@@ -391,7 +411,7 @@
             url: '@Url.Action("AntBoxLoginAjax", "Account")',
             data: $('#LoginForm').serialize(),
             success: function (result) {
-                if (result.success==false) {
+                if (result.success == false) {
                     $('#body-content').prepend(
                     '<div class="alert alert-warning" role="alert" id="LoginFailAlert">Usuario o Password no valido.</div>');
                     window.setTimeout(function ()
@@ -413,46 +433,63 @@
     });
 
     $('#btnRegister').click(function () {
-        $.ajax({
-            type: 'POST',
-            url: '@Url.Action("AntBoxRegisterAjax", "Account")',
-            data: $('#registerForm').serialize(),
-            success: function (result) {
-                if (result.success == false) {
-                    $('#body-content').prepend(
-                    '<div class="alert alert-warning" role="alert" id="LoginFailAlert">Usuario o Password no valido.</div>');
-                    window.setTimeout(function ()
-                    { $("#LoginFailAlert").alert('close'); }, 2000);
-                    if ($("#verifoption").val() == "2") {
-                        procesarOrdenRegistro();
+        if ($('#registerForm')[0].checkValidity() && !$(this).hasClass('disablebutton')) {
+            var eleb = $(this);
+            eleb.toggleClass("disablebutton");
+            $('#registro').modal("hide");
+            $('.preloader').show();
+
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("AntBoxRegisterAjax", "Account")',
+                data: $('#registerForm').serialize(),
+                success: function (result) {
+                    if (result.success == false) {
+                        //$('#body-content').prepend(
+                        //'<div class="alert alert-warning" role="alert" id="LoginFailAlert">Usuario o Password no valido.</div>');
+                        $('.preloader').hide();
+                        
+                        eleb.removeClass("disablebutton");
+                        window.setTimeout(function ()
+                        { $("#LoginFailAlert").alert('close'); }, 2000);
+                        if ($("#verifoption").val() == "2") {
+                             
+                        }
                     }
+                    else {
+                        
+                        eleb.removeClass("disablebutton");
+                        $('#login-info').html(result);
+                        window.location.href = '@Url.Action("Index", "Customer")';
+                    }
+
+
+                },
+                error: function (emp) {
+                    $('#registro').modal("hide");
+                    eleb.removeClass("disablebutton");
+                    $('#body-content').prepend(
+                        '<div class="alert alert-danger fade-in" role="alert" id="LoginErrorAlert">Error al realizar el login. Intente nuevamente.</div>'
+                        );
+                    window.setTimeout(function ()
+                    { $("#LoginErrorAlert").alert('close'); }, 2000);
+
                 }
-                else {
-                    $('#login-info').html(result);
-                }
+            });
+        } else {
+            alert("Todos los campos son requeridos");
+        }
 
-
-            },
-            error: function (emp) {
-                $('#body-content').prepend(
-                    '<div class="alert alert-danger fade-in" role="alert" id="LoginErrorAlert">Error al realizar el login. Intente nuevamente.</div>'
-                    );
-                window.setTimeout(function ()
-                { $("#LoginErrorAlert").alert('close'); }, 2000);
-
-            }
-        });
     });
 
     function validateZipCode() {
         $.ajax({
             type: 'POST',
             url: '@Url.Action("ValidateZipCodeAjax", "AntBoxAddresses")',
-            data: {zipCode : $("#zipCode").val()},
+            data: { zipCode: $("#zipCode").val() },
             success: function (result) {
                 if (result.success == false) {
-                    if (!$('.error-zipcode').length)
-                    {
+                    if (!$('.error-zipcode').length) {
                         $('#zipCodeError').prepend(
                             '<div class="alert alert-warning" id="zipCodeError"><p class="error-zipcode"><i class="fa fa-exclamation-triangle"></i> <strong>Prueba con otro código postal.</strong> Por el momento nuestro servicio no llega a este domicilio pero te mantendremos informado de las próximas zonas de cobertura.</p></div>'
                         );

@@ -380,10 +380,13 @@
     <Compile Include="Services\Payments\CardInfo.cs" />
     <Compile Include="Services\Payments\PaginationCharges.cs" />
     <Compile Include="Services\Payments\PaginationPayments.cs" />
+    <Compile Include="Services\Payments\PaymentDetailResponseParent.cs" />
+    <Compile Include="Services\Payments\PaymentDetailResponse.cs" />
     <Compile Include="Services\Payments\PaymentObject.cs" />
     <Compile Include="Services\Payments\CardObject.cs" />
     <Compile Include="Services\Payments\Charge.cs" />
     <Compile Include="Services\Payments\ChargeResponse.cs" />
+    <Compile Include="Services\Payments\PaymentDetailRequestOptions.cs" />
     <Compile Include="Services\Payments\PaymentRequestOptions.cs" />
     <Compile Include="Services\Payments\CreatedCardResponse.cs" />
     <Compile Include="Services\Payments\PaginationListCards.cs" />
@@ -682,6 +685,7 @@
     <Content Include="Content\docs\terminos-y-condiciones.pdf" />
     <None Include="Properties\PublishProfiles\antbox - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\AntBoxs - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\antboxslocal.pubxml" />
     <None Include="Properties\PublishProfiles\antboxstest %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\antboxstest %283%29.pubxml" />
     <None Include="Properties\PublishProfiles\antboxstest.pubxml" />
@@ -712,6 +716,7 @@
     <Content Include="Scripts\moment.min.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\validaciones.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Video\video_antboxs.mp4" />
     <Content Include="Web.config">

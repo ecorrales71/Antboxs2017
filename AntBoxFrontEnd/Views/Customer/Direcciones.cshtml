@@ -264,60 +264,110 @@
                 return false;
             }
         });
-    });
-    $('#btnCreateAddress').click(function () {
-       // alert('Entro la acción');
-        $.ajax({
-            contentType: 'application/json; charset=utf-8',
-            dataType: 'json',
-            type: 'POST',
-            url: '@Url.Action("CreateAddress", "Home")',            
-           // data: $('#frmNewAddress').serialize(),
-            data: JSON.stringify({
-                "Alias": $("#NAlias").val(),
-                "Street": $("#NStreet").val(),
-                "Internal_number": $("#NInternal_number").val(),
-                "External_number": $("#NExternal_number").val(),
-                "Zipcode": $("#NZipcode").val(),
-                "Delegation": $("#NcmbDelegations1").val(),
-                "Neighborhood": $("#NcmbNeighborhood1").val(),
-                "City": $("#NCity").val(),
-                "State": $("#NState").val(),
-                "Country": $("#NCountry").val(),
-                "References": $("#NReferences").val()               
-            }),
-            success: function (result) {
-                if (result.success == false) {
-                    $('#frmNewAddress').prepend(
-                    '<div class="alert alert-warning" role="alert" id="addressError">Error al registrar dirección, intentelo de nuevo.</div>');
-                    window.setTimeout(function ()
-                    { $("#addressError").alert('close'); }, 2000);
 
-                }
-                else {
-                    $('#login-info').html(result);
-                    $('#frmNewAddress').prepend(
-                   '<div class="alert alert-warning" role="alert" id="addressError">Dirección registrada.</div>');
-                    window.setTimeout(function ()
-                    { $("#addressError").alert('close'); }, 2000);
-
-                    window.location.reload(true);
-                    //$('#frmNewAddress').ready(function () {
-                    //    $("input").each(function () {
-                    //        $(this).val("");
-                    //    });
-                    //});
+        $('#frmNewAddress').validate({
+            rules: {
+                Street: {
+                    required: true
+                },
+                "External_number": {
+                    required: true
+                },
+                Zipcode: {
+                    valueNotEquals: "",
+                    required: true
+                },
+                Delegation: {
+                    valueNotEquals: "",
+                    required: true
+                },
+                Neighborhood: {
+                    valueNotEquals: "",
+                    required: true
+                },
+                "Fecha_recoleccion": {
+                    required: true
+                },
+                Horario: {
+                    valueNotEquals: "",
+                    required: true
                 }
             },
-            error: function (emp) {
-                $('#frmNewAddress').prepend(
-                    '<div class="alert alert-danger fade-in" role="alert" id="LoginErrorAlert">Error al registrar dirección, intentelo de nuevo.</div>'
-                    );
-                window.setTimeout(function ()
-                { $("#LoginErrorAlert").alert('close'); }, 2000);
-
+            highlight: function (element) {
+                $(element).closest('.form-group').addClass('has-error');
+            },
+            unhighlight: function (element) {
+                $(element).closest('.form-group').removeClass('has-error');
+            },
+            errorElement: 'span',
+            errorClass: 'help-block',
+            errorPlacement: function (error, element) {
+                colocaChosen();
+                if (element.parent('.input-group').length) {
+                    error.insertAfter(element.parent());
+                } else {
+                    error.insertAfter(element);
+                }
             }
         });
+    });
+    $('#btnCreateAddress').click(function () {
+        // alert('Entro la acción');
+        if ($('#frmNewAddress').valid())
+        {
+            $.ajax({
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                type: 'POST',
+                url: '@Url.Action("CreateAddress", "Home")',
+                // data: $('#frmNewAddress').serialize(),
+                data: JSON.stringify({
+                    "Alias": $("#NAlias").val(),
+                    "Street": $("#NStreet").val(),
+                    "Internal_number": $("#NInternal_number").val(),
+                    "External_number": $("#NExternal_number").val(),
+                    "Zipcode": $("#NZipcode").val(),
+                    "Delegation": $("#NcmbDelegations1").val(),
+                    "Neighborhood": $("#NcmbNeighborhood1").val(),
+                    "City": $("#NCity").val(),
+                    "State": $("#NState").val(),
+                    "Country": $("#NCountry").val(),
+                    "References": $("#NReferences").val()
+                }),
+                success: function (result) {
+                    if (result.success == false) {
+                        $('#frmNewAddress').prepend(
+                        '<div class="alert alert-warning" role="alert" id="addressError">Error al registrar dirección, intentelo de nuevo.</div>');
+                        window.setTimeout(function ()
+                        { $("#addressError").alert('close'); }, 2000);
+
+                    }
+                    else {
+                        $('#login-info').html(result);
+                        $('#frmNewAddress').prepend(
+                       '<div class="alert alert-warning" role="alert" id="addressError">Dirección registrada.</div>');
+                        window.setTimeout(function ()
+                        { $("#addressError").alert('close'); }, 2000);
+
+                        window.location.reload(true);
+                        //$('#frmNewAddress').ready(function () {
+                        //    $("input").each(function () {
+                        //        $(this).val("");
+                        //    });
+                        //});
+                    }
+                },
+                error: function (emp) {
+                    $('#frmNewAddress').prepend(
+                        '<div class="alert alert-danger fade-in" role="alert" id="LoginErrorAlert">Error al registrar dirección, intentelo de nuevo.</div>'
+                        );
+                    window.setTimeout(function ()
+                    { $("#LoginErrorAlert").alert('close'); }, 2000);
+
+                }
+            });
+        }
+        
     });
 
     function validateZipCode(verif) {

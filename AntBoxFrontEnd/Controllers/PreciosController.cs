@@ -554,7 +554,8 @@ namespace AntBoxFrontEnd.Controllers
                     Mobile_phone = "",
                     Password = requestOrder.Password,
                     Username = requestOrder.Username,
-                    Status = true
+                    Status = true,
+                    Phone = requestOrder.Phone
                 };
 
                 var ser = new CustomerServices(ServiceConfiguration.GetApiKey());
@@ -636,7 +637,7 @@ namespace AntBoxFrontEnd.Controllers
                                 else
                                 {
                                     //PASO 4 - AGENDAR TASK
-                                    isTaskPickupCreated = CreatePickupTask(modeltask.Fecha_recoleccion, modeltask.HoraRecoleccionString, dirRec, modeltask.Horario, folioRecoleccion, waitTimeWorker);
+                                    isTaskPickupCreated = CreateDeliveryTask(modeltask.Fecha_recoleccion, modeltask.HoraRecoleccionString, dirRec, modeltask.Horario, folioRecoleccion);
                                     if (!isTaskPickupCreated)
                                         return Json(new { success = false, responseText = "OCURRIO UN ERROR AL CREAR TAREA DE RECOLECCION" }, JsonRequestBehavior.AllowGet);
                                     result += "Tarea de recoleccion agendada: " + isTaskPickupCreated + "\n";

@@ -89,7 +89,8 @@ Calendar.setup = function (params) {
 	param_default("position",       null);
 	param_default("cache",          false);
 	param_default("showOthers",     false);
-	param_default("multiple",       null);
+	param_default("multiple", null);
+	param_default("verifModal", false);
 
 	var tmp = ["inputField", "displayArea", "button"];
 	for (var i in tmp) {
@@ -138,6 +139,7 @@ Calendar.setup = function (params) {
 		cal.setRange(params.range[0], params.range[1]);
 		cal.setDateStatusHandler(params.dateStatusFunc);
 		cal.getDateText = params.dateText;
+		cal.verifModal = params.verifModal;
 		if (params.ifFormat) {
 			cal.setDateFormat(params.ifFormat);
 		}
@@ -185,6 +187,7 @@ Calendar.setup = function (params) {
 		cal.params = params;
 		cal.setDateStatusHandler(params.dateStatusFunc);
 		cal.getDateText = params.dateText;
+		cal.verifModal = params.verifModal;
 		cal.setDateFormat(dateFmt);
 		if (mustCreate)
 			cal.create();

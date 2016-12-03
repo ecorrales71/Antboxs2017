@@ -499,3 +499,21 @@ ul.pagination .prev, ul.pagination .next {
 .checkboxFive input {
     margin-left: 7px;
 }
+
+.disablebutton {
+    opacity: .6;
+    cursor: none;
+}
+
+.input-validation-error 
+{
+    background-color: #ffc7c7 !important;
+}
+
+.field-validation-error span
+{
+    color: #A94440;
+    display: block;
+    margin-top: 5px;
+    margin-bottom: 10px;
+}

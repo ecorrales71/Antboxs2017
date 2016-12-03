@@ -56,6 +56,7 @@ Calendar = function (firstDayOfWeek, dateStr, onSelected, onClose) {
 	this.activeYear = null;
 	// Information
 	this.dateClicked = false;
+	this.verifModal = false;
 
 	// one-time initializations
 	if (typeof Calendar._SDN == "undefined") {
@@ -1365,7 +1366,9 @@ Calendar.prototype.hide = function () {
 Calendar.prototype.showAt = function (x, y) {
 	var s = this.element.style;
 	s.left = x + "px";
-	s.top = y + "px";
+	var scroll = 0;
+	if (this.verifModal) scroll = $(window).scrollTop();
+	s.top = y + scroll + "px";
 	this.show();
 };
 

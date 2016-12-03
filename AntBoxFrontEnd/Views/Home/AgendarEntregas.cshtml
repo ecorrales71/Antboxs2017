@@ -108,28 +108,50 @@ Calendar.setup({
     ifFormat       :    "%Y-%m-%d",       // formato de la fecha, cuando se escriba en el campo de texto
     button         :    "recoleccion",   // el id del botón que lanzará el calendario
     onUpdate: function() {
-        if ($("#fecha_recoleccion").val() != "") {
-            $("#fecha_recoleccion").closest(".form-group").removeClass("has-error");
-            $("#fecha_recoleccion").closest(".form-group").find(".help-block").remove();
-        }
+
         var date = $("#fecha_recoleccion").val();
-        $.ajax({
-            url: '@Url.Action("getSchedules", "Customer")',
-            type: "GET",
-            data: { "date": date },
-            success: function (schedules) {
-                // alert("<option value='" + schedules[0].worker + "'>" + schedules[0].Start + " - " + schedules[0].End + " hrs.</option>");
-                $("#selHorario").html("");
-                var items = '<option value="">Seleccciona un horario disponible</option>';
-                for (var i = 0; i < schedules.length ; i++) {
-                    items += "<option value='" + schedules[i].worker + "'>" + schedules[i].Start + " - " + schedules[i].End + " hrs.</option>";
-                }
-                $('#selHorario').html(items);
-                $('#selHorario').trigger("chosen:updated");
+        var f = new Date();
+        var month = f.getMonth() + 1
+        month = (parseInt(month) < 10) ? "0" + month : month;
+        var day = (parseInt(f.getDate()) < 10) ? "0" + f.getDate() : f.getDate();
+        var fecha_hoy = f.getFullYear() + "-" + month + "-" + day;
+
+        if (date <= fecha_hoy) {
+            document.getElementById('alert_fecha').style.display = 'block';
+            $('#fecha_recoleccion').css('background', '#ffdede');
+            //alert("La fecha no puede ser menor a la fecha de hoy");
+            $('#fecha_recoleccion').attr('value') = '';
+        } else {
+            document.getElementById('alert_fecha').style.display = 'none';
+            $('#fecha_recoleccion').css('background', '');
+            if ($("#fecha_recoleccion").val() != "") {
+                $("#fecha_recoleccion").closest(".form-group").removeClass("has-error");
+                $("#fecha_recoleccion").closest(".form-group").find(".help-block").remove();
             }
-        });
+            $.ajax({
+                url: '@Url.Action("getSchedules", "Customer")',
+                type: "GET",
+                data: { "date": date },
+                success: function (schedules) {
+                   
+                       //alert("<option value='" + schedules[0].worker + "'>" + schedules[0].Start + " - " + schedules[0].End + " hrs.</option>");
+                    $("#selHorario").html("");
+                    var items = '<option value="">Seleccciona un horario disponible</option>';
+                    for (var i = 0; i < schedules.length ; i++) {
+                        items += "<option value='" + schedules[i].worker + "'>" + schedules[i].Start + " - " + schedules[i].End + " hrs.</option>";
+                    }
+           
+                    $('#selHorario').css('background', '');
+                    $('#selHorario').html(items);
+                    $('#selHorario').trigger("chosen:updated");
+                    }
+                
+            });
+        }
+
     }
 });
+
 </script>
 
 
@@ -204,6 +226,9 @@ $(document).ready(function(){
             if (!txt.match(/[A-Za-z0-9ñÑáéíóúÁÉÍÓÚ\s\-_&,'.]/)) {
                 return false;
             }
+        }).on('keydown', function (e) {
+            if (e.keyCode == 8)
+                $(this).trigger('keypress');
         });
         //Validar letras numeros, signos de puntuacion y /
         $('#txtInternal_number, #External_number').keypress(function (e) {
@@ -211,6 +236,9 @@ $(document).ready(function(){
             if (!txt.match(/[A-Za-z0-9ñÑáéíóúÁÉÍÓÚ\/\s\-_&,'.]/)) {
                 return false;
             }
+        }).on('keydown', function (e) {
+            if (e.keyCode == 8)
+                $(this).trigger('keypress');
         });
         //Validar letras numeros y punto
         $('#txtCity, #txtState, #txtCountry').keypress(function (e) {
@@ -218,6 +246,9 @@ $(document).ready(function(){
             if (!txt.match(/[A-Za-z0-9ñÑáéíóúÁÉÍÓÚ.\s]/)) {
                 return false;
             }
+        }).on('keydown', function (e) {
+            if (e.keyCode == 8)
+                $(this).trigger('keypress');
         });
 
         $.validator.addMethod("valueNotEquals", function (value, element, arg) {
@@ -313,6 +344,7 @@ $(document).ready(function(){
                                 '<div class="alert alert-warning" id="zipCodeError"><p class="error-zipcode"><i class="fa fa-exclamation-triangle"></i> <strong>Prueba con otro código postal.</strong> Por el momento nuestro servicio no llega a este domicilio pero te mantendremos informado de las próximas zonas de cobertura.</p></div>'
                             );
                         }
+                        verifzipcode = true;
                     }
                     else {
                         $('#zipCodeError').html('');
@@ -378,10 +410,29 @@ $(document).ready(function(){
     }
 
     function HorarioRecoleccion() {
+        var date = $("#fecha_recoleccion").val();
         var horario = $("#selHorario").val();
         var t = $("#selHorario option:selected").text();
-        $("#HoraRecoleccionString").val(t);  
-        //alert(horario + " " + t);
+        $("#HoraRecoleccionString").val(t)
+
+        $.ajax({
+            url: '@Url.Action("getSchedules", "Customer")',
+            type: "GET",
+            data: { "date": date },
+            success: function (schedules) {
+
+                for (var i = 0; i < schedules.length ; i++) {
+                    var work = schedules[i].Workers;
+                    if (schedules[i].Start + " - " + schedules[i].End + " hrs." == t) {
+                        if (work.length == 0) {
+                            document.getElementById('alert_horario').style.display = 'block';
+                        } else {
+                            document.getElementById('alert_horario').style.display = 'none';
+                        }
+                    }
+                }
+            }
+        });
     };
 
 </script>
