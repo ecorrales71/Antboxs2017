@@ -226,6 +226,7 @@
                 </div>
                 <form method="post" class="contact-form form-solid form-solicitar-antbox" novalidate>
                     <input type="hidden" class="folio-form" value="" />
+                    <input type="hidden" class="id-task" value="" />
                     <div class="row">
                         <div class="col-sm-6">
                             <div class="form-group mb0">
@@ -335,6 +336,7 @@
         $('.solicitar').click(function (event) {
             event.preventDefault();
             $(".folio-form").val($(this).attr("data-folio"));
+            $('.id-task').val($(this).attr("data-id"));
             $('#solicitar').modal("show");
         });
 
@@ -420,7 +422,8 @@
                 fecha: $("#fecha_entrega").val(),
                 hora: $('#horariostring').val(),
                 referencia: $('#referencia').val(),
-                folioEntrega: $(".folio-form").val()
+                folioEntrega: $(".folio-form").val(),
+                id: $('.id-task').val()
             };
 
             console.log(formData);
@@ -546,6 +549,8 @@
                     $('.zipr').text(tasks[i].address.zipcode);
                     //$('.cellr').val(tasks[i].folior);
                     $('.referenciar').text(tasks[i].address.referencia);
+
+                    $("#recibo_entrega").modal("show");
                 }
             }
         })

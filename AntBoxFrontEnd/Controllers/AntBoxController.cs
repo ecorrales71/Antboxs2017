@@ -60,20 +60,45 @@ namespace AntBoxFrontEnd.Controllers
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult SolicitarAntbox (string worker, string address, string fecha, string hora, string referencia, string folioEntrega, string status)
+        public JsonResult SolicitarAntbox (string worker, string address, string fecha, string hora, string referencia, string folioEntrega, string status, string id)
         {
             bool isTaskDeliveryCreated = false;
             try
             {
-                if (status == "inhouse")
+                if (id != null)
                 {
-                    isTaskDeliveryCreated = CreatePickupTask(fecha, hora, address, worker, folioEntrega);
+                    var t = new TaskUpdateOptions
+                    {
+                        State = "cancelled"
+                    };
+
+                    var ts = new TaskService(ServiceConfiguration.GetApiKey());
+
+                    var result = ts.UpdateTask(t, id);
+
+                    if (result)
+                    {
+                        if (status == "inhouse")
+                        {
+                            isTaskDeliveryCreated = CreatePickupTask(fecha, hora, address, worker, folioEntrega);
+                        }
+                        else
+                        {
+                            isTaskDeliveryCreated = CreateDeliveryTask(fecha, hora, address, worker, folioEntrega);
+                        }
+                    }
                 }
                 else
                 {
-                    isTaskDeliveryCreated = CreateDeliveryTask(fecha, hora, address, worker, folioEntrega);
+                    if (status == "inhouse")
+                    {
+                        isTaskDeliveryCreated = CreatePickupTask(fecha, hora, address, worker, folioEntrega);
+                    }
+                    else
+                    {
+                        isTaskDeliveryCreated = CreateDeliveryTask(fecha, hora, address, worker, folioEntrega);
+                    }
                 }
-                
             } catch (Exception ex)
             {
                 //error
