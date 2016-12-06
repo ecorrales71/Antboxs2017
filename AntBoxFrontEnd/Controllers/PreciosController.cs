@@ -32,6 +32,8 @@ namespace AntBoxFrontEnd.Controllers
             
             var   model = GetNewOrder();
             Session["couponidhome"] = null;
+            Session["AntBoxesOrder"] = null;
+            Session["TasksTemp"] = null;
 
             return View("Precios",model);
         }

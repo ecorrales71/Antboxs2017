@@ -95,22 +95,25 @@ namespace AntBoxFrontEnd.Controllers
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 
-        private JsonResult ListAddresses(string idcustomer)
+        public JsonResult ListAddresses(string idcustomer)
         {
 
             if (idcustomer == null)
             {
-                if (Session["customer"] == null) 
+                if (Session["customer"] != null) 
                 {
                     idcustomer = ((CustomerResponse)Session["customer"]).Id;
                 }
+            } else
+            {
+                return Json(new { success = false, responseText = "OCURRIO UN ERROR AL LISTAR LAS DIRECCIONES DISPONIBLES" }, JsonRequestBehavior.AllowGet);
             }
 
             var addressService = new AddressService(ServiceConfiguration.GetApiKey());
 
             var result = addressService.ListAddresses(idcustomer);
 
-            return Json(result, JsonRequestBehavior.AllowGet);
+            return Json(new { success = true, Addresses = result }, JsonRequestBehavior.AllowGet);
         }
 
 

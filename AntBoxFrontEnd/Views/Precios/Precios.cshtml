@@ -222,6 +222,7 @@
         })
     })
 
+    var boxs = [];
     function AddBox(ide) {
         var p = '#Price_' + ide;
         var q = '#quantity_' + ide;
@@ -249,6 +250,7 @@
         var boxid = boxobj.val();
 
         var data = JSON.stringify({ "boxid": boxid, "quantity": quantity })
+        boxs[boxid] = quantity;
 
         $.ajax({
             contentType: 'application/json; charset=utf-8',
@@ -291,6 +293,7 @@
         var boxid = boxobj.val();
 
         var data = JSON.stringify({ "boxid": boxid, "quantity": quantity })
+        boxs[boxid] = quantity;
 
         $.ajax({
             contentType: 'application/json; charset=utf-8',

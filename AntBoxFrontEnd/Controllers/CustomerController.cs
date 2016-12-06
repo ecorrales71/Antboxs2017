@@ -18,6 +18,7 @@ using AntBoxFrontEnd.Services.Tasks;
 using AntBoxFrontEnd.Services.AntBoxes;
 using AntBoxFrontEnd.Services.BillingAddress;
 using AntBoxFrontEnd.Services.Rules;
+using Newtonsoft.Json;
 
 namespace AntBoxFrontEnd.Controllers
 {
@@ -570,7 +571,7 @@ namespace AntBoxFrontEnd.Controllers
 
         public JsonResult DoOrder(string dirRecolId, string fecRec, string workerRec, 
                                 string horaRec, string esperar, string contactoTel , string contactoMail,
-                                string referenciasRec, string cardid, string monto)
+                                string referenciasRec, string cardid, string monto, List<boxsResponse> boxs)
         {
             string result = "";
 
@@ -583,7 +584,7 @@ namespace AntBoxFrontEnd.Controllers
                 else
                     waitTimeWorker = Convert.ToBoolean(esperar.ToLower());
 
-                var folioRecoleccion = CheckOutBox(workerRec);
+                var folioRecoleccion = CheckOutBox(workerRec, boxs);
 
                 bool isTaskPickupCreated;
                 if (string.IsNullOrEmpty(folioRecoleccion))
@@ -614,9 +615,9 @@ namespace AntBoxFrontEnd.Controllers
         }
 
 
-        private string CheckOutBox(string workerid)
+        private string CheckOutBox(string workerid, List<boxsResponse> boxs)
         {
-            var boxes = GetAntboxesTemp();
+            var boxes = boxs;
 
             var checkouts = new CheckOut[boxes.Count];
 
@@ -626,8 +627,8 @@ namespace AntBoxFrontEnd.Controllers
             {
                 checkouts[i] = new CheckOut()
                 {
-                    Box_id = item.Key,
-                    Quantity = item.Value
+                    Box_id = item.boxid,
+                    Quantity = item.quantity
                 };
                 i++;
             }
@@ -759,6 +760,12 @@ namespace AntBoxFrontEnd.Controllers
             });
 
             return response;
+        }
+
+        public class boxsResponse
+        {
+            public string boxid { get; set; }
+            public int quantity { get; set; }
         }
 
 

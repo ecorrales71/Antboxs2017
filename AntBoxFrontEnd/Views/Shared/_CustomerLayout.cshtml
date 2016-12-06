@@ -212,6 +212,10 @@
         }
 
     }
+    $.validator.addMethod("valueNotEquals", function (value, element, arg) {
+        return arg != value;
+    }, "Value must not equal arg.");
+    $.validator.setDefaults({ ignore: ":hidden:not(select)" });
     jQuery.extend(jQuery.validator.messages, {
         required: "Este campo es requerido.",
         remote: "Please fix this field.",
@@ -219,7 +223,7 @@
         url: "Please enter a valid URL.",
         date: "Please enter a valid date.",
         dateISO: "Please enter a valid date (ISO).",
-        number: "Please enter a valid number.",
+        number: "Por favor ingresa solo numeros",
         digits: "Please enter only digits.",
         creditcard: "Please enter a valid credit card number.",
         equalTo: "Las contraseñas deben coincidir.",

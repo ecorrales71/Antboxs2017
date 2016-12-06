@@ -30,7 +30,7 @@ namespace AntBoxFrontEnd.Controllers
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult CreateTask(string idTask, string state)
+        public JsonResult UpdateTask(string idTask, string state)
         {
             var t = new TaskUpdateOptions
             {

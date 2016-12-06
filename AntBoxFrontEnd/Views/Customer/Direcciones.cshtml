@@ -315,60 +315,89 @@
         // alert('Entro la acción');
         if ($('#frmNewAddress').valid())
         {
+            var formData = $("#frmNewAddress").serialize();
+
+            //Validar direccion
             $.ajax({
-                contentType: 'application/json; charset=utf-8',
-                dataType: 'json',
                 type: 'POST',
-                url: '@Url.Action("CreateAddress", "Home")',
-                // data: $('#frmNewAddress').serialize(),
-                data: JSON.stringify({
-                    "Alias": $("#NAlias").val(),
-                    "Street": $("#NStreet").val(),
-                    "Internal_number": $("#NInternal_number").val(),
-                    "External_number": $("#NExternal_number").val(),
-                    "Zipcode": $("#NZipcode").val(),
-                    "Delegation": $("#NcmbDelegations1").val(),
-                    "Neighborhood": $("#NcmbNeighborhood1").val(),
-                    "City": $("#NCity").val(),
-                    "State": $("#NState").val(),
-                    "Country": $("#NCountry").val(),
-                    "References": $("#NReferences").val()
-                }),
-                success: function (result) {
-                    if (result.success == false) {
-                        $('#frmNewAddress').prepend(
-                        '<div class="alert alert-warning" role="alert" id="addressError">Error al registrar dirección, intentelo de nuevo.</div>');
-                        window.setTimeout(function ()
-                        { $("#addressError").alert('close'); }, 2000);
-
+                dataType: 'text',
+                url: '@Url.Action("ValidateAddress", "Home")',
+                data: formData,
+                success: function (data) {
+                    console.log(data);
+                    if (data == "true") {
+                        crearDireccion();
+                    } else {
+                        if (!$("#AddressFail").length) {
+                            $('#frmNewAddress').prepend(
+                                '<div class="alert alert-warning" role="alert" id="AddressFail"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a> La direccion no es valida</div>');
+                            window.setTimeout(function () {
+                                $("#AddressFail").remove();
+                            }, 5000);
+                        }
                     }
-                    else {
-                        $('#login-info').html(result);
-                        $('#frmNewAddress').prepend(
-                       '<div class="alert alert-warning" role="alert" id="addressError">Dirección registrada.</div>');
-                        window.setTimeout(function ()
-                        { $("#addressError").alert('close'); }, 2000);
-
-                        window.location.reload(true);
-                        //$('#frmNewAddress').ready(function () {
-                        //    $("input").each(function () {
-                        //        $(this).val("");
-                        //    });
-                        //});
-                    }
-                },
-                error: function (emp) {
-                    $('#frmNewAddress').prepend(
-                        '<div class="alert alert-danger fade-in" role="alert" id="LoginErrorAlert">Error al registrar dirección, intentelo de nuevo.</div>'
-                        );
-                    window.setTimeout(function ()
-                    { $("#LoginErrorAlert").alert('close'); }, 2000);
-
+                }, error: function (error) {
+                    console.log(error)
                 }
             });
         }
         
     });
+
+    function crearDireccion()
+    {
+        $.ajax({
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            type: 'POST',
+            url: '@Url.Action("CreateAddress", "Home")',
+            // data: $('#frmNewAddress').serialize(),
+            data: JSON.stringify({
+                "Alias": $("#NAlias").val(),
+                "Street": $("#NStreet").val(),
+                "Internal_number": $("#NInternal_number").val(),
+                "External_number": $("#NExternal_number").val(),
+                "Zipcode": $("#NZipcode").val(),
+                "Delegation": $("#NcmbDelegations1").val(),
+                "Neighborhood": $("#NcmbNeighborhood1").val(),
+                "City": $("#NCity").val(),
+                "State": $("#NState").val(),
+                "Country": $("#NCountry").val(),
+                "References": $("#NReferences").val()
+            }),
+            success: function (result) {
+                if (result.success == false) {
+                    $('#frmNewAddress').prepend(
+                    '<div class="alert alert-warning" role="alert" id="addressError">Error al registrar dirección, intentelo de nuevo.</div>');
+                    window.setTimeout(function ()
+                    { $("#addressError").alert('close'); }, 2000);
+
+                }
+                else {
+                    $('#login-info').html(result);
+                    $('#frmNewAddress').prepend(
+                   '<div class="alert alert-warning" role="alert" id="addressError">Dirección registrada.</div>');
+                    window.setTimeout(function ()
+                    { $("#addressError").alert('close'); }, 2000);
+
+                    window.location.reload(true);
+                    //$('#frmNewAddress').ready(function () {
+                    //    $("input").each(function () {
+                    //        $(this).val("");
+                    //    });
+                    //});
+                }
+            },
+            error: function (emp) {
+                $('#frmNewAddress').prepend(
+                    '<div class="alert alert-danger fade-in" role="alert" id="LoginErrorAlert">Error al registrar dirección, intentelo de nuevo.</div>'
+                    );
+                window.setTimeout(function ()
+                { $("#LoginErrorAlert").alert('close'); }, 2000);
+
+            }
+        });
+    }
 
     function validateZipCode(verif) {
         var zipcode = $('#txtZipcode1').val();
@@ -811,63 +840,92 @@
 
     <script type="text/javascript">
         $('#btnUpdateAddress').click(function () {
-           // alert("Entra evento de acutalización");
-            var idAddress = $(".modal-content .hiddenid").val();
-           // alert(idAddress);
+            var formData = $("#updateForm").serialize();
 
-
-             $.ajax({
-            contentType: 'application/json; charset=utf-8',
-            dataType: 'json',
-            type: 'POST',
-            url: '@Url.Action("UpdateAddress", "Home")',
-           // data: $('#frmNewAddress').serialize(),
-            data: JSON.stringify({
-                                    "Id": idAddress,
-                                    "Alias": $("#Alias").val(),
-                                    "Street": $("#Street").val(),
-                                    "Internal_number": $("#Internal_number").val(),
-                                    "External_number": $("#External_number").val(),
-                                    "Zipcode": $("#txtZipcode1").val(),
-                                    "Delegation": $("#cmbDelegations1").val(),
-                                    "Neighborhood": $("#cmbNeighborhood1").val(),
-                                    "City": $("#City").val(),
-                                    "State": $("#State").val(),
-                                    "Country": $("#Country").val(),
-                                    "References": $("#References").val()
-                                }),
-            success: function (result) {
-                if (result.success == false) {
-                    $('#updateForm').prepend(
-                    '<div class="alert alert-warning" role="alert" id="addressError">Error al actualizar la dirección, intentelo de nuevo.</div>');
-                    window.setTimeout(function ()
-                    { $("#addressError").alert('close'); }, 2000);
-            
+            //Validar direccion
+            $.ajax({
+                type: 'POST',
+                dataType: 'text',
+                url: '@Url.Action("ValidateAddress", "Home")',
+                data: formData,
+                success: function (data) {
+                    console.log(data);
+                    if (data == "true") {
+                        crearDireccion();
+                    } else {
+                        if (!$("#AddressFail").length) {
+                            $('#updateForm').prepend(
+                                '<div class="alert alert-warning" role="alert" id="AddressFail"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a> La direccion no es valida</div>');
+                            window.setTimeout(function () {
+                                $("#AddressFail").remove();
+                            }, 5000);
+                        }
+                    }
+                }, error: function (error) {
+                    console.log(error)
                 }
-                else {
+            });
+        });
+
+        function actualizarDireccion()
+        {
+            // alert("Entra evento de acutalización");
+            var idAddress = $(".modal-content .hiddenid").val();
+            // alert(idAddress);
+
+
+            $.ajax({
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                type: 'POST',
+                url: '@Url.Action("UpdateAddress", "Home")',
+                // data: $('#frmNewAddress').serialize(),
+                data: JSON.stringify({
+                    "Id": idAddress,
+                    "Alias": $("#Alias").val(),
+                    "Street": $("#Street").val(),
+                    "Internal_number": $("#Internal_number").val(),
+                    "External_number": $("#External_number").val(),
+                    "Zipcode": $("#txtZipcode1").val(),
+                    "Delegation": $("#cmbDelegations1").val(),
+                    "Neighborhood": $("#cmbNeighborhood1").val(),
+                    "City": $("#City").val(),
+                    "State": $("#State").val(),
+                    "Country": $("#Country").val(),
+                    "References": $("#References").val()
+                }),
+                success: function (result) {
+                    if (result.success == false) {
+                        $('#updateForm').prepend(
+                        '<div class="alert alert-warning" role="alert" id="addressError">Error al actualizar la dirección, intentelo de nuevo.</div>');
+                        window.setTimeout(function ()
+                        { $("#addressError").alert('close'); }, 2000);
+
+                    }
+                    else {
+                        $('#updateForm').prepend(
+                       '<div class="alert alert-danger fade-in" role="alert" id="LoginErrorAlert">Se ha actualizado la información.</div>'
+                       );
+                        window.setTimeout(function ()
+                        { $("#LoginErrorAlert").alert('close'); }, 2000);
+
+                        $('#modal-container').modal('hide');
+
+                        window.location.reload(true);
+
+                        //listAddreses();
+
+                    }
+                },
+                error: function (emp) {
                     $('#updateForm').prepend(
-                   '<div class="alert alert-danger fade-in" role="alert" id="LoginErrorAlert">Se ha actualizado la información.</div>'
-                   );
+                        '<div class="alert alert-danger fade-in" role="alert" id="LoginErrorAlert">Error al actualizar la dirección, intentelo de nuevo.</div>'
+                        );
                     window.setTimeout(function ()
                     { $("#LoginErrorAlert").alert('close'); }, 2000);
-
-                    $('#modal-container').modal('hide');
-
-                    window.location.reload(true);
-
-                    //listAddreses();
-
                 }
-            },
-            error: function (emp) {
-                $('#updateForm').prepend(
-                    '<div class="alert alert-danger fade-in" role="alert" id="LoginErrorAlert">Error al actualizar la dirección, intentelo de nuevo.</div>'
-                    );
-                window.setTimeout(function ()
-                { $("#LoginErrorAlert").alert('close'); }, 2000);
-            }
-        });
-        });
+            });
+        }
     </script>
 
 

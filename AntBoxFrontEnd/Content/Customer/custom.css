@@ -517,3 +517,7 @@ ul.pagination .prev, ul.pagination .next {
     margin-top: 5px;
     margin-bottom: 10px;
 }
+
+.has-error .chosen-container {
+    background-color: #ffc7c7 !important;
+}
