@@ -234,7 +234,7 @@ namespace AntBoxFrontEnd.Services.Payments
 
                 var encodedParams = Infrastructure.UrlHelper.BuildURLParametersString(parameters);
 
-                paymentResponse = Requestor.Post<PaymentDetailResponseParent>(UrlsConstants.PaymentDetail + encodedParams, requestOptions);
+                paymentResponse = Requestor.Get<PaymentDetailResponseParent>(UrlsConstants.PaymentDetail + encodedParams, requestOptions);
 
 
             }

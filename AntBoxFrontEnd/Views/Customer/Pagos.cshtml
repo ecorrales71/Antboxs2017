@@ -53,7 +53,12 @@
                                     </div>
                                 </div>
                             }
+                            if (Model.Payments.Count == 0)
+                            {
+                                <h4>Sin Recibos</h4>
+                            }
                         }
+                        
                         @*<div class="col-sm-12 back_gris pt15 pb20 mb10">
                             <div class="media-left">
                                 <div class="icon icon-color icon-size-4">
@@ -95,22 +100,7 @@
                             </div>
                         </div>*@
                     </div>
-                    <div class"row">
-                        <div class="col-sm-12 pl0 pr0 mt20 text-center">
-                            <!-- PAGINATION -->
-                            <ul class="pagination solid">
-                                <li class="pull-left"><a href="#" class="prev"><i class="fa fa-angle-left"></i></a></li>
-                                <li class="pull-right"><a href="#" class="next"><i class="fa fa-angle-right"></i></a></li>
-                                <li class="active"><a href="#">1</a></li>
-                                @*<li><a href="#">2</a></li>
-                                <li><a href="#">3</a></li>
-                                <li><a href="#">4</a></li>
-                                <li><a href="#">…</a></li>
-                                <li><a href="#">36</a></li>*@
-                            </ul>
-                            <!-- /.pagination -->
-                        </div>
-                    </div>
+                    
                     <div class="row mt20">
                         <div class="col-sm-12">
                             <hr class="hr-dashed mt40 mb20" />

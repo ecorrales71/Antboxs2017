@@ -88,7 +88,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="mdescription-antbox">Descripción</label>
-                                <textarea name="mdescription-antbox" id="mdescription-antbox"></textarea>
+                                <textarea name="mdescription-antbox" id="mdescription-antbox" placeholder="Descripción"></textarea>
                             </div>
                         </div>
                         <div class="col-sm-12 mt10">
@@ -229,10 +229,10 @@
             var description = element.parent().find('.description-antbox').text();
             var ideditar = element.attr('data-id');
 
-            if (name != "Mi Antbox") $('#mname-antbox').val(name);
+            if (name.trim() != "Mi Antbox") $('#mname-antbox').val(name.trim());
             else $('#mname-antbox').val('');
 
-            if (description != "" || description != "undefined") $('#mdescription-antbox').val(description);
+            if (description.trim() != "" && description.trim() != "undefined" && description.trim() != "Descripción") $('#mdescription-antbox').val(description.trim());
             else $('#mdescription-antbox').val('');
         });
 

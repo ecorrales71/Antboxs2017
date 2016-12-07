@@ -24,7 +24,7 @@
                 <thead>
                     <tr>
                         <th class="product-name">Antboxs</th>
-                        <th class="product-price no_mobile">Precio</th>
+                        <th class="product-price no_mobile">Almacenamiento / Mes</th>
                         <th class="product-quantity">Cantidad</th>
                         <th class="product-subtotal no_iphone_portrait">Total</th>
                         <!--<th class="product-remove">&nbsp;</th>-->
@@ -226,7 +226,6 @@
 
         var data = JSON.stringify({ "boxid": boxid, "quantity": quantity });
         boxs[boxid] = quantity;
-        console.log(boxs);
 
         $.ajax({
             contentType: 'application/json; charset=utf-8',
@@ -270,7 +269,6 @@
 
         var data = JSON.stringify({ "boxid": boxid, "quantity": quantity })
         boxs[boxid] = quantity;
-        console.log(boxs);
 
         $.ajax({
             contentType: 'application/json; charset=utf-8',

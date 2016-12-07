@@ -154,6 +154,7 @@
                                             </div>
                                             <div class="form-group mt20">
                                                 <label for="form-select">Forma de pago</label>
+                                                <input type="hidden" name="cardscount" id="cardscount" value="@Model.Cards.Count" />
                                                 <select id="CardsList">
                                                     @foreach (var card in Model.Cards)
                                                     {
@@ -1079,10 +1080,14 @@
 	        var sucess_callbak = function (response) {
 	            var token_id = response.data.id;
 
+	            var state = 'inactive';
+	            var count = parseInt($('#cardscount').val());
+	            if (count == 0) state = 'main';
+
 	            $.ajax({
 	                type: 'POST',
 	                url: '@Url.Action("RegisterCardAjax", "Payment")',
-	                data: { deviceId: deviceSessionId, state: "inactive", token: token_id },
+	                data: { deviceId: deviceSessionId, state: state, token: token_id },
 	                success: function (result) {
 
 	                    if (result.success == true) {

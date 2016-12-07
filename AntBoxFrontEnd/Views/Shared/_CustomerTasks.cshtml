@@ -36,15 +36,21 @@
                     {
                         <div class="sticker_mov canceled">Cancelado</div>
                     }
-                    @if (item.Type == "pickup")
+                    @if (item.Status == "completed")
                     {
-                        <button type="button" class="btn btn-primary btn-sm pull-right ml10 recibo-recoleccion" data-id="@item.Id">Ver Recibo</button>
+                        if (item.Type == "pickup")
+                        {
+                            <button type="button" class="btn btn-primary btn-sm pull-right ml10 recibo-recoleccion" data-id="@item.Id">Ver Recibo</button>
+                        }
+                        else
+                        {
+                            <button type="button" class="btn btn-primary btn-sm pull-right ml10 recibo-entrega" data-id="@item.Id">Ver Recibo</button>
+                        }
                     }
-                    else
+                    @if (item.verifday)
                     {
-                        <button type="button" class="btn btn-primary btn-sm pull-right ml10 recibo-entrega" data-id="@item.Id">Ver Recibo</button>
+                        <button type="button" class="btn btn-primary btn-sm pull-right btn_blue solicitar" data-toggle="modal" data-folio="@Html.DisplayFor(modelItem => item.Folio)" data-id="@Html.DisplayFor(modelItem => item.Id)">Reagendar</button>
                     }
-                    <button type="button" class="btn btn-primary btn-sm pull-right btn_blue solicitar" data-toggle="modal" data-folio="@Html.DisplayFor(modelItem => item.Folio)" data-id="@Html.DisplayFor(modelItem => item.Id)">Reagendar</button>
                 </div>
             </div>
 

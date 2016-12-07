@@ -11,6 +11,7 @@ namespace AntBoxFrontEnd.Infrastructure
 
         //public static String Host { get { return "http://198.19.143.41:8082"; } }
         public static String Host { get { return "http://64.28.103.85:8082"; } }
+        public static String HostPublic { get { return "http://64.28.103.85:8082"; } }
 
         public static String BaseUrl { get { return Host + "/v1"; } }
 

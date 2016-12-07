@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using AntBoxFrontEnd.Infrastructure;
+using AntBoxFrontEnd.Services.Boxes;
 
 namespace AntBoxFrontEnd.Services.AntBoxes
 {
@@ -53,6 +54,12 @@ namespace AntBoxFrontEnd.Services.AntBoxes
         [JsonProperty("box_id")]
         public string Box_id { get; set; }
 
+        [JsonProperty("padlocks")]
+        public List<string> Padlocks { get; set; }
+
+        [JsonProperty("box")]
+        public BoxesResponse Box { get; set; }
+
         public string EnDeposito
         {
             get
@@ -72,7 +79,7 @@ namespace AntBoxFrontEnd.Services.AntBoxes
         {
             get
             {
-                string imagen = UrlsConstants.Host + "/assets/" + Id + ".png";
+                string imagen = UrlsConstants.HostPublic + "/assets/" + Id + ".png";
                 if (URLExists(imagen))
                 {
                     return imagen;

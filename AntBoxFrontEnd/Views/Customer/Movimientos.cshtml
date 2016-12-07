@@ -74,7 +74,11 @@
             </div>
             <div class="modal-body">
                 <div class="row">
+                    
                     <div class="col-sm-12">
+                        <div id="loader-recoleccion" role="alert" style="display: none;">
+                            <img src="@Url.Content("~/Images/preloader.gif")" />   Cargando recibo... &nbsp;
+                        </div>
                         <div class="row sm_center">
                             <div class="col-sm-6">
                                 <img src="@Url.Content("~/Content/Images/antboxs_logo.png")" alt="Antboxs">
@@ -96,13 +100,13 @@
                                 <br />Delegación <span class="delegacionr"></span>, C.P. <span class="zipr"></span>
                                 <br />Cel. <span class="cellr"></span> Ref. <span class="referenciar"></span>
                             </p>
-                            <p>
+                            <p id="content-boxes-recibo-recoleccion">
                                 Antboxs Medianas: <span class="antboxmedianasr">1</span>
                                 <br />Antboxs Grandes: <span class="antboxgrandesr">2</span>
                             </p>
                             <hr class="hr-semilight linea_recibo" />
                         </div>
-                        <div class="antboxr">
+                        <div id="content-antboxes-recibo-recoleccion">
                             <p>
                                 Antboxs Mediana 1 01-3457837-37263527-58261475 R
                                 <br />Candado 1: 37263527	Candado 2: 58261475
@@ -114,10 +118,10 @@
                         <hr class="hr-semilight linea_recibo" />
                         <div class="row">
                             <div class="col-sm-5 a_center">
-                                <img class="img_firma_cliente" src="@Url.Content("~/Content/Images/firma_cliente.jpg")" alt="Firma Cliente">
+                                <img class="img_firma_cliente firma_recoleccion" src="@Url.Content("~/Content/Images/firma_cliente.jpg")" alt="Firma Cliente">
                                 <p class="firma_cliente">Firma Cliente</p>
                             </div>
-                            <div class="col-sm-7">
+                            <div class="col-sm-7 rentas">
                                 <p>
                                     Rentas:<span class="pull-right rentasr">$198.00</span>
                                     <br />Depósitos:<span class="pull-right depositosr">$158.00</span>
@@ -154,7 +158,11 @@
             </div>
             <div class="modal-body">
                 <div class="row">
+                    
                     <div class="col-sm-12">
+                        <div id="loader-entrega" role="alert" style="display: none;">
+                            <img src="@Url.Content("~/Images/preloader.gif")" />   Cargando movimientos... &nbsp;
+                        </div>
                         <div class="row sm_center">
                             <div class="col-sm-6">
                                 <img src="@Url.Content("~/Content/Images/antboxs_logo.png")" alt="Antboxs">
@@ -176,25 +184,17 @@
                                 <br />Delegación Azcapotzalco, C.P. 02080
                                 <br />Cel. 55-3748-5733 Ref. Hablar al llegar
                             </p>
-                            <p>
-                                Antboxs Medianas: 1
-                                <br />Antboxs Grandes: 1
+                            <p id="content-boxes-recibo">
+                                
                             </p>
                             <hr class="hr-semilight linea_recibo" />
                         </div>
-                        <div>
-                            <p>
-                                Antboxs Mediana 1 01-3457838-37263545-58224578
-                                <br />Descripción: XXX
-                                <br />Candado 1: 37263545	Candado 2: 58224578
-                                <br />Antboxs Grande 1 02-3457838-17263526-25844375
-                                <br />Descripción: YYY
-                                <br />Candado 1: 17263526	Candado 2: 25844375
-                            </p>
+                        <div id="content-antboxes-recibo">
+                            
                         </div>
                         <hr class="hr-semilight linea_recibo" />
                         <div class="a_center">
-                            <img class="img_firma_cliente" src="@Url.Content("~/Content/Images/firma_cliente.png")" alt="Firma Cliente">
+                            <img class="img_firma_cliente firma_entrega" src="@Url.Content("~/Content/Images/firma_cliente.png")" alt="Firma Cliente">
                             <p class="firma_cliente">Firma Cliente</p>
                         </div>
                         <hr class="hr-semilight linea_recibo" />
@@ -333,7 +333,7 @@
     });
     $(function () {
 
-        $('.solicitar').click(function (event) {
+        $(document).on("click", '.solicitar', function (event) {
             event.preventDefault();
             $(".folio-form").val($(this).attr("data-folio"));
             $('.id-task').val($(this).attr("data-id"));
@@ -360,10 +360,26 @@
                     success: function (result) {
 
                         tasksresult = "";
+                        tasks = [];
 
                         for (var i = 0; i < result.Tasks.length; i++) {
 
                             var taskv = result.Tasks[i];
+
+                            tasks.push({
+                                id: taskv.Id,
+                                folio: taskv.Folio,
+                                service: taskv.service_time,
+                                address: {
+                                    calle: taskv.Address.Street,
+                                    external: taskv.Address.External_number,
+                                    colonia: taskv.Address.Neighborhood,
+                                    delegacion: taskv.Address.Delegation,
+                                    zipcode: taskv.Address.Zipcode,
+                                    referencia: taskv.Address.References,
+                                }
+                            });
+
                             var address = taskv.Address.Street + " " + taskv.Address.External_number + ", " + taskv.Address.Neighborhood + ", " + taskv.Address.City + ", C.P. " + taskv.Address.Zipcode + ".";
 
                             var cadhtml = "";
@@ -388,6 +404,16 @@
                                 cadhtml += "<div class=\"sticker_mov in_progress\">En progreso<\/div>";
                             else if (taskv.Status == "canceled")
                                 cadhtml += "<div class=\"sticker_mov canceled\">Cancelado<\/div>";
+                            if (taskv.Status == "completed")
+                            {
+                                if (taskv.Type == "pickup")
+                                    cadhtml += "<button type=\"button\" class=\"btn btn-primary btn-sm pull-right ml10 recibo-recoleccion\" data-id=\"" + taskv.Id + "\">Ver Recibo</button>";
+                                else
+                                    cadhtml += "<button type=\"button\" class=\"btn btn-primary btn-sm pull-right ml10 recibo-entrega\" data-id=\"" + taskv.Id + "\">Ver Recibo</button>";
+                            }
+                            if (taskv.verifday == "completed") {
+                                cadhtml += "<button type=\"button\" class=\"btn btn-primary btn-sm pull-right btn_blue solicitar\" data-toggle=\"modal\" data-folio=\"" + taskv.Folio + "\" data-id=\"" + taskv.Id + "\">Reagendar</button>";
+                            }
                             cadhtml += "    <\/div>";
                             cadhtml += "<\/div>";
 
@@ -461,6 +487,7 @@
                                     $(this).prop('checked', false);
                                 });
                                 $('#solicitar').modal('hide');
+                                window.location.reloac();
                             }, 1000);
                         }
                         element.parent().find('.name-antbox').text($('#mname-antbox').val());
@@ -512,7 +539,7 @@
             return strTime;
         }
 
-        $('.recibo-recoleccion').click(function () {
+        $(document).on("click", '.recibo-recoleccion', function () {
             var id = $(this).attr("data-id");
             $('.recibo_recoleccion').modal("show");
             for (var i = 0; i < tasks.length; i++) {
@@ -529,11 +556,65 @@
                     $('.referenciar').text(tasks[i].address.referencia);
 
                     $("#recibo_recoleccion").modal("show");
+                    $('#content-antboxes-recibo-recoleccion').html('');
+                    $('#content-boxes-recibo-recoleccion').html('');
+
+                    $('.firma_recoleccion').attr("src", "http://64.28.103.85:8082/assets/sign-" + tasks[i].folio + ".png");
+
+                    var formData = {};
+                    formData.folio = tasks[i].folio
+                    var boxes = [];
+                    $("#loader-recoleccion").show();
+                    $.ajax({
+                        type: 'POST',
+                        url: '@Url.Action("Recibo", "Payment")',
+                        data: formData,
+                        success: function (result) {
+                            $("#loader-recoleccion").hide();
+                            
+                            var htmlGlobal = "";
+                            for (var i = 0; i < result.antbox.Antboxs.length; i++) {
+                                var found = false;
+                                for (var j = 0; j < boxes.length; j++) {
+                                    if (boxes[j].id == result.antbox.Antboxs[i].Box.Id) {
+                                        found = true;
+                                        boxes[j].quantity++;
+                                        result.antbox.Antboxs[i].position = boxes[j].quantity;
+                                    }
+                                }
+                                if (!found) {
+                                    boxes.push({ id: result.antbox.Antboxs[i].Box.Id, quantity: 1, nombre: result.antbox.Antboxs[i].Box.Label });
+                                    result.antbox.Antboxs[i].position = 1;
+                                }
+                                var rowhtml = colocaAntbox(result.antbox.Antboxs[i], i);
+                                htmlGlobal += rowhtml;
+                            }
+
+                            var total = 0;
+                            var depositos = 0;
+                            var cargos = 0;
+                            var reembolso = 0;
+                            for (var i = 0; i < result.payments.length; i++) {
+                                total += result.payments[i].Amount;
+                            }
+
+                            $('.rentasr').val("$" + total);
+                            $('.depositosr').val("$" + depositos);
+                            $('.cargosr').val("$" + cargos);
+                            $('.reembolsor').val("$" + reembolso);
+
+                            $('#content-antboxes-recibo-recoleccion').append("<p>" + htmlGlobal + "</p>");
+                            colocaBoxes(boxes, $('#content-boxes-recibo-recoleccion'));
+                            console.log(result);
+                        }, error: function (error) {
+                            $("#loader-recoleccion").hide();
+                        }
+                    })
                 }
             }
         })
 
-        $('.recibo-entrega').click(function () {
+        $(document).on("click", '.recibo-entrega', function () {
             var id = $(this).attr("data-id");
             $('.recibo_entrega').modal("show");
             for (var i = 0; i < tasks.length; i++)
@@ -550,10 +631,84 @@
                     //$('.cellr').val(tasks[i].folior);
                     $('.referenciar').text(tasks[i].address.referencia);
 
+                    $('.firma_entrega').attr("src", "http://64.28.103.85:8082/assets/sign-" + tasks[i].folio + ".png");
                     $("#recibo_entrega").modal("show");
+
+                    $('#content-antboxes-recibo').html('');
+                    $('#content-boxes-recibo').html('');
+
+                    var formData = {};
+                    formData.folio = tasks[i].folio
+                    var boxes = [];
+                    $("#loader-entrega").show();
+                    $.ajax({
+                        type: 'POST',
+                        url: '@Url.Action("Recibo", "Payment")',
+                        data: formData,
+                        success: function (result) {
+                            $("#loader-entrega").hide();
+                            var htmlGlobal = "";
+                            for (var i = 0; i < result.antbox.Antboxs.length; i++)
+                            {
+                                var found = false;
+                                for (var j = 0; j < boxes.length; j++) {
+                                    if (boxes[j].id == result.antbox.Antboxs[i].Box.Id)
+                                    {
+                                        found = true;
+                                        boxes[j].quantity++;
+                                        result.antbox.Antboxs[i].position = boxes[j].quantity;
+                                    }
+                                }
+                                if (!found)
+                                {
+                                    boxes.push({ id: result.antbox.Antboxs[i].Box.Id, quantity: 1, nombre: result.antbox.Antboxs[i].Box.Label });
+                                    result.antbox.Antboxs[i].position = 1;
+                                }
+                                var rowhtml = colocaAntbox(result.antbox.Antboxs[i], i);
+                                htmlGlobal += rowhtml;
+                            }
+                            $('#content-antboxes-recibo-recoleccion').html("<p>" + htmlGlobal + "</p>");
+                            colocaBoxes(boxes, $('#content-boxes-recibo'));
+                            console.log(result);
+                        }, error: function(error)
+                        {
+                            $("#loader-entrega").hide();
+                        }
+                    })
                 }
             }
         })
+
+        function colocaBoxes(boxes, element){
+            var cadhtml = "";
+            for (var j = 0; j < boxes.length; j++) {
+                append = "";
+                if (j > 0) append = "</br>";
+                cadhtml += append + boxes[j].nombre + ": " + boxes[j].quantity;
+            }
+            element.html(cadhtml);
+        }
+
+        function colocaAntbox(antbox, index) {
+            var cadhtml = "";
+            append = "";
+            if (index > 0) append = "</br>";
+            cadhtml += append + antbox.Box.Label + ": " + antbox.position;
+            cadhtml += "</br>" + "Descripción: " + antbox.Descriptionv;
+            if (antbox.Padlocks.length > 0)
+            {
+                var candado1 = (antbox.Padlocks.length >= 1) ? antbox.Padlocks[0] : "";
+                var candado2 = (antbox.Padlocks.length >= 2) ? antbox.Padlocks[1] : "";
+                if ((candado1 != null && candado1 != "" && candado1 != 'null') && (candado2 != null && candado2 != "" && candado2 != 'null'))
+                {
+                    cadhtml += "</br>"
+                    if (candado1 != null && candado1 != "") cadhtml += "Candado 1: " + candado1 + " ";
+                    if (candado2 != null && candado2 != "") cadhtml += "Candado 2: " + candado2 + " ";
+                }
+            }
+            
+            return cadhtml;
+        }
 
     })
 </script>

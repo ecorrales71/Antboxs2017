@@ -47,6 +47,20 @@ namespace AntBoxFrontEnd.Services.Tasks
             }
         }
 
+        public bool verifday
+        {
+            get
+            {
+                DateTime tomorrow = DateTime.Today.AddDays(1);
+                if (completeAfterDate.Ticks >= tomorrow.Ticks)
+                {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+        }
+
     }
 
     public class ListTask
