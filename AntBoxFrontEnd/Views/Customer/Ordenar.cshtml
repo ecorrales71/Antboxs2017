@@ -696,7 +696,7 @@
             var antboxobject = devuelveboxsobject();
             if (verifantbox(antboxobject))
             {
-                showLoad(1);
+                
                 var dirRecolId = $("#AddressPickup").val();
 
                 var fecRec = $("#fecha_recoleccion").val();
@@ -732,7 +732,7 @@
                     alert("Debes aceptar los terminos y condiciones antes de continuar.");
                 } else {
 
-
+                    showLoad(1);
                     $.ajax({
                         url: '@Url.Action("DoOrder", "Customer")',
                         type: "POST",

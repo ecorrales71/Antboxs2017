@@ -312,6 +312,7 @@
         inputField: "fecha_entrega",      // id del campo de texto
         ifFormat: "%Y-%m-%d",       // formato de la fecha, cuando se escriba en el campo de texto
         button: "entrega",   // el id del botón que lanzará el calendario
+        verifModal: true,
         onUpdate: function () {
             var date = $("#fecha_entrega").val();
             $.ajax({

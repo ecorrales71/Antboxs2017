@@ -451,11 +451,13 @@
                 data: $('#FormReset').serialize(),
                     success: function (result) {
                         if (result.success == false) {
+                            alert('E-mail no registrado');
                             showLoad(0);
                         }
                         else {
+                            alert('Revisa tu cuenta de e-mail, hemos enviado tu codigo para el cambio de contraseña.');
                             $('.div-cont').hide();
-                            $('#FormRestore').reset();
+                            $('#FormRestore')[0].reset();
                             $('.div-restore').show();
                             showLoad(0);
                         }
@@ -474,12 +476,15 @@
                 data: $('#FormRestore').serialize(),
                 success: function (result) {
                     if (result.success == false) {
+                        alert('Codigo erroneo')
                         showLoad(0);
                     }
                     else {
                         showLoad(0);
                         $('#login').find('.modal-title').text('Entrar a mi cuenta');
                         alert('Password cambiado correctamente');
+                        $('.div-cont').hide();
+                        $('.div-login').show();
                     }
                 },
                 error: function (emp) {
