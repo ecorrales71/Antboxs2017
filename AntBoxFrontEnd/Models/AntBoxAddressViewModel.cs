@@ -38,10 +38,10 @@ namespace AntBoxFrontEnd.Models
         public string Street { get; set; }
 
         [Required]
-        [Display(Name = "* Núm. exterior")]
+        [Display(Name = "* Núm. Ext.")]
         public string External_number { get; set; }
 
-        [Display(Name = "Núm Interior")]
+        [Display(Name = "Núm. Int.")]
         public string Internal_number { get; set; }
 
         [Required]

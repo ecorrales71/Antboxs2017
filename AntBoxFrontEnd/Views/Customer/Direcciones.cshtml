@@ -36,7 +36,7 @@
                                 <button type="button" class="close" data-dismiss="alert">
                                     <i class="fa fa-times"></i>
                                 </button>
-                                <p><i class="fa fa-exclamation-triangle"></i> <strong>Regístra una dirección como mínimo.</strong><br />Recuerda que para realizar cualquier orden que realices deberás tener por lo menos una dirección registrada.</p>
+                                <p class="exclamation" style="display: none;"><i class="fa fa-exclamation-triangle"></i> <strong>Regístra una dirección como mínimo.</strong><br />Recuerda que para realizar cualquier orden que realices deberás tener por lo menos una dirección registrada.</p>
                             </div>
                         </div>
 
@@ -242,7 +242,8 @@
 
 @section scripts {
     <script type="text/javascript">
-    $(function () {
+        $(function () {
+            $('.exclamation').hide();
         //Validar letras numeros y signos de puntuacion
         $('#Street, #NStreet').keypress(function (e) {
             var txt = String.fromCharCode(e.which);
@@ -469,6 +470,11 @@
 
 
                     var div3Content = '';
+
+                    if (data.length == 0)
+                    {
+                        $('.exclamation').show();
+                    }
 
                     for (var i = 0; i < data.length; i++) {
                        // alert(i);
