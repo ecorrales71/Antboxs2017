@@ -16,6 +16,8 @@
 <body id="body-content">
     <!-- Preloader -->
     <div class="preloader"></div>
+    <div class="preloader-opacity"></div>
+    <div class="preloader-opacity-background"></div>
 
     <!-- HEADER -->
     <header class="header header-light">
@@ -211,6 +213,31 @@
             }, 2000);
         }
 
+    }
+    function onlyNumbers(e) {
+        var keynum = window.event ? window.event.keyCode : e.which;
+        if ((keynum == 8) || (keynum == 46))
+            return true;
+
+        return /\d/.test(String.fromCharCode(keynum));
+    }
+    function isAlfa(evt) {
+        evt = (evt) ? evt : window.event;
+        var charCode = (evt.which) ? evt.which : evt.keyCode;
+        if (charCode > 31 && (charCode < 65 || charCode > 90) && (charCode < 97 || charCode > 122) && (charCode < 192 || charCode > 221) && (charCode < 225 || charCode > 252)) {
+            return false;
+        }
+        return true;
+    }
+    function showLoad(verif) {
+        if (verif == 1)
+        {
+            $('.preloader-opacity').show();
+            $('.preloader-opacity-background').show();
+        } else {
+            $('.preloader-opacity').hide();
+            $('.preloader-opacity-background').hide();
+        }
     }
     $.validator.addMethod("valueNotEquals", function (value, element, arg) {
         return arg != value;

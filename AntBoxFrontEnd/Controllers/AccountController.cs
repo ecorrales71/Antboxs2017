@@ -68,7 +68,7 @@ namespace AntBoxFrontEnd.Controllers
                 Name = name,
                 LastName = lastname,
                 //Lastname2 = "Prueba Apellido materno4",
-                Mobile_phone = "",
+                Mobilephone = "",
                 Password = password,
                 Username=username,
                 Status=true,
@@ -204,7 +204,7 @@ namespace AntBoxFrontEnd.Controllers
                 Name = model.Name,
                 LastName = model.LastName,
                 //Lastname2 = "Prueba Apellido materno4",
-                Mobile_phone = "",
+                Mobilephone = "",
                 Password = model.Password
             };
 
@@ -676,6 +676,54 @@ namespace AntBoxFrontEnd.Controllers
         }
 
         base.Dispose(disposing);
+    }
+
+    [HttpPost]
+    [AllowAnonymous]
+    public ActionResult ResetPasswordV(string email)
+    {
+        try
+        {
+            var rs = new ResetCreateOptions
+            {
+                Email = email,
+            };
+
+            Session["email"] = email;
+
+            var ser = new LoginService(ServiceConfiguration.GetApiKey());
+            var res = ser.ResetPassword(rs);
+            return Json(new { success = res }, JsonRequestBehavior.AllowGet);
+        }
+        catch (Exception ex)
+        {
+            LogManager.Write(ex.Message, LogManager.Error);
+            return Json(new { success = false }, JsonRequestBehavior.AllowGet);
+        }
+    }
+
+    [HttpPost]
+    [AllowAnonymous]
+    public ActionResult RestorePassword(string code, string newpassword)
+    {
+        try
+        {
+            var rs = new RestoreCreateOptions
+            {
+                Email = Session["email"].ToString(),
+                Code = code,
+                Newpassword = newpassword
+            };
+
+            var ser = new LoginService(ServiceConfiguration.GetApiKey());
+            var res = ser.RestorePassword(rs);
+            return Json(new { success = res }, JsonRequestBehavior.AllowGet);
+        }
+        catch (Exception ex)
+        {
+            LogManager.Write(ex.Message, LogManager.Error);
+            return Json(new { success = false }, JsonRequestBehavior.AllowGet);
+        }
     }
 
     #region Helpers

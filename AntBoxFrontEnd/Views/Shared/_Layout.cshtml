@@ -46,6 +46,8 @@
 <body id="body-content">
     <!-- Preloader -->
     <div class="preloader"></div>
+    <div class="preloader-opacity"></div>
+    <div class="preloader-opacity-background"></div>
 
     <!-- HEADER EXTRA TOP -->
     <div class="header-extra-top">
@@ -245,7 +247,7 @@
                     <h6 class="modal-title">Entrar a mi cuenta</h6>
                 </div>
                 <div class="modal-body">
-                    <div class="modal-form">
+                    <div class="modal-form div-login div-cont">
                         <form id="LoginForm">
                             <div class="form-group">
                                 <label for="username">Usuario</label>
@@ -255,16 +257,53 @@
                                 <label for="password">Contraseña</label>
                                 <input type="password" name="password" id="passwordr">
                             </div>
-                            @*<div class="form-group">
-                                <a href="recuperar-password.php">¿Olvidaste tu contraseña?</a>
-                            </div>*@
-                            <hr class="hr-sm hr-stroke" />
                             <div class="form-group">
-                                <input type="button" class="btn btn-primary btn-wide" data-dismiss="modal" value="Entrar" id="btnLogin">
+                                <a class="recuperar-password">¿Olvidaste tu contraseña?</a>
+                            </div>
+                            <hr class="hr-sm hr-stroke" />
+                            <div class="form-group" class="button-login-content">
+                                <input type="button" class="btn btn-primary btn-wide button-login" data-dismiss="modal" value="Entrar" id="btnLogin">
                                 @*<label class="checkbox-inline">
                                     <input type="checkbox" id="inlineCheckbox1" value="option1"> Recordarme
                                 </label>*@
                             </div>
+                            
+                        </form>
+                    </div>
+                    <div class="modal-form div-reset div-cont" style="display: none;">
+                        <form id="FormReset">
+                            <div class="form-group">
+                                <label for="emailres">E-mail</label>
+                                <input type="text" name="email" id="emailres">
+                            </div>
+                            <hr class="hr-sm hr-stroke" />
+                            <div class="form-group">
+                                <input type="button" class="btn btn-primary btn-wide button-login"  value="Enviar" id="btnEmviarReset" style="float: left; margin-right: 10px;">
+                                <input type="button" class="btn btn-primary btn-wide button-login btn_blue"  value="Volver" id="btnVolver">
+                            </div>
+
+                        </form>
+                    </div>
+                    <div class="modal-form div-restore div-cont" style="display: none;">
+                        <form id="FormRestore">
+                            <div class="form-group">
+                                <label for="code">Codigo</label>
+                                <input type="text" name="code" id="code">
+                            </div>
+                            <div class="form-group">
+                                <label for="Newpassword">Contraseña</label>
+                                <input type="password" name="Newpassword" id="Newpassword">
+                            </div>
+                            <div class="form-group">
+                                <label for="Newpassword1">Confirmar Contraseña</label>
+                                <input type="password" name="Newpassword1" id="Newpassword1">
+                            </div>
+                            <hr class="hr-sm hr-stroke" />
+                            <div class="form-group">
+                                <input type="button" class="btn btn-primary btn-wide button-login" value="Enviar" id="btnEmviarRestore" style="float: left; margin-right: 10px;">
+                                <input type="button" class="btn btn-primary btn-wide button-login btn_blue" value="Volver" id="btnVolverRestore">
+                            </div>
+
                         </form>
                     </div>
                 </div>
@@ -288,14 +327,14 @@
                             <input type="hidden" id="verifoption" name="verifoption" value="1" />
                             <div class="form-group">
                                 <label for="name">Nombre</label>
-                                <input type="text" name="name" id="name" maxlength="50" required="required">
+                                <input type="text" name="name" id="name" maxlength="50" required="required" onkeypress="return isAlfa(event)">
                             </div>
                             <div class="form-group">
                                 <label for="lastname">Apellidos</label>
-                                <input type="text" name="lastname" id="lastname" maxlength="100" required="required" >
+                                <input type="text" name="lastname" id="lastname" maxlength="100" required="required" onkeypress="return isAlfa(event)">
                             </div>
                             <div class="form-group">
-                                <label for="email">Email</label>
+                                <label for="email">E-mail</label>
                                 <input type="email" name="email" id="email" maxlength="100" required="required">
                             </div>
                             <div style='display:none' id="alert_email" class="alert"><label>Campo requerido formato email incorrecto*</label></div>
@@ -315,7 +354,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="zipcode">Teléfono</label>
-                                <input type="text" name="phone" id="phone" required="required">
+                                <input type="text" name="phone" id="phone" required="required" onkeypress='return onlyNumbers(event);' maxlength="10">
                             </div>
                             <div id="zipCodeError"></div>
                             <hr class="hr-sm hr-stroke" />
@@ -357,15 +396,6 @@
 <script>
     $(function () {
         //Validar letras y espacios
-        $('#name, #lastname').keypress(function (e) {
-            var txt = String.fromCharCode(e.which);
-            if (!txt.match(/[A-Za-zñÑáéíóúÁÉÍÓÚ\s]/)) {
-                return false;
-            }
-        }).on('keydown', function (e) {
-            if (e.keyCode == 8)
-                $(this).trigger('keypress');
-        });
         $('#email, #email2').keypress(function (e) {
             var txt = String.fromCharCode(e.which);
             if (!txt.match(/[A-Za-z0-9ñÑáéíóúÁÉÍÓÚ@@\-\_&'.]/)) {
@@ -394,6 +424,69 @@
         $('#registro').on('shown.bs.modal', function () {
             $("#txtname").focus();
         })
+        $('.recuperar-password').click(function () {
+            $('.div-cont').hide();
+            $('#FormReset')[0].reset();
+            $('#login').find('.modal-title').text('Recuperar contraseña');
+            $('.div-reset').show();
+        });
+        $('#btnVolver').click(function () {
+            $('.div-cont').hide();
+            $('#LoginForm')[0].reset();
+            $('#login').find('.modal-title').text('Entrar a mi cuenta');
+            $('.div-login').show();
+        });
+        $('#btnVolverRestore').click(function () {
+            $('.div-cont').hide();
+            $('#FormReset')[0].reset();
+            $('#login').find('.modal-title').text('Recuperar contraseña');
+            $('.div-login').show();
+        });
+        $('#btnEmviarReset').click(function(e){
+            e.preventDefault();
+            showLoad(1);
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("ResetPasswordV", "Account")',
+                data: $('#FormReset').serialize(),
+                    success: function (result) {
+                        if (result.success == false) {
+                            showLoad(0);
+                        }
+                        else {
+                            $('.div-cont').hide();
+                            $('#FormRestore').reset();
+                            $('.div-restore').show();
+                            showLoad(0);
+                        }
+                    },
+                    error: function (emp) {
+                        showLoad(0);
+                    }
+                });
+        });
+        $('#btnEmviarRestore').click(function (e) {
+            e.preventDefault();
+            showLoad(1);
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("RestorePassword", "Account")',
+                data: $('#FormRestore').serialize(),
+                success: function (result) {
+                    if (result.success == false) {
+                        showLoad(0);
+                    }
+                    else {
+                        showLoad(0);
+                        $('#login').find('.modal-title').text('Entrar a mi cuenta');
+                        alert('Password cambiado correctamente');
+                    }
+                },
+                error: function (emp) {
+                    showLoad(0);
+                }
+            });
+        });
     })
     $("#usernamer").keypress(function (e) {
         if (e.which == 13) {
@@ -448,16 +541,16 @@
                         //$('#body-content').prepend(
                         //'<div class="alert alert-warning" role="alert" id="LoginFailAlert">Usuario o Password no valido.</div>');
                         $('.preloader').hide();
-                        
+
                         eleb.removeClass("disablebutton");
                         window.setTimeout(function ()
                         { $("#LoginFailAlert").alert('close'); }, 2000);
                         if ($("#verifoption").val() == "2") {
-                             
+
                         }
                     }
                     else {
-                        
+
                         eleb.removeClass("disablebutton");
                         $('#login-info').html(result);
                         window.location.href = '@Url.Action("Index", "Customer")';
@@ -481,7 +574,30 @@
         }
 
     });
+    function isAlfa(evt) {
+        evt = (evt) ? evt : window.event;
+        var charCode = (evt.which) ? evt.which : evt.keyCode;
+        if (charCode > 31 && (charCode < 65 || charCode > 90) && (charCode < 97 || charCode > 122) && (charCode < 192 || charCode > 221) && (charCode < 225 || charCode > 252)) {
+            return false;
+        }
+        return true;
+    }
+    function onlyNumbers(e) {
+        var keynum = window.event ? window.event.keyCode : e.which;
+        if ((keynum == 8) || (keynum == 46))
+            return true;
 
+        return /\d/.test(String.fromCharCode(keynum));
+    }
+    function showLoad(verif) {
+        if (verif == 1) {
+            $('.preloader-opacity').show();
+            $('.preloader-opacity-background').show();
+        } else {
+            $('.preloader-opacity').hide();
+            $('.preloader-opacity-background').hide();
+        }
+    }
     function validateZipCode() {
         $.ajax({
             type: 'POST',
@@ -516,19 +632,22 @@
             }
         });
     }
+    jQuery.validator.addMethod("lettersonly", function (value, element) {
+        return this.optional(element) || /[A-Za-zÃ±Ã‘Ã¡Ã©Ã­Ã³ÃºÃÃ‰ÃÃ“Ãš\s]/i.test(value);
+    }, "Por favor ingresa solo letras");
     jQuery.extend(jQuery.validator.messages, {
         required: "Este campo es requerido.",
         remote: "Please fix this field.",
-        email: "Por favor ingresa un email valido",
+        email: "Por favor ingresa un e-mail válido",
         url: "Please enter a valid URL.",
         date: "Please enter a valid date.",
         dateISO: "Please enter a valid date (ISO).",
-        number: "Please enter a valid number.",
+        number: "Por favor ingresa solo numeros.",
         digits: "Please enter only digits.",
         creditcard: "Please enter a valid credit card number.",
         equalTo: "Las contraseñas deben coincidir.",
         accept: "Please enter a value with a valid extension.",
-        maxlength: jQuery.validator.format("Por favor ingresa no mas de {0} caracteres."),
+        maxlength: jQuery.validator.format("Por favor ingresa no más de {0} caracteres."),
         minlength: jQuery.validator.format("Por favor ingresa al menos {0} caracteres."),
         rangelength: jQuery.validator.format("Please enter a value between {0} and {1} characters long."),
         range: jQuery.validator.format("Please enter a value between {0} and {1}."),

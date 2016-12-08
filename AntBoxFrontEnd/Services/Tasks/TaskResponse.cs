@@ -52,7 +52,7 @@ namespace AntBoxFrontEnd.Services.Tasks
             get
             {
                 DateTime tomorrow = DateTime.Today.AddDays(1);
-                if (completeAfterDate.Ticks >= tomorrow.Ticks)
+                if (Status != "completed")
                 {
                     return true;
                 } else {

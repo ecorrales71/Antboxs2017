@@ -246,11 +246,13 @@
 
         $('.guardar-antbox').click(function (event) {
             event.preventDefault();
+            showLoad(1);
             $.ajax({
                 type: 'POST',
                 url: '@Url.Action("UpdateAjax", "AntBox")',
                 data: { id: element.attr('data-id'), name: $('#mname-antbox').val(), description: $('#mdescription-antbox').val() },
                 success: function (result) {
+                    showLoad(0);
                     if (result.success == true) {
                         //antbox editado
                         if (!$('#UpdateAntBoxSuccess').length) {
@@ -269,6 +271,8 @@
                     } else {
 
                     }
+                }, error: function () {
+                    showLoad(0);
                 }
             });
         });
@@ -319,9 +323,11 @@
 
             $("#loader-solicitar").show();
             console.log($(".select-antbox:checked").length);
+            
 
             if ($('#form-solicitar-antbox').valid())
             {
+                showLoad(1);
                 $(".select-antbox-check:checked").each(function () {
                     var folio = $(this).attr("data-folio");
                     checkeds.push(folio);
@@ -359,6 +365,7 @@
                             $("#loader-solicitar").hide();
                             count++;
                             if (count == checkeds.length) {
+                                showLoad(0);
                                 $("#loader-solicitar").hide();
                                 if (succesed[0] == 1)
                                 {
@@ -438,8 +445,8 @@
                             cadhtml += "                            <h4><span class=\"name-antbox\">" + antboxv.Name + " - " + antboxv.Folio + " " + antboxv.EnDeposito + "<\/h4>";
                             cadhtml += "                            <p class=\"description-antbox\">" + antboxv.Descriptionv + "<\/p>";
                             cadhtml += "                            <div class=\"checkboxFive\">";
-                            cadhtml += "                                <input type=\"checkbox\" value=\"1\" id=\"checkboxFiveInput-" + antboxv.Id + "\" class=\"select-antbox-check\" name=\"\">";
-                            cadhtml += "                                <label for=\"checkboxFiveInput-" + antboxv.Id + "\" class=\"select-antbox\" data-folio=\"" + antboxv.Folio + "\"></label>";
+                            cadhtml += "                                <input type=\"checkbox\" value=\"1\" data-folio=\"" + antboxv.Folio + "\" id=\"checkboxFiveInput-" + antboxv.Id + "\" class=\"select-antbox-check\" name=\"\">";
+                            cadhtml += "                                <label for=\"checkboxFiveInput-" + antboxv.Id + "\" class=\"select-antbox\" ></label>";
                             cadhtml += "                            </div>";
                             cadhtml += "                            <button type=\"button\" class=\"btn btn-primary btn-sm pull-right ml20 solicitar\" data-toggle=\"modal\" data-folio=\"" + antboxv.Folio + "\" data-id=\"" + antboxv.Id + "\" data-status=\"" + antboxv.Status + "\" data-target=\"#solicitar\">Solicitar<\/button>";
                             cadhtml += "                            <button type=\"button\" class=\"btn btn-primary btn-sm pull-right btn_blue editar\" data-toggle=\"modal\" data-id=\"" + antboxv.Id + "\" data-target=\"#editar\">Editar<\/button>";

@@ -90,15 +90,15 @@
                         <hr class="hr-semilight linea_recibo" />
                         <div>
                             <p>
-                                Orden de Servicio <span class="folior">3457837</span>
-                                <br />Fecha: <span class="fechar">24-10-2016</span> Hora: <span class="horar">10:00 am</span>
+                                Orden de Servicio <span class="folior"></span>
+                                <br />Fecha: <span class="fechar"></span>
                             </p>
                             <p>
-                                Eduardo Corrales
+                                @Model.Cliente.Name @Model.Cliente.LastName
                                 <br /><span class="caller"></span>-<span class="externalr"></span>,
-                                <br />Colonia <span class="coloniar"></span>,
-                                <br />Delegación <span class="delegacionr"></span>, C.P. <span class="zipr"></span>
-                                <br />Cel. <span class="cellr"></span> Ref. <span class="referenciar"></span>
+                                <br /><span class="coloniar"></span>,
+                                <br /><span class="delegacionr"></span>, <span class="zipr"></span>
+                                <br /><span class="cellr">Cel. @Model.Cliente.Phone</span> <span class="referenciar"></span>
                             </p>
                             <p id="content-boxes-recibo-recoleccion">
                                 Antboxs Medianas: <span class="antboxmedianasr">1</span>
@@ -174,15 +174,15 @@
                         <hr class="hr-semilight linea_recibo" />
                         <div>
                             <p>
-                                Orden de Servicio 3457838
-                                <br />Fecha: 24-10-2016 Hora: 11:35 am
+                                Orden de Servicio <span class="folioe"></span>
+                                <br />Fecha: <span class="fechae"></span>
                             </p>
                             <p>
-                                Susana Gómez
-                                <br />Nortes 81-4,
-                                <br />Colonia Claveria,
-                                <br />Delegación Azcapotzalco, C.P. 02080
-                                <br />Cel. 55-3748-5733 Ref. Hablar al llegar
+                                @Model.Cliente.Name @Model.Cliente.LastName
+                                <br /><span class="callee"></span>-<span class="externale"></span>,
+                                <br /><span class="coloniae"></span>,
+                                <br /><span class="delegacione"></span>, <span class="zipe"></span>
+                                <br /><span class="celle">Cel. @Model.Cliente.Phone</span> <span class="referenciae"></span>
                             </p>
                             <p id="content-boxes-recibo">
                                 
@@ -454,11 +454,13 @@
 
             console.log(formData);
 
+            showLoad(1);
             $.ajax({
                 type: 'POST',
                 url: '@Url.Action("SolicitarAntbox", "AntBox")',
                 data: formData,
                 success: function (result) {
+                    showLoad(0);
                     console.log(result);
                     if (result.success == true) {
                         //antbox editado
@@ -469,6 +471,7 @@
                         console.log('result false');
                     }
                 }, error: function (dataerror) {
+                    showLoad(0);
                     console.log(dataerror);
                     succesed.push(0);
                 }, complete: function () {
@@ -487,7 +490,7 @@
                                     $(this).prop('checked', false);
                                 });
                                 $('#solicitar').modal('hide');
-                                window.location.reloac();
+                                window.location.reload();
                             }, 1000);
                         }
                         element.parent().find('.name-antbox').text($('#mname-antbox').val());
@@ -542,24 +545,26 @@
         $(document).on("click", '.recibo-recoleccion', function () {
             var id = $(this).attr("data-id");
             $('.recibo_recoleccion').modal("show");
+            showLoad(1);
             for (var i = 0; i < tasks.length; i++) {
                 if (tasks[i].id == id) {
                     $('.folior').text(tasks[i].folio);
                     //$('.folior').val(tasks[i].folior);
                     //$('.folior').val(tasks[i].folior);
-                    $('.caller').text(tasks[i].address.calle);
+                    $('.fechar').text($(this).closest('.media-body').find('.fecha').text());
+                    $('.caller').text($(this).closest('.media-body').find('.calle').text());
                     $('.externalr').text(tasks[i].address.external);
-                    $('.coloniar').text(tasks[i].address.colonia);
-                    $('.delegacionr').text(tasks[i].address.delegacion);
-                    $('.zipr').text(tasks[i].address.zipcode);
+                    $('.coloniar').text('Colonia ' + $(this).closest('.media-body').find('.colonia').text());
+                    $('.delegacionr').text('Delegación ' + $(this).closest('.media-body').find('.delegacion').val());
+                    $('.zipr').text('C.P. ' + tasks[i].address.zipcode);
                     //$('.cellr').val(tasks[i].folior);
-                    $('.referenciar').text(tasks[i].address.referencia);
+                    if ($(this).closest('.media-body').find('.referencia').val() != 'undefined') $('.referenciar').text('Ref. ' + $(this).closest('.media-body').find('.referencia').val());
 
-                    $("#recibo_recoleccion").modal("show");
+                    
                     $('#content-antboxes-recibo-recoleccion').html('');
                     $('#content-boxes-recibo-recoleccion').html('');
 
-                    $('.firma_recoleccion').attr("src", "http://64.28.103.85:8082/assets/sign-" + tasks[i].folio + ".png");
+                    $('.firma_recoleccion').attr("src", "http://64.28.103.85:8082/assets/sign" + tasks[i].folio + ".png");
 
                     var formData = {};
                     formData.folio = tasks[i].folio
@@ -570,6 +575,8 @@
                         url: '@Url.Action("Recibo", "Payment")',
                         data: formData,
                         success: function (result) {
+                            showLoad(0);
+                            $("#recibo_recoleccion").modal("show");
                             $("#loader-recoleccion").hide();
                             
                             var htmlGlobal = "";
@@ -590,23 +597,27 @@
                                 htmlGlobal += rowhtml;
                             }
 
-                            var total = 0;
+                            var rentas = 0;
                             var depositos = 0;
                             var cargos = 0;
                             var reembolso = 0;
                             for (var i = 0; i < result.payments.length; i++) {
-                                total += result.payments[i].Amount;
+                                if (result.payments[i].Type == 'payment') rentas += parseInt(result.payments[i].Amount);
+                                else if (result.payments[i].Type == 'deposit') depositos += parseInt(result.payments[i].Amount);
+                                else if (result.payments[i].Type == 'refund') reembolso += parseInt(result.payments[i].Amount);
+                                cargos = rentas + depositos;
                             }
 
-                            $('.rentasr').val("$" + total);
-                            $('.depositosr').val("$" + depositos);
-                            $('.cargosr').val("$" + cargos);
-                            $('.reembolsor').val("$" + reembolso);
+                            $('.rentasr').text("$ " + rentas.toFixed(2));
+                            $('.depositosr').text("$ " + depositos.toFixed(2));
+                            $('.cargosr').text("$ " + cargos.toFixed(2));
+                            $('.reembolsor').text("$ " + reembolso.toFixed(2));
 
                             $('#content-antboxes-recibo-recoleccion').append("<p>" + htmlGlobal + "</p>");
                             colocaBoxes(boxes, $('#content-boxes-recibo-recoleccion'));
                             console.log(result);
                         }, error: function (error) {
+                            showLoad(0);
                             $("#loader-recoleccion").hide();
                         }
                     })
@@ -617,22 +628,24 @@
         $(document).on("click", '.recibo-entrega', function () {
             var id = $(this).attr("data-id");
             $('.recibo_entrega').modal("show");
+            showLoad(1);
             for (var i = 0; i < tasks.length; i++)
             {
                 if (tasks[i].id == id) {
-                    $('.folior').text(tasks[i].folio);
+                    $('.folioe').text(tasks[i].folio);
                     //$('.folior').val(tasks[i].folior);
                     //$('.folior').val(tasks[i].folior);
-                    $('.caller').text(tasks[i].address.calle);
-                    $('.externalr').text(tasks[i].address.external);
-                    $('.coloniar').text(tasks[i].address.colonia);
-                    $('.delegacionr').text(tasks[i].address.delegacion);
-                    $('.zipr').text(tasks[i].address.zipcode);
+                    $('.fechae').text($(this).closest('.media-body').find('.fecha').text());
+                    $('.callee').text($(this).closest('.media-body').find('.calle').text());
+                    $('.externale').text(tasks[i].address.external);
+                    $('.coloniae').text('Colonia ' + $(this).closest('.media-body').find('.colonia').text());
+                    $('.delegacione').text('Delegación ' + $(this).closest('.media-body').find('.delegacion').val());
+                    $('.zipe').text('C.P. ' + tasks[i].address.zipcode);
                     //$('.cellr').val(tasks[i].folior);
-                    $('.referenciar').text(tasks[i].address.referencia);
+                    if ($(this).closest('.media-body').find('.referencia').val() != 'undefined') $('.referenciar').text('Ref. ' + $(this).closest('.media-body').find('.referencia').val());
 
-                    $('.firma_entrega').attr("src", "http://64.28.103.85:8082/assets/sign-" + tasks[i].folio + ".png");
-                    $("#recibo_entrega").modal("show");
+                    $('.firma_entrega').attr("src", "http://64.28.103.85:8082/assets/sign" + tasks[i].folio + ".png");
+                    
 
                     $('#content-antboxes-recibo').html('');
                     $('#content-boxes-recibo').html('');
@@ -646,6 +659,7 @@
                         url: '@Url.Action("Recibo", "Payment")',
                         data: formData,
                         success: function (result) {
+                            $("#recibo_entrega").modal("show");
                             $("#loader-entrega").hide();
                             var htmlGlobal = "";
                             for (var i = 0; i < result.antbox.Antboxs.length; i++)
@@ -673,6 +687,9 @@
                         }, error: function(error)
                         {
                             $("#loader-entrega").hide();
+                        }, complete: function()
+                        {
+                            showLoad(0);
                         }
                     })
                 }

@@ -373,6 +373,8 @@
     <Compile Include="Services\Customer\PaginationCustomerReport.cs" />
     <Compile Include="Services\Customer\PaginationCustomerResponse.cs" />
     <Compile Include="Services\Listing\ListingServices.cs" />
+    <Compile Include="Services\Login\RestoreCreateOptions.cs" />
+    <Compile Include="Services\Login\ResetCreateOptions.cs" />
     <Compile Include="Services\Login\LoginCreateOptions.cs" />
     <Compile Include="Services\Login\LoginService.cs" />
     <Compile Include="Services\Login\UserManager.cs" />
@@ -526,6 +528,7 @@
     <Content Include="Images\como-funciona-guarda-tus-articulos.png" />
     <Content Include="Images\como_funciona_background_antboxs.jpg" />
     <Content Include="Images\cuenta.png" />
+    <Content Include="Images\fdo_loader.gif" />
     <Content Include="Images\gridtile.png" />
     <Content Include="Images\guarda-tus-cosas-icono.png" />
     <Content Include="Images\pide-tus-antboxs-icono.png" />

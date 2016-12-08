@@ -181,6 +181,7 @@ namespace AntBoxFrontEnd.Services.AntBoxes
         public static readonly AntBoxStatusEnum Delivering = new AntBoxStatusEnum(0, "delivering");
         public static readonly AntBoxStatusEnum Stored = new AntBoxStatusEnum(0, "stored");
         public static readonly AntBoxStatusEnum Free = new AntBoxStatusEnum(0, "free");
+        public static readonly AntBoxStatusEnum AllWithoutFree = new AntBoxStatusEnum(0, "reserved,delivering,stored");
         public static readonly AntBoxStatusEnum Defualt = new AntBoxStatusEnum(0, "Defualt");
 
         public override string ToString()

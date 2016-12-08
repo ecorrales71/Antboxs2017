@@ -160,6 +160,7 @@ namespace AntBoxFrontEnd.Controllers
                 {
                     result.Addresses = new List<AntBoxAddressViewModel>();
                 }
+                result.Cliente = ((CustomerResponse)Session["customer"]);
             }
             catch (Exception ex)
             {
@@ -538,6 +539,33 @@ namespace AntBoxFrontEnd.Controllers
                 return Json(true, JsonRequestBehavior.AllowGet);
             }
             catch(Exception ex)
+            {
+                LogManager.Write(ex.Message, LogManager.Error);
+                return Json(new { success = false, responseText = "OCURRIO UN ERROR AL LISTAR LAS TARJETAS DISPONIBLES" }, JsonRequestBehavior.AllowGet);
+
+            }
+        }
+
+        public JsonResult TempUpdateAntboxesObject(List<boxsResponse> boxs)
+        {
+            try
+            {
+                var boxes = new Dictionary<string, int>();
+
+                Session["AntBoxesOrder"] = boxes;
+
+                boxes = Session["AntBoxesOrder"] as Dictionary<string, int>;
+
+                foreach(var box in boxs)
+                {
+                    boxes[box.boxid] = box.quantity;
+                }
+
+                Session["AntBoxesOrder"] = boxes;
+
+                return Json(true, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
             {
                 LogManager.Write(ex.Message, LogManager.Error);
                 return Json(new { success = false, responseText = "OCURRIO UN ERROR AL LISTAR LAS TARJETAS DISPONIBLES" }, JsonRequestBehavior.AllowGet);

@@ -99,6 +99,9 @@ namespace AntBoxFrontEnd.Infrastructure
 
         public static String ValidateAddress { get { return BaseUrl + "/customer-address/check"; } }
 
+        public static String ResetPassword { get { return BaseUrl + "/reset"; } }
+
+        public static String RestorePassword { get { return BaseUrl + "/restore"; } }
 
     }
 }

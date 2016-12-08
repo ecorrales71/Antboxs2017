@@ -7,6 +7,7 @@ using AntBoxFrontEnd.Infrastructure;
 using AntBoxFrontEnd.Models;
 using System.Text;
 using System.Net.Http;
+using AntBoxFrontEnd.Entities;
 
 namespace AntBoxFrontEnd.Services.Login
 {
@@ -61,6 +62,46 @@ namespace AntBoxFrontEnd.Services.Login
             }
 
             return response;
+        }
+
+        public virtual Boolean ResetPassword(ResetCreateOptions createOptions, RequestOptions requestOptions = null)
+        {
+            requestOptions = SetupRequestOptions(requestOptions);
+
+            string serilizedObj = JsonConvert.SerializeObject(createOptions, new JsonSerializerSettings() { NullValueHandling = NullValueHandling.Ignore }).ToString();
+            StringContent PostData = new StringContent(serilizedObj, Encoding.UTF8, "application/json");
+
+            try
+            {
+                var customerResponse = Requestor.Post<MissingError>(UrlsConstants.ResetPassword, requestOptions, PostData);
+            }
+            catch (Exception ex)
+            {
+                LogManager.Write(ex.Message + " " + ex.InnerException, LogManager.Error);
+
+                return false;
+            }
+            return true;
+        }
+
+        public virtual Boolean RestorePassword(RestoreCreateOptions createOptions, RequestOptions requestOptions = null)
+        {
+            requestOptions = SetupRequestOptions(requestOptions);
+
+            string serilizedObj = JsonConvert.SerializeObject(createOptions, new JsonSerializerSettings() { NullValueHandling = NullValueHandling.Ignore }).ToString();
+            StringContent PostData = new StringContent(serilizedObj, Encoding.UTF8, "application/json");
+
+            try
+            {
+                var customerResponse = Requestor.Post<MissingError>(UrlsConstants.RestorePassword, requestOptions, PostData);
+            }
+            catch (Exception ex)
+            {
+                LogManager.Write(ex.Message + " " + ex.InnerException, LogManager.Error);
+
+                return false;
+            }
+            return true;
         }
 
         public class LoginResponse

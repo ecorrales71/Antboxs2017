@@ -128,6 +128,7 @@ Calendar.setup({
                 $("#fecha_recoleccion").closest(".form-group").removeClass("has-error");
                 $("#fecha_recoleccion").closest(".form-group").find(".help-block").remove();
             }
+            showLoad(1);
             $.ajax({
                 url: '@Url.Action("getSchedules", "Customer")',
                 type: "GET",
@@ -144,7 +145,9 @@ Calendar.setup({
                     $('#selHorario').css('background', '');
                     $('#selHorario').html(items);
                     $('#selHorario').trigger("chosen:updated");
-                    }
+                }, complete: function () {
+                    showLoad(0);
+                }
                 
             });
         }
@@ -182,6 +185,7 @@ $(document).ready(function(){
 
         if ($('#Tareas').valid()) {
             var formData = $(".form-agendar").serialize();
+            showLoad(1);
 
             //Validar direccion
             $.ajax({
@@ -194,15 +198,17 @@ $(document).ready(function(){
                     if (data == "true") {
                         $(".form-agendar").submit();
                     } else {
+                        showLoad(0);
                         if (!$("#AddressFail").length) {
                             $('#Agendar-tareas').prepend(
-                                '<div class="alert alert-warning" role="alert" id="AddressFail"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a> La direccion no es valida</div>');
+                                '<div class="alert alert-warning" role="alert" id="AddressFail"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a> La dirección no es válida</div>');
                             window.setTimeout(function () {
                                 $("#AddressFail").remove();
                             }, 5000);
                         }
                     }
                 }, error: function (error) {
+                    showLoad(0);
                     console.log(error)
                 }
             });

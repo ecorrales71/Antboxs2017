@@ -1,4 +1,5 @@
 ﻿using AntBoxFrontEnd.Models;
+using AntBoxFrontEnd.Services.Customer;
 using AntBoxFrontEnd.Services.Tasks;
 using Newtonsoft.Json;
 using System;
@@ -11,6 +12,7 @@ namespace AntBoxFrontEnd.Services.Tasks
     public class PaginationCustomerTask
     {
         public List<AntBoxAddressViewModel> Addresses { get; set; }
+        public CustomerResponse Cliente { get; set; }
         public PaginationCustomerTask()
         {
             Tasks = new List<TaskResponse>(); 

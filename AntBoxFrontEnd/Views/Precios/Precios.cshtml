@@ -156,6 +156,11 @@
 
     $(function () {
 
+        $('.cant_antboxs').each(function () {
+            if (parseInt($(this).val()) > 0) {
+                $(this).val(0);
+            }
+        });
 
         $(".rules").each(function () {
             rules.push({
@@ -186,6 +191,28 @@
             $(this).text($(this).text().replace(",", "."));
         });
 
+        $(".agendar-entregas").click(function (e) {
+            e.preventDefault();
+            var antboxobject = devuelveboxsobject();
+            if (verifantbox(antboxobject)) {
+                var data = {};
+                data.boxs = antboxobject;
+                showLoad(1)
+                $.ajax({
+                    contentType: 'application/json; charset=utf-8',
+                    type: 'POST',
+                    url: '@Url.Action("TempUpdateAntboxesObject", "Customer")',
+                    // data: $('#frmNewAddress').serialize(),
+                    data: JSON.stringify(data),
+                    success: function (d) {
+                        location.href = '@Url.Action("AgendarEntregas", "Home")';
+                    }, error: function () {
+                        showLoad(0)
+                    }
+                });
+            }
+        });
+
         $(".aplicar-cupon").click(function () {
             var couponcode = $("#coupon_code").val();
             formData = {};
@@ -196,22 +223,27 @@
                 formData.cupon = "";
                 $("#coupon_code").val("");
             }
+            showLoad(1);
             $.ajax({
                 type: 'POST',
                 url: '@Url.Action("GetDisccount", "Precios")',
                 // data: $('#frmNewAddress').serialize(),
                 data: formData,
                 success: function (d) {
+                    showLoad(0);
                     if (d.success) {
+                        
                         $(".aplicar-cupon").val("Quitar cupón");
                         discount = d.discount;
                         recalculateTotal();
                     } else {
+                        alert("El cupón introducido es inválido");
                         $(".aplicar-cupon").val("Aplicar cupón");
                         discount = 0;
                         recalculateTotal();
                     }
                 }, error: function (e) {
+                    showLoad(0);
                     discount = 0;
                     recalculateTotal();
                     $(".aplicar-cupon").val("Aplicar cupón");
@@ -229,6 +261,10 @@
 
         var priceObj = $('#Price_' + ide)
         var quantityObj = $('#quantity_' + ide)
+
+        if (isNaN(quantityObj.val()) || quantityObj.val() == '') {
+            quantityObj.val(0);
+        }
 
         var price = priceObj.html();
         var deposit = 158;
@@ -272,6 +308,10 @@
 
         var priceObj = $('#Price_' + ide)
         var quantityObj = $('#quantity_' + ide)
+
+        if (isNaN(quantityObj.val()) || quantityObj.val() == '') {
+            quantityObj.val(0);
+        }
 
         var price = priceObj.html();
         var quantity = quantityObj.val();
@@ -387,6 +427,37 @@
 
     }
 
+    function verifantbox(antboxobject) {
+        if (antboxobject.length == 0) {
+            alert("Debe seleccionar al menos un antbox para poder seguir el proceso");
+            return false;
+        } else {
+            var verifboxs = false;
+            for (var i = 0; i < antboxobject.length; i++) {
+                if (antboxobject[i].quantity > 0) {
+                    verifboxs = true;
+                }
+            }
+            if (!verifboxs) {
+                alert("Debe seleccionar al menos un antbox para poder seguir el proceso");
+            }
+            return verifboxs;
+        }
+    }
+
+    function devuelveboxsobject() {
+        var boxsobject = [];
+        boxs.forEach(function (element, index, array) {
+            boxsobject.push({ boxid: index, quantity: boxs[i].element })
+        })
+        for (var k in boxs) {
+            if (boxs.hasOwnProperty(k)) {
+                boxsobject.push({ boxid: k, quantity: boxs[k] })
+            }
+        }
+        return boxsobject;
+    }
+
     var CartLine = function () {
         var self = this;
 
@@ -406,13 +477,7 @@
 
     }
 
-    function onlyNumbers(e) {
-        var keynum = window.event ? window.event.keyCode : e.which;
-        if ((keynum == 8) || (keynum == 46))
-            return true;
-
-        return /\d/.test(String.fromCharCode(keynum));
-    }
+    
 
 
 

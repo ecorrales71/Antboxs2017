@@ -629,22 +629,26 @@
                     formData.cupon = "";
                     $("#coupon_code").val("");
                 }
+                showLoad(1);
                 $.ajax({
                     type: 'POST',
                     url: '@Url.Action("GetDisccount", "Precios")',
                     // data: $('#frmNewAddress').serialize(),
                     data: formData,
                     success: function (d) {
+                        showLoad(0);
                         if (d.success) {
                             $(".aplicar-cupon").val("Quitar cupón");
                             discount = d.discount;
                             recalculateTotal();
                         } else {
+                            alert("El cupón introducido es inválido");
                             $(".aplicar-cupon").val("Aplicar cupón");
                             discount = 0;
                             recalculateTotal();
                         }
                     }, error: function (e) {
+                        showLoad(0);
                         $(".aplicar-cupon").val("Aplicar cupón");
                         discount = 0;
                         recalculateTotal();
@@ -692,6 +696,7 @@
             var antboxobject = devuelveboxsobject();
             if (verifantbox(antboxobject))
             {
+                showLoad(1);
                 var dirRecolId = $("#AddressPickup").val();
 
                 var fecRec = $("#fecha_recoleccion").val();
@@ -733,11 +738,15 @@
                         type: "POST",
                         data: data,
                         success: function (data) {
+                            showLoad(0);
                             if (data.success) {
                                 alert(data.responseText);
                                 window.location.reload(true);
                             }
                             else { alert(data.responseText); }
+                        }, error: function () {
+                            showLoad(0);
+
                         }
                     });
                 }
@@ -961,6 +970,7 @@
             var formData = $("#form-address").serialize();
 
             //Validar direccion
+            showLoad(1);
             $.ajax({
                 type: 'POST',
                 dataType: 'text',
@@ -971,6 +981,7 @@
                     if (data == "true") {
                         crearDireccion();
                     } else {
+                        showLoad(0);
                         if (!$("#AddressFail").length) {
                             $('#form-address').prepend(
                                 '<div class="alert alert-warning" role="alert" id="AddressFail"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a> La direccion no es valida</div>');
@@ -980,6 +991,7 @@
                         }
                     }
                 }, error: function (error) {
+                    showLoad(0);
                     console.log(error)
                 }
             });
@@ -1029,9 +1041,11 @@
                         success: function (result) {
                             if (result.success == false) {
                              
+                                showLoad(0);
 
                             }
                             else {
+                                showLoad(0);
                                 cadhtml = "";
                                 for (var i = 0; i < result.Addresses.length; i++) {
                                     cadhtml += "<option value='" + result.Addresses[i].Id + "'>" + result.Addresses[i].Alias + "</option>";
@@ -1042,6 +1056,7 @@
                             }
                         },
                         error: function (emp) {
+                            showLoad(0);
                             $('#newCardResult').prepend(
                                 '<div class="alert alert-error alert-dismissible fade in" id="GetCardsError"> <button type="button" class="close" data-dismiss="alert"> <i class="fa fa-times"></i></button><p><i class="fa fa-exclamation-triangle"></i>' + '[ERROR ' + response.status + '] al traer los datos de las tarjetas, intente refrescar la pagina.</p></div>');
                             window.setTimeout(function ()
@@ -1052,6 +1067,7 @@
                 }
             },
             error: function (emp) {
+                showLoad(0);
                 $('#frmNewAddress').prepend(
                     '<div class="alert alert-danger fade-in" role="alert" id="LoginErrorAlert">Error al registrar dirección, intentelo de nuevo.</div>'
                     );
@@ -1071,6 +1087,7 @@
 
 	function generate_token() {
 	    if ($('.form-card').valid()) {
+	        showLoad(1);
 	        OpenPay.setId('miqwkvkewii1gqs4ifh2');
 	        OpenPay.setApiKey('pk_e70b7a22c6c04239b10b7be3596a1f98');
 	        OpenPay.setSandboxMode(true);
@@ -1109,9 +1126,11 @@
 	                                success: function (result) {
 	                                    if (result.success == false) {
 	                                        
+	                                        showLoad(0);
 
 	                                    }
 	                                    else {
+	                                        showLoad(0);
 	                                        cadhtml = "";
 	                                        for (var i = 0; i < result.cards.length; i++) {
 	                                            cadhtml += "<option value='" + result.cards[i].Id + "'>" + result.cards[i].Info.Card_number + "</option>";
@@ -1122,6 +1141,7 @@
 	                                    }
 	                                },
 	                                error: function (emp) {
+	                                    showLoad(0);
 	                                    $('#newCardResult').prepend(
                                             '<div class="alert alert-error alert-dismissible fade in" id="GetCardsError"> <button type="button" class="close" data-dismiss="alert"> <i class="fa fa-times"></i></button><p><i class="fa fa-exclamation-triangle"></i>' + '[ERROR ' + response.status + '] al traer los datos de las tarjetas, intente refrescar la pagina.</p></div>');
 	                                    window.setTimeout(function ()
@@ -1132,6 +1152,7 @@
 	                        }, 1000);
 	                    }
 	                    else {
+	                        showLoad(0);
 	                        $('#newCardResult').prepend(
                             '<div class="alert alert-error alert-dismissible fade in" id="RegisterCardError"> <button type="button" class="close" data-dismiss="alert"> <i class="fa fa-times"></i></button><p><i class="fa fa-exclamation-triangle"></i>' + 'ERROR al traer los datos de las tarjetas, intente refrescar la pagina.</p></div>');
 	                        window.setTimeout(function ()
@@ -1139,6 +1160,7 @@
 	                    }
 	                },
 	                error: function (emp) {
+	                    showLoad(0);
 	                    $('#newCardResult').prepend(
                             '<div class="alert alert-error alert-dismissible fade in" id="RegisterCardError"> <button type="button" class="close" data-dismiss="alert"> <i class="fa fa-times"></i></button><p><i class="fa fa-exclamation-triangle"></i>' + '[ERROR ' + response.status + '] al intentar registrar la tarjeta en Antbox.</p></div>');
 	                    window.setTimeout(function ()
@@ -1151,6 +1173,7 @@
 	        };
 
 	        var error_callbak = function (response) {
+	            showLoad(0);
 	            var desc = "ERROR [" + response.status + "] " + response.data.description != undefined ? response.data.description : response.message;
 	            //alert("ERROR [" + response.status + "] " + desc);
 	            //$("#pay-button").prop("disabled", false);

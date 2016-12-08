@@ -27,7 +27,7 @@ namespace AntBoxFrontEnd.Services.Customer
         public string Phone { get; set; }
 
         [JsonProperty("mobile_phone")]
-        public string Mobile_phone { get; set; }
+        public string Mobilephone { get; set; }
 
         [JsonProperty("rfc_id")]
         public string Rfc_id { get; set; }

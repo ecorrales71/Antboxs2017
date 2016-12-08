@@ -43,15 +43,15 @@
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label for="send-form-name">* Nombre(s)</label>
-                                            <input type="text" name="name" id="name" value="@Model.Name">
+                                            <input type="text" name="name" id="name" value="@Model.Name" maxlength="100" onkeypress="return isAlfa(event)">
                                         </div>
                                         <div class="form-group">
                                             <label for="send-form-email"> *Apellido Paterno*</label>
-                                            <input type="text" name="lastname" id="lastname" value="@Model.LastName">
+                                            <input type="text" name="lastname" id="lastname" value="@Model.LastName" maxlength="100" onkeypress="return isAlfa(event)">
                                         </div>
                                         <div class="form-group">
                                             <label for="send-form-email">* Apellido Materno</label>
-                                            <input type="text" name="lastname2" id="lastname2" value="@Model.Lastname2">
+                                            <input type="text" name="lastname2" id="lastname2" value="@Model.Lastname2" maxlength="100" onkeypress="return isAlfa(event)">
                                         </div>
                                         <div class="form-group">
                                             <label for="send-form-email">* E-mail</label>
@@ -61,11 +61,11 @@
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label for="send-form-email">* Teléfono</label>
-                                            <input type="text" name="phone" id="phone" value="@Model.Phone">
+                                            <input type="text" name="phone" id="phone" value="@Model.Phone" maxlength="10" onkeypress="return onlyNumbers(event)">
                                         </div>
                                         <div class="form-group">
                                             <label for="send-form-name">Celular</label>
-                                            <input type="text" name="cellphone" id="cellphone" value="@Model.Mobile_phone">
+                                            <input type="text" name="cellphone" id="cellphone" value="@Model.Mobile_phone" maxlength="10" onkeypress="return onlyNumbers(event)">
                                         </div>
                                         @*<div class="form-group">
                                                 <label for="send-form-email">Contraseña*</label>
@@ -106,11 +106,13 @@
 @section scripts {
     <script>
         $('#btnUpdate').click(function () {
+            showLoad(1);
             $.ajax({
                 type: 'POST',
                 url: '@Url.Action("AntBoxUpdateAccountAjax", "Account")',
                 data: $('#accountForm').serialize(),
                 success: function (result) {
+                    showLoad(0);
                     if (result.success == false) {
                         $('#newCardResult').prepend(
                         '<div class="alert alert-error alert-dismissible fade in" id="GetCardsError"> <button type="button" class="close" data-dismiss="alert"> <i class="fa fa-times"></i></button><p><i class="fa fa-exclamation-triangle"></i>' + 'ERROR al traer los datos de las tarjetas, intente refrescar la pagina.</p></div>');
@@ -125,6 +127,7 @@
                     }
                 },
                 error: function (emp) {
+                    showLoad(0);
                     $('#newCardResult').prepend(
                     '<div class="alert alert-error alert-dismissible fade in" id="GetCardsError"> <button type="button" class="close" data-dismiss="alert"> <i class="fa fa-times"></i></button><p><i class="fa fa-exclamation-triangle"></i>' + '[ERROR ' + response.status + '] al traer los datos de las tarjetas, intente refrescar la pagina.</p></div>');
                     window.setTimeout(function ()

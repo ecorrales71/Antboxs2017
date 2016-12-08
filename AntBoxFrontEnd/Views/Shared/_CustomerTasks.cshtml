@@ -25,7 +25,9 @@
                     {
                         <h4>Entrega</h4>
                     }
-                    <p>Fecha: @Html.DisplayFor(modelItem => item.completeAfterDate);<br />Lugar: @Html.DisplayFor(modelItem => item.Address.Street) @Html.DisplayFor(modelItem => item.Address.External_number), @Html.DisplayFor(modelItem => item.Address.Neighborhood), @Html.DisplayFor(modelItem => item.Address.City), C.P. @Html.DisplayFor(modelItem => item.Address.Zipcode). </p>
+                    <p>Fecha: <span class="fecha">@Html.DisplayFor(modelItem => item.completeAfterDate)</span><br />Lugar: <span class="calle">@Html.DisplayFor(modelItem => item.Address.Street)</span> <span class="external">@Html.DisplayFor(modelItem => item.Address.External_number)</span>, <span class="colonia">@Html.DisplayFor(modelItem => item.Address.Neighborhood)</span>, <span class="ciudad">@Html.DisplayFor(modelItem => item.Address.City)</span>, C.P. @Html.DisplayFor(modelItem => item.Address.Zipcode). </p>
+                    <input type="hidden" class="delegacion" value="@item.Address.Delegation" />
+                    <input type="hidden" class="referencia" value="@item.Address.References" />
                     @if (item.Status == "completed")
                     {
                         <div class="sticker_mov completed">Completado</div>

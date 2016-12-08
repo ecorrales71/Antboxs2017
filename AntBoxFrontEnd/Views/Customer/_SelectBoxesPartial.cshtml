@@ -53,7 +53,7 @@
                             </td>
                             <td class="product-quantity">
                                 <a href="" class="minus disabled" onclick='RemoveBox(@rowNo)' >-</a>
-                                <input type="text" class="cant_antboxs" id='quantity_@rowNo' onkeypress="return onlyNumbers(event);" value='@item.Quantity'>
+                                <input type="text" readonly class="cant_antboxs" id='quantity_@rowNo' onkeypress="return onlyNumbers(event);" value='@item.Quantity'>
                                 <a href="" class="plus" onclick='AddBox(@rowNo)' >+</a>
                             </td>
                             <td class="product-subtotal no_iphone_portrait">
@@ -206,7 +206,14 @@
         var quantityObj = $('#quantity_' + ide)
 
         var price = priceObj.html();
+
+        if (isNaN(quantityObj.val()) || quantityObj.val() == '')
+        {
+            quantityObj.val(0);
+        }
+
         var quantity = quantityObj.val();
+
         var deposit = 158;
 
         quantity++;
@@ -247,6 +254,10 @@
 
         var priceObj = $('#Price_' + ide)
         var quantityObj = $('#quantity_' + ide)
+
+        if (isNaN(quantityObj.val()) || quantityObj.val() == '') {
+            quantityObj.val(1);
+        }
 
         var price = priceObj.html();
         var quantity = quantityObj.val();

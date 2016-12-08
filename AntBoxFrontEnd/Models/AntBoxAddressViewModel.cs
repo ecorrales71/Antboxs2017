@@ -67,7 +67,7 @@ namespace AntBoxFrontEnd.Models
         public string Rfc_id { get; set; }
 
         [Required]
-        [Display(Name = "Notas")]
+        [Display(Name = "Referencias")]
         public string References { get; set; }
         
 

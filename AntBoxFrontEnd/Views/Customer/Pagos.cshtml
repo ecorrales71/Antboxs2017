@@ -185,7 +185,7 @@
                                 <button type="button" class="close" data-dismiss="alert">
                                     <i class="fa fa-times"></i>
                                 </button>
-                                <p><i class="fa fa-exclamation-triangle"></i> <strong>Regístra una dirección como mínimo.</strong><br />Recuerda que para realizar cualquier factura deberás tener por lo menos un dato de facturación.</p>
+                                <p><i class="fa fa-exclamation-triangle"></i> <strong>Registra una dirección como mínimo.</strong><br />Recuerda que para realizar cualquier factura deberás tener por lo menos un dato de facturación.</p>
                             </div>
                         </div>
                         <div class="content-datos-facturacion">
@@ -221,7 +221,7 @@
                     
                     <div class="row pl30 pr30">
                         <div id="loader1" role="alert" style="display: none;">
-                            <img src="@Url.Content("~/Images/preloader.gif")" />   Agregando direccion de facturacion... &nbsp;
+                            <img src="@Url.Content("~/Images/preloader.gif")" />   Agregando dirección de facturacion... &nbsp;
                         </div>
                         <div class="irow-xs pb30">
                             <h3>Regístra nuevos datos de facturación</h3>
@@ -232,59 +232,59 @@
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label for="aidentificacion">* Nombre de Identificación</label>
-                                        <input type="text" name="Alias" id="aidentificacion">
+                                        <input type="text" name="Alias" id="aidentificacion" maxlength="100">
                                     </div>
                                     <div class="form-group">
                                         <label for="arazonsocial">* Nombre o Razón Social</label>
-                                        <input type="text" name="Bussiness_name" id="arazonsocial">
+                                        <input type="text" name="Bussiness_name" id="arazonsocial" maxlength="100">
                                     </div>
                                     <div class="form-group">
                                         <label for="arfc">* RFC</label>
-                                        <input type="text" name="Rfc_id" id="arfc">
+                                        <input type="text" name="Rfc_id" id="arfc" maxlength="20">
                                     </div>
                                     <div class="form-group">
                                         <label for="send-form-email">* Calle</label>
-                                        <input type="text" name="Street" id="acalle">
+                                        <input type="text" name="Street" id="acalle" maxlength="20">
                                     </div>
                                     <div class="row">
                                         <div class="col-sm-6">
                                             <div class="form-group">
                                                 <label for="send-form-email">* Núm. Ext.</label>
-                                                <input type="text" name="External_number" id="aext">
+                                                <input type="text" name="External_number" id="aext" maxlength="50">
                                             </div>
                                         </div>
                                         <div class="col-sm-6">
                                             <div class="form-group">
                                                 <label for="send-form-email">Núm. Int.</label>
-                                                <input type="text" name="Internal_number" id="aint">
+                                                <input type="text" name="Internal_number" id="aint" maxlength="50">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label for="send-form-email">* Código Postal</label>
-                                        <input type="text" name="Zipcode" id="azipcode">
+                                        <input type="text" name="Zipcode" id="azipcode" maxlength="5" onkeypress='return onlyNumbers(event);'>
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label for="form-select">* Delegación o Municipio</label>
-                                        <input type="text" name="Delegation" id="amunicipio">
+                                        <input type="text" name="Delegation" id="amunicipio" maxlength="100" onkeypress="return isAlfa(event)">
                                     </div>
                                     <div class="form-group">
                                         <label for="form-select">* Colonia</label>
-                                        <input type="text" name="Neighborhood" id="acolonia">
+                                        <input type="text" name="Neighborhood" id="acolonia" maxlength="100" onkeypress="return isAlfa(event)">
                                     </div>
                                     <div class="form-group">
                                         <label for="send-form-email">* Ciudad</label>
-                                        <input type="text" name="City" id="aciudad">
+                                        <input type="text" name="City" id="aciudad" maxlength="100" onkeypress="return isAlfa(event)">
                                     </div>
                                     <div class="form-group">
                                         <label for="send-form-name">* Estado</label>
-                                        <input type="text" name="State" id="aestado">
+                                        <input type="text" name="State" id="aestado" maxlength="100" onkeypress="return isAlfa(event)">
                                     </div>
                                     <div class="form-group">
                                         <label for="send-form-email">* País</label>
-                                        <input type="text" name="Country" id="apais">
+                                        <input type="text" name="Country" id="apais" maxlength="100" onkeypress="return isAlfa(event)">
                                     </div>
                                     <div class="form-group">
                                         <label for="send-form-email">* E-mail</label>
@@ -399,59 +399,59 @@
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label for="identificacion">Nombre de Identificación*</label>
-                                <input type="text" name="alias" id="eidentificacion">
+                                <input type="text" name="alias" id="eidentificacion" maxlength="100">
                             </div>
                             <div class="form-group">
                                 <label for="razonsocial">Nombre o Razón Social*</label>
-                                <input type="text" name="razonsocial" id="erazonsocial">
+                                <input type="text" name="razonsocial" id="erazonsocial" maxlength="100">
                             </div>
                             <div class="form-group">
                                 <label for="rfc">RFC*</label>
-                                <input type="text" name="rfc" id="erfc">
+                                <input type="text" name="rfc" id="erfc" maxlength="20">
                             </div>
                             <div class="form-group">
                                 <label for="send-form-email">Calle*</label>
-                                <input type="text" name="Street" id="ecalle">
+                                <input type="text" name="Street" id="ecalle" maxlength="20">
                             </div>
                             <div class="row">
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label for="send-form-email">Núm. Ext.*</label>
-                                        <input type="text" name="External_number" id="eext">
+                                        <input type="text" name="External_number" id="eext" maxlength="50">
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label for="send-form-email">Núm. Int.</label>
-                                        <input type="text" name="Internal_number" id="eint">
+                                        <input type="text" name="Internal_number" id="eint" maxlength="50">
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="send-form-email">Código Postal*</label>
-                                <input type="text" name="Zipcode" id="ezipcode">
+                                <input type="text" name="Zipcode" id="ezipcode" maxlength="5" onkeypress='return onlyNumbers(event);'>
                             </div>
                         </div>
                         <div class="col-sm-6 pl0_modal">
                             <div class="form-group">
                                 <label for="form-select">Delegación o Municipio*</label>
-                                <input type="text" name="Delegation" id="emunicipio">
+                                <input type="text" name="Delegation" id="emunicipio" maxlength="50" onkeypress="return isAlfa(event)">
                             </div>
                             <div class="form-group">
                                 <label for="form-select">Colonia*</label>
-                                <input type="text" name="Neighborhood" id="ecolonia">
+                                <input type="text" name="Neighborhood" id="ecolonia" maxlength="50" onkeypress="return isAlfa(event)">
                             </div>
                             <div class="form-group">
                                 <label for="send-form-email">Ciudad*</label>
-                                <input type="text" name="City" id="eciudad">
+                                <input type="text" name="City" id="eciudad" maxlength="100" onkeypress="return isAlfa(event)">
                             </div>
                             <div class="form-group">
                                 <label for="send-form-name">Estado*</label>
-                                <input type="text" name="State" id="eestado">
+                                <input type="text" name="State" id="eestado" maxlength="100" onkeypress="return isAlfa(event)">
                             </div>
                             <div class="form-group">
                                 <label for="send-form-email">País*</label>
-                                <input type="text" name="Country" id="epais">
+                                <input type="text" name="Country" id="epais" maxlength="100" onkeypress="return isAlfa(event)">
                             </div>
                             <div class="form-group">
                                 <label for="send-form-email">E-mail*</label>
@@ -482,6 +482,7 @@ function goto_rndf(reload)
 <script>
     function generate_token() {
         if ($('.form-card').valid()) {
+            showLoad(1);
             OpenPay.setId('miqwkvkewii1gqs4ifh2');
             OpenPay.setApiKey('pk_e70b7a22c6c04239b10b7be3596a1f98');
             OpenPay.setSandboxMode(true);
@@ -497,6 +498,7 @@ function goto_rndf(reload)
                         data: { deviceId: deviceSessionId, state: "inactive", token: token_id },
                         success: function (result) {
 
+                            showLoad(0);
                             if (result.success == true) {
                                 $('#card-number').val("")
                                 $('#card-holder-name').val("")
@@ -543,6 +545,7 @@ function goto_rndf(reload)
                             }
                         },
                         error: function (emp) {
+                            showLoad(0);
                             $('#newCardResult').prepend(
                                 '<div class="alert alert-error alert-dismissible fade in" id="RegisterCardError"> <button type="button" class="close" data-dismiss="alert"> <i class="fa fa-times"></i></button><p><i class="fa fa-exclamation-triangle"></i>' + '[ERROR ' + response.status + '] al intentar registrar la tarjeta en Antbox.</p></div>');
                             window.setTimeout(function ()
@@ -641,6 +644,7 @@ function goto_rndf(reload)
 
     function MakeMainCardAjax(cardId) {
 
+        showLoad(1);
         $.ajax({
             type: 'POST',
             url: '@Url.Action("UpdateCardAjax", "Payment")',
@@ -657,6 +661,7 @@ function goto_rndf(reload)
                             url: '@Url.Action("GetCardsAjax", "Payment")',
                             data: {},
                             success: function (result) {
+                                showLoad(0);
                                 if (result.success == false) {
                                     $('#editCardResult').prepend(
                                     '<div class="alert alert-error alert-dismissible fade in" id="GetCardsError"> <button type="button" class="close" data-dismiss="alert"> <i class="fa fa-times"></i></button><p><i class="fa fa-exclamation-triangle"></i>' + 'ERROR al traer los datos de las tarjetas, intente refrescar la pagina.</p></div>');
@@ -669,6 +674,7 @@ function goto_rndf(reload)
                                 }
                             },
                             error: function (emp) {
+                                showLoad(0);
                                 $('#editCardResult').prepend(
                                     '<div class="alert alert-error alert-dismissible fade in" id="GetCardsError"> <button type="button" class="close" data-dismiss="alert"> <i class="fa fa-times"></i></button><p><i class="fa fa-exclamation-triangle"></i>' + '[ERROR ' + response.status + '] al traer los datos de las tarjetas, intente refrescar la pagina.</p></div>');
                                 window.setTimeout(function ()
@@ -679,6 +685,7 @@ function goto_rndf(reload)
                     }, 1000);
                 }
                 else {
+                    showLoad(0);
                     $('#editCardResult').prepend(
                     '<div class="alert alert-error alert-dismissible fade in" id="RegisterCardError"> <button type="button" class="close" data-dismiss="alert"> <i class="fa fa-times"></i></button><p><i class="fa fa-exclamation-triangle"></i>' + 'ERROR al actualizar la tarjeta.</p></div>');
                     window.setTimeout(function ()
@@ -686,6 +693,7 @@ function goto_rndf(reload)
                 }
             },
             error: function (emp) {
+                showLoad(0);
                 $('#editCardResult').prepend(
                     '<div class="alert alert-error alert-dismissible fade in" id="RegisterCardError"> <button type="button" class="close" data-dismiss="alert"> <i class="fa fa-times"></i></button><p><i class="fa fa-exclamation-triangle"></i>' + '[ERROR ' + response.status + '] al intentar actualizar la tarjeta en Antbox.</p></div>');
                 window.setTimeout(function ()
@@ -695,6 +703,7 @@ function goto_rndf(reload)
         });
     }
     function DeleteCardAjax(cardId) {
+        showLoad(1);
 
         $.ajax({
             type: 'POST',
@@ -713,6 +722,7 @@ function goto_rndf(reload)
                             url: '@Url.Action("GetCardsAjax", "Payment")',
                             data: {},
                             success: function (result) {
+                                showLoad(0);
                                 if (result.success == false) {
                                     $('#editCardResult').prepend(
                                     '<div class="alert alert-error alert-dismissible fade in" id="GetCardsError"> <button type="button" class="close" data-dismiss="alert"> <i class="fa fa-times"></i></button><p><i class="fa fa-exclamation-triangle"></i>' + 'ERROR al traer los datos de las tarjetas, intente refrescar la pagina.</p></div>');
@@ -725,6 +735,7 @@ function goto_rndf(reload)
                                 }
                             },
                             error: function (emp) {
+                                showLoad(0);
                                 $('#editCardResult').prepend(
                                     '<div class="alert alert-error alert-dismissible fade in" id="GetCardsError"> <button type="button" class="close" data-dismiss="alert"> <i class="fa fa-times"></i></button><p><i class="fa fa-exclamation-triangle"></i>' + '[ERROR ' + response.status + '] al traer los datos de las tarjetas, intente refrescar la pagina.</p></div>');
                                 window.setTimeout(function ()
@@ -736,6 +747,7 @@ function goto_rndf(reload)
 
                 }
                 else {
+                    showLoad(0);
                     $('#editCardResult').prepend(
                     '<div class="alert alert-error alert-dismissible fade in" id="RegisterCardError"> <button type="button" class="close" data-dismiss="alert"> <i class="fa fa-times"></i></button><p><i class="fa fa-exclamation-triangle"></i>' + 'ERROR al eliminar la tarjeta.</p></div>');
                     window.setTimeout(function ()
@@ -743,6 +755,7 @@ function goto_rndf(reload)
                 }
             },
             error: function (emp) {
+                showLoad(0);
                 $('#editCardResult').prepend(
                     '<div class="alert alert-error alert-dismissible fade in" id="RegisterCardError"> <button type="button" class="close" data-dismiss="alert"> <i class="fa fa-times"></i></button><p><i class="fa fa-exclamation-triangle"></i>' + '[ERROR ' + response.status + '] al intentar registrar la tarjeta en Antbox.</p></div>');
                 window.setTimeout(function ()
@@ -1022,6 +1035,7 @@ function goto_rndf(reload)
                 var mensaje = (verif == 1) ? "Error al agregar datos de facturacion" : "Error al editar datos de facturacion";
                 var mensaje = (verif == 3) ? "Error al eliminar datos de facturacion" : mensaje;
                 mostrarError(formelementg, mensaje);
+                $(loaderg).hide();
             }
         } else {
             if (data)
@@ -1069,13 +1083,17 @@ function goto_rndf(reload)
     }
     function limpiarCampos(formelement, loader) {
         $(loader).hide();
+        showLoad(0);
         $(formelement).find('input, textarea').each(function () {
             $(this).val("");
         });
     }
     function http(url, formdata, callbackSuccess, formelement, loader)
     {
-        if (verifm) $(loader).show();
+        if (verifm) {
+            $(loader).show();
+            showLoad(1);
+        }
         $.ajax({
             type: 'POST',
             url: url,

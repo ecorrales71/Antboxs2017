@@ -53,7 +53,7 @@
                             </td>
                             <td class="product-quantity">
                                 <a href="" class="minus disabled" onclick='RemoveBox(@rowNo)'>-</a>
-                                <input type="text" class="quantityvalue cant_antboxs" id='quantity_@rowNo' onkeypress='return onlyNumbers(event);'  value='@item.Quantity'  >
+                                <input type="text" readonly class="quantityvalue cant_antboxs" id='quantity_@rowNo' onkeypress='return onlyNumbers(event);'  value='@item.Quantity'  >
                                 <a href="" class="plus" onclick='AddBox(@rowNo)'>+</a>
                             </td>
                             <td class="product-subtotal no_iphone_portrait">
@@ -195,7 +195,7 @@
         </div>
     <div class="row">
         <div class="col-sm-12">
-            @Html.ActionLink("Agendar entregas", "AgendarEntregas", "Home", null, null, null, null, new { @class = "btn btn-primary pull-right" })
+            <button class="btn btn-primary pull-right agendar-entregas">AgendarEntregas</button>
             @*<input type="" class="btn btn-primary pull-right" value="btn btn-primary pull-right" onclick="window.location='agendar-entregas.php';" />*@
             <p class="succs-msg">Мensaje enviado</p>
         </div>
