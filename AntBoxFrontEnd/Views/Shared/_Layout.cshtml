@@ -274,7 +274,7 @@
                         <form id="FormReset">
                             <div class="form-group">
                                 <label for="emailres">E-mail</label>
-                                <input type="text" name="email" id="emailres">
+                                <input type="text" name="emailres" id="emailres">
                             </div>
                             <hr class="hr-sm hr-stroke" />
                             <div class="form-group">
@@ -444,11 +444,13 @@
         });
         $('#btnEmviarReset').click(function(e){
             e.preventDefault();
-            showLoad(1);
-            $.ajax({
-                type: 'POST',
-                url: '@Url.Action("ResetPasswordV", "Account")',
-                data: $('#FormReset').serialize(),
+            if ($('#FormReset').valid())
+            {
+                showLoad(1);
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("ResetPasswordV", "Account")',
+                    data: { email : $('#emailres').val() },
                     success: function (result) {
                         if (result.success == false) {
                             alert('E-mail no registrado');
@@ -466,31 +468,92 @@
                         showLoad(0);
                     }
                 });
+            }
+            
         });
         $('#btnEmviarRestore').click(function (e) {
             e.preventDefault();
-            showLoad(1);
-            $.ajax({
-                type: 'POST',
-                url: '@Url.Action("RestorePassword", "Account")',
-                data: $('#FormRestore').serialize(),
-                success: function (result) {
-                    if (result.success == false) {
-                        alert('Codigo erroneo')
+            if ($('#FormRestore').valid())
+            {
+                showLoad(1);
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("RestorePassword", "Account")',
+                    data: $('#FormRestore').serialize(),
+                    success: function (result) {
+                        if (result.success == false) {
+                            alert('Codigo erroneo')
+                            showLoad(0);
+                        }
+                        else {
+                            showLoad(0);
+                            $('#login').find('.modal-title').text('Entrar a mi cuenta');
+                            alert('Password cambiado correctamente');
+                            $('.div-cont').hide();
+                            $('.div-login').show();
+                        }
+                    },
+                    error: function (emp) {
                         showLoad(0);
                     }
-                    else {
-                        showLoad(0);
-                        $('#login').find('.modal-title').text('Entrar a mi cuenta');
-                        alert('Password cambiado correctamente');
-                        $('.div-cont').hide();
-                        $('.div-login').show();
-                    }
-                },
-                error: function (emp) {
-                    showLoad(0);
+                });
+            }
+        });
+        $('#FormReset').validate({
+            rules: {
+                emailres: {
+                    required: true,
+                    email: true
                 }
-            });
+            },
+            highlight: function (element) {
+                $(element).closest('.form-group').addClass('has-error');
+            },
+            unhighlight: function (element) {
+                $(element).closest('.form-group').removeClass('has-error');
+            },
+            errorElement: 'span',
+            errorClass: 'help-block',
+            errorPlacement: function (error, element) {
+                if (element.parent('.input-group').length) {
+                    error.insertAfter(element.parent());
+                } else {
+                    error.insertAfter(element);
+                }
+            }
+        });
+        $('#FormRestore').validate({
+            rules: {
+                code: {
+                    required: true
+                },
+                Newpassword: {
+                    required: true,
+                    minlength: 8,
+                    maxlength: 20
+                },
+                Newpassword1: {
+                    required: true,
+                    equalTo: "#Newpassword",
+                    minlength: 8,
+                    maxlength: 20
+                }
+            },
+            highlight: function (element) {
+                $(element).closest('.form-group').addClass('has-error');
+            },
+            unhighlight: function (element) {
+                $(element).closest('.form-group').removeClass('has-error');
+            },
+            errorElement: 'span',
+            errorClass: 'help-block',
+            errorPlacement: function (error, element) {
+                if (element.parent('.input-group').length) {
+                    error.insertAfter(element.parent());
+                } else {
+                    error.insertAfter(element);
+                }
+            }
         });
     })
     $("#usernamer").keypress(function (e) {
@@ -588,11 +651,12 @@
         return true;
     }
     function onlyNumbers(e) {
-        var keynum = window.event ? window.event.keyCode : e.which;
-        if ((keynum == 8) || (keynum == 46))
-            return true;
-
-        return /\d/.test(String.fromCharCode(keynum));
+        evt = (evt) ? evt : window.event;
+        var charCode = (evt.which) ? evt.which : evt.keyCode;
+        if (charCode < 48 || charCode > 57) {
+            return false;
+        }
+        return true;
     }
     function showLoad(verif) {
         if (verif == 1) {

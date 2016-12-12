@@ -179,7 +179,7 @@
                     <script type="text/javascript"> document.write(new Date().getFullYear()); </script> | Todos los derechos reservados.
                 </nav>
                 <nav class="extra-menu pull-right">
-                    <a href="tel:+3706546340" class="phone"><i class="fa fa-phone"></i> +370 654 630 40</a>
+                    <a href="tel:+3706546340" class="phone"><i class="fa fa-phone"></i> 55-7158-5393 /5300</a>
                     <a href="mailto:info@sample.com" class="email"><i class="fa fa-envelope-o"></i> info@antboxs.mx</a>
                 </nav>
             </div>
@@ -239,6 +239,9 @@
             $('.preloader-opacity-background').hide();
         }
     }
+    jQuery.validator.addMethod("lettersonly", function (value, element) {
+        return this.optional(element) || /[A-Za-zÃ±Ã‘Ã¡Ã©Ã­Ã³ÃºÃÃ‰ÃÃ“Ãš\s]/i.test(value);
+    }, "Por favor ingresa solo letras");
     $.validator.addMethod("valueNotEquals", function (value, element, arg) {
         return arg != value;
     }, "Value must not equal arg.");

@@ -113,6 +113,7 @@
                             <p>Recuerda que tendrás que tener una tarjeta registrada como mínimo para realizar tu primer orden. Tu primer tarjeta se asignará de maner automática para los pagos recurrentes.</p>
                         </div>
                         <div id="editCardResult"></div>
+                        <input type="hidden" name="cardscount" id="cardscount" value="@Model.Cards.Count" />
                         <div id="CardList">
                             @Html.Partial("_CustomerCards", Model.Cards)
                         </div>
@@ -491,11 +492,14 @@ function goto_rndf(reload)
 
             var sucess_callbak = function (response) {
                 var token_id = response.data.id;
+
+                var count = parseInt($('#cardscount').val());
+                if (count == 0) state = 'main';
             
                     $.ajax({
                         type: 'POST',
                         url: '@Url.Action("RegisterCardAjax", "Payment")',
-                        data: { deviceId: deviceSessionId, state: "inactive", token: token_id },
+                        data: { deviceId: deviceSessionId, state: state, token: token_id },
                         success: function (result) {
 
                             showLoad(0);
@@ -824,16 +828,24 @@ function goto_rndf(reload)
                     required: true
                 },
                 numero: {
-                    required: true
+                    required: true,
+                    number: true,
+                    maxlength: 20
                 },
                 mm: {
-                    required: true
+                    required: true,
+                    number: true,
+                    maxlength: 2
                 },
                 yy: {
-                    required: true
+                    required: true,
+                    number: true,
+                    maxlength: 2
                 },
                 cvv: {
-                    required: true
+                    required: true,
+                    number: true,
+                    maxlength: 5
                 }
             },
             highlight: function (element) {

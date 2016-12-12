@@ -984,7 +984,7 @@
                         showLoad(0);
                         if (!$("#AddressFail").length) {
                             $('#form-address').prepend(
-                                '<div class="alert alert-warning" role="alert" id="AddressFail"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a> La direccion no es valida</div>');
+                                '<div class="alert alert-warning" role="alert" id="AddressFail"> La direccion no es valida</div>');
                             window.setTimeout(function () {
                                 $("#AddressFail").remove();
                             }, 5000);
@@ -1031,7 +1031,7 @@
                 else {
                     $('#login-info').html(result);
                     $('#nueva_direccion').prepend(
-                   '<div class="alert alert-warning" role="alert" id="addressError">Dirección registrada.</div>');
+                   '<div class="alert alert-success" role="alert" id="addressError">Dirección registrada.</div>');
                     window.setTimeout(function ()
                     { $("#addressError").alert('close'); }, 2000);
 

@@ -64,66 +64,64 @@
                             <div class="row">
                                 <div class="col-sm-6">
                                     <div class="form-group">
-                                        @Html.LabelFor(m => m.Alias)
-                                        @Html.TextBoxFor(m => m.Alias, Model.Alias, new { @id = "NAlias", @maxlength = "50" })
-                                        @Html.ValidationMessageFor(m => m.Alias)
+                                        <label for="send-form-email">Alias</label>
+                                        <input type="text" name="Alias" value="" id="NAlias" />
                                     </div>
                                     <div class="form-group">
-                                        @Html.LabelFor(m => m.Street)
-                                        @Html.TextBoxFor(m => m.Street, Model.Street, new { @id = "NStreet", @maxlength = "250" })
-                                        @Html.ValidationMessageFor(m => m.Street)
+                                        <label for="send-form-email">* Calle</label>
+                                        <input type="text" name="Street" value="" id="NStreet" maxlength="250" />
                                     </div>
                                     <div class="row">
                                         <div class="col-sm-6">
                                             <div class="form-group">
-                                                @Html.LabelFor(m => m.External_number)
-                                                @Html.TextBoxFor(m => m.External_number, Model.External_number, new { @id = "NExternal_number", @maxlength = "50" })
-                                                @Html.ValidationMessageFor(m => m.External_number)
+                                                <label for="send-form-email">Núm. Int</label>
+                                                <input type="text" name="Internal_number" value="" id="NInternal_number" />
                                             </div>
                                         </div>
                                         <div class="col-sm-6">
                                             <div class="form-group">
-                                                @Html.LabelFor(m => m.Internal_number)
-                                                @Html.TextBoxFor(m => m.Internal_number, Model.Internal_number, new { @id = "NInternal_number", @maxlength = "50" })
-                                                @Html.ValidationMessageFor(m => m.Internal_number)
+                                                <label for="send-form-email">* Núm. Ext.</label>
+                                                <input type="text" name="External_number" value="" id="NExternal_number" />
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        @Html.LabelFor(m => m.Zipcode)
-                                        @Html.TextBoxFor(m => m.Zipcode, new { @id = "NZipcode", @onchange = "validateZipCode(true)" })
-                                        @Html.ValidationMessageFor(m => m.Zipcode)
+                                        <label for="send-form-email">* Código Postal</label>
+                                        @*<input type="text" name="email" id="txtZipcode1">*@
+                                        <input type="text" name="Zipcode" value="" id="NZipcode" maxlength="5" onkeyup="validateZipCode(true)" />
                                     </div>
                                     <div id="zipCodeError"></div>
                                     <div class="form-group">
-                                        <label for="form-select">Delegación o Municipio</label>
-                                        @Html.DropDownListFor(m => m.Delegation, Model.Delegaciones, "", new { @id = "NcmbDelegations1" })
+                                        <label for="form-select">* Delegación o Municipio</label>
+                                        <select name="Delegation" id="NcmbDelegations1">
+                                            <option value>Selecciona una opción</option>
+                                            <option value>Captura el código postal</option>
+                                        </select>
                                     </div>
                                     <div class="form-group">
-                                        <label for="form-select">Colonia</label>
-                                        @Html.DropDownListFor(m => m.Neighborhood, Model.Colonias, "", new { @id = "NcmbNeighborhood1" })
+                                        <label for="form-select">* Colonia</label>
+                                        <select name="Neighborhood" id="NcmbNeighborhood1">
+                                            <option value>Selecciona una opción</option>
+                                            <option value>Captura el código postal</option>
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="form-group">
-                                        @Html.LabelFor(m => m.City)
-                                        @Html.TextBoxFor(m => m.City, new { @id = "NCity", @maxlength = "100", @readonly = "true" })
-                                        @Html.ValidationMessageFor(m => m.City)
+                                        <label for="send-form-email">* Ciudad</label>
+                                        <input type="text" name="City" value="" id="NCity" maxlength="100" />
                                     </div>
                                     <div class="form-group">
-                                        @Html.LabelFor(m => m.State)
-                                        @Html.TextBoxFor(m => m.State, Model.State, new { @id = "NState", @maxlength = "100", @readonly = "true" })
-                                        @Html.ValidationMessageFor(m => m.State)
+                                        <label for="send-form-email">* Estado</label>
+                                        <input type="text" name="State" value="" id="NState" maxlength="100" />
                                     </div>
                                     <div class="form-group">
-                                        @Html.LabelFor(m => m.Country)
-                                        @Html.TextBoxFor(m => m.Country, Model.Country, new { @id = "NCountry", @maxlength = "100", @readonly = "true" })
-                                        @Html.ValidationMessageFor(m => m.Country)
+                                        <label for="send-form-email">* País</label>
+                                        <input type="text" name="Country" value="" id="NCountry" maxlength="100" />
                                     </div>
                                     <div class="form-group">
-                                        @Html.LabelFor(m => m.References)
-                                        @Html.TextAreaFor(m => m.References, new { @id = "NReferences" })
-                                        @Html.ValidationMessageFor(m => m.References)
+                                        <label for="send-form-email">Referencias</label>
+                                        <textarea name="References" id="NReferences" maxlength="250"></textarea>
                                     </div>
                                 </div>
                                 <div class="col-sm-12 mt10">
@@ -156,74 +154,64 @@
                     <div class="row">
                         <div class="col-sm-6">
                             <div class="form-group">
-                                @Html.LabelFor(m => m.Alias)
-                                @Html.TextBoxFor(m => m.Alias, Model.Alias, new { @id = "Alias" })
-                                @Html.ValidationMessageFor(m => m.Alias)
+                                <label for="send-form-email">Alias</label>
+                                <input type="text" name="Alias" value="" id="Alias" />
                             </div>
                             <div class="form-group">
-                                @Html.LabelFor(m => m.Street)
-                                @Html.TextBoxFor(m => m.Street, Model.Street, new { @id = "Street", @maxlength = "250" })
-                                @Html.ValidationMessageFor(m => m.Street)
+                                <label for="send-form-email">* Calle</label>
+                                <input type="text" name="Street" value="" id="Street" maxlength="250" />
                             </div>
                             <div class="row">
                                 <div class="col-sm-6">
                                     <div class="form-group">
-                                        @Html.LabelFor(m => m.External_number)
-                                        @Html.TextBoxFor(m => m.External_number, Model.External_number, new { @id = "External_number", @maxlength = "50" })
-                                        @Html.ValidationMessageFor(m => m.External_number)
+                                        <label for="send-form-email">Núm. Int</label>
+                                        <input type="text" name="Internal_number" value="" id="Internal_number" maxlength="50" />
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="form-group">
-                                        @Html.LabelFor(m => m.Internal_number)
-                                        @Html.TextBoxFor(m => m.Internal_number, Model.Internal_number, new { @id = "Internal_number", @maxlength = "50" })
-                                        @Html.ValidationMessageFor(m => m.Internal_number)
+                                        <label for="send-form-email">* Núm. Ext.</label>
+                                        <input type="text" name="External_number" value="" id="External_number" maxlength="50" />
                                     </div>
                                 </div>
-                                
                             </div>
                             <div class="form-group">
-                                @Html.LabelFor(m => m.Zipcode)
+                                <label for="send-form-email">* Código Postal</label>
                                 @*<input type="text" name="email" id="txtZipcode1">*@
-                                @Html.TextBoxFor(m => m.Zipcode, new { @id = "txtZipcode1", @onchange = "validateZipCode(false)" })
-                                @Html.ValidationMessageFor(m => m.Zipcode)
+                                <input type="text" name="Zipcode" value="" id="txtZipcode1" maxlength="50" onkeyup="validateZipCode(true)" />
                             </div>
-                            <div id="zipCodeErrorModal"></div>
+                            <div id="zipCodeError"></div>
                             <div class="form-group">
-                                <label for="form-select">Delegación o Municipio</label>
-                                @Html.DropDownListFor(m => m.Delegation, Model.Delegaciones,"", new { @id = "cmbDelegations1" })
-                                @*<select id="delegation">
-                                    <option value="">- Selecciona una opción -</option>
-                                </select>*@
+                                <label for="form-select">* Delegación o Municipio</label>
+                                <select name="Delegation" id="cmbDelegations1">
+                                    <option value>Selecciona una opción</option>
+                                    <option value>Captura el código postal</option>
+                                </select>
                             </div>
                             <div class="form-group">
-                                <label for="form-select">Colonia</label>
-                                @Html.DropDownListFor(m => m.Neighborhood, Model.Colonias,"", new { @id = "cmbNeighborhood1" })
-                                @*<select id="neighborhood" name="form_select">
-                                    <option value="">- Selecciona una opción -</option>
-                                </select>*@
+                                <label for="form-select">* Colonia</label>
+                                <select name="Neighborhood" id="cmbNeighborhood1">
+                                    <option value>Selecciona una opción</option>
+                                    <option value>Captura el código postal</option>
+                                </select>
                             </div>
                         </div>
                         <div class="col-sm-6 pl0_modal">
                             <div class="form-group">
-                                @Html.LabelFor(m => m.City)
-                                @Html.TextBoxFor(m => m.City, new { @id = "City", @maxlength = "100", @readonly = "true" })
-                                @Html.ValidationMessageFor(m => m.City)
+                                <label for="send-form-email">* Ciudad</label>
+                                <input type="text" name="City" value="" id="City" maxlength="100" readonly />
                             </div>
                             <div class="form-group">
-                                @Html.LabelFor(m => m.State)
-                                @Html.TextBoxFor(m => m.State, Model.State, new { @id = "State", @maxlength = "100", @readonly = "true" })
-                                @Html.ValidationMessageFor(m => m.State)
+                                <label for="send-form-email">* Estado</label>
+                                <input type="text" name="State" value="" id="State" maxlength="100" readonly />
                             </div>
                             <div class="form-group">
-                                @Html.LabelFor(m => m.Country)
-                                @Html.TextBoxFor(m => m.Country, Model.Country, new { @id = "Country", @maxlength = "100", @readonly = "true" })
-                                @Html.ValidationMessageFor(m => m.Country)
+                                <label for="send-form-email">* País</label>
+                                <input type="text" name="Country" value="" id="Country" maxlength="100" readonly />
                             </div>
                             <div class="form-group">
-                                @Html.LabelFor(m => m.References)
-                                @Html.TextAreaFor(m => m.References, new { @id = "References" })
-                                @Html.ValidationMessageFor(m => m.References)
+                                <label for="send-form-email">Referencias</label>
+                                <textarea name="References" id="References" maxlength="250"></textarea>
                             </div>
                         </div>
                         <div class="col-sm-12 mt10">
@@ -242,6 +230,11 @@
 
 @section scripts {
     <script type="text/javascript">
+        function colocaChosen() {
+            $(".chosen-container").each(function () {
+                $(this).insertBefore($(this).closest(".form-group").find("select"));
+            })
+        }
         $(function () {
             $('.exclamation').hide();
         //Validar letras numeros y signos de puntuacion
@@ -286,11 +279,60 @@
                     valueNotEquals: "",
                     required: true
                 },
-                "Fecha_recoleccion": {
+                City: {
                     required: true
                 },
-                Horario: {
+                State: {
+                    required: true
+                },
+                Country: {
+                    required: true
+                }
+            },
+            highlight: function (element) {
+                $(element).closest('.form-group').addClass('has-error');
+            },
+            unhighlight: function (element) {
+                $(element).closest('.form-group').removeClass('has-error');
+            },
+            errorElement: 'span',
+            errorClass: 'help-block',
+            errorPlacement: function (error, element) {
+                colocaChosen();
+                if (element.parent('.input-group').length) {
+                    error.insertAfter(element.parent());
+                } else {
+                    error.insertAfter(element);
+                }
+            }
+        });
+        $('#updateForm').validate({
+            rules: {
+                Street: {
+                    required: true
+                },
+                "External_number": {
+                    required: true
+                },
+                Zipcode: {
                     valueNotEquals: "",
+                    required: true
+                },
+                Delegation: {
+                    valueNotEquals: "",
+                    required: true
+                },
+                Neighborhood: {
+                    valueNotEquals: "",
+                    required: true
+                },
+                City: {
+                    required: true
+                },
+                State: {
+                    required: true
+                },
+                Country: {
                     required: true
                 }
             },
@@ -333,7 +375,7 @@
                     } else {
                         if (!$("#AddressFail").length) {
                             $('#frmNewAddress').prepend(
-                                '<div class="alert alert-warning" role="alert" id="AddressFail"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a> La direccion no es valida</div>');
+                                '<div class="alert alert-warning" role="alert" id="AddressFail"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a> La dirección no es valida</div>');
                             window.setTimeout(function () {
                                 $("#AddressFail").remove();
                             }, 5000);
@@ -381,7 +423,7 @@
                 else {
                     $('#login-info').html(result);
                     $('#frmNewAddress').prepend(
-                   '<div class="alert alert-warning" role="alert" id="addressError">Dirección registrada.</div>');
+                   '<div class="alert alert-success" role="alert" id="addressError">Dirección registrada.</div>');
                     window.setTimeout(function ()
                     { $("#addressError").alert('close'); }, 2000);
 
@@ -471,9 +513,12 @@
 
                     var div3Content = '';
 
-                    if (data.length == 0)
+                    if (typeof data.success != 'undefined')
                     {
-                        $('.exclamation').show();
+                        if (!data.success)
+                        {
+                            $('.exclamation').show();
+                        }
                     }
 
                     for (var i = 0; i < data.length; i++) {
@@ -860,34 +905,39 @@
 
     <script type="text/javascript">
         $('#btnUpdateAddress').click(function () {
-            showLoad(1);
-            var formData = $("#updateForm").serialize();
 
-            //Validar direccion
-            $.ajax({
-                type: 'POST',
-                dataType: 'text',
-                url: '@Url.Action("ValidateAddress", "Home")',
-                data: formData,
-                success: function (data) {
-                    console.log(data);
-                    if (data == "true") {
-                        actualizarDireccion();
-                    } else {
-                        showLoad(0);
-                        if (!$("#AddressFail").length) {
-                            $('#updateForm').prepend(
-                                '<div class="alert alert-warning" role="alert" id="AddressFail"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a> La direccion no es valida</div>');
-                            window.setTimeout(function () {
-                                $("#AddressFail").remove();
-                            }, 5000);
+            if ($("#updateForm").valid())
+            {
+                showLoad(1);
+                var formData = $("#updateForm").serialize();
+
+                //Validar direccion
+                $.ajax({
+                    type: 'POST',
+                    dataType: 'text',
+                    url: '@Url.Action("ValidateAddress", "Home")',
+                    data: formData,
+                    success: function (data) {
+                        console.log(data);
+                        if (data == "true") {
+                            actualizarDireccion();
+                        } else {
+                            showLoad(0);
+                            if (!$("#AddressFail").length) {
+                                $('#updateForm').prepend(
+                                    '<div class="alert alert-warning" role="alert" id="AddressFail"> La dirección no es valida</div>');
+                                window.setTimeout(function () {
+                                    $("#AddressFail").remove();
+                                }, 5000);
+                            }
                         }
+                    }, error: function (error) {
+                        showLoad(0);
+                        console.log(error)
                     }
-                }, error: function (error) {
-                    showLoad(0);
-                    console.log(error)
-                }
-            });
+                });
+            }
+            
         });
 
         function actualizarDireccion()
@@ -929,7 +979,7 @@
                     }
                     else {
                         $('#updateForm').prepend(
-                       '<div class="alert alert-danger fade-in" role="alert" id="LoginErrorAlert">Se ha actualizado la información.</div>'
+                       '<div class="alert alert-success fade-in" role="alert" id="LoginErrorAlert">Se ha actualizado la información.</div>'
                        );
                         window.setTimeout(function ()
                         { $("#LoginErrorAlert").alert('close'); }, 2000);
