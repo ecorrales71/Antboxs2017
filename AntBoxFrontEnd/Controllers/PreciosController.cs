@@ -606,7 +606,7 @@ namespace AntBoxFrontEnd.Controllers
                         var addresService = new AddressService(ServiceConfiguration.GetApiKey());
                         var resultAddress = addresService.CreateAddressForCustomer(requestOption);
                         if (resultAddress == null)
-                            return Json(new { success = false, responseText = "Ocurrio un error al agregar dirección" }, JsonRequestBehavior.AllowGet);
+                            return Json(new { success = false, verif = 2, responseText = "Ocurrio un error al agregar dirección" }, JsonRequestBehavior.AllowGet);
                         else
                         {
                             var dirRec = resultAddress.Id;
@@ -622,7 +622,7 @@ namespace AntBoxFrontEnd.Controllers
                             };
                             bool resultCard = ps.CreatePaymentCard(pro);
                             if (!resultCard)
-                                return Json(new { success = false, responseText = "Ocurrio un error al registrar el pago" }, JsonRequestBehavior.AllowGet);
+                                return Json(new { success = false, verif = 3, responseText = "Ocurrio un error al registrar la tarjeta" }, JsonRequestBehavior.AllowGet);
                             else
                             {
                                 //PASO 3 - REALIZAR PEDIDO DE CAJAS VACIAS
@@ -635,13 +635,13 @@ namespace AntBoxFrontEnd.Controllers
                                 var folioRecoleccion = CheckOutBox(modeltask.Horario);
                                 bool isTaskPickupCreated;
                                 if (string.IsNullOrEmpty(folioRecoleccion))
-                                    return Json(new { success = false, responseText = "Ocurrio un error al solicitar las cajas de recole" }, JsonRequestBehavior.AllowGet);
+                                    return Json(new { success = false, verif = 4, responseText = "Ocurrio un error al solicitar las cajas de recoleccion" }, JsonRequestBehavior.AllowGet);
                                 else
                                 {
                                     //PASO 4 - AGENDAR TASK
                                     isTaskPickupCreated = CreateDeliveryTask(modeltask.Fecha_recoleccion, modeltask.HoraRecoleccionString, dirRec, modeltask.Horario, folioRecoleccion);
                                     if (!isTaskPickupCreated)
-                                        return Json(new { success = false, responseText = "Ocurrio un error al crear la tarea de recoleccion" }, JsonRequestBehavior.AllowGet);
+                                        return Json(new { success = false, verif=5, responseText = "Ocurrio un error al crear la tarea de recoleccion" }, JsonRequestBehavior.AllowGet);
                                     result += "Tarea de recoleccion agendada: " + isTaskPickupCreated + "\n";
 
                                     Session["TaskTemp"] = null;
@@ -653,18 +653,18 @@ namespace AntBoxFrontEnd.Controllers
                     }
                     else
                     {
-                        return Json(new { success = false, responseText = "Ocurrio un error al solicitar las cajas de recolección" }, JsonRequestBehavior.AllowGet);
+                        return Json(new { success = false, verif = 4, responseText = "Ocurrio un error al solicitar las cajas de recolección" }, JsonRequestBehavior.AllowGet);
                     }
                 }
                 else
                 {
-                    return Json(new { success = false, responseText = "Ocurrio un error al crear el usuario" }, JsonRequestBehavior.AllowGet);
+                    return Json(new { success = false, verif = 1, responseText = "Ocurrio un error al crear el usuario" }, JsonRequestBehavior.AllowGet);
                 }
             }
             catch (Exception ex)
             {
                 LogManager.Write(ex.Message, LogManager.Error);
-                return Json(new { success = false, responseText = "Ocurrio un error al procesar el pago" }, JsonRequestBehavior.AllowGet);
+                return Json(new { success = false, verif=7, responseText = "Ocurrio al procesar la orden" }, JsonRequestBehavior.AllowGet);
             }
 
             return Json(new { success = false }, JsonRequestBehavior.AllowGet);

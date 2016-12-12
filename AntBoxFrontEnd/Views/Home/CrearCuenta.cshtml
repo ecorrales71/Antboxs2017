@@ -468,8 +468,18 @@
                     $("#loader").hide();
                     if (result.success == false) {
                         showLoad(0);
+
+                        cadEnlace = "";
+                        if (typeof result.verif !== 'undefined')
+                        {
+                            if (result.verif == 2) cadEnlace = ", sin embargo puedes visitar tu cuenta e intentar de nuevo crear la direccion. <a href='@Url.Action("Direcciones", "Customer")'>Mi cuenta</a>";
+                            if (result.verif == 3) cadEnlace = ", sin embargo puedes visitar tu cuenta e intentar de nuevo crear la tarjeta. <a href='@Url.Action("Pagos", "Customer")'>Mi cuenta</a>";
+                            if (result.verif == 4) cadEnlace = ", sin embargo puedes visitar tu cuenta e intentar registrar de nuevo la orden. <a href='@Url.Action("Ordenar", "Customer")'>Mi cuenta</a>";
+                            if (result.verif == 5) cadEnlace = ", sin embargo puedes visitar tu cuenta e intentar registrar de nuevo la orden. <a href='@Url.Action("Ordenar", "Customer")'>Mi cuenta</a>";
+                        }
+
                         $('#completar-orden').prepend(
-                        '<div class="alert alert-warning" role="alert" id="LoginFailAlert"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a> ' + result.responseText + '</div>');
+                        '<div class="alert alert-warning" role="alert" id="LoginFailAlert"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a> ' + result.responseText + cadEnlace + '</div>');
                         window.setTimeout(function ()
                         { $("#LoginFailAlert").alert('close'); }, 50000);
                     } else {
