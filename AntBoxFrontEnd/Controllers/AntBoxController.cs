@@ -60,7 +60,7 @@ namespace AntBoxFrontEnd.Controllers
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult SolicitarAntbox (string worker, string address, string fecha, string hora, string referencia, string folioEntrega, string status, string id)
+        public JsonResult SolicitarAntbox (string worker, string address, string fecha, string hora, string referencia, string folioEntrega, string status, string idantbox, string antboxserial, string id)
         {
             bool isTaskDeliveryCreated = false;
             try
@@ -93,6 +93,14 @@ namespace AntBoxFrontEnd.Controllers
                     if (status == "inhouse")
                     {
                         isTaskDeliveryCreated = CreatePickupTask(fecha, hora, address, worker, folioEntrega);
+                    }
+                    else if (status == "stored")
+                    {
+                        var folioRecoleccion = CheckOutBox(worker, idantbox, antboxserial);
+                        if (!string.IsNullOrEmpty(folioRecoleccion))
+                        {
+                            isTaskDeliveryCreated = CreateDeliveryTask(fecha, hora, address, worker, folioEntrega);
+                        }
                     }
                     else
                     {
@@ -158,6 +166,32 @@ namespace AntBoxFrontEnd.Controllers
             var dateResult = DateHelpers.AppendTimeToDate(dateForm, new TimeSpan(hour, 0, 0));
 
             return dateResult;
+        }
+
+        private string CheckOutBox(string workerid, string id, string antboxserial)
+        {
+            var ids = new List<AntBoxObjectCheckout>();
+            ids.Add(new AntBoxObjectCheckout
+                {
+                    Id = id,
+                    Serial = antboxserial
+                });
+
+            var order = new AntBoxRequestOptions()
+            {
+                Antboxs = ids,
+
+                Customer_id = ((CustomerResponse)Session["customer"]).Id,
+
+                Worker_id = workerid
+            };
+
+            var serv = new AntBoxesServices(ServiceConfiguration.GetApiKey());
+
+            var res = serv.CreateAntBoxes(order);
+
+            return res;
+
         }
     }
 }

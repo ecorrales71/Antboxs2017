@@ -481,6 +481,7 @@
                         $("#fecha_recoleccion").closest(".form-group").removeClass("has-error");
                         $("#fecha_recoleccion").closest(".form-group").find(".help-block").remove();
                     }
+                    showLoad(1);
                     $.ajax({
                         url: '@Url.Action("getSchedules", "Customer")',
                         type: "GET",
@@ -495,7 +496,9 @@
                                 document.getElementById('alert_horario').style.display = 'none';
                                 $('#Horario_recoleccion').html(items);
                                 $('#Horario_recoleccion').trigger("chosen:updated");
-                            }
+                        }, complete: function () {
+                            showLoad(0);
+                        }
 
                     });
                 }

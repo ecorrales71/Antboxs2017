@@ -139,7 +139,6 @@
                         </div>
                     </div>
                     <div class="col-sm-12 mt10">
-                        <input type="submit" class="btn btn-primary btn-wide pull-right" value="Descargar">
                         <p class="succs-msg">Мensaje enviado</p>
                     </div>
                 </div>
@@ -199,11 +198,10 @@
                         </div>
                         <hr class="hr-semilight linea_recibo" />
                         <div>
-                            <p class="font_recibo_notas">"Yo el Cliente garantizo que los Antboxs descritos en el presente documento, a mi entera satisfacción y en óptimo estado liberando a Antboxs México SAPI de C.V. de cualquier reclamación al respecto, lo(s) Antboxs recibidos se entregaron sellados".
+                            <p class="font_recibo_notas">"Yo el Cliente garantizo que los Antboxs descritos en el presente documento, rebidos a mi entera satisfacción y en óptimo estado liberando a Antboxs México SAPI de C.V. de cualquier reclamación al respecto, lo(s) Antboxs recibidos se entregaron sellados".
                         </div>
                     </div>
                     <div class="col-sm-12 mt10">
-                        <input type="submit" class="btn btn-primary btn-wide pull-right" value="Descargar">
                         <p class="succs-msg">Мensaje enviado</p>
                     </div>
                 </div>
@@ -290,24 +288,24 @@
     @foreach (var item in Model.Tasks)
     {
         <text>
-        tasks.push({
-            id : '@item.Id',
-            folio: '@item.Folio',
-            service: '@item.service_time',
-            address: {
-                calle: '@item.Address.Street',
-                external: '@item.Address.External_number',
-                colonia: '@item.Address.Neighborhood',
-                delegacion: '@item.Address.Delegation',
-                zipcode: '@item.Address.Zipcode',
-                referencia: '@item.Address.References',
-            }
-        });
-        </text>
+    tasks.push({
+        id : '@item.Id',
+        folio: '@item.Folio',
+        service: '@item.service_time',
+        address: {
+            calle: '@item.Address.Street',
+            external: '@item.Address.External_number',
+            colonia: '@item.Address.Neighborhood',
+            delegacion: '@item.Address.Delegation',
+            zipcode: '@item.Address.Zipcode',
+            referencia: '@item.Address.References',
+        }
+    });
+    </text>
     }
 
     console.log(tasks);
-      
+
     Calendar.setup({
         inputField: "fecha_entrega",      // id del campo de texto
         ifFormat: "%Y-%m-%d",       // formato de la fecha, cuando se escriba en el campo de texto
@@ -381,7 +379,7 @@
                                 }
                             });
 
-                            var address = taskv.Address.Street + " " + taskv.Address.External_number + ", " + taskv.Address.Neighborhood + ", " + taskv.Address.City + ", C.P. " + taskv.Address.Zipcode + ".";
+                            var address = "<span class='calle'>" + taskv.Address.Street + "</span> <span class='external'>" + taskv.Address.External_number + "</span>, <span class='colonia'>" + taskv.Address.Neighborhood + "</span>, <span class='ciudad'>" + taskv.Address.City + "</span>, C.P. " + taskv.Address.Zipcode + ".";
 
                             var cadhtml = "";
                             cadhtml += "<div class=\"col-sm-12 back_gris pt30 pb20 mb30\">";
@@ -398,7 +396,9 @@
                                 cadhtml += "        <h4>Recolección<\/h4>";
                             else
                                 cadhtml += "        <h4>Entrega<\/h4>";
-                            cadhtml += "        <p>Fecha: " + timeConverter(taskv.completeAfter) + "<br \/>Lugar: " + address + "<\/p>";
+                            cadhtml += "        <p>Fecha: <span class='fecha'>" + timeConverter(taskv.completeAfter) + "</span><br \/>Lugar: " + address + "<\/p>";
+                            cadhtml += '<input type="hidden" class="delegacion" value="' + taskv.Address.Delegation + '" />';
+                            cadhtml += '<input type="hidden" class="referencia" value="' + taskv.Address.References + '" />';
                             if (taskv.Status == "completed")
                                 cadhtml += "<div class=\"sticker_mov completed\">Completado<\/div>";
                             else if (taskv.Status == "inprogress")
@@ -412,7 +412,7 @@
                                 else
                                     cadhtml += "<button type=\"button\" class=\"btn btn-primary btn-sm pull-right ml10 recibo-entrega\" data-id=\"" + taskv.Id + "\">Ver Recibo</button>";
                             }
-                            if (taskv.verifday == "completed") {
+                            if (taskv.verifday) {
                                 cadhtml += "<button type=\"button\" class=\"btn btn-primary btn-sm pull-right btn_blue solicitar\" data-toggle=\"modal\" data-folio=\"" + taskv.Folio + "\" data-id=\"" + taskv.Id + "\">Reagendar</button>";
                             }
                             cadhtml += "    <\/div>";
@@ -561,7 +561,7 @@
                     //$('.cellr').val(tasks[i].folior);
                     if ($(this).closest('.media-body').find('.referencia').val() != 'undefined') $('.referenciar').text('Ref. ' + $(this).closest('.media-body').find('.referencia').val());
 
-                    
+
                     $('#content-antboxes-recibo-recoleccion').html('');
                     $('#content-boxes-recibo-recoleccion').html('');
 
@@ -579,7 +579,7 @@
                             showLoad(0);
                             $("#recibo_recoleccion").modal("show");
                             $("#loader-recoleccion").hide();
-                            
+
                             var htmlGlobal = "";
                             for (var i = 0; i < result.antbox.Antboxs.length; i++) {
                                 var found = false;
@@ -646,7 +646,7 @@
                     if ($(this).closest('.media-body').find('.referencia').val() != 'undefined') $('.referenciar').text('Ref. ' + $(this).closest('.media-body').find('.referencia').val());
 
                     $('.firma_entrega').attr("src", "http://64.28.103.85:8082/assets/sign" + tasks[i].folio + ".png");
-                    
+
 
                     $('#content-antboxes-recibo').html('');
                     $('#content-boxes-recibo').html('');
@@ -724,7 +724,7 @@
                     if (candado2 != null && candado2 != "") cadhtml += "Candado 2: " + candado2 + " ";
                 }
             }
-            
+
             return cadhtml;
         }
 

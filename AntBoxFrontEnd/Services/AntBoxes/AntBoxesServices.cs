@@ -33,7 +33,15 @@ namespace AntBoxFrontEnd.Services.AntBoxes
             try
             {
                 var antBoxResponse = Requestor.Post<AntBoxResponse>(UrlsConstants.AntBoxOut, requestOptions, PostData);
-                return antBoxResponse.Folio;
+                if (antBoxResponse == null)
+                {
+                    return "-";
+                }
+                else
+                {
+                    return antBoxResponse.Folio;
+                }
+                
             }
             catch (Exception ex)
             {

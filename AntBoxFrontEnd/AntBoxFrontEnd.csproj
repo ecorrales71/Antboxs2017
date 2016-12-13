@@ -317,6 +317,7 @@
     <Compile Include="Models\OrderViewModel.cs" />
     <Compile Include="Models\ProcessOrderModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\AntBoxes\AntBoxObjectCheckout.cs" />
     <Compile Include="Services\Billing\BillingRequestOptions.cs" />
     <Compile Include="Services\Billing\BillingService.cs" />
     <Compile Include="Services\Billing\BillingUpdateOptions.cs" />

@@ -19,7 +19,7 @@ namespace AntBoxFrontEnd.Services.AntBoxes
         public CheckOut[] Checkouts { get; set; }
 
         [JsonProperty("antboxs")]
-        public string[] Antboxs { get; set; }
+        public List<AntBoxObjectCheckout> Antboxs { get; set; }
 
         [JsonProperty("coupon_id")]
         public string Coupon_id { get; set; }

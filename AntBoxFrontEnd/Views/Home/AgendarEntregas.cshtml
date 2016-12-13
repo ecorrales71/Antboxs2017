@@ -339,6 +339,7 @@ $(document).ready(function(){
         if (verifzipcode)
         {
             verifzipcode = false
+
             $.ajax({
                 type: 'POST',
                 url: '@Url.Action("ValidateZipCodeAjax", "AntBoxAddresses")',

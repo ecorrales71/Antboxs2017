@@ -15,21 +15,20 @@
             <input type="text" name="Street" id="txtStreet" value="" maxlength="250" />
         </div>
         <div class="row">
-            
-            <div class="col-sm-6">
-                <div class="form-group">
-                    <label for="send-form-email">* Núm. Ext.</label>
-                   @Html.TextBoxFor(m => m.External_number, new { @id = "External_number", @maxlength = "50", @required = "required" })
-                    @*<label for="send-form-email">Núm. Ext.</label>
-                    <input type="text" id="txtNumExt">*@
-                </div>
-            </div>
             <div class="col-sm-6">
                 <div class="form-group">
                     <label for="send-form-email">Núm. Int.</label>
                     @Html.TextBoxFor(m => m.Internal_number, new { @id = "txtInternal_number", @maxlength = "50" })
                     @*<label for="send-form-email">Núm. Int.</label>
                 <input type="text"id="txtNumint">*@
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="send-form-email">* Núm. Ext.</label>
+                    @Html.TextBoxFor(m => m.External_number, new { @id = "External_number", @maxlength = "50", @required = "required" })
+                    @*<label for="send-form-email">Núm. Ext.</label>
+                <input type="text" id="txtNumExt">*@
                 </div>
             </div>
         </div>

@@ -201,6 +201,7 @@
                     $("#fecha_entrega").closest(".form-group").removeClass("has-error");
                     $("#fecha_entrega").closest(".form-group").find(".help-block").remove();
                 }
+                showLoad(1);
                 $.ajax({
                     url: '@Url.Action("getSchedules", "Customer")',
                     type: "GET",
@@ -214,6 +215,8 @@
                         }
                         $('#horario').html(items);
                         $('#horario').trigger("chosen:updated");
+                    }, complete: function () {
+                        showLoad(0);
                     }
                 });
             }
@@ -277,6 +280,13 @@
             });
         });
 
+        $("#solicitar").on('hidden.bs.modal', function () {
+            // do something…
+            $('#fecha_entrega').val('');
+            $("#horario").html("");
+            $('#horario').trigger("chosen:updated");
+        })
+
         function colocaChosen() {
             $(".chosen-container").each(function () {
                 $(this).insertBefore($(this).closest(".form-group").find("select"));
@@ -330,6 +340,8 @@
                 showLoad(1);
                 $(".select-antbox-check:checked").each(function () {
                     var folio = $(this).attr("data-folio");
+                    var id = $(this).attr("data-id");
+                    var serial = $(this).attr("data-serial");
                     checkeds.push(folio);
 
                     var formData = {
@@ -339,7 +351,9 @@
                         hora: $('#horariostring').val(),
                         referencia: $('#referencia').val(),
                         status: $('#statusantbox').val(),
-                        folioEntrega: folio
+                        folioEntrega: folio,
+                        idantbox: id,
+                        antboxserial : serial
                     };
 
                     console.log(formData);
@@ -374,7 +388,7 @@
                                     verifCloseModal = true;
                                     modalToClose = $('#solicitar');
                                     mostrarMensaje($('#form-solicitar-antbox'), "antboxMensaje", mensaje, "alert-success");
-                                    $(".select-antbox:checked").each(function () {
+                                    $(".select-antbox-check:checked").each(function () {
                                         $(this).prop('checked', false);
                                     });
                                     $('#solicitar').modal('hide');
@@ -398,7 +412,9 @@
             var horario = $("#horario").val();
             var t = $("#horario option:selected").text();
             $("#horariostring").val(t);
-        })
+        });
+
+        
 
         $('.pagination').pagination({
             items: $('#total').val(),
@@ -432,9 +448,13 @@
                             cadhtml += "                        <div class=\"col-sm-4 col-xs-12\">";
                             cadhtml += "                            <figure class=\"figure\">";
                             cadhtml += "                                <img src=\"" + antboxv.imagen + "\" alt=\"\">";
+                            if (antboxv.Status == "free")
+                            {
+                                cadhtml += '<div class="sticker_mov completed">Entregado</div>';
+                            }
                             cadhtml += "                                <div class=\"mask mask-dark\">";
                             cadhtml += "                                    <nav>";
-                            cadhtml += "                                        <a class=\"icon icon-inverse icon-size-1 icon-theme icon-rounded magnific\" title=\"Antboxs 1\" href=\"\/images\/antboxs_3.jpg\">";
+                            cadhtml += "                                        <a class=\"icon icon-inverse icon-size-1 icon-theme icon-rounded magnific\" title=\"" + antboxv.Name + " - " + antboxv.Folio + "\" href=\"" + antboxv.imagen + "\">";
                             cadhtml += "                                            <i class=\"fa fa-search\"><\/i>";
                             cadhtml += "                                        <\/a>";
                             cadhtml += "                                    <\/nav>";
@@ -445,7 +465,7 @@
                             cadhtml += "                            <h4><span class=\"name-antbox\">" + antboxv.Name + " - " + antboxv.Folio + " " + antboxv.EnDeposito + "<\/h4>";
                             cadhtml += "                            <p class=\"description-antbox\">" + antboxv.Descriptionv + "<\/p>";
                             cadhtml += "                            <div class=\"checkboxFive\">";
-                            cadhtml += "                                <input type=\"checkbox\" value=\"1\" data-folio=\"" + antboxv.Folio + "\" id=\"checkboxFiveInput-" + antboxv.Id + "\" class=\"select-antbox-check\" name=\"\">";
+                            cadhtml += "                                <input type=\"checkbox\" value=\"1\" data-folio=\"" + antboxv.Folio + "\" id=\"checkboxFiveInput-" + antboxv.Id + "\" data-id=\"" + antboxv.Id + "\" data-serial=\"" + antboxv.Serial + "\" class=\"select-antbox-check\" name=\"\">";
                             cadhtml += "                                <label for=\"checkboxFiveInput-" + antboxv.Id + "\" class=\"select-antbox\" ></label>";
                             cadhtml += "                            </div>";
                             cadhtml += "                            <button type=\"button\" class=\"btn btn-primary btn-sm pull-right ml20 solicitar\" data-toggle=\"modal\" data-folio=\"" + antboxv.Folio + "\" data-id=\"" + antboxv.Id + "\" data-status=\"" + antboxv.Status + "\" data-target=\"#solicitar\">Solicitar<\/button>";
@@ -459,6 +479,24 @@
                         }
 
                         $("#antboxs-container").html(antboxsresult);
+
+                        $('.magnific-wrap').each(function () {
+                            var $this = $(this);
+
+                            $this.find('.magnific').magnificPopup({
+                                type: 'image',
+                                tLoading: '',
+                                gallery: {
+                                    enabled: true,
+                                    navigateByImgClick: true
+                                },
+                                image: {
+                                    titleSrc: function (item) {
+                                        return item.el.attr('title');
+                                    }
+                                }
+                            });
+                        });
 
                         console.log(result);
                         pageLoading(false);

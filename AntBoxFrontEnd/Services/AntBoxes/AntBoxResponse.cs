@@ -79,10 +79,11 @@ namespace AntBoxFrontEnd.Services.AntBoxes
         {
             get
             {
-                string imagen = UrlsConstants.HostPublic + "/assets/" + Id + ".png";
+                string imagen = UrlsConstants.Host + "/assets/" + Id + ".png";
+                string imagenPublic = UrlsConstants.HostPublic + "/assets/" + Id + ".png";
                 if (URLExists(imagen))
                 {
-                    return imagen;
+                    return imagenPublic;
                 }
                 else
                 {

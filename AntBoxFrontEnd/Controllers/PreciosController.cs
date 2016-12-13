@@ -417,6 +417,17 @@ namespace AntBoxFrontEnd.Controllers
 
             int i = 0;
 
+            var ids = new List<AntBoxObjectCheckout>();
+
+            foreach (var item in serials)
+            {
+                ids.Add(new AntBoxObjectCheckout
+                {
+                    Id = boxid,
+                    Serial = item
+                });
+            }
+
             foreach (var item in boxes)
             {
                 checkouts[i] = new CheckOut()
@@ -428,7 +439,7 @@ namespace AntBoxFrontEnd.Controllers
 
             var order = new AntBoxRequestOptions()
             {
-                Antboxs = serials,
+                Antboxs = ids,
 
                 Customer_id = ((CustomerResponse)Session["customer"]).Id,
 
