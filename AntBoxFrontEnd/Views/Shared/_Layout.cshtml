@@ -349,12 +349,12 @@
                                 <input type="text" name="username" id="username" required="required">
                             </div>
                             <div class="form-group">
-                                <label for="zipcode">Código Postal de Recolección</label>
-                                <input type="text" name="zipCode" id="zipCode" onchange="validateZipCode()" maxlength="5" required="required">
-                            </div>
-                            <div class="form-group">
                                 <label for="zipcode">Teléfono</label>
                                 <input type="text" name="phone" id="phone" required="required" onkeypress='return onlyNumbers(event);' maxlength="10">
+                            </div>
+                            <div class="form-group">
+                                <label for="zipcode">Código Postal de Recolección</label>
+                                <input type="text" name="zipCode" id="zipCode" onchange="validateZipCode()" maxlength="5" required="required">
                             </div>
                             <div id="zipCodeError"></div>
                             <hr class="hr-sm hr-stroke" />
@@ -645,7 +645,7 @@
     function isAlfa(evt) {
         evt = (evt) ? evt : window.event;
         var charCode = (evt.which) ? evt.which : evt.keyCode;
-        if (charCode > 31 && (charCode < 65 || charCode > 90) && (charCode < 97 || charCode > 122) && (charCode < 192 || charCode > 221) && (charCode < 225 || charCode > 252)) {
+        if ((charCode != 32) && charCode > 31 && (charCode < 65 || charCode > 90) && (charCode < 97 || charCode > 122) && (charCode < 192 || charCode > 221) && (charCode < 225 || charCode > 252)) {
             return false;
         }
         return true;

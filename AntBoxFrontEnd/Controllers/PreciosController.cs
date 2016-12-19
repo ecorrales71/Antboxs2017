@@ -34,6 +34,7 @@ namespace AntBoxFrontEnd.Controllers
             Session["couponidhome"] = null;
             Session["AntBoxesOrder"] = null;
             Session["TasksTemp"] = null;
+            Session["CouponID"] = null;
 
             return View("Precios",model);
         }
@@ -693,8 +694,6 @@ namespace AntBoxFrontEnd.Controllers
             List<CouponResponse> result = new List<CouponResponse>();
             result = servicio.SearchCouponName(cupon);
 
-
-            
             if (result != null)
             {
                 DateTime dateini = formatdate(result[0].From, "yyyy-MM-dd");
@@ -703,8 +702,8 @@ namespace AntBoxFrontEnd.Controllers
 
                 if (today.Ticks >= dateini.Ticks && today.Ticks <= datefin.Ticks)
                 {
-                    Session[couponname] = cupon;
-                    return Json(new { success = true, resposeText = "aplica", discount = result[0].Discount }, JsonRequestBehavior.AllowGet);
+                    Session[couponname] = result[0].Id;
+                    return Json(new { success = true, resposeText = "aplica", discount = result[0].Discount, couponid = result[0].Id }, JsonRequestBehavior.AllowGet);
                     
                 }
                 else

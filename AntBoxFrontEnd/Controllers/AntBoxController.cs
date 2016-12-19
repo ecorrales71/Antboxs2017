@@ -188,7 +188,7 @@ namespace AntBoxFrontEnd.Controllers
 
             var serv = new AntBoxesServices(ServiceConfiguration.GetApiKey());
 
-            var res = serv.CreateAntBoxes(order);
+            var res = serv.CreateAntBoxesStore(order);
 
             return res;
 

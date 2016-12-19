@@ -33,6 +33,26 @@ namespace AntBoxFrontEnd.Services.AntBoxes
             try
             {
                 var antBoxResponse = Requestor.Post<AntBoxResponse>(UrlsConstants.AntBoxOut, requestOptions, PostData);
+                return antBoxResponse.Folio;
+            }
+            catch (Exception ex)
+            {
+                //Todo log
+                LogManager.Write(ex.Message + " " + ex.InnerException, LogManager.Error);
+                return String.Empty;
+            }            
+        }
+
+        public virtual string CreateAntBoxesStore(AntBoxRequestOptions createOptions, RequestOptions requestOptions = null)
+        {
+            requestOptions = SetupRequestOptions(requestOptions);
+
+            string serilizedObj = JsonConvert.SerializeObject(createOptions, new JsonSerializerSettings() { NullValueHandling = NullValueHandling.Ignore }).ToString();
+            StringContent PostData = new StringContent(serilizedObj, Encoding.UTF8, "application/json");
+
+            try
+            {
+                var antBoxResponse = Requestor.Post<AntBoxResponse>(UrlsConstants.AntBoxOut, requestOptions, PostData);
                 if (antBoxResponse == null)
                 {
                     return "-";
@@ -41,14 +61,14 @@ namespace AntBoxFrontEnd.Services.AntBoxes
                 {
                     return antBoxResponse.Folio;
                 }
-                
+
             }
             catch (Exception ex)
             {
                 //Todo log
                 LogManager.Write(ex.Message + " " + ex.InnerException, LogManager.Error);
                 return String.Empty;
-            }            
+            }
         }
 
         public virtual Boolean UpdateAntBox(AntBoxUpdateRequest createOptions, string id, RequestOptions requestOptions = null)

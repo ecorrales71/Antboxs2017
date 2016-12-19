@@ -546,7 +546,7 @@ namespace AntBoxFrontEnd.Controllers
             }
         }
 
-        public JsonResult TempUpdateAntboxesObject(List<boxsResponse> boxs)
+        public JsonResult TempUpdateAntboxesObject(List<boxsResponse> boxs, string couponid)
         {
             try
             {
@@ -562,6 +562,7 @@ namespace AntBoxFrontEnd.Controllers
                 }
 
                 Session["AntBoxesOrder"] = boxes;
+                Session["couponidhome"] = couponid;
 
                 return Json(true, JsonRequestBehavior.AllowGet);
             }
@@ -597,7 +598,7 @@ namespace AntBoxFrontEnd.Controllers
 
 
 
-        public JsonResult DoOrder(string dirRecolId, string fecRec, string workerRec, 
+        public JsonResult DoOrder(string dirRecolId, string fecRec, string workerRec, string couponid,
                                 string horaRec, string esperar, string contactoTel , string contactoMail,
                                 string referenciasRec, string cardid, string monto, List<boxsResponse> boxs)
         {
@@ -662,9 +663,9 @@ namespace AntBoxFrontEnd.Controllers
             }
 
             string coupon = null;
-            if (Session["couponidhome"] != null)
+            if (Session["couponidadmin"] != null)
             {
-                coupon = Session["couponidhome"].ToString();
+                coupon = Session["couponidadmin"].ToString();
             }
 
             var order = new AntBoxRequestOptions()

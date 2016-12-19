@@ -198,7 +198,7 @@
                         </div>
                         <hr class="hr-semilight linea_recibo" />
                         <div>
-                            <p class="font_recibo_notas">"Yo el Cliente garantizo que los Antboxs descritos en el presente documento, rebidos a mi entera satisfacción y en óptimo estado liberando a Antboxs México SAPI de C.V. de cualquier reclamación al respecto, lo(s) Antboxs recibidos se entregaron sellados".
+                            <p class="font_recibo_notas">"Yo el Cliente garantizo que los Antboxs descritos en el presente documento, recibidos a mi entera satisfacción y en óptimo estado liberando a Antboxs México SAPI de C.V. de cualquier reclamación al respecto, lo(s) Antboxs recibidos se entregaron sellados".
                         </div>
                     </div>
                     <div class="col-sm-12 mt10">
@@ -313,6 +313,7 @@
         verifModal: true,
         onUpdate: function () {
             var date = $("#fecha_entrega").val();
+            showLoad(1);
             $.ajax({
                 url: '@Url.Action("getSchedules", "Customer")',
                 type: "GET",
@@ -326,6 +327,9 @@
                     }
                     $('#horario').html(items);
                     $('#horario').trigger("chosen:updated");
+                }, complete: function()
+                {
+                    showLoad(0);
                 }
             });
         }

@@ -231,6 +231,7 @@
             var name = element.parent().find('.name-antbox').text();
             var description = element.parent().find('.description-antbox').text();
             var ideditar = element.attr('data-id');
+            $('.guardar-antbox').attr('data-id', ideditar);
 
             if (name.trim() != "Mi Antbox") $('#mname-antbox').val(name.trim());
             else $('#mname-antbox').val('');
@@ -261,7 +262,7 @@
                         if (!$('#UpdateAntBoxSuccess').length) {
                             $('.form-editar-antbox').prepend('<div class="alert alert-success alert-dismissible fade in" id="UpdateAntBoxSuccess"> <button type="button" class="close" data-dismiss="alert"> <i class="fa fa-times"></i></button><p><i class="fa fa-check"></i>Se ha actualizado la información.</p></div>');
                             window.setTimeout(function () {
-                                $('#UpdateAntBoxSuccess').hide();
+                                $('#UpdateAntBoxSuccess').remove();
                             }, 3000);
                             window.setTimeout(function () {
                                 $('#mname-antbox').val('');

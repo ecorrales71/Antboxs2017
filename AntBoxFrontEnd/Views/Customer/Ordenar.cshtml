@@ -641,6 +641,7 @@
                     success: function (d) {
                         showLoad(0);
                         if (d.success) {
+                            $('#couponid').val(d.couponid);
                             $(".aplicar-cupon").val("Quitar cupón");
                             discount = d.discount;
                             recalculateTotal();
@@ -713,9 +714,8 @@
 
                 var cardid = jQuery("#CardsList  option:selected").val();
                 var monto = $('#Total').text();
-
+                var couponid = $('#couponid').val();
                 
-
                 var data =
                 {
                     dirRecolId: dirRecolId,
@@ -728,7 +728,8 @@
                     referenciasRec: referenciasRec,
                     cardid: cardid,
                     monto: monto,
-                    boxs: antboxobject
+                    boxs: antboxobject,
+                    couponid: couponid
                 };
 
                 if (!$("#chkRestricciones").is(':checked') || !$("#chkCondiciones").is(':checked')) {

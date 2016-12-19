@@ -196,6 +196,7 @@
             var antboxobject = devuelveboxsobject();
             if (verifantbox(antboxobject)) {
                 var data = {};
+                data.couponid = $('#couponid').val();
                 data.boxs = antboxobject;
                 showLoad(1)
                 $.ajax({
@@ -232,7 +233,7 @@
                 success: function (d) {
                     showLoad(0);
                     if (d.success) {
-                        
+                        $('#couponid').val(d.couponid);
                         $(".aplicar-cupon").val("Quitar cupón");
                         discount = d.discount;
                         recalculateTotal();

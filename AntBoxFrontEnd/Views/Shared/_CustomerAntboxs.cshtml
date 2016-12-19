@@ -35,7 +35,7 @@
                                 <label for="checkboxFiveInput-@item.Id" class="select-antbox" data-folio="@Html.DisplayFor(modelItem => item.Folio)"></label>
                             </div>
                             <button type="button" class="btn btn-primary btn-sm pull-right ml20 solicitar" data-folio="@Html.DisplayFor(modelItem => item.Folio)" data-id="@Html.DisplayFor(modelItem => item.Id)" data-status="@Html.DisplayFor(modelItem => item.Status)">Solicitar</button>
-                            <button type="button" class="btn btn-primary btn-sm pull-right btn_blue editar" data-toggle="modal"  data-target="#editar">Editar</button>
+                            <button type="button" class="btn btn-primary btn-sm pull-right btn_blue editar" data-id="@Html.DisplayFor(modelItem => item.Id)" data-toggle="modal" data-target="#editar">Editar</button>
                         </div>
                     </div>
                 </div>
