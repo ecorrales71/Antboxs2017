@@ -339,12 +339,72 @@
             if ($('#form-solicitar-antbox').valid())
             {
                 showLoad(1);
+                requests = null;
                 $(".select-antbox-check:checked").each(function () {
                     var folio = $(this).attr("data-folio");
                     var id = $(this).attr("data-id");
                     var serial = $(this).attr("data-serial");
-                    checkeds.push(folio);
+                    var status = $(this).attr("data-status");
 
+                    var found = false;
+                    var antboxs = [{
+                        serial: serial,
+                        id: id
+                    }];
+                    var antboxsdeposit = [];
+                    var antboxsstore = [];
+                    
+                    var requestObject = 
+                    {
+                        folio: folio,
+                        status: status,
+                        antboxs: [],
+                        antboxsdeposit: antboxsdeposit,
+                        antboxstore: antboxsstore
+                    };
+
+                    if (requests == null)
+                    {
+                        if (status == 'deposit')
+                        {
+                            requestObject.antboxsdeposit = antboxs;
+                        } else if (status == 'stored')
+                        {
+                            requestObject.antboxstore = antboxs;
+                        } else {
+                            requestObject.antboxs = antboxs;
+                        }
+                        requests = [requestObject];
+                    } else {
+                        for (var j = 0; j < requests.length; j++) {
+                            if (requests[j].folio == folio) {
+                                found = true;
+                                if ((status != 'deposit')&&((status != 'stored'))) {
+                                    requests[j].antboxs.push(antboxs);
+                                } else if (status == 'stored') {
+                                    requestObject.antboxstore = antboxs;
+                                }
+                            }
+                        }
+                        if (!found)
+                        {
+                            if (status == 'deposit') {
+                                requestObject.antboxsdeposit = antboxs;
+                            } else if (status == 'stored') {
+                                requestObject.antboxstore = antboxs;
+                            } else {
+                                requestObject.antboxs = antboxs;
+                            }
+                            requests.push(requestObject);
+                        }
+                    }
+
+                });
+
+                console.log(requests);
+                showLoad(0);
+
+                for (var j = 0; j < requests.length; j++) {
                     var formData = {
                         worker: $("#horario").val(),
                         address: $("#address").val(),
@@ -352,9 +412,10 @@
                         hora: $('#horariostring').val(),
                         referencia: $('#referencia').val(),
                         status: $('#statusantbox').val(),
-                        folioEntrega: folio,
-                        idantbox: id,
-                        antboxserial : serial
+                        folioEntrega: requests[j].folio,
+                        antboxs: requests[j].antboxs,
+                        antboxsdeposit: requests[j].antboxsdeposit,
+                        antboxsstore: requests[j].antboxstore
                     };
 
                     console.log(formData);
@@ -379,13 +440,12 @@
                         }, complete: function () {
                             $("#loader-solicitar").hide();
                             count++;
-                            if (count == checkeds.length) {
+                            if (count == requests.length) {
                                 showLoad(0);
                                 $("#loader-solicitar").hide();
-                                if (succesed[0] == 1)
-                                {
+                                if (succesed[0] == 1) {
                                     var mensaje = "Antboxs solicitados correctamente";
-                                    if (checkeds.length > 1) mensaje = "Antbox solicitado correctamente";
+                                    if (requests.length > 1) mensaje = "Antbox solicitado correctamente";
                                     verifCloseModal = true;
                                     modalToClose = $('#solicitar');
                                     mostrarMensaje($('#form-solicitar-antbox'), "antboxMensaje", mensaje, "alert-success");
@@ -401,7 +461,15 @@
                             }
                         }
                     });
-                });
+                }
+                @*$(".select-antbox-check:checked").each(function () {
+                    var folio = $(this).attr("data-folio");
+                    var id = $(this).attr("data-id");
+                    var serial = $(this).attr("data-serial");
+                    checkeds.push(folio);
+
+                    
+                });*@
             }
             
             console.log(checkeds);

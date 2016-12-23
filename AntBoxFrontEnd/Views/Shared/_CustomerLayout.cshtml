@@ -11,6 +11,20 @@
     <meta name="description" content="">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic&amp;subset=latin,cyrillic" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Lato:400,700" rel="stylesheet">
+
+    <!--Start of Zopim Live Chat Script-->
+    <script type="text/javascript">
+        window.$zopim || (function (d, s) {
+            var z = $zopim = function (c) { z._.push(c) }, $ = z.s =
+            d.createElement(s), e = d.getElementsByTagName(s)[0]; z.set = function (o) {
+                z.set.
+                _.push(o)
+            }; z._ = []; z.set._ = []; $.async = !0; $.setAttribute("charset", "utf-8");
+            $.src = "https://v2.zopim.com/?4S26RZQowcLd0kuYQjZyXcacnWsyek5b"; z.t = +new Date; $.
+            type = "text/javascript"; e.parentNode.insertBefore($, e)
+        })(document, "script");
+    </script>
+    <!--End of Zopim Live Chat Script-->
     
 </head>
 <body id="body-content">
@@ -41,7 +55,7 @@
                             <li><a href='@Url.Action("Movimientos", "Customer")'><i class="fa fa-history pull-right"></i>Movimientos</a></li>
                             <li><a href='@Url.Action("Pagos", "Customer")'><i class="fa fa-credit-card pull-right"></i>Pagos</a></li>
                             <li><a href='@Url.Action("Ordenar", "Customer")'><i class="fa fa-truck fa-flip-horizontal pull-right"></i>Ordenar</a></li>
-                            <li><a href='@Url.Action("Index", "Home")'><i class="fa fa-sign-out pull-right"></i>Cerrar Sesión</a></li>
+                            <li><a href='@Url.Action("Logout", "Customer")'><i class="fa fa-sign-out pull-right"></i>Cerrar Sesión</a></li>
                         </ul>
                     </li>
                 </ul>

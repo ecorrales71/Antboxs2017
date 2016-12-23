@@ -109,13 +109,41 @@ namespace AntBoxFrontEnd.Services.Coupon
             }
             catch (Exception ex)
             {
-                LogManager.Write(ex.Message + " " + ex.InnerException, LogManager.Error);
+                //LogManager.Write(ex.Message + " " + ex.InnerException, LogManager.Error);
                 return null;
             }
 
             return coupons.Coupons;
         }
 
+        public virtual bool Referer(string customer, string username, RequestOptions requestOptions = null)
+        {
+            requestOptions = SetupRequestOptions(requestOptions);
+
+            try
+            {
+                requestOptions = SetupRequestOptions(requestOptions);
+
+                var parameters = new Dictionary<string, string> { { "username", username } };
+                if (!String.IsNullOrEmpty(customer))
+                {
+                    parameters.Add("customer_id", customer);
+                }
+                
+                var encodedParams = UrlHelper.BuildURLParametersString(parameters);
+
+                var prueba = Requestor.Get<MissingResponse>(UrlsConstants.Referer + encodedParams, requestOptions);
+
+            }
+            catch (Exception ex)
+            {
+                //LogManager.Write(ex.Message + " " + ex.InnerException, LogManager.Error);
+                return false;
+            }
+
+
+            return true;
+        }
 
         public virtual PaginationCouponsResponse ListCoupon(int currentPage, string idPagination = null, RequestOptions requestOptions = null)
         {

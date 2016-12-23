@@ -67,6 +67,10 @@
                                             <label for="send-form-name">Celular</label>
                                             <input type="text" name="cellphone" id="cellphone" value="@Model.Mobile_phone" maxlength="10" onkeypress="return onlyNumbers(event)">
                                         </div>
+                                        <div class="form-group">
+                                            <label for="send-form-email">Nombre de Usuario</label>
+                                            <label name="mail" id="mail">@Model.Username</label>
+                                        </div>
                                         @*<div class="form-group">
                                                 <label for="send-form-email">Contraseña*</label>
                                                 <input type="password" name="password" id="password" value="@Model.Password">

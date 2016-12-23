@@ -5,6 +5,7 @@ using System.Web;
 using Newtonsoft.Json;
 using AntBoxFrontEnd.Services.Address;
 using AntBoxFrontEnd.Services.Customer;
+using AntBoxFrontEnd.Services.AntBoxes;
 
 namespace AntBoxFrontEnd.Services.Tasks
 {
@@ -39,6 +40,9 @@ namespace AntBoxFrontEnd.Services.Tasks
 
         [JsonProperty("customer")]
         public CustomerResponse Customer { get; set; }
+
+        [JsonProperty("antboxs")]
+        public List<AntBoxResponse> Antboxs { get; set; }
 
         public DateTime completeAfterDate {
             get {

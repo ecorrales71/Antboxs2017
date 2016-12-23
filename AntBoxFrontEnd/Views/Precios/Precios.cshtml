@@ -33,6 +33,63 @@
     <div class="content no-pt">
 
         <!-- CONTAINER -->
+        <div class="container" style="padding: 30px;">
+            <div class="row irow-xs cards">
+                <div class="col-sm-12">
+                    <h2>Agregar Antboxs</h2>
+                    <div class="heading-divider"></div>
+                </div>
+            </div>
+        </div>
+        <!-- /.container -->
+        <!-- CONTAINER -->
+        <div class="container mt30">
+            <form class="form-solid">
+                <div class="row">
+                    <div class="col-sm-6 col-md-7">
+                        <div class="irow-xs pb30">
+                            <p>Ordenar tus Antboxs es muy sencillo, solo indícanos cuántas Antboxs necesitas y a qué direcciones debemos enviártelas.</p>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-5">
+                        <div class="card card-image pt0 pb0">
+                            <figure class="figure ">
+                                <!--Agregar a clase para slider: "slider oneslider"-->
+                                <ul data-fx="crossfade" data-auto="true" data-timeout="4500">
+                                    <li>
+                                        <img src="~/Images/antboxs_chica.png" alt="">
+                                    </li>
+                                    <!--<li>
+                                    <a href="">
+                                        <img src="images/antboxs_chica.jpg" alt="">
+                                    </a>
+                                </li>-->
+                                </ul>
+                                <!--<a class="slider-arrow slider-arrow-prev" href=""></a>
+                            <a class="slider-arrow slider-arrow-next" href=""></a>
+                            <nav class="slider-pagination pb70"></nav>-->
+                            </figure>
+                        </div>
+                    </div>
+                </div>
+                @{
+                    Html.RenderPartial("_BoxesPartialView", Model.Boxes);
+                }
+                <input type="hidden" class="ivav" value="@Model.Rules.Iva" />
+                @foreach (var item in Model.Rules.Rules)
+                {
+
+                    <ul class="rules" style="display: none;">
+                        <li class="min">@item.Min</li>
+                        <li class="max">@item.Max</li>
+                        <li class="discount">@item.Discount</li>
+                    </ul>
+                }
+            </form>
+        </div>
+        <!-- /.container -->
+
+        <!-- CONTAINER -->
         <div class="iwrap">
             <section class="container">
                 <div class="row text-wrap text-center">
@@ -84,62 +141,7 @@
             </div>
         </div>
         <!-- /.container -->
-        <!-- CONTAINER -->
-        <div class="container">
-            <div class="row irow-xs cards">
-                <div class="col-sm-12">
-                    <h2>Agregar Antboxs</h2>
-                    <div class="heading-divider"></div>
-                </div>
-            </div>
-        </div>
-        <!-- /.container -->
-        <!-- CONTAINER -->
-        <div class="container mt30">
-            <form class="form-solid">
-                <div class="row">
-                    <div class="col-sm-6 col-md-7">
-                        <div class="irow-xs pb30">
-                            <p>Ordenar tus Antboxs es muy sencillo, solo indícanos cuántas Antboxs necesitas y a qué direcciones debemos enviártelas.</p>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-md-5">
-                        <div class="card card-image pt0 pb0">
-                            <figure class="figure ">
-                                <!--Agregar a clase para slider: "slider oneslider"-->
-                                <ul data-fx="crossfade" data-auto="true" data-timeout="4500">
-                                    <li>
-                                        <img src="~/Images/antboxs_chica.png" alt="">
-                                    </li>
-                                    <!--<li>
-                                        <a href="">
-                                            <img src="images/antboxs_chica.jpg" alt="">
-                                        </a>
-                                    </li>-->
-                                </ul>
-                                <!--<a class="slider-arrow slider-arrow-prev" href=""></a>
-                                <a class="slider-arrow slider-arrow-next" href=""></a>
-                                <nav class="slider-pagination pb70"></nav>-->
-                            </figure>
-                        </div>
-                    </div>
-                </div>
-                    @{ 
-                        Html.RenderPartial("_BoxesPartialView", Model.Boxes);
-                    }
-                    <input type="hidden" class="ivav" value="@Model.Rules.Iva" />
-                    @foreach (var item in Model.Rules.Rules)
-                    {
-                        
-                        <ul class="rules" style="display: none;">
-                            <li class="min">@item.Min</li>
-                            <li class="max">@item.Max</li>
-                            <li class="discount">@item.Discount</li>
-                        </ul>
-                    }
-            </form>
-        </div>
-        <!-- /.container -->
+        
 
 
     </div>
@@ -233,10 +235,19 @@
                 success: function (d) {
                     showLoad(0);
                     if (d.success) {
-                        $('#couponid').val(d.couponid);
-                        $(".aplicar-cupon").val("Quitar cupón");
-                        discount = d.discount;
-                        recalculateTotal();
+                        if (d.verif == 1)
+                        {
+                            $('#couponid').val(d.couponid);
+                            $(".aplicar-cupon").val("Quitar cupón");
+                            discount = d.discount;
+                            recalculateTotal();
+                        } else {
+                            alert('Obtuviste una renta gratis');
+                            $('#couponid').val(couponcode);
+                            $(".aplicar-cupon").val("Quitar cupón");
+                            discount = 0;
+                            recalculateTotal();
+                        }
                     } else {
                         alert("El cupón introducido es inválido");
                         $(".aplicar-cupon").val("Aplicar cupón");

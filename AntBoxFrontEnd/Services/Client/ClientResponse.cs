@@ -32,6 +32,9 @@ namespace AntBoxFrontEnd.Services.Client
         [JsonProperty("username")]
         public string Username { get; set; }
 
+        [JsonProperty("phone")]
+        public string Phone { get; set; }
+
         public string Namev
         {
             get

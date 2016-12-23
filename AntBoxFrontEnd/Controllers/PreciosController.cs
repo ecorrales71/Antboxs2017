@@ -299,7 +299,6 @@ namespace AntBoxFrontEnd.Controllers
             }
         }
 
-
         private Dictionary<string, int> GetAntboxesTemp()
         {
             try
@@ -382,7 +381,7 @@ namespace AntBoxFrontEnd.Controllers
             }
 
             string coupon = null;
-            if (Session["couponidhome"] != null)
+            if (!String.IsNullOrEmpty(Session["couponidhome"].ToString()))
             {
                 coupon = Session["couponidhome"].ToString();
             }
@@ -690,6 +689,7 @@ namespace AntBoxFrontEnd.Controllers
                 couponname = "couponidadmin";
             }
 
+
             var servicio = new CouponService(ServiceConfiguration.GetApiKey());
             List<CouponResponse> result = new List<CouponResponse>();
             result = servicio.SearchCouponName(cupon);
@@ -703,7 +703,7 @@ namespace AntBoxFrontEnd.Controllers
                 if (today.Ticks >= dateini.Ticks && today.Ticks <= datefin.Ticks)
                 {
                     Session[couponname] = result[0].Id;
-                    return Json(new { success = true, resposeText = "aplica", discount = result[0].Discount, couponid = result[0].Id }, JsonRequestBehavior.AllowGet);
+                    return Json(new { success = true, resposeText = "aplica", discount = result[0].Discount, couponid = result[0].Id, verif = 1 }, JsonRequestBehavior.AllowGet);
                     
                 }
                 else
@@ -715,8 +715,22 @@ namespace AntBoxFrontEnd.Controllers
             }
             else
             {
-                Session[couponname] = null;
-                return Json(new { success = false, resposeText = "no existe" }, JsonRequestBehavior.AllowGet);
+                string customeri = null;
+                if (version == "1")
+                {
+                    customeri = ((CustomerResponse)Session["customer"]).Id;
+                }
+                var verif = servicio.Referer(customeri, cupon);
+                if (!verif)
+                {
+                    Session[couponname] = null;
+                    return Json(new { success = false, resposeText = "no existe" }, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    Session[couponname] = cupon;
+                    return Json(new { success = true, resposeText = "aplica2", verif = 2 }, JsonRequestBehavior.AllowGet);
+                }
             }
 
             //convertir fecha from to to date time

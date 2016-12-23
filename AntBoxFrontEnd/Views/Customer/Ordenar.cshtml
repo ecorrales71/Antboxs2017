@@ -26,7 +26,7 @@
                                 @Html.Partial("_LeftMenu")
                             </div>
                             <div class="col-md-9">
-                                <form class="form-solid">
+                                <form class="form-solid" id="form-ordenar">
                                     <div class="row">
                                         <div class="col-sm-6">
                                             <div class="irow-xs pb30">
@@ -83,8 +83,8 @@
                                     <div class="row mt20">
                                         <div class="col-sm-6">
                                             <div class="form-group mb0">
-                                                <label for="form-select">Dirección de recolección</label>
-                                                <select id="AddressPickup">
+                                                <label for="form-select">* Dirección de recolección</label>
+                                                <select id="AddressPickup" name="addresspickup">
                                                     @if (Model.Addresses != null)
                                                     {
                                                         foreach (var item in Model.Addresses)
@@ -102,7 +102,7 @@
                                                 </select>
                                                 <button type="button" class="btn btn-primary btn-xs pull-right" data-toggle="modal" data-target="#nueva_direccion">Nueva dirección</button>
                                             </div>
-                                            <label for="textbox">Fecha</label>
+                                            <label for="textbox">* Fecha</label>
                                             <div class="input-group" >
                                                 <span class="input-group-btn">
                                                     <button type="button" id="recoleccion" class="btn btn-primary pull-right"><i class="fa fa-calendar"></i></button>
@@ -113,7 +113,7 @@
                                             <div style='display:none' id="alert_fecha" class="help-block"><label>La fecha debe ser superior a la actual*</label></div>
                                             <div class="form-group">
                                                 @Html.HiddenFor(m => m.HoraRecoleccionString)
-                                                <label for="form-select">Horario de recolección</label>
+                                                <label for="form-select">* Horario de recolección</label>
                                                 @Html.DropDownListFor(m => m.WorkerIdPickup, new List<SelectListItem> { new SelectListItem { Value = "", Text = "Selecciona una fecha" } }, "", new { @id = "Horario_recoleccion" , onchange = "HorarioRecoleccion()" })
                                                 @*<select id="Horario_recoleccion" required="requerid">
                                                         <option value>- Selecciona una opción -</option>
@@ -135,8 +135,8 @@
                                                 
                                                 <label>
                                                     @*@Html.EditorFor(m => m.Service_time_Pickup)*@
-                                                    <input type="checkbox" name="chkEsperar" id="chkEsperar">
-                                                    Quiero que el conductor me espere para que pueda llevar mis Antboxs de vuelta al almacén de forma inmediata. (Considere que los conductores solo pueden esperar hasta 20 minutos)
+                                                    <input type="checkbox" name="chkEsperar" id="chkEsperar" class="chkEsperar">
+                                                    Requiero que la recolección de mis Antboxs sea otro día.
                                                 </label>
                                             </div>
                                         </div>
@@ -144,6 +144,64 @@
                                     <div class="row">
                                         <div class="col-sm-12">
                                             <hr class="hr-dashed mt0 mb40" />
+                                        </div>
+                                    </div>
+                                    <div class="direccion-entrega" style="display:none;">
+                                        <div class="row mt10">
+                                            <div class="col-sm-12">
+                                                <div class="irow-xs">
+                                                    <h3>Dirección de entrega</h3>
+                                                    <p>¿Dónde y cuándo debemos recorger Antboxs?</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row mt20">
+                                            <div class="col-sm-6">
+                                                <div class="form-group mb0">
+                                                    <label for="form-select">* Dirección de entrega</label>
+                                                    <select id="AddressDelivery">
+                                                        @if (Model.Addresses != null)
+                                                        {
+                                                            foreach (var item in Model.Addresses)
+                                                            {
+                                                                if (item != null)
+                                                                {
+                                                                    <option value='@item.Id.ToString()'> @item.Alias</option>
+                                                                }
+                                                            }
+                                                        }
+
+                                                    </select>
+                                                    <button type="button" class="btn btn-primary btn-xs pull-right direccion2" data-toggle="modal" data-target="#nueva_direccion">Nueva dirección</button>
+                                                </div>
+                                                <label for="textbox">* Fecha</label>
+                                                <div class="input-group">
+                                                    <span class="input-group-btn">
+                                                        <button type="button" id="entrega" class="btn btn-primary pull-right"><i class="fa fa-calendar"></i></button>
+                                                    </span>
+                                                    <input class="form-control" type="text" id="fecha_entrega" name="fecha_entrega" disabled="disable" required="requerid">
+                                                    <br />
+                                                </div>
+                                                <div style='display:none' id="alert_fechaentrega" class="help-block"><label>La fecha debe ser superior a la actual*</label></div>
+                                                <div class="form-group">
+                                                    @Html.HiddenFor(m => m.HoraEntregaString)
+                                                    <label for="form-select">* Horario de entrega</label>
+                                                    @Html.DropDownListFor(m => m.WorkerIdPickup, new List<SelectListItem> { new SelectListItem { Value = "", Text = "Selecciona una fecha" } }, "", new { @id = "Horario_entrega", onchange = "HorarioEntrega()" })
+
+                                                </div>
+                                                <div style='display:none' id="alert_horarioentrega" class="help-block"><label>No hay trabajadores disponibles para este horario*</label></div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <label for="form-message">Referencias o comentarios</label>
+                                                    <textarea name="message" id="txtReferenciaEntrega"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <hr class="hr-dashed mt0 mb40" />
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="row mt10">
@@ -504,6 +562,53 @@
                 }
             }
         });
+        Calendar.setup({
+            inputField: "fecha_entrega",      // id del campo de texto
+            ifFormat: "%Y-%m-%d",       // formato de la fecha, cuando se escriba en el campo de texto
+            button: "entrega",  // el id del botón que lanzará el calendario
+            onUpdate: function () {
+                var date = $("#fecha_entrega").val();
+                var f = new Date();
+                var month = f.getMonth() + 1
+                month = (parseInt(month) < 10) ? "0" + month : month;
+                var day = (parseInt(f.getDate()) < 10) ? "0" + f.getDate() : f.getDate();
+                var fecha_hoy = f.getFullYear() + "-" + month + "-" + day;
+
+                if (date <= fecha_hoy) {
+                    document.getElementById('alert_fechaentrega').style.display = 'block';
+                    $('#fecha_entrega').css('background', '#ffdede');
+                    //alert("La fecha no puede ser menor a la fecha de hoy");
+                    $('#fecha_entrega').attr('value') = '';
+                } else {
+                    document.getElementById('alert_fechaentrega').style.display = 'none';
+                    $('#fecha_entrega').css('background', '');
+                    if ($("#fecha_entrega").val() != "") {
+                        $("#fecha_entrega").closest(".form-group").removeClass("has-error");
+                        $("#fecha_entrega").closest(".form-group").find(".help-block").remove();
+                    }
+                    showLoad(1);
+                    $.ajax({
+                        url: '@Url.Action("getSchedules", "Customer")',
+                        type: "GET",
+                        data: { "date": date },
+                        success: function (schedules) {
+                            // alert("<option value='" + schedules[0].worker + "'>" + schedules[0].Start + " - " + schedules[0].End + " hrs.</option>");
+                            $("#Horario_entrega").html("");
+                            var items = '<option>Seleccciona un horario disponible</option>';
+                            for (var i = 0; i < schedules.length ; i++) {
+                                items += "<option value='" + schedules[i].worker + "'>" + schedules[i].Start + " - " + schedules[i].End + " hrs.</option>";
+                            }
+                            document.getElementById('alert_horarioentrega').style.display = 'none';
+                            $('#Horario_entrega').html(items);
+                            $('#Horario_entrega').trigger("chosen:updated");
+                        }, complete: function () {
+                            showLoad(0);
+                        }
+
+                    });
+                }
+            }
+        });
         var rules = [];
         $(function () {
 
@@ -568,7 +673,7 @@
 
             $('.form-card').validate({
                 rules: {
-                    name: {
+                    addresspickup: {
                         required: true
                     },
                     numero: {
@@ -607,6 +712,8 @@
                 }
             });
 
+            
+
             $(".rules").each(function () {
                 rules.push({
                     min: parseInt($(this).find(".min").text()),
@@ -618,9 +725,17 @@
             $(".rules").remove();
             $('.checkdisplay').change(function () {
                 if (this.checked)
+                {
                     $('.todisplay').fadeIn('slow');
+                    $('.chkEsperar').prop('checked', true);
+                    $('.direccion-entrega').show();
+                }
                 else
+                {
+                    $('.chkEsperar').prop('checked', false);
+                    $('.direccion-entrega').hide();
                     $('.todisplay').fadeOut('slow');
+                }
 
             });
             $(".aplicar-cupon").click(function () {
@@ -641,10 +756,18 @@
                     success: function (d) {
                         showLoad(0);
                         if (d.success) {
-                            $('#couponid').val(d.couponid);
-                            $(".aplicar-cupon").val("Quitar cupón");
-                            discount = d.discount;
-                            recalculateTotal();
+                            if (d.verif == 1) {
+                                $('#couponid').val(d.couponid);
+                                $(".aplicar-cupon").val("Quitar cupón");
+                                discount = d.discount;
+                                recalculateTotal();
+                            } else {
+                                alert('Obtuviste una renta gratis');
+                                $('#couponid').val(couponcode);
+                                $(".aplicar-cupon").val("Quitar cupón");
+                                discount = 0;
+                                recalculateTotal();
+                            }
                         } else {
                             alert("El cupón introducido es inválido");
                             $(".aplicar-cupon").val("Aplicar cupón");
@@ -664,18 +787,31 @@
                 
 
             })
+
+            $('.chkEsperar').change(function () {
+                if ($("#chkEsperar").is(':checked'))
+                {
+                    $('.checkdisplay').prop('checked', true);
+                    $('.direccion-entrega').show();
+                    $('.todisplay').fadeIn('slow');
+                } else {
+                    $('.checkdisplay').prop('checked', false);
+                    $('.direccion-entrega').hide();
+                    $('.todisplay').fadeOut('slow');
+                }
+            })
         })
     </script>
 
     <script type="text/javascript">
-        function HorarioRecoleccion() {
-            var date = $("#fecha_recoleccion").val();
-            var horario = $("#Horario_recoleccion").val();
-            var t = $("#Horario_recoleccion option:selected").text();
-            $('#HoraRecoleccionString').val(t);
+    function HorarioRecoleccion() {
+        var date = $("#fecha_recoleccion").val();
+        var horario = $("#Horario_recoleccion").val();
+        var t = $("#Horario_recoleccion option:selected").text();
+        $('#HoraRecoleccionString').val(t);
 
-            $.ajax({
-                url: '@Url.Action("getSchedules", "Customer")',
+        $.ajax({
+            url: '@Url.Action("getSchedules", "Customer")',
                 type: "GET",
                 data: { "date": date },
                 success: function (schedules) {
@@ -692,7 +828,30 @@
                 }
             });
         };
+        function HorarioEntrega() {
+            var date = $("#fecha_entrega").val();
+            var horario = $("#Horario_entrega").val();
+            var t = $("#Horario_entrega option:selected").text();
+            $('#HoraEntregaString').val(t);
 
+            $.ajax({
+                url: '@Url.Action("getSchedules", "Customer")',
+                type: "GET",
+                data: { "date": date },
+                success: function (schedules) {
+                    for (var i = 0; i < schedules.length ; i++) {
+                        var work = schedules[i].Workers;
+                        if (schedules[i].Start + " - " + schedules[i].End + " hrs." == t) {
+                            if (work.length == 0) {
+                                document.getElementById('alert_horarioentrega').style.display = 'block';
+                            } else {
+                                document.getElementById('alert_horarioentrega').style.display = 'none';
+                            }
+                        }
+                    }
+                }
+            });
+        };
     </script>
 
     <script type="text/javascript">
@@ -702,30 +861,56 @@
             {
                 
                 var dirRecolId = $("#AddressPickup").val();
+                var dirEntId = $("#AddressDelivery").val();
 
                 var fecRec = $("#fecha_recoleccion").val();
+                var fecEnt = $("#fecha_entrega").val();
                 var workerRec = jQuery("#Horario_recoleccion  option:selected").val();   //worker id de recoleccion
+                var workerEnt = jQuery("#Horario_entrega  option:selected").val();   //worker id de recoleccion
 
                 var esperar = $("#chkEsperar").is(':checked');
+                esperar = !esperar;
+                
                 var horaRec = $("#HoraRecoleccionString").val();
+                var horaEnt = $("#HoraEntregaString").val();
                 var contactoTel = $("#preferencia_contacto_Tel").is(':checked');
                 var contactoMail = $("#preferencia_contacto_mail").is(':checked');
                 var referenciasRec = $("#txtReferenciaRecoleccion").val();
+                var referenciasEnt = $("#txtReferenciaEntrega").val();
 
                 var cardid = jQuery("#CardsList  option:selected").val();
                 var monto = $('#Total').text();
                 var couponid = $('#couponid').val();
+
+                if ((workerRec == '') || (workerRec == 'Seleccciona un horario disponible') || (fecRec == '') || (dirRecolId == ''))
+                {
+                    alert('Los campos marcados con (*) son requeridos');
+                    return false;
+                }
+
+                if (esperar == false)
+                {
+                    if ((workerEnt == '') || (workerEnt == 'Seleccciona un horario disponible') || (fecEnt == '') || (dirEntId == '')) {
+                        alert('Los campos marcados con (*) son requeridos');
+                        return false;
+                    }
+                }
                 
                 var data =
                 {
                     dirRecolId: dirRecolId,
+                    dirEntId: dirEntId,
                     fecRec: fecRec,
+                    fecEnt: fecEnt,
                     workerRec: workerRec,
+                    workerEnt: workerEnt,
                     horaRec: horaRec,
+                    horaEnt: horaEnt,
                     esperar: esperar,
                     contactoTel: contactoTel,
                     contactoMail: contactoMail,
                     referenciasRec: referenciasRec,
+                    referenciasEnt: referenciasEnt,
                     cardid: cardid,
                     monto: monto,
                     boxs: antboxobject,

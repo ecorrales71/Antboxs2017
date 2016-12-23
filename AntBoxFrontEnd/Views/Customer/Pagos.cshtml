@@ -494,6 +494,7 @@ function goto_rndf(reload)
                 var token_id = response.data.id;
 
                 var count = parseInt($('#cardscount').val());
+                var state = 'inactive';
                 if (count == 0) state = 'main';
             
                     $.ajax({

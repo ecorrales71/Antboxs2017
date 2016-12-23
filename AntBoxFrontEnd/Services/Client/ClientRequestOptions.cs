@@ -24,5 +24,8 @@ namespace AntBoxFrontEnd.Services.Client
         [JsonProperty("zipcode")]
         public string Zipcode { get; set; }
 
+        [JsonProperty("phone")]
+        public string Phone { get; set; }
+
     }
 }

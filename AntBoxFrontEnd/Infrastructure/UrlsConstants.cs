@@ -103,5 +103,7 @@ namespace AntBoxFrontEnd.Infrastructure
 
         public static String RestorePassword { get { return BaseUrl + "/restore"; } }
 
+        public static String Referer { get { return BaseUrl + "/refered"; } }
+
     }
 }

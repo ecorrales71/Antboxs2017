@@ -285,13 +285,38 @@
 <script type="text/javascript">
 
     var tasks = [];
+    var antboxs = [];
     @foreach (var item in Model.Tasks)
     {
+        int number = 0;
+        if (item.Antboxs != null)
+        {
+            <text>
+    antboxs = [];
+    </text>
+            foreach (var antb in item.Antboxs)
+            {
+
+                <text>
+    antboxs.push({
+        Descriptionv: '@antb.Descriptionv',
+    Padlocks: ['@antb.Padlocks[0]', '@antb.Padlocks[1]'],
+    Box: {
+        Label: '@antb.Box.Label',
+        Id: '@antb.Box.Id',
+        }
+    })
+    </text>
+            }
+        }
+
         <text>
+
     tasks.push({
-        id : '@item.Id',
+        id: '@item.Id',
         folio: '@item.Folio',
         service: '@item.service_time',
+        antboxs: antboxs,
         address: {
             calle: '@item.Address.Street',
             external: '@item.Address.External_number',
@@ -302,6 +327,7 @@
         }
     });
     </text>
+
     }
 
     console.log(tasks);
@@ -327,8 +353,7 @@
                     }
                     $('#horario').html(items);
                     $('#horario').trigger("chosen:updated");
-                }, complete: function()
-                {
+                }, complete: function () {
                     showLoad(0);
                 }
             });
@@ -364,15 +389,34 @@
 
                         tasksresult = "";
                         tasks = [];
+                        var antboxs = [];
 
                         for (var i = 0; i < result.Tasks.length; i++) {
 
                             var taskv = result.Tasks[i];
+                            antboxs = [];
+
+                            if (taskv.Antboxs != null) {
+                                for (var j = 0; j < taskv.Antboxs.length; j++) {
+                                    antboxs = {
+                                        Descriptionv: taskv.Antboxs[j].Descriptionv,
+                                        Box: {
+                                            Label: taskv.Antboxs[j].Box.Label,
+                                            Id: taskv.Antboxs[j].Box.Id
+                                        },
+                                        Padlocks: [
+                                            taskv.Antboxs[j].Padlocks[0],
+                                            taskv.Antboxs[j].Padlocks[1]
+                                        ]
+                                    }
+                                }
+                            }
 
                             tasks.push({
                                 id: taskv.Id,
                                 folio: taskv.Folio,
                                 service: taskv.service_time,
+                                antboxs: antboxs,
                                 address: {
                                     calle: taskv.Address.Street,
                                     external: taskv.Address.External_number,
@@ -409,8 +453,7 @@
                                 cadhtml += "<div class=\"sticker_mov in_progress\">En progreso<\/div>";
                             else if (taskv.Status == "canceled")
                                 cadhtml += "<div class=\"sticker_mov canceled\">Cancelado<\/div>";
-                            if (taskv.Status == "completed")
-                            {
+                            if (taskv.Status == "completed") {
                                 if (taskv.Type == "pickup")
                                     cadhtml += "<button type=\"button\" class=\"btn btn-primary btn-sm pull-right ml10 recibo-recoleccion\" data-id=\"" + taskv.Id + "\">Ver Recibo</button>";
                                 else
@@ -547,12 +590,15 @@
             return strTime;
         }
 
+        var actualindex = 0;
+
         $(document).on("click", '.recibo-recoleccion', function () {
             var id = $(this).attr("data-id");
             $('.recibo_recoleccion').modal("show");
             showLoad(1);
             for (var i = 0; i < tasks.length; i++) {
                 if (tasks[i].id == id) {
+                    actualindex = i;
                     $('.folior').text(tasks[i].folio);
                     //$('.folior').val(tasks[i].folior);
                     //$('.folior').val(tasks[i].folior);
@@ -569,7 +615,7 @@
                     $('#content-antboxes-recibo-recoleccion').html('');
                     $('#content-boxes-recibo-recoleccion').html('');
 
-                    $('.firma_recoleccion').attr("src", "http://64.28.103.85:8082/assets/sign" + tasks[i].folio + ".png");
+                    $('.firma_recoleccion').attr("src", "http://64.28.103.85:8082/assets/sign" + tasks[i].id + ".png");
 
                     var formData = {};
                     formData.folio = tasks[i].folio
@@ -583,6 +629,11 @@
                             showLoad(0);
                             $("#recibo_recoleccion").modal("show");
                             $("#loader-recoleccion").hide();
+
+                            if (tasks[actualindex].antboxs.length > 0)
+                            {
+                                result.antbox.Antboxs = tasks[actualindex].antboxs;
+                            }
 
                             var htmlGlobal = "";
                             for (var i = 0; i < result.antbox.Antboxs.length; i++) {
@@ -634,9 +685,9 @@
             var id = $(this).attr("data-id");
             $('.recibo_entrega').modal("show");
             showLoad(1);
-            for (var i = 0; i < tasks.length; i++)
-            {
+            for (var i = 0; i < tasks.length; i++) {
                 if (tasks[i].id == id) {
+                    actualindex = i;
                     $('.folioe').text(tasks[i].folio);
                     //$('.folior').val(tasks[i].folior);
                     //$('.folior').val(tasks[i].folior);
@@ -649,7 +700,7 @@
                     //$('.cellr').val(tasks[i].folior);
                     if ($(this).closest('.media-body').find('.referencia').val() != 'undefined') $('.referenciar').text('Ref. ' + $(this).closest('.media-body').find('.referencia').val());
 
-                    $('.firma_entrega').attr("src", "http://64.28.103.85:8082/assets/sign" + tasks[i].folio + ".png");
+                    $('.firma_entrega').attr("src", "http://64.28.103.85:8082/assets/sign" + tasks[i].id + ".png");
 
 
                     $('#content-antboxes-recibo').html('');
@@ -667,19 +718,19 @@
                             $("#recibo_entrega").modal("show");
                             $("#loader-entrega").hide();
                             var htmlGlobal = "";
-                            for (var i = 0; i < result.antbox.Antboxs.length; i++)
-                            {
+                            if (tasks[actualindex].antboxs.length > 0) {
+                                result.antbox.Antboxs = tasks[actualindex].antboxs;
+                            }
+                            for (var i = 0; i < result.antbox.Antboxs.length; i++) {
                                 var found = false;
                                 for (var j = 0; j < boxes.length; j++) {
-                                    if (boxes[j].id == result.antbox.Antboxs[i].Box.Id)
-                                    {
+                                    if (boxes[j].id == result.antbox.Antboxs[i].Box.Id) {
                                         found = true;
                                         boxes[j].quantity++;
                                         result.antbox.Antboxs[i].position = boxes[j].quantity;
                                     }
                                 }
-                                if (!found)
-                                {
+                                if (!found) {
                                     boxes.push({ id: result.antbox.Antboxs[i].Box.Id, quantity: 1, nombre: result.antbox.Antboxs[i].Box.Label });
                                     result.antbox.Antboxs[i].position = 1;
                                 }
@@ -689,11 +740,9 @@
                             $('#content-antboxes-recibo').html("<p>" + htmlGlobal + "</p>");
                             colocaBoxes(boxes, $('#content-boxes-recibo'));
                             console.log(result);
-                        }, error: function(error)
-                        {
+                        }, error: function (error) {
                             $("#loader-entrega").hide();
-                        }, complete: function()
-                        {
+                        }, complete: function () {
                             showLoad(0);
                         }
                     })
@@ -701,7 +750,7 @@
             }
         })
 
-        function colocaBoxes(boxes, element){
+        function colocaBoxes(boxes, element) {
             var cadhtml = "";
             for (var j = 0; j < boxes.length; j++) {
                 append = "";
@@ -717,12 +766,10 @@
             if (index > 0) append = "</br>";
             cadhtml += append + antbox.Box.Label + ": " + antbox.position;
             cadhtml += "</br>" + "Descripción: " + antbox.Descriptionv;
-            if (antbox.Padlocks.length > 0)
-            {
+            if (antbox.Padlocks.length > 0) {
                 var candado1 = (antbox.Padlocks.length >= 1) ? antbox.Padlocks[0] : "";
                 var candado2 = (antbox.Padlocks.length >= 2) ? antbox.Padlocks[1] : "";
-                if ((candado1 != null && candado1 != "" && candado1 != 'null') && (candado2 != null && candado2 != "" && candado2 != 'null'))
-                {
+                if ((candado1 != null && candado1 != "" && candado1 != 'null') && (candado2 != null && candado2 != "" && candado2 != 'null')) {
                     cadhtml += "</br>"
                     if (candado1 != null && candado1 != "") cadhtml += "Candado 1: " + candado1 + " ";
                     if (candado2 != null && candado2 != "") cadhtml += "Candado 2: " + candado2 + " ";

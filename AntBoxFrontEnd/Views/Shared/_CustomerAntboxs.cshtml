@@ -31,7 +31,7 @@
                             </div>
                             <p class="description-antbox">@Html.DisplayFor(modelItem => item.Descriptionv)</p>
                             <div class="checkboxFive">
-                                <input type="checkbox" value="1" id="checkboxFiveInput-@item.Id" class="select-antbox-check" name="" data-id="@Html.DisplayFor(modelItem => item.Id)" data-serial="@Html.DisplayFor(modelItem => item.Serial)" data-folio="@Html.DisplayFor(modelItem => item.Folio)">
+                                <input type="checkbox" value="1" id="checkboxFiveInput-@item.Id" class="select-antbox-check" name="" data-id="@Html.DisplayFor(modelItem => item.Id)" data-serial="@Html.DisplayFor(modelItem => item.Serial)" data-folio="@Html.DisplayFor(modelItem => item.Folio)" data-status="@Html.DisplayFor(modelItem => item.Status)">
                                 <label for="checkboxFiveInput-@item.Id" class="select-antbox" data-folio="@Html.DisplayFor(modelItem => item.Folio)"></label>
                             </div>
                             <button type="button" class="btn btn-primary btn-sm pull-right ml20 solicitar" data-folio="@Html.DisplayFor(modelItem => item.Folio)" data-id="@Html.DisplayFor(modelItem => item.Id)" data-status="@Html.DisplayFor(modelItem => item.Status)">Solicitar</button>

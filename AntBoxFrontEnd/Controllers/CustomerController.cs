@@ -598,9 +598,9 @@ namespace AntBoxFrontEnd.Controllers
 
 
 
-        public JsonResult DoOrder(string dirRecolId, string fecRec, string workerRec, string couponid,
-                                string horaRec, string esperar, string contactoTel , string contactoMail,
-                                string referenciasRec, string cardid, string monto, List<boxsResponse> boxs)
+        public JsonResult DoOrder(string dirRecolId, string dirEntId, string fecRec, string fecEnt, string workerRec, string workerEnt, string couponid,
+                                string horaRec, string horaEnt, string esperar, string contactoTel , string contactoMail,
+                                string referenciasRec, string referenciasEnt, string cardid, string monto, List<boxsResponse> boxs)
         {
             string result = "";
 
@@ -621,8 +621,19 @@ namespace AntBoxFrontEnd.Controllers
 
                 isTaskPickupCreated = CreateDeliveryTask(fecRec, horaRec, dirRecolId, workerRec, folioRecoleccion);
 
-                if(!isTaskPickupCreated)
+                if (!isTaskPickupCreated)
                     return Json(new { success = false, responseText = "OCURRIO UN ERROR AL CREAR TAREA DE RECOLECCION" }, JsonRequestBehavior.AllowGet);
+
+                if (!waitTimeWorker)
+                {
+                    bool isTaskDeliveryCreated;
+                    isTaskDeliveryCreated = CreatePickupTask(fecEnt, horaEnt, dirEntId, workerEnt, folioRecoleccion);
+
+                    if (!isTaskDeliveryCreated)
+                        return Json(new { success = false, responseText = "OCURRIO UN ERROR AL CREAR TAREA DE RECOLECCION" }, JsonRequestBehavior.AllowGet);
+                }
+
+                
 
                 result += "Tarea de recoleccion agendada: " + isTaskPickupCreated + "\n";
 
@@ -800,6 +811,13 @@ namespace AntBoxFrontEnd.Controllers
             });
 
             return response;
+        }
+
+        public ActionResult Logout()
+        {
+            Session["customer"] = null;
+
+            return RedirectToAction("Index", "Home");
         }
 
         public class boxsResponse

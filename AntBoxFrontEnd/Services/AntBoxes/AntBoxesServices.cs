@@ -147,8 +147,7 @@ namespace AntBoxFrontEnd.Services.AntBoxes
                     parameters.Add("page_number", currentPage.ToString());
                 }
 
-                if (status.ToString() != AntBoxStatusEnum.Defualt.ToString())
-                    parameters.Add("status", status.ToString());
+                parameters.Add("status", status.ToString());
 
                 var encodedParams = Infrastructure.UrlHelper.BuildURLParametersString(parameters);
 
@@ -210,7 +209,7 @@ namespace AntBoxFrontEnd.Services.AntBoxes
         public static readonly AntBoxStatusEnum Stored = new AntBoxStatusEnum(0, "stored");
         public static readonly AntBoxStatusEnum Free = new AntBoxStatusEnum(0, "free");
         public static readonly AntBoxStatusEnum AllWithoutFree = new AntBoxStatusEnum(0, "reserved,delivering,stored");
-        public static readonly AntBoxStatusEnum Defualt = new AntBoxStatusEnum(0, "Defualt");
+        public static readonly AntBoxStatusEnum Defualt = new AntBoxStatusEnum(0, "*");
 
         public override string ToString()
         {

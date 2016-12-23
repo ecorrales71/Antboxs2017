@@ -60,7 +60,8 @@ namespace AntBoxFrontEnd.Controllers
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult SolicitarAntbox (string worker, string address, string fecha, string hora, string referencia, string folioEntrega, string status, string idantbox, string antboxserial, string id)
+        public JsonResult SolicitarAntbox (string worker, string address, string fecha, string hora, string referencia, string folioEntrega, string status, string idantbox, 
+            string antboxserial, string id, List<antboxssolicitud> antboxs, List<antboxssolicitud> antboxsdeposit, List<antboxssolicitud> antboxsstore )
         {
             bool isTaskDeliveryCreated = false;
             try
@@ -90,19 +91,18 @@ namespace AntBoxFrontEnd.Controllers
                 }
                 else
                 {
-                    if (status == "inhouse")
+                    if (antboxsdeposit != null)
                     {
                         isTaskDeliveryCreated = CreatePickupTask(fecha, hora, address, worker, folioEntrega);
                     }
-                    else if (status == "stored")
+                    if (antboxsstore != null)
                     {
-                        var folioRecoleccion = CheckOutBox(worker, idantbox, antboxserial);
+                        var folioRecoleccion = CheckOutBox(worker, antboxsstore);
                         if (!string.IsNullOrEmpty(folioRecoleccion))
                         {
                             isTaskDeliveryCreated = CreateDeliveryTask(fecha, hora, address, worker, folioEntrega);
                         }
-                    }
-                    else
+                    } if (antboxs != null)
                     {
                         isTaskDeliveryCreated = CreateDeliveryTask(fecha, hora, address, worker, folioEntrega);
                     }
@@ -168,14 +168,17 @@ namespace AntBoxFrontEnd.Controllers
             return dateResult;
         }
 
-        private string CheckOutBox(string workerid, string id, string antboxserial)
+        private string CheckOutBox(string workerid, List<antboxssolicitud> antboxs)
         {
             var ids = new List<AntBoxObjectCheckout>();
-            ids.Add(new AntBoxObjectCheckout
+            foreach (var item in antboxs)
+            {
+                ids.Add(new AntBoxObjectCheckout
                 {
-                    Id = id,
-                    Serial = antboxserial
+                    Id = item.id,
+                    Serial = item.serial
                 });
+            }
 
             var order = new AntBoxRequestOptions()
             {
@@ -192,6 +195,12 @@ namespace AntBoxFrontEnd.Controllers
 
             return res;
 
+        }
+
+        public class antboxssolicitud
+        {
+            public string id { get; set; }
+            public string serial { get; set; }
         }
     }
 }

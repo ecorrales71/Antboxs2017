@@ -412,6 +412,7 @@ namespace AntBoxFrontEnd.Controllers
             columns1.Add("Lastname", "A. Paterno");
             columns1.Add("Lastname2v", "A. Materno");
             columns1.Add("Email", "Email");
+            columns1.Add("Phone", "Telefono");
             columns1.Add("Zipcode", "Codigo zip");
             columns1.Add("Fecha", "Fecha");
 
