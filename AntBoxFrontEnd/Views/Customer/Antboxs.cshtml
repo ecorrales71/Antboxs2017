@@ -365,7 +365,7 @@
 
                     if (requests == null)
                     {
-                        if (status == 'deposit')
+                        if (status == 'inhouse')
                         {
                             requestObject.antboxsdeposit = antboxs;
                         } else if (status == 'stored')
@@ -379,16 +379,16 @@
                         for (var j = 0; j < requests.length; j++) {
                             if (requests[j].folio == folio) {
                                 found = true;
-                                if ((status != 'deposit')&&((status != 'stored'))) {
+                                if ((status != 'inhouse')&&((status != 'stored'))) {
                                     requests[j].antboxs.push(antboxs);
                                 } else if (status == 'stored') {
-                                    requestObject.antboxstore = antboxs;
+                                    requests[j].antboxstore.push(antboxs);
                                 }
                             }
                         }
                         if (!found)
                         {
-                            if (status == 'deposit') {
+                            if (status == 'inhouse') {
                                 requestObject.antboxsdeposit = antboxs;
                             } else if (status == 'stored') {
                                 requestObject.antboxstore = antboxs;
@@ -533,11 +533,15 @@
                             cadhtml += "                        <div class=\"col-sm-8 col-xs-12 antboxs_txt\" >";
                             cadhtml += "                            <h4><span class=\"name-antbox\">" + antboxv.Name + " - " + antboxv.Folio + " " + antboxv.EnDeposito + "<\/h4>";
                             cadhtml += "                            <p class=\"description-antbox\">" + antboxv.Descriptionv + "<\/p>";
-                            cadhtml += "                            <div class=\"checkboxFive\">";
-                            cadhtml += "                                <input type=\"checkbox\" value=\"1\" data-folio=\"" + antboxv.Folio + "\" id=\"checkboxFiveInput-" + antboxv.Id + "\" data-id=\"" + antboxv.Id + "\" data-serial=\"" + antboxv.Serial + "\" class=\"select-antbox-check\" name=\"\">";
-                            cadhtml += "                                <label for=\"checkboxFiveInput-" + antboxv.Id + "\" class=\"select-antbox\" ></label>";
-                            cadhtml += "                            </div>";
-                            cadhtml += "                            <button type=\"button\" class=\"btn btn-primary btn-sm pull-right ml20 solicitar\" data-toggle=\"modal\" data-folio=\"" + antboxv.Folio + "\" data-id=\"" + antboxv.Id + "\" data-status=\"" + antboxv.Status + "\" data-target=\"#solicitar\">Solicitar<\/button>";
+                            
+                            if (antboxv.Status != 'reserved')
+                            {
+                                cadhtml += "                            <div class=\"checkboxFive\">";
+                                cadhtml += "                                <input type=\"checkbox\" value=\"1\" data-folio=\"" + antboxv.Folio + "\" id=\"checkboxFiveInput-" + antboxv.Id + "\" data-id=\"" + antboxv.Id + "\" data-folio=\"" + antboxv.Folio + "\" data-serial=\"" + antboxv.Serial + "\" data-status=\"" + antboxv.Status + "\" class=\"select-antbox-check\" name=\"\">";
+                                cadhtml += "                                <label for=\"checkboxFiveInput-" + antboxv.Id + "\" class=\"select-antbox\" ></label>";
+                                cadhtml += "                            </div>";
+                                cadhtml += "                            <button type=\"button\" class=\"btn btn-primary btn-sm pull-right ml20 solicitar\" data-toggle=\"modal\" data-folio=\"" + antboxv.Folio + "\" data-id=\"" + antboxv.Id + "\" data-status=\"" + antboxv.Status + "\" data-target=\"#solicitar\">Solicitar<\/button>";
+                            }
                             cadhtml += "                            <button type=\"button\" class=\"btn btn-primary btn-sm pull-right btn_blue editar\" data-toggle=\"modal\" data-id=\"" + antboxv.Id + "\" data-target=\"#editar\">Editar<\/button>";
                             cadhtml += "                        <\/div>";
                             cadhtml += "                    <\/div>";

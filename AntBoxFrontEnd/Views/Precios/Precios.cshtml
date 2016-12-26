@@ -273,13 +273,14 @@
 
         var priceObj = $('#Price_' + ide)
         var quantityObj = $('#quantity_' + ide)
+        var secureObj = $('#secure_' + ide)
 
         if (isNaN(quantityObj.val()) || quantityObj.val() == '') {
             quantityObj.val(0);
         }
 
         var price = priceObj.html();
-        var deposit = 158;
+        var deposit = parseFloat(secureObj.val());
         var quantity = quantityObj.val();
 
         quantity++;
@@ -320,6 +321,7 @@
 
         var priceObj = $('#Price_' + ide)
         var quantityObj = $('#quantity_' + ide)
+        var secureObj = $('#secure_' + ide)
 
         if (isNaN(quantityObj.val()) || quantityObj.val() == '') {
             quantityObj.val(0);
@@ -327,7 +329,7 @@
 
         var price = priceObj.html();
         var quantity = quantityObj.val();
-        var deposit = 158;
+        var deposit = parseFloat(secureObj.val());
 
         quantity--;
         if (quantity>=0)

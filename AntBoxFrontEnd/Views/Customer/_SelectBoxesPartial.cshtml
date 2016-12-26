@@ -57,6 +57,7 @@
                                 <a href="" class="plus" onclick='AddBox(@rowNo)' >+</a>
                             </td>
                             <td class="product-subtotal no_iphone_portrait">
+                                <input type="hidden" name="secure" id="secure_@rowNo" value="@item.Secure" />
                                 <input type="hidden" class="deposit_antbox_total" value="0" />
                                 <input type="hidden" id="cantvalue_@rowNo" class="cantvalue" value="0" />
                                 $ <span class="amount toSum" id='LineTotal_@rowNo'> @item.LineTotal</span>
@@ -203,8 +204,9 @@
         var p = '#Price_' + ide;
         var q = '#quantity_' + ide;
 
-        var priceObj = $('#Price_' + ide)
-        var quantityObj = $('#quantity_' + ide)
+        var priceObj = $('#Price_' + ide);
+        var quantityObj = $('#quantity_' + ide);
+        var secureObj = $('#secure_' + ide);
 
         var price = priceObj.html();
 
@@ -215,7 +217,7 @@
 
         var quantity = quantityObj.val();
 
-        var deposit = 158;
+        var deposit = parseFloat(secureObj.val());
 
         quantity++;
 
@@ -255,6 +257,7 @@
 
         var priceObj = $('#Price_' + ide)
         var quantityObj = $('#quantity_' + ide)
+        var secureObj = $('#secure_' + ide);
 
         if (isNaN(quantityObj.val()) || quantityObj.val() == '') {
             quantityObj.val(1);
@@ -262,7 +265,7 @@
 
         var price = priceObj.html();
         var quantity = quantityObj.val();
-        var deposit = 158;
+        var deposit = parseFloat(secureObj.val());
 
         quantity--;
         if (quantity>=0)
