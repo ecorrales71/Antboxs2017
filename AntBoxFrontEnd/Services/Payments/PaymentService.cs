@@ -220,7 +220,7 @@ namespace AntBoxFrontEnd.Services.Payments
             }
         }
 
-        public virtual List<PaymentDetailResponse> PaymentDetail(string customer, string folio, RequestOptions requestOptions = null)
+        public virtual List<PaymentDetailResponse> PaymentDetail(string customer, string folio, string taskId, RequestOptions requestOptions = null)
         {
             requestOptions = SetupRequestOptions(requestOptions);
 
@@ -231,6 +231,7 @@ namespace AntBoxFrontEnd.Services.Payments
                 var parameters = new Dictionary<string, string>();
                 parameters.Add("customer_id", customer);
                 parameters.Add("folio", folio);
+                parameters.Add("task_id", taskId);
 
                 var encodedParams = Infrastructure.UrlHelper.BuildURLParametersString(parameters);
 

@@ -97,10 +97,10 @@ namespace AntBoxFrontEnd.Controllers
                     }
                     if (antboxsstore != null)
                     {
-                        var folioRecoleccion = CheckOutBox(worker, antboxsstore);
+                        var folioRecoleccion = CheckOutBox(worker, antboxsstore, address);
                         if (!string.IsNullOrEmpty(folioRecoleccion))
                         {
-                            isTaskDeliveryCreated = CreateDeliveryTask(fecha, hora, address, worker, folioEntrega);
+                            isTaskDeliveryCreated = CreateDeliveryTask(fecha, hora, address, worker, folioRecoleccion);
                         }
                     } if (antboxs != null)
                     {

@@ -130,7 +130,7 @@ namespace AntBoxFrontEnd.Controllers
         }
 
         [HttpPost]
-        public ActionResult Recibo(string folio)
+        public ActionResult Recibo(string folio, string taskId)
         {
             //var servicioTask = new TaskService(ServiceConfiguration.GetApiKey());
             var servicioAntBox = new AntBoxesServices(ServiceConfiguration.GetApiKey());
@@ -141,7 +141,7 @@ namespace AntBoxFrontEnd.Controllers
             try
             {
                 result = servicioAntBox.ListAntBoxesTasks(((CustomerResponse)Session["customer"]).Id, folio, AntBoxStatusEnum.Defualt, 1);
-                payments = ps.PaymentDetail(((CustomerResponse)Session["customer"]).Id, folio);
+                payments = ps.PaymentDetail(((CustomerResponse)Session["customer"]).Id, folio, taskId);
             }
             catch (Exception ex)
             {

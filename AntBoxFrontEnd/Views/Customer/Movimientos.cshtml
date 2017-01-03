@@ -618,7 +618,8 @@
                     $('.firma_recoleccion').attr("src", "http://64.28.103.85:8082/assets/sign" + tasks[i].id + ".png");
 
                     var formData = {};
-                    formData.folio = tasks[i].folio
+                    formData.folio = tasks[i].folio;
+                    formData.taskId = tasks[i].id;
                     var boxes = [];
                     $("#loader-recoleccion").show();
                     $.ajax({
@@ -657,12 +658,16 @@
                             var depositos = 0;
                             var cargos = 0;
                             var reembolso = 0;
-                            for (var i = 0; i < result.payments.length; i++) {
-                                if (result.payments[i].Type == 'payment') rentas += parseInt(result.payments[i].Amount);
-                                else if (result.payments[i].Type == 'deposit') depositos += parseInt(result.payments[i].Amount);
-                                else if (result.payments[i].Type == 'refund') reembolso += parseInt(result.payments[i].Amount);
-                                cargos = rentas + depositos;
+                            if (result.payments != null)
+                            {
+                                for (var i = 0; i < result.payments.length; i++) {
+                                    if (result.payments[i].Type == 'payment') rentas += parseInt(result.payments[i].Amount);
+                                    else if (result.payments[i].Type == 'deposit') depositos += parseInt(result.payments[i].Amount);
+                                    else if (result.payments[i].Type == 'refund') reembolso += parseInt(result.payments[i].Amount);
+                                    cargos = rentas + depositos;
+                                }
                             }
+                            
 
                             $('.rentasr').text("$ " + rentas.toFixed(2));
                             $('.depositosr').text("$ " + depositos.toFixed(2));
@@ -707,7 +712,8 @@
                     $('#content-boxes-recibo').html('');
 
                     var formData = {};
-                    formData.folio = tasks[i].folio
+                    formData.folio = tasks[i].folio;
+                    formData.taskId = tasks[i].id;
                     var boxes = [];
                     $("#loader-entrega").show();
                     $.ajax({

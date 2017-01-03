@@ -443,7 +443,13 @@
                             if (count == requests.length) {
                                 showLoad(0);
                                 $("#loader-solicitar").hide();
-                                if (succesed[0] == 1) {
+                                verifsuccesed = true; var cantsuccesed = 0;
+                                for (var a = 0; a < succesed.length; a++)
+                                {
+                                    if (succesed[a] != 1) verifsuccesed = false;
+                                    else cantsuccesed++;
+                                }
+                                if (verifsuccesed) {
                                     var mensaje = "Antboxs solicitados correctamente";
                                     if (requests.length > 1) mensaje = "Antbox solicitado correctamente";
                                     verifCloseModal = true;
@@ -454,7 +460,12 @@
                                     });
                                     $('#solicitar').modal('hide');
                                 } else {
-                                    mostrarMensaje($('#form-solicitar-antbox'), "antboxMensaje", "Error al solicitar antbox intentelo de nuevo", "alert-warning");
+                                    if (succesed.length == 1)
+                                        mostrarMensaje($('#form-solicitar-antbox'), "antboxMensaje", "Error al solicitar el antbox intentelo de nuevo", "alert-warning");
+                                    else if (succesed.length > 1 && cantsuccesed > 0)
+                                        mostrarMensaje($('#form-solicitar-antbox'), "antboxMensaje", "Alguno de los antboxs solictados no se ha podido solicitar correctamente, por favor intente de nuevo", "alert-warning");
+                                    else if (succesed.length > 1 && cantsuccesed == 0)
+                                        mostrarMensaje($('#form-solicitar-antbox'), "antboxMensaje", "Error al solicitar los antbox, por favor intente de nuevo", "alert-warning");
                                 }
                                 //element.parent().find('.name-antbox').text($('#mname-antbox').val());
                                 //element.parent().find('.description-antbox').text($('#mdescription-antbox').val());

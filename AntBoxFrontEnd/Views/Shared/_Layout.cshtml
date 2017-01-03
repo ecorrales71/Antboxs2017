@@ -244,7 +244,7 @@
                     <div class="modal-form div-login div-cont">
                         <form id="LoginForm">
                             <div class="form-group">
-                                <label for="username">Usuario</label>
+                                <label for="username">Correo electrónico</label>
                                 <input type="text" name="username" id="usernamer">
                             </div>
                             <div class="form-group">
@@ -568,7 +568,7 @@
             success: function (result) {
                 if (result.success == false) {
                     $('#body-content').prepend(
-                    '<div class="alert alert-warning" role="alert" id="LoginFailAlert">Usuario o Password no valido.</div>');
+                    '<div class="alert alert-warning" role="alert" id="LoginFailAlert">Correo electrónico o Password no valido.</div>');
                     window.setTimeout(function ()
                     { $("#LoginFailAlert").alert('close'); }, 2000);
                 }
@@ -601,7 +601,7 @@
                 success: function (result) {
                     if (result.success == false) {
                         //$('#body-content').prepend(
-                        //'<div class="alert alert-warning" role="alert" id="LoginFailAlert">Usuario o Password no valido.</div>');
+                        //'<div class="alert alert-warning" role="alert" id="LoginFailAlert">Correo electrónico o Password no valido.</div>');
                         $('.preloader').hide();
 
                         eleb.removeClass("disablebutton");
