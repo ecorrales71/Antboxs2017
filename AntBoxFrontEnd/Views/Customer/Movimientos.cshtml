@@ -398,7 +398,7 @@
 
                             if (taskv.Antboxs != null) {
                                 for (var j = 0; j < taskv.Antboxs.length; j++) {
-                                    antboxs = {
+                                    antboxs.push({
                                         Descriptionv: taskv.Antboxs[j].Descriptionv,
                                         Box: {
                                             Label: taskv.Antboxs[j].Box.Label,
@@ -408,7 +408,7 @@
                                             taskv.Antboxs[j].Padlocks[0],
                                             taskv.Antboxs[j].Padlocks[1]
                                         ]
-                                    }
+                                    });
                                 }
                             }
 

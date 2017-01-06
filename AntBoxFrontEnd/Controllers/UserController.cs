@@ -1,5 +1,6 @@
 ﻿using AntBoxFrontEnd.Infrastructure;
 using AntBoxFrontEnd.Services.User;
+using AntBoxFrontEnd.Services.Worker;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,8 +23,27 @@ namespace AntBoxFrontEnd.Controllers
                     return Json(new { success = false, responseText = "Opción no permitida" }, JsonRequestBehavior.AllowGet);
                 }
 
-                var ser = new UserServices(ServiceConfiguration.GetApiKey());
-                var res = ser.CreateUser(modelUser);
+                if (modelUser.Profile == "worker")
+                {
+                    var ser = new WorkerService(ServiceConfiguration.GetApiKey());
+                    var wr = new WorkerRequestOption
+                    {
+                        Email = modelUser.Email,
+                        Name = modelUser.Name,
+                        Password = modelUser.Password,
+                        Phone = modelUser.Mobile_phone,
+                        Capacity = null,
+                        Status = null,
+                        Vehicle = null
+                    };
+                    var res = ser.CreateWorker(wr);
+                }
+                else
+                {
+                    var ser = new UserServices(ServiceConfiguration.GetApiKey());
+                    var res = ser.CreateUser(modelUser);
+                }
+                
                 return Json(new { success = true, responseText = "USUARIO AGREGADO CORRECTAMENTE" }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)

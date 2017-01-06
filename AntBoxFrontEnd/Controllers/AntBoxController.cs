@@ -97,14 +97,14 @@ namespace AntBoxFrontEnd.Controllers
                     }
                     if (antboxsstore != null)
                     {
-                        var folioRecoleccion = CheckOutBox(worker, antboxsstore, address);
-                        if (!string.IsNullOrEmpty(folioRecoleccion))
+                        if (antboxsstore.Count > 0)
                         {
-                            isTaskDeliveryCreated = CreateDeliveryTask(fecha, hora, address, worker, folioRecoleccion);
+                            var folioRecoleccion = CheckOutBox(worker, antboxsstore, address);
+                            if (!string.IsNullOrEmpty(folioRecoleccion))
+                            {
+                                isTaskDeliveryCreated = CreateDeliveryTask(fecha, hora, address, worker, folioRecoleccion);
+                            }
                         }
-                    } if (antboxs != null)
-                    {
-                        isTaskDeliveryCreated = CreateDeliveryTask(fecha, hora, address, worker, folioEntrega);
                     }
                 }
             } catch (Exception ex)
@@ -168,7 +168,7 @@ namespace AntBoxFrontEnd.Controllers
             return dateResult;
         }
 
-        private string CheckOutBox(string workerid, List<antboxssolicitud> antboxs)
+        private string CheckOutBox(string workerid, List<antboxssolicitud> antboxs, string address)
         {
             var ids = new List<AntBoxObjectCheckout>();
             foreach (var item in antboxs)
@@ -186,7 +186,9 @@ namespace AntBoxFrontEnd.Controllers
 
                 Customer_id = ((CustomerResponse)Session["customer"]).Id,
 
-                Worker_id = workerid
+                Worker_id = workerid,
+
+                Address_id = address
             };
 
             var serv = new AntBoxesServices(ServiceConfiguration.GetApiKey());

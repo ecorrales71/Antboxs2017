@@ -339,7 +339,7 @@ namespace AntBoxFrontEnd.Controllers
                 else
                     waitTimeWorker = Convert.ToBoolean(esperar.ToLower());
 
-                var folioRecoleccion = CheckOutBox(workerRec);
+                var folioRecoleccion = CheckOutBox(workerRec, dirRecolId);
 
                 bool isTaskPickupCreated;
                 if (string.IsNullOrEmpty(folioRecoleccion))
@@ -362,7 +362,7 @@ namespace AntBoxFrontEnd.Controllers
         }
 
 
-        private string CheckOutBox(string workerid)
+        private string CheckOutBox(string workerid, string address)
         {
             var boxes = GetAntboxesTemp();
 
@@ -395,7 +395,9 @@ namespace AntBoxFrontEnd.Controllers
 
                 Worker_id = workerid,
 
-                Coupon_id = coupon
+                Coupon_id = coupon,
+
+                Address_id = address
             };
 
             var serv = new AntBoxesServices(ServiceConfiguration.GetApiKey());
@@ -643,7 +645,7 @@ namespace AntBoxFrontEnd.Controllers
                                 else
                                     waitTimeWorker = Convert.ToBoolean(modeltask.Esperar.ToLower());
 
-                                var folioRecoleccion = CheckOutBox(modeltask.Horario);
+                                var folioRecoleccion = CheckOutBox(modeltask.Horario, dirRec);
                                 bool isTaskPickupCreated;
                                 if (string.IsNullOrEmpty(folioRecoleccion))
                                     return Json(new { success = false, verif = 4, responseText = "Ocurrio un error al solicitar las cajas de recoleccion" }, JsonRequestBehavior.AllowGet);

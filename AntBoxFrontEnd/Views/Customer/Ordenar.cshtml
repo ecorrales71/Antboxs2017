@@ -150,8 +150,7 @@
                                         <div class="row mt10">
                                             <div class="col-sm-12">
                                                 <div class="irow-xs">
-                                                    <h3>Dirección de entrega</h3>
-                                                    <p>¿Dónde y cuándo debemos recoger Antboxs?</p>
+                                                    <h3>¿Dónde y cuándo debemos recoger Antboxs?</h3>
                                                 </div>
                                             </div>
                                         </div>
@@ -729,12 +728,17 @@
                     $('.todisplay').fadeIn('slow');
                     $('.chkEsperar').prop('checked', true);
                     $('.direccion-entrega').show();
+                    if ($('#deposito').is(':visible')) {
+                        $('.anchorprecio').trigger('click');
+                    }
+                    $('.anchordeposito').hide();
                 }
                 else
                 {
                     $('.chkEsperar').prop('checked', false);
                     $('.direccion-entrega').hide();
                     $('.todisplay').fadeOut('slow');
+                    $('.anchordeposito').show();
                 }
 
             });
@@ -794,10 +798,16 @@
                     $('.checkdisplay').prop('checked', true);
                     $('.direccion-entrega').show();
                     $('.todisplay').fadeIn('slow');
+                    if ($('#deposito').is(':visible'))
+                    {
+                        $('.anchorprecio').trigger('click');
+                    }
+                    $('.anchordeposito').hide();
                 } else {
                     $('.checkdisplay').prop('checked', false);
                     $('.direccion-entrega').hide();
                     $('.todisplay').fadeOut('slow');
+                    $('.anchordeposito').show();
                 }
             })
         })

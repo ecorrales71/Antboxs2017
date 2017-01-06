@@ -545,7 +545,7 @@
                             cadhtml += "                            <h4><span class=\"name-antbox\">" + antboxv.Name + " - " + antboxv.Folio + " " + antboxv.EnDeposito + "<\/h4>";
                             cadhtml += "                            <p class=\"description-antbox\">" + antboxv.Descriptionv + "<\/p>";
                             
-                            if (antboxv.Status != 'reserved')
+                            if ((antboxv.Status != 'reserved')&&(antboxv.Status != 'delivering'))
                             {
                                 cadhtml += "                            <div class=\"checkboxFive\">";
                                 cadhtml += "                                <input type=\"checkbox\" value=\"1\" data-folio=\"" + antboxv.Folio + "\" id=\"checkboxFiveInput-" + antboxv.Id + "\" data-id=\"" + antboxv.Id + "\" data-folio=\"" + antboxv.Folio + "\" data-serial=\"" + antboxv.Serial + "\" data-status=\"" + antboxv.Status + "\" class=\"select-antbox-check\" name=\"\">";

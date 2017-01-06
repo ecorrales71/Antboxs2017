@@ -340,7 +340,7 @@ namespace AntBoxFrontEnd.Services
             return ts.CreateTask(t);
         }
 
-        public string CreateAntBoxesOrder(string idbox, string customer, string worker)
+        public string CreateAntBoxesOrder(string idbox, string customer, string worker, string address)
         {
             var order = new AntBoxRequestOptions()
             {
@@ -353,8 +353,9 @@ namespace AntBoxFrontEnd.Services
                 
                 Customer_id = customer,
                 
-                Worker_id = worker
+                Worker_id = worker,
 
+                Address_id = address
             };
 
             var serv = new AntBoxesServices(ServiceConfiguration.GetApiKey());
@@ -383,22 +384,22 @@ namespace AntBoxFrontEnd.Services
 
         private void CreateWorker(int num)
         {
-            for(int i = 0; i< num; i++)
-            {
-                var cus = new WorkerRequestOption
-                {                    
-                    Email = "prueba"+ i+"@prueba.com",
-                    Name = "Prueba nombre " +i,
-                    Phone = "Prueba Apellido paterno " + i,
-                    Capacity = 1,
-                    Password = "123456",
-                    Status = true                    
-                };
+            //for(int i = 0; i< num; i++)
+            //{
+            //    var cus = new WorkerRequestOption
+            //    {                    
+            //        Email = "prueba"+ i+"@prueba.com",
+            //        Name = "Prueba nombre " +i,
+            //        Phone = "Prueba Apellido paterno " + i,
+            //        Capacity = 1,
+            //        Password = "123456",
+            //        Status = true                    
+            //    };
 
-                var ser = new WorkerService(ServiceConfiguration.GetApiKey());
+            //    var ser = new WorkerService(ServiceConfiguration.GetApiKey());
 
-                var res = ser.CreateWorker(cus);
-            }
+            //    var res = ser.CreateWorker(cus);
+            //}
         }
 
 

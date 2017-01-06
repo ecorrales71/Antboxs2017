@@ -18,13 +18,13 @@ namespace AntBoxFrontEnd.Services.Worker
         public string Phone { get; set; }
 
         [JsonProperty("status")]
-        public bool Status { get; set; }
+        public string Status { get; set; }
 
         [JsonProperty("vehicle")]
         public Vehicle Vehicle { get; set; }
 
         [JsonProperty("capacity")]
-        public int Capacity { get; set; }
+        public string Capacity { get; set; }
 
      
     }
