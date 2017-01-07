@@ -347,10 +347,10 @@
                     var status = $(this).attr("data-status");
 
                     var found = false;
-                    var antboxs = [{
+                    var antboxs = {
                         serial: serial,
                         id: id
-                    }];
+                    };
                     var antboxsdeposit = [];
                     var antboxsstore = [];
                     
@@ -367,12 +367,12 @@
                     {
                         if (status == 'inhouse')
                         {
-                            requestObject.antboxsdeposit = antboxs;
+                            requestObject.antboxsdeposit = [antboxs];
                         } else if (status == 'stored')
                         {
-                            requestObject.antboxstore = antboxs;
+                            requestObject.antboxstore = [antboxs];
                         } else {
-                            requestObject.antboxs = antboxs;
+                            requestObject.antboxs = [antboxs];
                         }
                         requests = [requestObject];
                     } else {
@@ -383,6 +383,8 @@
                                     requests[j].antboxs.push(antboxs);
                                 } else if (status == 'stored') {
                                     requests[j].antboxstore.push(antboxs);
+                                } else if (status == 'inhouse') {
+                                    requests[j].antboxsdeposit.push(antboxs);
                                 }
                             }
                         }
@@ -402,7 +404,7 @@
                 });
 
                 console.log(requests);
-                showLoad(0);
+                if (requests.length == 0) showLoad(0);
 
                 for (var j = 0; j < requests.length; j++) {
                     var formData = {

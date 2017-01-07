@@ -337,3 +337,6 @@ a:hover {
     opacity: .6;
     cursor: none;
 }
+.font-bold {
+    font-family: 'Nexa_Bold', FontAwesome !important; 
+}

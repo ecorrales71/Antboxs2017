@@ -248,6 +248,7 @@
     <Compile Include="Controllers\CatalogoController.cs" />
     <Compile Include="Controllers\BillingAddressController.cs" />
     <Compile Include="Controllers\ClientController.cs" />
+    <Compile Include="Controllers\WorkerController.cs" />
     <Compile Include="Controllers\ZipCodeController.cs" />
     <Compile Include="Controllers\CodeController.cs" />
     <Compile Include="Controllers\CouponController.cs" />
@@ -815,6 +816,7 @@
     <Content Include="Views\Admin\ReporteEntregas.cshtml" />
     <Content Include="Views\CustomerService\Cuenta.cshtml" />
     <Content Include="Views\Admin\ReporteProspectos.cshtml" />
+    <Content Include="Views\Admin\Operadores.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Content\Admin\CSV\" />

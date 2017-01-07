@@ -11,6 +11,7 @@ using AntBoxFrontEnd.Services.Listing;
 using AntBoxFrontEnd.Services.Login;
 using AntBoxFrontEnd.Services.Payments;
 using AntBoxFrontEnd.Services.User;
+using AntBoxFrontEnd.Services.Worker;
 using AntBoxFrontEnd.Services.Zipcodes;
 using AutoMapper;
 using System;
@@ -37,6 +38,22 @@ namespace AntBoxFrontEnd.Controllers
             try
             {
                 result = servicio.ListUsersPagination(1);
+            }
+            catch (Exception ex)
+            {
+            }
+
+            return View(result);
+        }
+
+        public ActionResult Operadores()
+        {
+            var servicio = new WorkerService(ServiceConfiguration.GetApiKey());
+
+            PaginationUser result = new PaginationUser();
+            try
+            {
+                //result = servicio.ListUsersPagination(1);
             }
             catch (Exception ex)
             {

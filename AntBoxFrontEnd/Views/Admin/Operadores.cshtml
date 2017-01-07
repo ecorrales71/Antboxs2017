@@ -35,7 +35,7 @@
         @Html.Hidden("total", @Model.Total)
         @Html.Hidden("pages", @Model.Pages)
         <div id="loader" role="alert" style="display: none;">
-            <img src="@Url.Content("~/Images/preloader.gif")" />   Cargando usuarios... &nbsp;
+            <img src="@Url.Content("~/Images/preloader.gif")" />   Cargando operadores... &nbsp;
         </div>
         <div class="row">
             <div class="col-sm-12">
@@ -85,7 +85,7 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal"><i class="fa fa-times"></i></button>
-                            <h6 class="modal-title">Crear Usuario</h6>
+                            <h6 class="modal-title">Crear Operador</h6>
                         </div>
                         <div class="modal-body">
                             <form method="post" id="form-agregar" novalidate>
@@ -157,7 +157,7 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal"><i class="fa fa-times"></i></button>
-                            <h6 class="modal-title">Editar Usuario</h6>
+                            <h6 class="modal-title">Editar Operador</h6>
                         </div>
                         <div class="modal-body">
                             <form method="post" id="form-editar" novalidate>

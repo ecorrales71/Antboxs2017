@@ -89,3 +89,6 @@ p, address, .pagetitle .subtitle, .rs {
     color: #000;
     font-size: 115% !important;
 }
+.font-bold {
+    font-family: 'Nexa_Bold', FontAwesome !important; 
+}
