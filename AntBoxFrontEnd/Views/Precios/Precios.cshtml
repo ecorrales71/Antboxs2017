@@ -183,9 +183,21 @@
 
         $('.checkdisplay').change(function () {
             if (this.checked)
+            {
                 $('.todisplay').fadeIn('slow');
+                $('.depositomensaje').fadeIn('slow');
+                if ($('#deposito').is(':visible')) {
+                    $('.anchorprecio').trigger('click');
+                }
+                $('.anchordeposito').hide();
+            }
             else
+            {
                 $('.todisplay').fadeOut('slow');
+                $('.depositomensaje').fadeOut('slow');
+                $('.anchordeposito').show();
+            }
+                
 
         });
 

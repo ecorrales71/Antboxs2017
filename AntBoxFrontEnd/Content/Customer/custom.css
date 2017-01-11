@@ -521,3 +521,10 @@ ul.pagination .prev, ul.pagination .next {
 .has-error .chosen-container {
     background-color: #ffc7c7 !important;
 }
+
+.depositomensaje p.firstm {
+    text-align: left;
+    font-size: 14px !important;
+    color: #666 !important;
+    margin-left: 21px;
+}

@@ -82,7 +82,7 @@ namespace AntBoxFrontEnd.Services.User
             return true;
         }
 
-        public virtual PaginationUser ListUsersPagination(int currentPage, string idPagination = null, RequestOptions requestOptions = null)
+        public virtual PaginationUser ListUsersPagination(int? currentPage, string idPagination = null, RequestOptions requestOptions = null)
         {
             try
             {
@@ -91,6 +91,13 @@ namespace AntBoxFrontEnd.Services.User
                 var parameters = new Dictionary<string, string>();
 
                 parameters.Add("role", "all");
+
+                if (!string.IsNullOrEmpty(idPagination))
+                {
+                    parameters.Add("pagination_id", idPagination);
+                    parameters.Add("page_number", currentPage.ToString());
+                }
+                
 
                 var encodedParams = Infrastructure.UrlHelper.BuildURLParametersString(parameters);
 

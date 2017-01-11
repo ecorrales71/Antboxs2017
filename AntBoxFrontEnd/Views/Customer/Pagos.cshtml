@@ -824,31 +824,6 @@ function goto_rndf(reload)
         });
 
         $('.form-card').validate({
-            rules: {
-                name: {
-                    required: true
-                },
-                numero: {
-                    required: true,
-                    number: true,
-                    maxlength: 20
-                },
-                mm: {
-                    required: true,
-                    number: true,
-                    maxlength: 2
-                },
-                yy: {
-                    required: true,
-                    number: true,
-                    maxlength: 2
-                },
-                cvv: {
-                    required: true,
-                    number: true,
-                    maxlength: 5
-                }
-            },
             highlight: function (element) {
                 $(element).closest('.form-group').addClass('has-error');
             },
@@ -865,6 +840,12 @@ function goto_rndf(reload)
                 }
             }
         });
+
+        $("#card-holder-name").rules('add', { required: true });
+        $("#card-number").rules('add', { required: true, number: true, maxlength: 20 });
+        $("#card-exp-month").rules('add', { required: true, number: true, maxlength: 2 });
+        $("#card-exp-year").rules('add', { required: true, number: true, maxlength: 2 });
+        $("#card-cvv").rules('add', { required: true, number: true, maxlength: 5 });
 
         $('.form-afacturacion').validate({
             rules: {

@@ -303,6 +303,7 @@
     <Compile Include="Models\ReportePickupsModel.cs" />
     <Compile Include="Models\ReporteProspectosModel.cs" />
     <Compile Include="Models\ReporteUsuariosModel.cs" />
+    <Compile Include="Models\UserModel.cs" />
     <Compile Include="Models\ZipCodeModel.cs" />
     <Compile Include="Models\OrderListModel.cs" />
     <Compile Include="Models\DeliveryListModel.cs" />

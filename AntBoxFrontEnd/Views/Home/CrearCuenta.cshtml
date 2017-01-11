@@ -394,28 +394,6 @@
                     minlength: 8,
                     maxlength: 20
                 },
-                Cardname: {
-                    required: true,
-                    lettersonly: true
-                },
-                Cardnumber: {
-                    required: true,
-                    number: true
-                },
-                Month: {
-                    required: true,
-                    number: true,
-                    maxlength: 2
-                },
-                Year: {
-                    required: true,
-                    number: true,
-                    maxlength: 2
-                },
-                CVC: {
-                    required: true,
-                    number: true
-                },
                 "check_politicas": {
                     required: true
                 }, 
@@ -439,6 +417,11 @@
                 }
             }
         });
+        $('#cardnumber').rules('add', { required: true, number: true, maxlength: 20 });
+        $('#cardname').rules('add', { required: true, lettersonly: true });
+        $('#year').rules('add', { required: true, number: true, maxlength: 2 });
+        $('#month').rules('add', { required: true, number: true, maxlength: 2 });
+        $('#cvv').rules('add', { required: true, number: true, maxlength: 5 });
     })
     function generate_token() {
 

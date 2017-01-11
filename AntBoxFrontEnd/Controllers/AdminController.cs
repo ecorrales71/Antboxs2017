@@ -30,20 +30,35 @@ namespace AntBoxFrontEnd.Controllers
     public class AdminController : Controller
     {
         // GET: Admin
-        public ActionResult Index()
+        public ActionResult Index(int? page, string idpagination, string vp)
         {
             var servicio = new UserServices(ServiceConfiguration.GetApiKey());
+
+            UserModel model = new UserModel();
+
+            if (string.IsNullOrEmpty(vp))
+            {
+                page = 1;
+                model.Page = 1;
+                idpagination = null;
+            }
+            else
+            {
+                model.Page = page;
+            }
 
             PaginationUser result = new PaginationUser();
             try
             {
-                result = servicio.ListUsersPagination(1);
+                result = servicio.ListUsersPagination(page, idpagination);
             }
             catch (Exception ex)
             {
             }
 
-            return View(result);
+            model.Users = result;
+            
+            return View(model);
         }
 
         public ActionResult Operadores()

@@ -32,6 +32,9 @@ namespace AntBoxFrontEnd.Services.User
         [JsonProperty("lastname2")]
         public string Lastname2 { get; set; }
 
+        [JsonProperty("phone")]
+        public string Phone { get; set; }
+
         [JsonProperty("lastnamev")]
         public string Lastnamev
         {
@@ -58,6 +61,38 @@ namespace AntBoxFrontEnd.Services.User
                 else
                 {
                     return Lastname2;
+                }
+            }
+        }
+
+        [JsonProperty("usernamev")]
+        public string Usernamev
+        {
+            get
+            {
+                if (Username == "undefined")
+                {
+                    return "";
+                }
+                else
+                {
+                    return Lastname2;
+                }
+            }
+        }
+
+        [JsonProperty("phonev")]
+        public string Phonev
+        {
+            get
+            {
+                if (System_profile == "worker")
+                {
+                    return Phone;
+                }
+                else
+                {
+                    return Mobile_phone;
                 }
             }
         }

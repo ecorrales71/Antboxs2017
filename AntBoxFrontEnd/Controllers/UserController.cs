@@ -33,10 +33,18 @@ namespace AntBoxFrontEnd.Controllers
                         Password = modelUser.Password,
                         Phone = modelUser.Mobile_phone,
                         Capacity = null,
-                        Status = null,
+                        Status = "true",
                         Vehicle = null
                     };
                     var res = ser.CreateWorker(wr);
+                    if (res)
+                    {
+                        return Json(new { success = true, responseText = "USUARIO AGREGADO CORRECTAMENTE" }, JsonRequestBehavior.AllowGet);
+                    }
+                    else
+                    {
+                        return Json(new { success = false, responseText = "OCURRIO UN ERROR AL REGISTRAR EL USUARIO" }, JsonRequestBehavior.AllowGet);
+                    }
                 }
                 else
                 {
@@ -53,35 +61,52 @@ namespace AntBoxFrontEnd.Controllers
             }
         }
 
-        public JsonResult UpdateUser(string id, string name, string lastname, string lastname2, string mobile_phone, string profile, bool change_password, bool status)
+        public JsonResult UpdateUser(string id, string name, string lastname, string lastname2, string mobile_phone, string profile, bool? change_password, bool? status)
         {
             try
             {
-                bool change_passwordv;
-
-                change_passwordv = change_password;
-
-                if (Session["admin"] == null)
+                if (profile != "worker")
                 {
-                    return Json(new { success = false, responseText = "Opción no permitida" }, JsonRequestBehavior.AllowGet);
+                    bool? change_passwordv;
+
+                    change_passwordv = change_password;
+
+                    if (Session["admin"] == null)
+                    {
+                        return Json(new { success = false, responseText = "Opción no permitida" }, JsonRequestBehavior.AllowGet);
+                    }
+
+                    UserUpdateOptions up = new UserUpdateOptions
+                    {
+                        Name = name,
+                        Lastname = lastname,
+                        Lastname2 = lastname2,
+                        Mobile_phone = mobile_phone,
+                        Profile = profile,
+                        Change_password = change_passwordv,
+                        Status = status
+                    };
+
+                    var userService = new UserServices(ServiceConfiguration.GetApiKey());
+
+                    var result = userService.UpdateUser(up, id);
+
+                    return Json(new { success = result, responseText = "Usuario actualizado" }, JsonRequestBehavior.AllowGet);
                 }
-
-                UserUpdateOptions up = new UserUpdateOptions
+                else
                 {
-                    Name = name,
-                    Lastname = lastname,
-                    Lastname2 = lastname2,
-                    Mobile_phone = mobile_phone,
-                    Profile = profile,
-                    Change_password = change_passwordv,
-                    Status = status
-                };
+                    var wu = new WorkerUpdateOptions
+                    {
+                        Name = name,
+                        Status = true
+                    };
+                    var workerService = new WorkerService(ServiceConfiguration.GetApiKey());
+                    var result = workerService.UpdateWorker(wu, id);
+                    if (result)
+                        return Json(new { success = result, responseText = "Se borro exitósamente el registro" }, JsonRequestBehavior.AllowGet);
 
-                var userService = new UserServices(ServiceConfiguration.GetApiKey());
-
-                var result = userService.UpdateUser(up, id);
-
-                return Json(new { success = result, responseText = "Usuario actualizado" }, JsonRequestBehavior.AllowGet);
+                    return Json(new { success = result, responseText = "Ocurrio un error al borrar el registro" }, JsonRequestBehavior.AllowGet);
+                }
 
             }
             catch (Exception ex)
@@ -93,26 +118,48 @@ namespace AntBoxFrontEnd.Controllers
 
         }
 
-        public JsonResult DeleteUser(string id)
+        public JsonResult DeleteUser(string id, string profile)
         {
             var userService = new UserServices(ServiceConfiguration.GetApiKey());
+            var workerService = new WorkerService(ServiceConfiguration.GetApiKey());
 
-            var result = userService.DeleteUser(id);
+            if (profile != "worker")
+            {
+                var result = userService.DeleteUser(id);
+                if (result)
+                    return Json(new { success = result, responseText = "Se borro exitósamente el registro" }, JsonRequestBehavior.AllowGet);
 
+                return Json(new { success = result, responseText = "Ocurrio un error al borrar el registro" }, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                var wu = new WorkerUpdateOptions
+                {
+                    Status = false
+                };
+                var result = workerService.UpdateWorker(wu, id);
+                if (result)
+                    return Json(new { success = result, responseText = "Se borro exitósamente el registro" }, JsonRequestBehavior.AllowGet);
 
-            if(result)
-                return Json(new { success = result, responseText = "Se borro exitósamente el registro" }, JsonRequestBehavior.AllowGet);
-
-            return Json(new { success = result, responseText = "Ocurrio un error al borrar el registro" }, JsonRequestBehavior.AllowGet);
+                return Json(new { success = result, responseText = "Ocurrio un error al borrar el registro" }, JsonRequestBehavior.AllowGet);
+            }
+            
         }
 
-        public JsonResult GetUser(string id)
+        public JsonResult GetUser(string id, string profile)
         {
             var userService = new UserServices(ServiceConfiguration.GetApiKey());
-
-            var result = userService.SearchUser(id);
-
-            return Json(result, JsonRequestBehavior.AllowGet);
+            var workerService = new WorkerService(ServiceConfiguration.GetApiKey());
+            if (profile == "worker")
+            {
+                var result = workerService.SearchWorker(id);
+                return Json(result, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                var result = userService.SearchUser(id);
+                return Json(result, JsonRequestBehavior.AllowGet);
+            }
         }
 
         [HttpPost]

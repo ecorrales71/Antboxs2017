@@ -27,7 +27,7 @@ namespace AntBoxFrontEnd.Services.User
         public Boolean? Change_password { get; set; }
 
         [JsonProperty("status")]
-        public bool Status { get; set; }
+        public bool? Status { get; set; }
 
     }
 }

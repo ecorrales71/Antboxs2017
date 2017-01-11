@@ -102,7 +102,7 @@ namespace AntBoxFrontEnd.Controllers
                             var folioRecoleccion = CheckOutBox(worker, antboxsstore, address);
                             if (!string.IsNullOrEmpty(folioRecoleccion))
                             {
-                                isTaskDeliveryCreated = CreateDeliveryTask(fecha, hora, address, worker, folioRecoleccion);
+                                isTaskDeliveryCreated = CreateDeliveryTask(fecha, hora, address, worker, folioEntrega);
                             }
                         }
                     }

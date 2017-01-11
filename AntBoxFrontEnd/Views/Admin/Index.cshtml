@@ -1,4 +1,4 @@
-﻿@model AntBoxFrontEnd.Services.User.PaginationUser
+﻿@model AntBoxFrontEnd.Models.UserModel
 @{
     ViewBag.Title = "Admin - Usuarios";
 }
@@ -31,9 +31,17 @@
     <!-- /.container -->
     <!-- CONTAINER -->
     <div class="container mt30">
-        @Html.Hidden("idpagination", @Model.Pagination_id)
-        @Html.Hidden("total", @Model.Total)
-        @Html.Hidden("pages", @Model.Pages)
+        <form id="search" method="get" class="form-solid " novalidate>
+            @if (@Model.Users != null)
+            {
+                @Html.Hidden("idpagination", @Model.Users.Pagination_id)
+                @Html.Hidden("total", @Model.Users.Total)
+                @Html.Hidden("pages", @Model.Users.Pages)
+                @Html.Hidden("page", @Model.Page)
+                <input type="hidden" name="idpagination" value="@Model.Users.Pagination_id" />
+    <input type="hidden" id="pagev" value="@Model.Page" />
+            }
+        </form>
         <div id="loader" role="alert" style="display: none;">
             <img src="@Url.Content("~/Images/preloader.gif")" />   Cargando usuarios... &nbsp;
         </div>
@@ -53,29 +61,34 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach (var item in Model.Users)
+                            @if (@Model.Users != null)
                             {
-                                <tr data-id="@item.Id">
-                                    <td class="tusername">@item.Username</td>
-                                    <td class="tname">@item.Name</td>
-                                    <td class="tlastname">@item.Lastname</td>
-                                    <td class="tlastname2">@item.Lastname2v</td>
-                                    <td class="tprofile">@item.System_profile</td>
-                                    <td class="temail">@item.Email</td>
-                                    <td class="tmobile_phone">@item.Mobile_phone</td>
-                                </tr>
+                                foreach (var item in Model.Users.Users)
+                                {
+                                    <tr data-id="@item.Id">
+                                        <td class="tusername">@item.Usernamev</td>
+                                        <td class="tname">@item.Name</td>
+                                        <td class="tlastname">@item.Lastnamev</td>
+                                        <td class="tlastname2">@item.Lastname2v</td>
+                                        <td class="tprofile">@item.System_profile</td>
+                                        <td class="temail">@item.Email</td>
+                                        <td class="tmobile_phone">@item.Phonev</td>
+                                    </tr>
+                                
+                                }
                             }
                         </tbody>
                     </table>
                 </div>
-                        </div>
-                        <div class="col-sm-12 mt10">
-                            <input type="button" class="btn btn-primary btn-wide pull-left" data-toggle="modal" data-target="#crear_usuario" value="Crear Nuevo">
-                            <input id="" type="button" class="btn btn-primary btn_blue btn-wide pull-right eliminar-usuario" onclick="eliminarItem()" value="Eliminar">
-                            <input type="button" class="btn btn-primary btn-wide pull-right mr10 editar-usuario-button" value="Editar">
-                        </div>
-                    </div>
-                </div>
+            </div>
+            <div class="pagination solid text-center"></div>
+            <div class="col-sm-12 mt10">
+                <input type="button" class="btn btn-primary btn-wide pull-left" data-toggle="modal" data-target="#crear_usuario" value="Crear Nuevo">
+                <input id="" type="button" class="btn btn-primary btn_blue btn-wide pull-right eliminar-usuario" onclick="eliminarItem()" value="Eliminar">
+                <input type="button" class="btn btn-primary btn-wide pull-right mr10 editar-usuario-button" value="Editar">
+            </div>
+        </div>
+</div>
                 <!-- /.container -->
             </div>
             <!-- /.content -->
@@ -132,12 +145,6 @@
                                         <div class="form-group">
                                             <label for="send-form-name">Confirmar contraseña</label>
                                             <input type="password" name="Passwordconfirm" id="password-confirm">
-                                        </div>
-                                        <div class="checkbox">
-                                            <label>
-                                                <input type="checkbox" name="change_password2" id="change_password2">
-                                                El usuario puede cambiar su contraseña al iniciar sesión por primera vez.
-                                            </label>
                                         </div>
                                     </div>
                                     <div class="col-sm-12">
@@ -206,12 +213,6 @@
                                             <label for="send-form-name">Confirmar contraseña</label>
                                             <input type="password" name="password-confirm" id="password-confirm">
                                         </div>
-                                        <div class="checkbox">
-                                            <label>
-                                                <input type="checkbox" name="change_password2" id="change_password2">
-                                                El usuario puede cambiar su contraseña al iniciar sesión por primera vez.
-                                            </label>
-                                        </div>
                                     </div>
                                     <div class="col-sm-12">
                                         <input type="submit" class="btn btn-primary btn-wide pull-right mt10 modificar-usuario" value="Guardar">
@@ -223,9 +224,51 @@
                     </div>
                 </div>
             </div>
+    <!-- Modal Medium -->
+    <div class="modal fade" id="editar_worker">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><i class="fa fa-times"></i></button>
+                    <h6 class="modal-title">Editar Operador</h6>
+                </div>
+                <div class="modal-body">
+                    <form method="post" id="form-editar1" novalidate>
+                        <input type="hidden" name="id" id="editar-id1" value="" />
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="send-form-name">Nombre(s)</label>
+                                    <input type="text" name="name" id="name1">
+                                </div>
+                                <div class="form-group">
+                                    <label for="profile">Perfil</label>
+                                    <select id="profile1" name="profile">
+                                        <option value="administrator">Administrador</option>
+                                        <option value="helpdesk">Servicio al Cliente</option>
+                                        <option value="worker">Operador</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 pl0_modal">
+                                <div class="form-group">
+                                    <label for="send-form-name">E-mail</label>
+                                    <input type="email" name="email" id="email1">
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+                                <input type="submit" class="btn btn-primary btn-wide pull-right mt10 modificar-usuario" value="Guardar">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
         </div>
 @section Scripts
 {
+@Scripts.Render("~/bundles/simplepaginationjs")
 <script>
     $.fn.serializeObject = function () {
         var o = {};
@@ -242,7 +285,24 @@
         });
         return o;
     };
+    var currentPage = null;
     $(function () {
+
+        currentPage = ($("#pagev").val() == "") ? 1 : parseInt($("#pagev").val());
+
+        $('.pagination').pagination({
+            items: $('#total').val(),
+            itemsOnPage: 20,
+            cssStyle: 'light-theme',
+            currentPage: currentPage,
+            onPageClick: function (pageNumber, event) {
+                event.preventDefault();
+                $("#vp").val("1");
+                $("#page").val(pageNumber);
+                $("#search").append("<input type='hidden' value='1' name='vp' />");
+                $("#search").submit();
+            }
+        });
         
         $(".registrar-usuario").click(function (event) {
             event.preventDefault();
@@ -265,7 +325,7 @@
                             mostrarMensaje(form, "userMensaje", "Usuario registrado", "alert-warning");
 
                             $("#tabla").find("tbody").html("");
-                            var dataPagination = { page: 1, idpagination: $("#idpagination").val() }
+                            var dataPagination = { page: currentPage, idpagination: $("#idpagination").val() }
                             var usersResult = "";
 
                             $("#loader").show();
@@ -281,14 +341,13 @@
                                         var userv = data.Users[i];
                                         var cadHtml = "";
                                         cadHtml += "<tr data-id=\""+userv.Id+"\">";
-                                        cadHtml += "    <td><input type=\"checkbox\" data-id=\""+userv.Id+"\" class=\"select-user\" \/><\/td>";
-                                        cadHtml += "    <td class=\"tusername\">"+userv.Username+"<\/td>";
+                                        cadHtml += "    <td class=\"tusername\">"+userv.Usernamev+"<\/td>";
                                         cadHtml += "    <td class=\"tname\">"+userv.Name+"<\/td>";
-                                        cadHtml += "    <td class=\"tlastname\">"+userv.Lastname+"<\/td>";
-                                        cadHtml += "    <td class=\"tlastname2\">"+userv.Lastname2+"<\/td>";
+                                        cadHtml += "    <td class=\"tlastname\">"+userv.Lastnamev+"<\/td>";
+                                        cadHtml += "    <td class=\"tlastname2\">"+userv.Lastname2v+"<\/td>";
                                         cadHtml += "    <td class=\"tprofile\">"+userv.System_profile+"<\/td>";
                                         cadHtml += "    <td class=\"temail\">"+userv.Email+"<\/td>";
-                                        cadHtml += "    <td class=\"tmobile_phone\">" + userv.Mobile_phone + "<\/td>";
+                                        cadHtml += "    <td class=\"tmobile_phone\">" + userv.Phonev + "<\/td>";
                                         cadHtml += "<\/tr>";
 
                                         usersResult = usersResult + cadHtml;
@@ -316,13 +375,15 @@
         $(".editar-usuario-button").click(function (event) {
 
             console.log("registrar usuario");
-            var form = $("#form-editar");
+            var form = (actualProfile == "worker") ? $("#form-editar1") : $("#form-editar");
             var formData = {};
 
             formData.id = actualEdicion;
+            formData.profile = actualProfile;
 
             if (actualEdicion != null) {
                 $("#editar-id").val(actualEdicion);
+                $("#editar-id1").val(actualEdicion);
 
                 $.ajax({
                     contentType: 'application/json; charset=utf-8',
@@ -334,17 +395,28 @@
                         console.log("success data");
                         console.log(data);
                         if (data) {
-                            form.find("#name").val(data.Name);
-                            form.find("#lastname").val(data.Lastname);
-                            form.find("#lastname2").val(data.Lastname2);
-                            form.find("#email").val(data.Email);
-                            form.find("#mobile_phone").val(data.Mobile_phone);
-                            form.find("#profile").val(data.Profile);
-                            form.find("#profile").trigger("chosen:updated");
-                            form.find("#username").val(data.Username);
-                            form.find("#change_password2").prop("checked", data.Change_password);
 
-                            $("#editar_usuario").modal("show");
+                            if (actualProfile != "worker") {
+                                form.find("#name").val(data.Name);
+                                form.find("#lastname").val(data.Lastname);
+                                form.find("#lastname2").val(data.Lastname2);
+                                form.find("#email").val(data.Email);
+                                form.find("#mobile_phone").val(data.Mobile_phone);
+                                form.find("#profile").val(data.Profile);
+                                form.find("#profile").trigger("chosen:updated");
+                                form.find("#username").val(data.Username);
+                                form.find("#change_password2").prop("checked", data.Change_password);
+
+                                $("#editar_usuario").modal("show");
+                            } else {
+
+                                form.find("#name1").val(data.Name);
+                                form.find("#profile1").val("worker");
+                                form.find("#email1").val(data.Email);
+                                form.find("#profile1").trigger("chosen:updated");
+                                $("#editar_worker").modal("show");
+
+                            }
                         }
                     }, error: function (error) {
                         mostrarMensaje(form, "userMensaje", "Error al registrar usuario intentelo de nuevo", "alert-warning");
@@ -364,13 +436,19 @@
         $(".modificar-usuario").click(function (event) {
             event.preventDefault();
             console.log("registrar usuario");
-            var form = $("#form-editar");
+            var form = (actualProfile == "worker") ? $("#form-editar1") : $("#form-editar");
 
             if (form.valid()) {
-                var formData = $("#form-editar").serializeObject();
-                modalToClose = $("#editar_usuario");
-
+                var formData = (actualProfile == "worker") ? $("#form-editar1").serializeObject() : $("#form-editar").serializeObject();
+                
                 formData.change_password = form.find("#change_password2").prop("checked");
+
+                if (actualProfile == "worker")
+                {
+                    modalToClose = $("#editar_worker");
+                } else {
+                    modalToClose = $("#editar_usuario");
+                }
 
                 $.ajax({
                     type: 'POST',
@@ -380,14 +458,19 @@
                         if (data.success) {
                             mostrarMensaje(form, "userMensaje", "Usuario modificado", "alert-warning");
                             verifCloseModal = true;
-                            actualElement.closest("tr").find(".tname").text(form.find("#name").val());
-                            actualElement.closest("tr").find(".tlastname").text(form.find("#lastname").val());
-                            actualElement.closest("tr").find(".tlastname2").text(form.find("#lastname2").val());
-                            actualElement.closest("tr").find(".temail").text(form.find("#email").val());
-                            actualElement.closest("tr").find(".tmobile_phone").text(form.find("#mobile_phone").val());
-                            actualElement.closest("tr").find(".tprofile").text(form.find("#profile").val());
-                            actualElement.closest("tr").find(".tusername").text(form.find("#username").val());
-                        } else {
+                            if (actualProfile != "worker") {
+                                actualElement.closest("tr").find(".tname").text(form.find("#name").val());
+                                actualElement.closest("tr").find(".tlastname").text(form.find("#lastname").val());
+                                actualElement.closest("tr").find(".tlastname2").text(form.find("#lastname2").val());
+                                actualElement.closest("tr").find(".temail").text(form.find("#email").val());
+                                actualElement.closest("tr").find(".tmobile_phone").text(form.find("#mobile_phone").val());
+                                actualElement.closest("tr").find(".tprofile").text(form.find("#profile").val());
+                                actualElement.closest("tr").find(".tusername").text(form.find("#username").val());
+                            } else {
+                                actualElement.closest("tr").find(".tname").text(form.find("#name1").val());
+                                actualElement.closest("tr").find(".tprofile").text(form.find("#profile").val());
+                                actualElement.closest("tr").find(".temail").text(form.find("#email1").val());
+                            }
                             mostrarMensaje(form, "userMensaje", "Error al modificar usuario intentelo de nuevo", "alert-warning");
                         }
                     }, error: function (error) {
@@ -404,6 +487,7 @@
                 if (confirm("Esta seguro que desea eliminar el usuario " + actualNombre + " " + actualApellido + "?")) {
                     var formData = {};
                     formData.id = actualEdicion;
+                    formData.profile = actualProfile;
                     $.ajax({
                         type: 'POST',
                         url: '@Url.Action("DeleteUser", "User")',
@@ -426,8 +510,9 @@
         var actualEdicion = null;
         var actualNombre = "";
         var actualApellido = "";
+        var actualProfile = "";
         var actualElement = null;
-        $(document).on("click", "#tabla-coupon tr", function () {
+        $(document).on("click", "#tabla tr", function () {
             $(this).toggleClass('line_selected').siblings().removeClass('line_selected');
             if ($(this).hasClass('line_selected'))
             {
@@ -435,11 +520,13 @@
                 actualEdicion = $(this).closest("tr").attr("data-id");
                 actualNombre = $(this).closest("tr").find(".tname").text();
                 actualApellido = $(this).closest("tr").find(".tlastname").text();
+                actualProfile = $(this).closest("tr").find(".tprofile").text();
             } else {
                 actualEdicion = null;
                 actualNombre = "";
                 actualApellido = "";
                 actualElement = null;
+                actualProfile = "";
             }
         });
 

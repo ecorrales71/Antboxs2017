@@ -132,12 +132,14 @@
                                                 <textarea name="message" id="txtReferenciaRecoleccion"></textarea>
                                             </div>
                                             <div class="checkbox">
-                                                
                                                 <label>
                                                     @*@Html.EditorFor(m => m.Service_time_Pickup)*@
                                                     <input type="checkbox" name="chkEsperar" id="chkEsperar" class="chkEsperar">
                                                     Requiero que la recolección de mis Antboxs sea otro día.
                                                 </label>
+                                                <p class="firstm depositomensaje" style="display: none; text-align: left; font-size: 14px !important; color: #666 !important; margin-left: 21px; line-height: 20px;">
+                                                    Estoy de acuerdo que se me cargará un depósito por cada Antboxs y que me será devuelto en cuanto la(s) recolecten.
+                                                </p>
                                             </div>
                                         </div>
                                     </div>
@@ -732,6 +734,7 @@
                         $('.anchorprecio').trigger('click');
                     }
                     $('.anchordeposito').hide();
+                    $(".depositomensaje").show();
                 }
                 else
                 {
@@ -739,6 +742,7 @@
                     $('.direccion-entrega').hide();
                     $('.todisplay').fadeOut('slow');
                     $('.anchordeposito').show();
+                    $(".depositomensaje").hide();
                 }
 
             });
@@ -803,11 +807,13 @@
                         $('.anchorprecio').trigger('click');
                     }
                     $('.anchordeposito').hide();
+                    $(".depositomensaje").show();
                 } else {
                     $('.checkdisplay').prop('checked', false);
                     $('.direccion-entrega').hide();
                     $('.todisplay').fadeOut('slow');
                     $('.anchordeposito').show();
+                    $(".depositomensaje").hide();
                 }
             })
         })
