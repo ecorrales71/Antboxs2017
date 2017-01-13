@@ -26,6 +26,12 @@ namespace AntBoxFrontEnd.Services.Worker
         [JsonProperty("capacity")]
         public string Capacity { get; set; }
 
+        [JsonProperty("lastname")]
+        public string Lastname { get; set; }
+
+        [JsonProperty("lastname2")]
+        public string Lastname2 { get; set; }
+
      
     }
 }

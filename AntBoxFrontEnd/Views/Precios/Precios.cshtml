@@ -36,7 +36,7 @@
         <div class="container" style="padding: 30px;">
             <div class="row irow-xs cards">
                 <div class="col-sm-12">
-                    <h2>Agregar Antboxs</h2>
+                    <h2>Agregar antboxs</h2>
                     <div class="heading-divider"></div>
                 </div>
             </div>
@@ -48,7 +48,7 @@
                 <div class="row">
                     <div class="col-sm-6 col-md-7">
                         <div class="irow-xs pb30">
-                            <p>Ordenar tus Antboxs es muy sencillo, solo indícanos cuántas Antboxs necesitas y a qué direcciones debemos enviártelas.</p>
+                            <p>Ordenar tus antboxs es muy sencillo, solo indícanos cuántas antboxs necesitas y a qué direcciones debemos enviártelas.</p>
                         </div>
                     </div>
                     <div class="col-sm-6 col-md-5">
@@ -94,14 +94,14 @@
             <section class="container">
                 <div class="row text-wrap text-center">
                     <div class="col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1" data-animate="fadeInDown">
-                        <h1>Solicita tus Antboxs sin salir de casa y paga solamente las que usas</h1>
+                        <h1>Solicita tus antboxs sin salir de casa y paga solamente las que usas</h1>
                         <p>
-                            Solicita desde tu dispositivo móvil o por teléfono las Antboxs que necesites y paga únicamente por las que uses.<br>
+                            Solicita desde tu dispositivo móvil o por teléfono las antboxs que necesites y paga únicamente por las que uses.<br>
                             Indícanos cuando te las dejemos, cuando las recogemos y cuando te las devolvemos.<br>
 
                             Solo requieres tu cuenta de usuario y registrar una tarjeta de crédito.<br>
 
-                            Antboxs.<br>
+                            antboxs.<br>
 
                             Almacenamiento Fácil, Seguro y Conveniente.
                         </p>
@@ -118,7 +118,7 @@
                     <div class="icon icon-color icon-size-4">
                         <i class="fa fa-archive"></i>
                     </div>
-                    <h4>1. Agregar Antboxs</h4>
+                    <h4>1. Agregar antboxs</h4>
                 </div>
                 <div class="col-md-3 col-sm-6 card card-light card-lighter card-border-top-4">
                     <div class="icon icon-color icon-size-4">
@@ -412,7 +412,9 @@
             total = total - discountsubtotal;
             discountCuponObj.text(discountsubtotal.toFixed(2));
             $(".porcentaje-cupon").text("(" + discount + "%)");
-        } else
+        } else {
+
+        }
         {
             discountCuponObj.text("0");
             $(".porcentaje-cupon").text("");

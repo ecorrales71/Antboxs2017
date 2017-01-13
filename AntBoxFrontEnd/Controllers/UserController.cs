@@ -34,7 +34,9 @@ namespace AntBoxFrontEnd.Controllers
                         Phone = modelUser.Mobile_phone,
                         Capacity = null,
                         Status = "true",
-                        Vehicle = null
+                        Vehicle = null,
+                        Lastname = modelUser.LastName,
+                        Lastname2 = modelUser.Lastname2
                     };
                     var res = ser.CreateWorker(wr);
                     if (res)

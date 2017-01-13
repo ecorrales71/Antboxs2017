@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
-    <title>@ViewBag.Title - Antboxs</title>
+    <title>@ViewBag.Title - antboxs</title>
 
     @Styles.Render("~/Content/CustomerService2")
     @RenderSection("css", required: false)
@@ -26,7 +26,7 @@
 
             <!-- NAVBAR BRAND -->
             <a class="navbar-brand pull-left" href='@Url.Action("Index", "Customer")'>
-                <img src="@Url.Content("~/Content/Images/antboxs_logo.png")" alt="Antboxs">
+                <img src="@Url.Content("~/Content/Images/antboxs_logo.png")" alt="antboxs">
             </a>
             <!-- /.navbar-brand -->
             <!-- NAVBAR ACCOUNT -->
@@ -36,7 +36,7 @@
                         <a href="" class="dropdown-toggle" data-toggle="dropdown"><span>@Html.Label(((AntBoxFrontEnd.Services.User.UserResponse)Session["helpdesk"]).Name + " " + ((AntBoxFrontEnd.Services.User.UserResponse)Session["helpdesk"]).Lastname)</span></a>
                         <ul class="dropdown-menu">
                             <li><a href="@Url.Action("Index", "CustomerService")"><i class="fa fa-users pull-right"></i>Clientes</a></li>
-                            <li><a href="@Url.Action("Antboxs", "CustomerService")"><i class="fa fa-archive pull-right"></i>Antboxs</a></li>
+                            <li><a href="@Url.Action("Antboxs", "CustomerService")"><i class="fa fa-archive pull-right"></i>antboxs</a></li>
                             <li><a href="@Url.Action("Recolecciones", "CustomerService")"><i class="fa fa-truck pull-right"></i>Recolecciones</a></li>
                             <li><a href="@Url.Action("Entregas", "CustomerService")"><i class="fa fa-truck fa-flip-horizontal pull-right"></i>Entregas</a></li>
                             @*<li><a href="@Url.Action("Cuenta", "CustomerService")"><i class="fa fa-user pull-right"></i>Cuenta</a></li>*@
@@ -55,7 +55,7 @@
                         <a href="@Url.Action("Index", "CustomerService")">Clientes</a>
                     </li>
                     <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "Antboxs" ? "active" : "")">
-                        <a href="@Url.Action("Antboxs", "CustomerService")">Antboxs</a>
+                        <a href="@Url.Action("Antboxs", "CustomerService")">antboxs</a>
                     </li>
                     <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "Recolecciones" ? "active" : "")">
                         <a href="@Url.Action("Recolecciones", "CustomerService")">Recolecciones</a>
@@ -79,7 +79,7 @@
         <div class="footer-extra">
             <div class="container">
                 <nav class="contact-info text-center">
-                    © Antboxs
+                    © antboxs
                     <script type="text/javascript"> document.write(new Date().getFullYear()); </script> | Todos los derechos reservados.
                 </nav>
             </div>
