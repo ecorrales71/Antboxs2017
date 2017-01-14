@@ -485,6 +485,7 @@
     <Content Include="Content\Images\almacenamos-icono.png" />
     <Content Include="Content\Images\almacenamos-y-protegemos.png" />
     <Content Include="Content\Images\almacenamos.png" />
+    <Content Include="Content\Images\antboxs-caja.png" />
     <Content Include="Content\Images\antboxs_chica.jpg" />
     <Content Include="Content\Images\antboxs_chica.png" />
     <Content Include="Content\Images\antboxs_logo.png" />
