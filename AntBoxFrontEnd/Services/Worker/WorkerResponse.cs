@@ -26,5 +26,11 @@ namespace AntBoxFrontEnd.Services.Worker
         [JsonProperty("worker_id")]
         public string Worker_id { get; set; }
 
+        [JsonProperty("lastname")]
+        public string Lastname { get; set; }
+
+        [JsonProperty("lastname2")]
+        public string Lastname2 { get; set; }
+
     }
 }

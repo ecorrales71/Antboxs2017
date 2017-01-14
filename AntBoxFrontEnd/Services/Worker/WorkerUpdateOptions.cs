@@ -13,5 +13,11 @@ namespace AntBoxFrontEnd.Services.Worker
 
         [JsonProperty("status")]
         public bool Status { get; set; }
+
+        [JsonProperty("lastname")]
+        public string Lastname { get; set; }
+
+        [JsonProperty("lastname2")]
+        public string Lastname2 { get; set; }
     }
 }

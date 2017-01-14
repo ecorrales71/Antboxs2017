@@ -138,6 +138,29 @@ a:hover {
 .inicio .figure img {
     width: inherit;
 }
+.cintillo > p {
+    font-size: 12px;
+    color: #ffffff !important;
+    border-left-color: #cf2626;
+    background-color: #cf2626;
+
+}
+
+/*.navbar-account {
+    line-height: 0px;
+}
+
+.container .navbar-account {
+padding-top: 10px !important;
+padding-bottom: 10px !important;
+}*/
+
+.menu_login_mobile .btn-link {
+    color: black;
+}
+.menu_login_mobile button:hover {
+    color: black;
+}
 
 /*----------------------------------- MENU -------------------------------------*/
 /* Fondo blanco en submenu */
@@ -253,6 +276,10 @@ a:hover {
 .cant_antboxs {
     font-weight: 600;
 
+}
+
+.modal-md .modal-body-inside, .modal-lg .modal-body-inside {
+    padding: 20px 20px 20px 20px !important; 
 }
 
 /*----------------------------------- QUE DEBO HACER -------------------------------------*/

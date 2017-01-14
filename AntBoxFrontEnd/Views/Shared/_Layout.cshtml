@@ -6,7 +6,8 @@
     <title>antboxs</title>
     @Styles.Render("~/Content/css")
     @RenderSection("css", required: false)
-
+    <link runat="server" rel="shortcut icon" href="@Url.Content("~/Content/Images/favicon.ico")" type="image/x-icon" />
+    <link runat="server" rel="icon" href="@Url.Content("~/Content/Images/favicon.ico")" type="image/ico" />
     <meta name="description" content="">
     <meta charset="UTF-8">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic&amp;subset=latin,cyrillic" rel="stylesheet">
@@ -43,14 +44,15 @@
     <div class="preloader-opacity"></div>
     <div class="preloader-opacity-background"></div>
 
-    <!-- HEADER EXTRA TOP -->
-    <div class="header-extra-top">
-        <div class="container">
-            <div class="navbar-account pull-left">
-                <nav>
-                    <span>El 16/enero/2017 iniciamos operaciones en CDMX, próximamente en otras ciudades</span>
-                </nav>
-            </div>
+    <div class="header affix">
+        <!-- HEADER EXTRA TOP -->
+        <div class="header-extra-top top_login">
+            <div class="container">
+                <div class="navbar-account pull-left">
+                    <nav>
+                        <span>Almacenamiento Seguro, Fácil y Conveniente</span>
+                    </nav>
+                </div>
 
                 <!-- NAVBAR ACCOUNT -->
                 <div class="navbar-account pull-right" id="login-info">
@@ -59,321 +61,329 @@
                 </div>
                 <!-- /.navbar-account -->
             </div>
+        </div>
+        <!-- /.header-extra-top -->
+        <!-- HEADER -->
+        <header class="header header-light">
+            <!-- NAVBAR -->
+            <nav class="navbar container">
+
+                <!-- NAVBAR BRAND -->
+                <a class="navbar-brand pull-left" href='@Url.Action("Index","")'>
+                    <img src="@Url.Content("~/Content/Images/antboxs_logo.png")" alt="antboxs">
+                </a>
+                <!-- /.navbar-brand -->
+
+                <button class="navbar-toggle pull-right pr20" data-target="#navbar" data-toggle="collapse" type="button">
+                    <i class="fa fa-bars"></i>
+                </button>
+
+                <!-- NAVBAR COLLAPSE -->
+                <div class="navbar-account pull-right menu_login mr0">
+                    <nav>
+                        <button type="button" class="btn-link ml30" data-toggle="modal" data-target="#login"><i class="fa fa-lock"></i> Entrar</button>
+                        <button type="button" class="btn btn-primary mr0" data-toggle="modal" data-target="#registro">Crear Cuenta</button>
+                    </nav>
+                </div>
+                <div id="navbar" class="navbar-collapse collapse pull-right">
+                    <div class="pull-right mt20 menu_login_mobile">
+                        <button type="button" class="btn-link ml30" data-toggle="modal" data-target="#login"><i class="fa fa-lock"></i> Entrar</button>
+                        <button type="button" class="btn btn-primary mr0 ml20" data-toggle="modal" data-target="#registro">Crear Cuenta</button>
+                    </div>
+                    <ul class="nav navbar-nav">
+                        <li class="@( (ViewContext.RouteData.Values["Action"].ToString() == "Index" && ViewContext.RouteData.Values["Controller"].ToString() == "Home") ? "active" : "")">
+                            @Html.ActionLink("antboxs es...", "Index", "Home")
+                        </li>
+                        <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "ComoFunciona" ? "active" : "")">
+                            @Html.ActionLink("¿Cómo funciona?", "ComoFunciona", "Home")
+                        </li>
+                        <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "QueDeboHacer" ? "active" : "")">
+                            @Html.ActionLink("¿Qué debo hacer?", "QueDeboHacer", "Home")
+                        </li>
+                        <li class="@( (ViewContext.RouteData.Values["Action"].ToString() == "Index" && ViewContext.RouteData.Values["Controller"].ToString() == "Precios") ? "active" : "")">
+                            @Html.ActionLink("Precios", "Index", "Precios")
+                        </li>
+                        <li class="dropdown @( (ViewContext.RouteData.Values["Action"].ToString() == "PreguntasFrecuentes" || ViewContext.RouteData.Values["Action"].ToString() == "Contacto") ? "active" : "")">
+                            <a href="" class="dropdown-toggle" data-toggle="dropdown">Ayuda</a>
+                            <ul class="dropdown-menu sub-menu">
+                                <li>@Html.ActionLink("Preguntas Frecuentes", "PreguntasFrecuentes", "Home")</li>
+
+                                <li>
+                                    @Html.ActionLink("Contacto", "Contacto", "Home")
+
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <!-- /.navbar-collapse -->
+            </nav>
+            <!-- /.navbar -->
+        </header>
+        <!-- /.header -->
     </div>
-    <!-- /.header-extra-top -->
-
-    <!-- HEADER -->
-    <header class="header header-light">
-        <!-- NAVBAR -->
-        <nav class="navbar container">
-
-            <!-- NAVBAR BRAND -->
-            <a class="navbar-brand pull-left" href='@Url.Action("Index","")'>
-                <img src="@Url.Content("~/Content/Images/antboxs_logo.png")" alt="antboxs">
-            </a>
-            <!-- /.navbar-brand -->
-
-            <button class="navbar-toggle pull-right pr20" data-target="#navbar" data-toggle="collapse" type="button">
-                <i class="fa fa-bars"></i>
-            </button>
-
-            <!-- NAVBAR COLLAPSE -->
-            <div id="navbar" class="navbar-collapse collapse pull-right">
-                <ul class="nav navbar-nav">
-                    <li class="@( (ViewContext.RouteData.Values["Action"].ToString() == "Index" && ViewContext.RouteData.Values["Controller"].ToString() == "Home") ? "active" : "")">
-                        @Html.ActionLink("antboxs es...", "Index", "Home")
-                    </li>
-                    <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "ComoFunciona" ? "active" : "")">
-                        @Html.ActionLink("¿Cómo funciona?", "ComoFunciona", "Home")
-                    </li>
-                    <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "QueDeboHacer" ? "active" : "")">
-                        @Html.ActionLink("¿Qué debo hacer?", "QueDeboHacer", "Home")
-                    </li>
-                    <li class="@( (ViewContext.RouteData.Values["Action"].ToString() == "Index" && ViewContext.RouteData.Values["Controller"].ToString() == "Precios") ? "active" : "")">
-                        @Html.ActionLink("Precios", "Index", "Precios")
-                    </li>
-                    <li class="dropdown @( (ViewContext.RouteData.Values["Action"].ToString() == "PreguntasFrecuentes" || ViewContext.RouteData.Values["Action"].ToString() == "Contacto") ? "active" : "")">
-                        <a href="" class="dropdown-toggle" data-toggle="dropdown">Ayuda</a>
-                        <ul class="dropdown-menu sub-menu">
-                            <li>@Html.ActionLink("Preguntas Frecuentes", "PreguntasFrecuentes", "Home")</li>
-
-                            <li>
-                                @Html.ActionLink("Contacto", "Contacto", "Home")
-
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-            <!-- /.navbar-collapse -->
-        </nav>
-        <!-- /.navbar -->
-    </header>
-    <!-- /.header -->
-    <!-- BODY  -->
-
-
+        <!-- BODY  -->
         @RenderBody()
-    <!-- PROMO-BOX -->
-    <div class="promo-box promo-box-light">
-        <div class="container">
-            <section class="row irow-xs page-header cols-border divtable mt30 mb30">
-                <div class="col-lg-10 col-md-9 col-sm-8 divcell promobox_txt">
-                    <h1>¿Tienes dudas sobre nuestro servicio?</h1>
-                    <p>Visita las preguntas frecuentes, probablemente ya hemos respondido tus dudas. Si no, escríbenos o llámanos y con gusto te atendemos. </p>
-                </div>
-                <div class="col-lg-2 col-md-3 col-sm-4 text-right divcell">
-                    <a href='@Url.Action("PreguntasFrecuentes", "Home")' class="btn btn-primary btn-md">Preguntas Frecuentes</a>
-                </div>
-            </section>
-        </div>
-    </div>
-    <!-- /.promo-box -->
-    <!-- FOOTER -->
-    <footer class="footer">
-        <!-- FOOTER -->
-        <div class="pagetitle pagetitle-collapse">
-            <a data-toggle="collapse" href="#pagetitle-collapse" class="pagetitle-toggle collapsed"></a>
-            <div id="pagetitle-collapse" class="pagetitle-panel panel-collapse collapse">
-                <!-- FOOTER ROW -->
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-3 col-xs-6">
-                            <div class="widget widget_about">
-                                <h2><img class="mb10" src="@Url.Content("~/Content/Images/antboxs_logo.png")" alt="antboxs"></h2>
-                                <p>antboxs cuida de tu vida y espacio, al ofrecerte una solución de fácil uso, para el almacenamiento de tus artículos, con servicio a domicilio; pagando solamente el espacio que realmente necesitas, a través de una infraestructura logística y plataforma tecnológica de clase mundial.</p>
-                                <button type="button" class="btn btn-primary registro-modal">Crear Cuenta</button>
-                            </div>
-                        </div>
-                        <div class="col-md-3 col-xs-6">
-                            <div class="widget widget_links">
-                                <h2 class="widget-title">Categorías</h2>
-                                <ul>
-                                    <li><a href='@Url.Action("Index", "Home")'>antboxs es...</a></li>
-                                    <li><a href='@Url.Action("ComoFunciona", "Home")'>¿Cómo funciona?</a></li>
-                                    <li><a href='@Url.Action("QueDeboHacer", "Home")'>¿Qué debo hacer?</a></li>
-                                    <li><a href='@Url.Action("Index", "Precios")'>Precios</a></li>
-                                    <li><a href='@Url.Action("PreguntasFrecuentes", "Home")'>Preguntas Frecuentes</a></li>
-                                    <li><a href='@Url.Action("Contacto", "Home")'>Contacto</a></li>
-                                    <li><a href="@Url.Content("~/Content/docs/aviso-de-privacidad.pdf")" target="_blank">Aviso de Privacidad</a></li>
-                                    <li><a href="@Url.Content("~/Content/docs/terminos-y-condiciones.pdf")" target="_blank">Términos y Condiciones</a></li>
-                                    <li><a href="@Url.Content("~/Content/docs/codigo-de-etica.pdf")" target="_blank">Código de Ética</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="col-md-3 col-xs-6">
-                            <div class="widget widget_follow_us">
-                                <h2 class="widget-title">Redes Sociales</h2>
-                                <ul>
-                                    <li>
-                                        <a href="http://www.facebook.com" target="_blank">
-                                            <i class="fa fa-facebook-square">  </i>
-                                            Facebook
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="http://www.youtube.com" target="_blank">
-                                            <i class="fa fa-youtube-square">  </i>
-                                            YouTube
-                                        </a>
-                                    </li>
-
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="col-md-3 col-xs-6">
-                            <div class="widget widget_contact">
-                                <h2 class="widget-title">Contacto</h2>
-                                <ul class="widget_contact_list">
-                                    <li>
-                                        <i class="fa fa-map-marker"></i>
-                                        <address>
-                                            Guillermo González Camarena 1600 - 2E<br>
-                                            Ciudad Santa Fe, Álvaro Obregón 01210<br>
-                                            CDMX
-                                        </address>
-                                    </li>
-                                    <li>
-                                        <i class="fa fa-phone"></i>
-                                        <address>
-                                            Tel. 55-7158-5393 / 5300</a>
-                                        </address>
-                                    </li>
-
-                                    <li>
-                                        <i class="fa fa-envelope"></i>
-                                        <address>
-                                            <a href="mailto:info@antboxs.com">info@antboxs.com</a>
-                                        </address>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- /.footer row -->
-            </div>
-        </div>
-        <!-- /.pagetitle -->
-        <!-- FOOTER EXTRA -->
-        <div class="footer-extra">
+        <!-- PROMO-BOX -->
+        <div class="promo-box promo-box-light">
             <div class="container">
-                <nav class="contact-info pull-left">
-                    © antboxs
-                    <script type="text/javascript"> document.write(new Date().getFullYear()); </script> | Todos los derechos reservados.
-                </nav>
-                <nav class="extra-menu pull-right">
-                    <a class="phone"><i class="fa fa-phone"></i> 55-7158-5393 / 5300</a>
-                    <a href="mailto:info@antboxs.com" class="email"><i class="fa fa-envelope-o"></i> info@antboxs.com</a>
-                </nav>
+                <section class="row irow-xs page-header cols-border divtable mt30 mb30">
+                    <div class="col-lg-10 col-md-9 col-sm-8 divcell promobox_txt">
+                        <h1>¿Tienes dudas sobre nuestro servicio?</h1>
+                        <p>Visita las preguntas frecuentes, probablemente ya hemos respondido tus dudas. Si no, escríbenos o llámanos y con gusto te atendemos. </p>
+                    </div>
+                    <div class="col-lg-2 col-md-3 col-sm-4 text-right divcell">
+                        <a href='@Url.Action("PreguntasFrecuentes", "Home")' class="btn btn-primary btn-md">Preguntas Frecuentes</a>
+                    </div>
+                </section>
             </div>
         </div>
-        <!-- /.footer-extra -->
+        <!-- /.promo-box -->
+        <!-- FOOTER -->
+        <footer class="footer">
+            <!-- FOOTER -->
+            <div class="pagetitle pagetitle-collapse">
+                <a data-toggle="collapse" href="#pagetitle-collapse" class="pagetitle-toggle collapsed"></a>
+                <div id="pagetitle-collapse" class="pagetitle-panel panel-collapse collapse">
+                    <!-- FOOTER ROW -->
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-3 col-xs-6">
+                                <div class="widget widget_about">
+                                    <h2><img class="mb10" src="@Url.Content("~/Content/Images/antboxs_logo.png")" alt="antboxs"></h2>
+                                    <p>antboxs cuida de tu vida y espacio, al ofrecerte una solución de fácil uso, para el almacenamiento de tus artículos, con servicio a domicilio; pagando solamente el espacio que realmente necesitas, a través de una infraestructura logística y plataforma tecnológica de clase mundial.</p>
+                                    <button type="button" class="btn btn-primary registro-modal">Crear Cuenta</button>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-xs-6">
+                                <div class="widget widget_links">
+                                    <h2 class="widget-title">Categorías</h2>
+                                    <ul>
+                                        <li><a href='@Url.Action("Index", "Home")'>antboxs es...</a></li>
+                                        <li><a href='@Url.Action("ComoFunciona", "Home")'>¿Cómo funciona?</a></li>
+                                        <li><a href='@Url.Action("QueDeboHacer", "Home")'>¿Qué debo hacer?</a></li>
+                                        <li><a href='@Url.Action("Index", "Precios")'>Precios</a></li>
+                                        <li><a href='@Url.Action("PreguntasFrecuentes", "Home")'>Preguntas Frecuentes</a></li>
+                                        <li><a href='@Url.Action("Contacto", "Home")'>Contacto</a></li>
+                                        <li><a href="@Url.Content("~/Content/docs/aviso-de-privacidad.pdf")" target="_blank">Aviso de Privacidad</a></li>
+                                        <li><a href="@Url.Content("~/Content/docs/terminos-y-condiciones.pdf")" target="_blank">Términos y Condiciones</a></li>
+                                        <li><a href="@Url.Content("~/Content/docs/codigo-de-etica.pdf")" target="_blank">Código de Ética</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-xs-6">
+                                <div class="widget widget_follow_us">
+                                    <h2 class="widget-title">Redes Sociales</h2>
+                                    <ul>
+                                        <li>
+                                            <a href="http://www.facebook.com" target="_blank">
+                                                <i class="fa fa-facebook-square">  </i>
+                                                Facebook
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="http://www.youtube.com" target="_blank">
+                                                <i class="fa fa-youtube-square">  </i>
+                                                YouTube
+                                            </a>
+                                        </li>
 
-    </footer>
-        
-    <!-- Modal Login -->
-    <div class="modal fade" id="login">
-        <div class="modal-dialog modal-sm">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal"><i class="fa fa-times"></i></button>
-                    <h6 class="modal-title">Entrar a mi cuenta</h6>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-xs-6">
+                                <div class="widget widget_contact">
+                                    <h2 class="widget-title">Contacto</h2>
+                                    <ul class="widget_contact_list">
+                                        <li>
+                                            <i class="fa fa-map-marker"></i>
+                                            <address>
+                                                Guillermo González Camarena 1600 - 2E<br>
+                                                Ciudad Santa Fe, Álvaro Obregón 01210<br>
+                                                CDMX
+                                            </address>
+                                        </li>
+                                        <li>
+                                            <i class="fa fa-phone"></i>
+                                            <address>
+                                                Tel. 55-7158-5393 / 5300</a>
+                                            </address>
+                                        </li>
+
+                                        <li>
+                                            <i class="fa fa-envelope"></i>
+                                            <address>
+                                                <a href="mailto:info@antboxs.com">info@antboxs.com</a>
+                                            </address>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.footer row -->
                 </div>
-                <div class="modal-body">
-                    <div class="modal-form div-login div-cont">
-                        <form id="LoginForm">
-                            <div class="form-group">
-                                <label for="username">Correo electrónico</label>
-                                <input type="text" name="username" id="usernamer">
-                            </div>
-                            <div class="form-group">
-                                <label for="password">Contraseña</label>
-                                <input type="password" name="password" id="passwordr">
-                            </div>
-                            <div class="form-group">
-                                <a class="recuperar-password">¿Olvidaste tu contraseña?</a>
-                            </div>
-                            <hr class="hr-sm hr-stroke" />
-                            <div class="form-group" class="button-login-content">
-                                <input type="button" class="btn btn-primary btn-wide button-login" data-dismiss="modal" value="Entrar" id="btnLogin">
-                                @*<label class="checkbox-inline">
-                                    <input type="checkbox" id="inlineCheckbox1" value="option1"> Recordarme
-                                </label>*@
-                            </div>
-                            
-                        </form>
-                    </div>
-                    <div class="modal-form div-reset div-cont" style="display: none;">
-                        <form id="FormReset">
-                            <div class="form-group">
-                                <label for="emailres">E-mail</label>
-                                <input type="text" name="emailres" id="emailres">
-                            </div>
-                            <hr class="hr-sm hr-stroke" />
-                            <div class="form-group">
-                                <input type="button" class="btn btn-primary btn-wide button-login"  value="Enviar" id="btnEmviarReset" style="float: left; margin-right: 10px;">
-                                <input type="button" class="btn btn-primary btn-wide button-login btn_blue"  value="Volver" id="btnVolver">
-                            </div>
+            </div>
+            <!-- /.pagetitle -->
+            <!-- FOOTER EXTRA -->
+            <div class="footer-extra">
+                <div class="container">
+                    <nav class="contact-info pull-left">
+                        © antboxs
+                        <script type="text/javascript"> document.write(new Date().getFullYear()); </script> | Todos los derechos reservados.
+                    </nav>
+                    <nav class="extra-menu pull-right">
+                        <a class="phone"><i class="fa fa-phone"></i> 55-7158-5393 / 5300</a>
+                        <a href="mailto:info@antboxs.com" class="email"><i class="fa fa-envelope-o"></i> info@antboxs.com</a>
+                    </nav>
+                </div>
+            </div>
+            <!-- /.footer-extra -->
 
-                        </form>
-                    </div>
-                    <div class="modal-form div-restore div-cont" style="display: none;">
-                        <form id="FormRestore">
-                            <div class="form-group">
-                                <label for="code">Codigo</label>
-                                <input type="text" name="code" id="code">
-                            </div>
-                            <div class="form-group">
-                                <label for="Newpassword">Contraseña</label>
-                                <input type="password" name="Newpassword" id="Newpassword">
-                            </div>
-                            <div class="form-group">
-                                <label for="Newpassword1">Confirmar Contraseña</label>
-                                <input type="password" name="Newpassword1" id="Newpassword1">
-                            </div>
-                            <hr class="hr-sm hr-stroke" />
-                            <div class="form-group">
-                                <input type="button" class="btn btn-primary btn-wide button-login" value="Enviar" id="btnEmviarRestore" style="float: left; margin-right: 10px;">
-                                <input type="button" class="btn btn-primary btn-wide button-login btn_blue" value="Volver" id="btnVolverRestore">
-                            </div>
+        </footer>
 
-                        </form>
+        <!-- Modal Login -->
+        <div class="modal fade" id="login">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><i class="fa fa-times"></i></button>
+                        <h6 class="modal-title">Entrar a mi cuenta</h6>
+                    </div>
+                    <div class="modal-body">
+                        <div class="modal-form div-login div-cont">
+                            <form id="LoginForm">
+                                <div class="form-group">
+                                    <label for="username">Correo electrónico</label>
+                                    <input type="text" name="username" id="usernamer">
+                                </div>
+                                <div class="form-group">
+                                    <label for="password">Contraseña</label>
+                                    <input type="password" name="password" id="passwordr">
+                                </div>
+                                <div class="form-group">
+                                    <a class="recuperar-password">¿Olvidaste tu contraseña?</a>
+                                </div>
+                                <hr class="hr-sm hr-stroke" />
+                                <div class="form-group" class="button-login-content">
+                                    <input type="button" class="btn btn-primary btn-wide button-login" data-dismiss="modal" value="Entrar" id="btnLogin">
+                                    @*<label class="checkbox-inline">
+                                            <input type="checkbox" id="inlineCheckbox1" value="option1"> Recordarme
+                                        </label>*@
+                                </div>
+
+                            </form>
+                        </div>
+                        <div class="modal-form div-reset div-cont" style="display: none;">
+                            <form id="FormReset">
+                                <div class="form-group">
+                                    <label for="emailres">E-mail</label>
+                                    <input type="text" name="emailres" id="emailres">
+                                </div>
+                                <hr class="hr-sm hr-stroke" />
+                                <div class="form-group">
+                                    <input type="button" class="btn btn-primary btn-wide button-login" value="Enviar" id="btnEmviarReset" style="float: left; margin-right: 10px;">
+                                    <input type="button" class="btn btn-primary btn-wide button-login btn_blue" value="Volver" id="btnVolver">
+                                </div>
+
+                            </form>
+                        </div>
+                        <div class="modal-form div-restore div-cont" style="display: none;">
+                            <form id="FormRestore">
+                                <div class="form-group">
+                                    <label for="code">Codigo</label>
+                                    <input type="text" name="code" id="code">
+                                </div>
+                                <div class="form-group">
+                                    <label for="Newpassword">Contraseña</label>
+                                    <input type="password" name="Newpassword" id="Newpassword">
+                                </div>
+                                <div class="form-group">
+                                    <label for="Newpassword1">Confirmar Contraseña</label>
+                                    <input type="password" name="Newpassword1" id="Newpassword1">
+                                </div>
+                                <hr class="hr-sm hr-stroke" />
+                                <div class="form-group">
+                                    <input type="button" class="btn btn-primary btn-wide button-login" value="Enviar" id="btnEmviarRestore" style="float: left; margin-right: 10px;">
+                                    <input type="button" class="btn btn-primary btn-wide button-login btn_blue" value="Volver" id="btnVolverRestore">
+                                </div>
+
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <!-- /.modal -->
-    <!-- Modal Register -->
-    <div class="modal fade" id="registro">
-        <div class="modal-dialog modal-sm">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal"><i class="fa fa-times"></i></button>
-                    <h6 class="modal-title">Registrar nueva cuenta</h6>
-                </div>
-                <div class="modal-body">
-                    <div class="modal-form">
-                        @*<p>Indícanos el código postal de la dirección dónde deseas que realicemos la recolección de tus cosas.</p>*@
-                        <hr class="hr-sm hr-stroke" />
-                        <form id="registerForm">
-                            <input type="hidden" id="verifoption" name="verifoption" value="1" />
-                            <div class="form-group">
-                                <label for="name">Nombre</label>
-                                <input type="text" name="name" id="name" maxlength="50" required="required" onkeypress="return isAlfa(event)">
-                            </div>
-                            <div class="form-group">
-                                <label for="lastname">Apellidos</label>
-                                <input type="text" name="lastname" id="lastname" maxlength="100" required="required" onkeypress="return isAlfa(event)">
-                            </div>
-                            <div class="form-group">
-                                <label for="email">E-mail</label>
-                                <input type="email" name="email" id="email" maxlength="100" required="required">
-                            </div>
-                            <div style='display:none' id="alert_email" class="alert"><label>Campo requerido formato email incorrecto*</label></div>
-                            <div class="form-group">
-                                <label for="email2">Confirmar Email</label>
-                                <input type="email" name="email2" id="email2" maxlength="100" required="required">
-                            </div>
-                            <div style='display:none' id="alert_email2" class="alert"><label>Campo requerido formato email incorrecto*</label></div>
-                            <div style='display:none' id="alert_email3" class="alert"><label>Emails no coinciden*</label></div>
-                            <div class="form-group">
-                                <label for="username">Nombre de usuario</label>
-                                <input type="text" name="username" id="username" required="required">
-                            </div>
-                            <div class="form-group">
-                                <label for="zipcode">Teléfono</label>
-                                <input type="text" name="phone" id="phone" required="required" onkeypress='return onlyNumbers(event);' maxlength="10">
-                            </div>
-                            <div class="form-group">
-                                <label for="zipcode">Código Postal de Recolección</label>
-                                <input type="text" name="zipCode" id="zipCode" onchange="validateZipCode()" maxlength="5" required="required">
-                            </div>
-                            <div id="zipCodeError"></div>
+        <!-- /.modal -->
+        <!-- Modal Register -->
+        <div class="modal fade" id="registro">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><i class="fa fa-times"></i></button>
+                        <h6 class="modal-title">Registrar nueva cuenta</h6>
+                    </div>
+                    <div class="modal-body">
+                        <div class="modal-form">
+                            @*<p>Indícanos el código postal de la dirección dónde deseas que realicemos la recolección de tus cosas.</p>*@
                             <hr class="hr-sm hr-stroke" />
-                            <div class="form-group">
-                                <label for="password">Contraseña</label>
-                                <input type="password" name="password" id="password" maxlength="10" required="required">
-                            </div>
-                            <div style='display:none' id="alert_password" ><label>Debe contener minimo una mayuscula y un numero*</label></div>
-                            <div class="form-group">
-                                <label for="password2">Confirmar Contraseña</label>
-                                <input type="password" name="password2" id="password2" maxlength="10" required="required">
-                             </div>
-                            <div style='display:none' id="alert_password2" ><label>Debe contener minimo una mayuscula y un numero*</label></div>
-                            <div style='display:none' id="alert_password3" ><label>Contraseñas no Coinciden*</label></div>
-                            <hr class="hr-sm hr-stroke" />
-                            <div class="form-group">
-                                <input type="button" class="btn btn-primary"  value="Registrarme" id="btnRegister" >
-                            </div>
-                        </form>
+                            <form id="registerForm">
+                                <input type="hidden" id="verifoption" name="verifoption" value="1" />
+                                <div class="form-group">
+                                    <label for="name">Nombre</label>
+                                    <input type="text" name="name" id="name" maxlength="50" required="required" onkeypress="return isAlfa(event)">
+                                </div>
+                                <div class="form-group">
+                                    <label for="lastname">Apellidos</label>
+                                    <input type="text" name="lastname" id="lastname" maxlength="100" required="required" onkeypress="return isAlfa(event)">
+                                </div>
+                                <div class="form-group">
+                                    <label for="email">E-mail</label>
+                                    <input type="email" name="email" id="email" maxlength="100" required="required">
+                                </div>
+                                <div style='display:none' id="alert_email" class="alert"><label>Campo requerido formato email incorrecto*</label></div>
+                                <div class="form-group">
+                                    <label for="email2">Confirmar Email</label>
+                                    <input type="email" name="email2" id="email2" maxlength="100" required="required">
+                                </div>
+                                <div style='display:none' id="alert_email2" class="alert"><label>Campo requerido formato email incorrecto*</label></div>
+                                <div style='display:none' id="alert_email3" class="alert"><label>Emails no coinciden*</label></div>
+                                <div class="form-group">
+                                    <label for="username">Nombre de usuario</label>
+                                    <input type="text" name="username" id="username" required="required">
+                                </div>
+                                <div class="form-group">
+                                    <label for="zipcode">Teléfono</label>
+                                    <input type="text" name="phone" id="phone" required="required" onkeypress='return onlyNumbers(event);' maxlength="10">
+                                </div>
+                                <div class="form-group">
+                                    <label for="zipcode">Código Postal de Recolección</label>
+                                    <input type="text" name="zipCode" id="zipCode" onchange="validateZipCode()" maxlength="5" required="required">
+                                </div>
+                                <div id="zipCodeError"></div>
+                                <hr class="hr-sm hr-stroke" />
+                                <div class="form-group">
+                                    <label for="password">Contraseña</label>
+                                    <input type="password" name="password" id="password" maxlength="10" required="required">
+                                </div>
+                                <div style='display:none' id="alert_password"><label>Debe contener minimo una mayuscula y un numero*</label></div>
+                                <div class="form-group">
+                                    <label for="password2">Confirmar Contraseña</label>
+                                    <input type="password" name="password2" id="password2" maxlength="10" required="required">
+                                </div>
+                                <div style='display:none' id="alert_password2"><label>Debe contener minimo una mayuscula y un numero*</label></div>
+                                <div style='display:none' id="alert_password3"><label>Contraseñas no Coinciden*</label></div>
+                                <hr class="hr-sm hr-stroke" />
+                                <div class="form-group">
+                                    <input type="button" class="btn btn-primary" value="Registrarme" id="btnRegister">
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <!-- /.modal -->
+        <!-- /.modal -->
 
 
 </body>

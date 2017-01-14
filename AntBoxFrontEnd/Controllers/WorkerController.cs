@@ -33,7 +33,7 @@ namespace AntBoxFrontEnd.Controllers
             }
         }
 
-        public JsonResult UpdateWorker(string id, string name, bool status)
+        public JsonResult UpdateWorker(string id, string name, bool status, string lastname, string lastname2)
         {
             try
             {
@@ -45,7 +45,9 @@ namespace AntBoxFrontEnd.Controllers
                 WorkerUpdateOptions up = new WorkerUpdateOptions
                 {
                     Name = name,
-                    Status = status
+                    Status = status,
+                    Lastname = lastname,
+                    Lastname2 = lastname2
                 };
 
                 var userService = new WorkerService(ServiceConfiguration.GetApiKey());

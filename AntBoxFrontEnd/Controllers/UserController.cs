@@ -33,7 +33,7 @@ namespace AntBoxFrontEnd.Controllers
                         Password = modelUser.Password,
                         Phone = modelUser.Mobile_phone,
                         Capacity = null,
-                        Status = "true",
+                        Status = true,
                         Vehicle = null,
                         Lastname = modelUser.LastName,
                         Lastname2 = modelUser.Lastname2

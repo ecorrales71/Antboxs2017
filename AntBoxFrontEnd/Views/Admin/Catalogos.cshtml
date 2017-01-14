@@ -37,18 +37,18 @@
         <!-- /.container -->
         <!-- CONTAINER -->
         <div class="container mt30">
-            @Html.Hidden("idpagination", @Model.Boxes.Pagination_id)
-            @Html.Hidden("total", @Model.Boxes.Total)
-            @Html.Hidden("pages", @Model.Boxes.Pages)
+            @if (@Model.Boxes != null)
+            {
+                @Html.Hidden("idpagination", @Model.Boxes.Pagination_id)
+                @Html.Hidden("total", @Model.Boxes.Total)
+                @Html.Hidden("pages", @Model.Boxes.Pages)    
+            }
             <div id="loader" role="alert" style="display: none;">
-                <img src="@Url.Content("~/Images/preloader.gif")" />   Cargando usuarios... &nbsp;
+                <img src="@Url.Content("~/Images/preloader.gif")" />   Cargando catalogo... &nbsp;
             </div>
             <div class="row">
                 <div class="col-sm-12">
                     <div class="table-responsive">
-                        
-                            
-                        
                         <table id="tabla" class="table table-bordered">
                             <thead>
                                 <tr>
@@ -65,20 +65,26 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach (var item in Model.Boxes.Boxes)
+                                @if(Model.Boxes != null)
                                 {
-                                    <tr data-id="@item.Id">
-                                        <td class="tmodel">@item.Model</td>
-                                        <td class="tsize">@item.Size</td>
-                                        <td class="tlabel">@item.Label</td>
-                                        <td class="tprice">@item.Price</td>
-                                        <td class="tsecure_label">@item.Secure_label</td>
-                                        <td class="tsecure">@item.Secure</td>
-                                        <td class="tslu">@item.Slu</td>
-                                        <td class="tname">@item.Registered_by.Name</td>
-                                        <td class="tactivation_date">@item.Fecha_activacion</td>
-                                        <td class="tstatus">@item.Statusname</td>
-                                    </tr>
+                                    if (Model.Boxes.Boxes != null)
+                                    {
+                                        foreach (var item in Model.Boxes.Boxes)
+                                        {   
+                                            <tr data-id="@item.Id">
+                                                <td class="tmodel">@item.Model</td>
+                                                <td class="tsize">@item.Size</td>
+                                                <td class="tlabel">@item.Label</td>
+                                                <td class="tprice">@item.Price</td>
+                                                <td class="tsecure_label">@item.Secure_label</td>
+                                                <td class="tsecure">@item.Secure</td>
+                                                <td class="tslu">@item.Slu</td>
+                                                <td class="tname">@item.Registered_by.Name</td>
+                                                <td class="tactivation_date">@item.Fecha_activacion</td>
+                                                <td class="tstatus">@item.Statusname</td>
+                                            </tr>
+                                        }
+                                    }
                                 }
                             </tbody>
                         </table>
@@ -356,9 +362,11 @@
                             });
 
                         } else {
+                            $("#loader").hide();
                             mostrarMensaje(form, "userMensaje", "Error al registrar box intentelo de nuevo", "alert-warning");
                         }
                     }, error: function (error) {
+                        $("#loader").hide();
                         mostrarMensaje(form, "userMensaje", "Error al registrar box intentelo de nuevo", "alert-warning");
                     }, complete: function (data) {
                         console.log(data);
