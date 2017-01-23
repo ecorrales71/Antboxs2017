@@ -496,6 +496,7 @@
     <Content Include="Content\Images\como_funciona_background_antboxs.jpg" />
     <Content Include="Content\Images\cuenta.png" />
     <Content Include="Content\Images\direcciones.png" />
+    <Content Include="Content\Images\favicon.ico" />
     <Content Include="Content\Images\firma_cliente.jpg" />
     <Content Include="Content\Images\gridtile.png" />
     <Content Include="Content\Images\guarda-tus-cosas-icono.png" />
