@@ -286,22 +286,6 @@
 
     </div>
     <!-- /.content -->
-    <!-- PROMO-BOX -->
-    <div class="promo-box promo-box-light">
-        <div class="container">
-            <section class="row irow-xs page-header cols-border divtable mt30 mb30">
-                <div class="col-lg-10 col-md-9 col-sm-8 divcell promobox_txt">
-                    <h1>¿Tienes dudas sobre nuestro servicio?</h1>
-                    <p>Visita las preguntas frecuentes, probablemente ya hemos respondido tus dudas. Si no, escríbenos o llámanos y con gusto te atendemos. </p>
-                </div>
-                <div class="col-lg-2 col-md-3 col-sm-4 text-right divcell">
-                    @Html.ActionLink("Preguntas Frecuentes", "PreguntasFrecuentes", "Home", new { @class = "btn btn-primary btn-md" })
-                    @*<a href="preguntas-frecuentes.php" class="btn btn-primary btn-md">Preguntas Frecuentes</a>*@
-                </div>
-            </section>
-        </div>
-    </div>
-    <!-- /.promo-box -->
 
 </div>
 <!-- /.wrapper -->
@@ -309,7 +293,7 @@
 
 <!-- Modal Medium -->
 <div class="modal fade" id="restricciones_uso">
-    <div class="modal-dialog modal-md">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal"><i class="fa fa-times"></i></button>
@@ -319,7 +303,15 @@
                 <div class="modal-body-inside">
                     <h4>Respeta las siguientes condiciones de uso:</h4>
                     <div class="heading-divider"></div>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+                    <p>
+                    </p><ul>
+                        <li><i class="fa fa-check fa-fw text-success"></i>Los artículos caben adecuadamente en mis Antboxs.</li>
+                        <li><i class="fa fa-check fa-fw text-success"></i>No estoy guardando artículos prohibidos dentro de mis Antboxs (Mayor detalle en <a href="docs/terminos-y-condiciones.pdf" target="_blank" class="link_red">Términos y Condiciones</a>).</li>
+                        <li><i class="fa fa-check fa-fw text-success"></i>Estoy informado y autorizo que se cargue un costo mensual por cada Antboxs a mi tarjeta de crédito.</li>
+                        <li><i class="fa fa-check fa-fw text-success"></i>Entiendo y autorizo que tengo derecho a un envío al mes gratuito, de mis Antboxs a mi domicilio registrado, los adicionales tienen costo.</li>
+                        <li><i class="fa fa-check fa-fw text-success"></i>Llevo un registro personal de mis artículos en cada Antboxs.</li>
+                    </ul>
+                    <p></p>
                 </div>
             </div>
         </div>

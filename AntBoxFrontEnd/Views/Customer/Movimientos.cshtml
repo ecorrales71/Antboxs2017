@@ -252,6 +252,8 @@
                             </div>
                             <div class="form-group">
                                 <input type="hidden" name="horariostring" id="horariostring" value="" />
+                                <input type="hidden" name="from" id="datafrom" value="" />
+                                <input type="hidden" name="to" id="datato" value=" " />
                                 <label for="horario">Horario de entrega</label>
                                 <select id="horario" name="horario">
                                     <option value>- Selecciona una opción -</option>
@@ -349,7 +351,7 @@
                     $("#horario").html("");
                     var items = '<option>Seleccciona un horario disponible</option>';
                     for (var i = 0; i < schedules.length ; i++) {
-                        items += "<option value='" + schedules[i].worker + "'>" + schedules[i].Start + " - " + schedules[i].End + " hrs.</option>";
+                        items += "<option value='" + schedules[i].worker + "' data-from='" + schedules[i].From + "' data-to='" + schedules[i].To + "'>" + schedules[i].Start + " - " + schedules[i].End + " hrs.</option>";
                     }
                     $('#horario').html(items);
                     $('#horario').trigger("chosen:updated");
@@ -444,7 +446,7 @@
                                 cadhtml += "        <h4>Recolección<\/h4>";
                             else
                                 cadhtml += "        <h4>Entrega<\/h4>";
-                            cadhtml += "        <p>Fecha: <span class='fecha'>" + timeConverter(taskv.completeAfter) + "</span><br \/>Lugar: " + address + "<\/p>";
+                            cadhtml += "        <p>Fecha: <span class='fecha'>" + taskv.completeAfterDate + "</span><br \/>Lugar: " + address + "<\/p>";
                             cadhtml += '<input type="hidden" class="delegacion" value="' + taskv.Address.Delegation + '" />';
                             cadhtml += '<input type="hidden" class="referencia" value="' + taskv.Address.References + '" />';
                             if (taskv.Status == "completed")
@@ -491,6 +493,8 @@
             console.log($(".select-antbox:checked").length);
 
             var formData = {
+                from: $('#datafrom').val(),
+                to: $('#datato').val(),
                 worker: $("#horario").val(),
                 address: $("#address").val(),
                 fecha: $("#fecha_entrega").val(),
@@ -555,6 +559,8 @@
             var horario = $("#horario").val();
             var t = $("#horario option:selected").text();
             $("#horariostring").val(t);
+            $("#datafrom").val($("#horario option:selected").attr('data-from'));
+            $("#datato").val($("#horario option:selected").attr('data-to'));
         })
 
         function pageLoading(status) {
@@ -615,7 +621,7 @@
                     $('#content-antboxes-recibo-recoleccion').html('');
                     $('#content-boxes-recibo-recoleccion').html('');
 
-                    $('.firma_recoleccion').attr("src", "http://64.28.103.85:8082/assets/sign" + tasks[i].id + ".png");
+                    $('.firma_recoleccion').attr("src", "http://64.28.103.84:8098/assets/sign" + tasks[i].id + ".png");
 
                     var formData = {};
                     formData.folio = tasks[i].folio;
@@ -705,7 +711,7 @@
                     //$('.cellr').val(tasks[i].folior);
                     if ($(this).closest('.media-body').find('.referencia').val() != 'undefined') $('.referenciar').text('Ref. ' + $(this).closest('.media-body').find('.referencia').val());
 
-                    $('.firma_entrega').attr("src", "http://64.28.103.85:8082/assets/sign" + tasks[i].id + ".png");
+                    $('.firma_entrega').attr("src", "http://64.28.103.84:8098/assets/sign" + tasks[i].id + ".png");
 
 
                     $('#content-antboxes-recibo').html('');

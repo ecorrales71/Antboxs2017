@@ -69,19 +69,19 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="send-form-email">* Calle</label>
-                                        <input type="text" name="Street" value="" id="NStreet" maxlength="250" />
+                                        <input type="text" name="Street" value="" id="NStreet" />
                                     </div>
                                     <div class="row">
                                         <div class="col-sm-6">
                                             <div class="form-group">
-                                                <label for="send-form-email">Núm. Int</label>
-                                                <input type="text" name="Internal_number" value="" id="NInternal_number" />
+                                                <label for="send-form-email">* Núm. Ext.</label>
+                                                <input type="text" name="External_number" value="" id="NExternal_number" />
                                             </div>
                                         </div>
                                         <div class="col-sm-6">
                                             <div class="form-group">
-                                                <label for="send-form-email">* Núm. Ext.</label>
-                                                <input type="text" name="External_number" value="" id="NExternal_number" />
+                                                <label for="send-form-email">Núm. Int</label>
+                                                <input type="text" name="Internal_number" value="" id="NInternal_number" />
                                             </div>
                                         </div>
                                     </div>
@@ -159,19 +159,19 @@
                             </div>
                             <div class="form-group">
                                 <label for="send-form-email">* Calle</label>
-                                <input type="text" name="Street" value="" id="Street" maxlength="250" />
+                                <input type="text" name="Street" value="" id="Street" />
                             </div>
                             <div class="row">
                                 <div class="col-sm-6">
                                     <div class="form-group">
-                                        <label for="send-form-email">Núm. Int</label>
-                                        <input type="text" name="Internal_number" value="" id="Internal_number" maxlength="50" />
+                                        <label for="send-form-email">* Núm. Ext.</label>
+                                        <input type="text" name="External_number" value="" id="External_number" maxlength="50" />
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="form-group">
-                                        <label for="send-form-email">* Núm. Ext.</label>
-                                        <input type="text" name="External_number" value="" id="External_number" maxlength="50" />
+                                        <label for="send-form-email">Núm. Int</label>
+                                        <input type="text" name="Internal_number" value="" id="Internal_number" maxlength="50" />
                                     </div>
                                 </div>
                             </div>
@@ -230,34 +230,34 @@
 
 @section scripts {
     <script type="text/javascript">
-        function colocaChosen() {
-            $(".chosen-container").each(function () {
-                $(this).insertBefore($(this).closest(".form-group").find("select"));
-            })
-        }
-        $(function () {
-            $('.exclamation').hide();
-        //Validar letras numeros y signos de puntuacion
-        $('#Street, #NStreet').keypress(function (e) {
-            var txt = String.fromCharCode(e.which);
-            if (!txt.match(/[A-Za-z0-9ñÑáéíóúÁÉÍÓÚ\s\-_&,'.]/)) {
-                return false;
-            }
-        });
-        //Validar letras numeros, signos de puntuacion y /
-        $('#Internal_number, #NInternal_number, #External_number, #NExternal_number').keypress(function (e) {
-            var txt = String.fromCharCode(e.which);
-            if (!txt.match(/[A-Za-z0-9ñÑáéíóúÁÉÍÓÚ\/\s\-_&,'.]/)) {
-                return false;
-            }
-        });
-        //Validar letras numeros y punto
-        $('#City, #NCity, #State, #NState #Country #NCountry').keypress(function (e) {
-            var txt = String.fromCharCode(e.which);
-            if (!txt.match(/[A-Za-z0-9ñÑáéíóúÁÉÍÓÚ.]/)) {
-                return false;
-            }
-        });
+        //function colocaChosen() {
+        //    $(".chosen-container").each(function () {
+        //        $(this).insertBefore($(this).closest(".form-group").find("select"));
+        //    })
+        //}
+        //$(function () {
+        //    $('.exclamation').hide();
+        ////Validar letras numeros y signos de puntuacion
+        //$('#Street, #NStreet').keypress(function (e) {
+        //    var txt = String.fromCharCode(e.which);
+        //    if (!txt.match(/[A-Za-z0-9ñÑáéíóúÁÉÍÓÚ\s\-_&,'.]/)) {
+        //        return false;
+        //    }
+        //});
+        ////Validar letras numeros, signos de puntuacion y /
+        //$('#Internal_number, #NInternal_number, #External_number, #NExternal_number').keypress(function (e) {
+        //    var txt = String.fromCharCode(e.which);
+        //    if (!txt.match(/[A-Za-z0-9ñÑáéíóúÁÉÍÓÚ\/\s\-_&,'.]/)) {
+        //        return false;
+        //    }
+        //});
+        ////Validar letras numeros y punto
+        //$('#City, #NCity, #State, #NState #Country #NCountry').keypress(function (e) {
+        //    var txt = String.fromCharCode(e.which);
+        //    if (!txt.match(/[A-Za-z0-9ñÑáéíóúÁÉÍÓÚ.]/)) {
+        //        return false;
+        //    }
+        //});
 
         $('#frmNewAddress').validate({
             rules: {

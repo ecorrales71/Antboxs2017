@@ -6,6 +6,7 @@ using Newtonsoft.Json;
 using AntBoxFrontEnd.Services.Address;
 using AntBoxFrontEnd.Services.Customer;
 using AntBoxFrontEnd.Services.AntBoxes;
+using System.Globalization;
 
 namespace AntBoxFrontEnd.Services.Tasks
 {
@@ -44,10 +45,11 @@ namespace AntBoxFrontEnd.Services.Tasks
         [JsonProperty("antboxs")]
         public List<AntBoxResponse> Antboxs { get; set; }
 
-        public DateTime completeAfterDate {
+        public String completeAfterDate {
             get {
                 var epoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
-                return epoch.AddMilliseconds(completeAfter);
+                epoch = epoch.AddMilliseconds(completeAfter);
+                return epoch.ToString("dd/MM/yyyy hh:mm tt", new CultureInfo("en-MX"));
             }
         }
 

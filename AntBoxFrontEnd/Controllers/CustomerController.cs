@@ -599,7 +599,8 @@ namespace AntBoxFrontEnd.Controllers
 
 
         public JsonResult DoOrder(string dirRecolId, string dirEntId, string fecRec, string fecEnt, string workerRec, string workerEnt, string couponid,
-                                string horaRec, string horaEnt, string esperar, string contactoTel , string contactoMail,
+                                string toRec, string toEnt, string fromEnt, string fromRec,
+                                string horaRec, string horaEnt, string esperar, string contactoTel , string contactoMail, 
                                 string referenciasRec, string referenciasEnt, string cardid, string monto, List<boxsResponse> boxs)
         {
             string result = "";
@@ -619,7 +620,7 @@ namespace AntBoxFrontEnd.Controllers
                 if (string.IsNullOrEmpty(folioRecoleccion))
                     return Json(new { success = false, responseText = "OCURRIO UN ERROR AL SOLICITAR LAS CAJAS DE RECOLECCION" }, JsonRequestBehavior.AllowGet);
 
-                isTaskPickupCreated = CreateDeliveryTask(fecRec, horaRec, dirRecolId, workerRec, folioRecoleccion);
+                isTaskPickupCreated = CreatePickupTask(fromRec, toRec, horaRec, dirRecolId, workerRec, folioRecoleccion);
 
                 if (!isTaskPickupCreated)
                     return Json(new { success = false, responseText = "OCURRIO UN ERROR AL CREAR TAREA DE RECOLECCION" }, JsonRequestBehavior.AllowGet);
@@ -627,7 +628,7 @@ namespace AntBoxFrontEnd.Controllers
                 if (!waitTimeWorker)
                 {
                     bool isTaskDeliveryCreated;
-                    isTaskDeliveryCreated = CreatePickupTask(fecEnt, horaEnt, dirEntId, workerEnt, folioRecoleccion);
+                    isTaskDeliveryCreated = CreateDeliveryTask(fromEnt, toEnt, horaEnt, dirEntId, workerEnt, folioRecoleccion);
 
                     if (!isTaskDeliveryCreated)
                         return Json(new { success = false, responseText = "OCURRIO UN ERROR AL CREAR TAREA DE RECOLECCION" }, JsonRequestBehavior.AllowGet);
@@ -748,19 +749,15 @@ namespace AntBoxFrontEnd.Controllers
         }
 
 
-        private bool CreatePickupTask(string from, string timefrom,  string idAddress, string worker, string folio , bool esperar = false)
+        private bool CreatePickupTask(string from, string to, string timefrom,  string idAddress, string worker, string folio , bool esperar = false)
         {
-            var fromDate = GetDateFromString(from, timefrom);
-
-            var toDate = fromDate.AddHours(RANGE_HOURS_TO_TASK);
-
             var ts = new TaskService(ServiceConfiguration.GetApiKey());
             var t = new TaskRequestOption
             {
                 Address_id = idAddress,
                 customer_id = ((CustomerResponse)Session["customer"]).Id,
-                from = DateHelpers.ToUnixTime(fromDate),
-                To = DateHelpers.ToUnixTime(toDate),
+                from = Convert.ToInt64(from),
+                To = Convert.ToInt64(to),
                 Worker_id = worker,
                 Folio = folio,
                 Type = ts.Type_Pickup,
@@ -768,19 +765,15 @@ namespace AntBoxFrontEnd.Controllers
             };
             return ts.CreateTask(t);
         }
-        private bool CreateDeliveryTask(string from, string timefrom, string idAddress, string worker, string folio)
+        private bool CreateDeliveryTask(string from, string to, string timefrom, string idAddress, string worker, string folio)
         {
-            var fromDate = GetDateFromString(from, timefrom);
-
-            var toDate = fromDate.AddHours(RANGE_HOURS_TO_TASK);
-
             var ts = new TaskService(ServiceConfiguration.GetApiKey());
             var t = new TaskRequestOption
             {
                 Address_id = idAddress,
                 customer_id = ((CustomerResponse)Session["customer"]).Id,
-                from = DateHelpers.ToUnixTime(fromDate),
-                To = DateHelpers.ToUnixTime(toDate),
+                from = Convert.ToInt64(from),
+                To = Convert.ToInt64(to),
                 Worker_id = worker,
                 Folio = folio,
                 Type = ts.Type_Delivery

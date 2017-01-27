@@ -139,7 +139,7 @@ Calendar.setup({
                     $("#selHorario").html("");
                     var items = '<option value="">Seleccciona un horario disponible</option>';
                     for (var i = 0; i < schedules.length ; i++) {
-                        items += "<option value='" + schedules[i].worker + "'>" + schedules[i].Start + " - " + schedules[i].End + " hrs.</option>";
+                        items += "<option value='" + schedules[i].worker + "' data-from='" + schedules[i].From + "' data-to='" + schedules[i].To + "'>" + schedules[i].Start + " - " + schedules[i].End + " hrs.</option>";
                     }
            
                     $('#selHorario').css('background', '');
@@ -185,6 +185,8 @@ $(document).ready(function(){
 
         if ($('#Tareas').valid()) {
             var formData = $(".form-agendar").serialize();
+            formData.from = dataFrom;
+            formData.to = dataTo;
             showLoad(1);
 
             //Validar direccion
@@ -227,35 +229,35 @@ $(document).ready(function(){
     }
     $(function () {
         //Validar letras numeros y signos de puntuacion
-        $('#txtStreet').keypress(function (e) {
-            var txt = String.fromCharCode(e.which);
-            if (!txt.match(/[A-Za-z0-9ñÑáéíóúÁÉÍÓÚ\s\-_&,'.]/)) {
-                return false;
-            }
-        }).on('keydown', function (e) {
-            if (e.keyCode == 8)
-                $(this).trigger('keypress');
-        });
-        //Validar letras numeros, signos de puntuacion y /
-        $('#txtInternal_number, #External_number').keypress(function (e) {
-            var txt = String.fromCharCode(e.which);
-            if (!txt.match(/[A-Za-z0-9ñÑáéíóúÁÉÍÓÚ\/\s\-_&,'.]/)) {
-                return false;
-            }
-        }).on('keydown', function (e) {
-            if (e.keyCode == 8)
-                $(this).trigger('keypress');
-        });
-        //Validar letras numeros y punto
-        $('#txtCity, #txtState, #txtCountry').keypress(function (e) {
-            var txt = String.fromCharCode(e.which);
-            if (!txt.match(/[A-Za-z0-9ñÑáéíóúÁÉÍÓÚ.\s]/)) {
-                return false;
-            }
-        }).on('keydown', function (e) {
-            if (e.keyCode == 8)
-                $(this).trigger('keypress');
-        });
+        //$('#txtStreet').keypress(function (e) {
+        //    var txt = String.fromCharCode(e.which);
+        //    if (!txt.match(/[A-Za-z0-9ñÑáéíóúÁÉÍÓÚ\s\-_&,'.]/)) {
+        //        return false;
+        //    }
+        //}).on('keydown', function (e) {
+        //    if (e.keyCode == 8)
+        //        $(this).trigger('keypress');
+        //});
+        ////Validar letras numeros, signos de puntuacion y /
+        //$('#txtInternal_number, #External_number').keypress(function (e) {
+        //    var txt = String.fromCharCode(e.which);
+        //    if (!txt.match(/[A-Za-z0-9ñÑáéíóúÁÉÍÓÚ\/\s\-_&,'.]/)) {
+        //        return false;
+        //    }
+        //}).on('keydown', function (e) {
+        //    if (e.keyCode == 8)
+        //        $(this).trigger('keypress');
+        //});
+        ////Validar letras numeros y punto
+        //$('#txtCity, #txtState, #txtCountry').keypress(function (e) {
+        //    var txt = String.fromCharCode(e.which);
+        //    if (!txt.match(/[A-Za-z0-9ñÑáéíóúÁÉÍÓÚ.\s]/)) {
+        //        return false;
+        //    }
+        //}).on('keydown', function (e) {
+        //    if (e.keyCode == 8)
+        //        $(this).trigger('keypress');
+        //});
 
         $.validator.addMethod("valueNotEquals", function (value, element, arg) {
             return arg != value;
@@ -416,9 +418,14 @@ $(document).ready(function(){
         
     }
 
+    var dataFrom = 0;
+    var dataTo = 0;
+
     function HorarioRecoleccion() {
         var date = $("#fecha_recoleccion").val();
         var horario = $("#selHorario").val();
+        $("#datafrom").val($("#selHorario option:selected").attr('data-from'));
+        $("#datato").val($("#selHorario option:selected").attr('data-to'));
         var t = $("#selHorario option:selected").text();
         $("#HoraRecoleccionString").val(t)
 

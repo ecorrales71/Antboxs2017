@@ -144,6 +144,8 @@
                             <div style='display:none' id="alert_fecha" class="help-block"><label>La fecha debe ser superior a la actual*</label></div>
                             <div class="form-group">
                                 <input type="hidden" name="horariostring" id="horariostring" value="" />
+                                <input type="hidden" name="from" id="datafrom" value="" />
+                                <input type="hidden" name="to" id="datato" value=" " />
                                 <label for="horario">* Horario de entrega</label>
                                 <select id="horario" name="horario" onchange="HorarioRecoleccion()">
                                     <option value="">- Selecciona una opción -</option>
@@ -211,7 +213,7 @@
                         $("#horario").html("");
                         var items = '<option>Seleccciona un horario disponible</option>';
                         for (var i = 0; i < schedules.length ; i++) {
-                            items += "<option value='" + schedules[i].worker + "'>" + schedules[i].Start + " - " + schedules[i].End + " hrs.</option>";
+                            items += "<option value='" + schedules[i].worker + "' data-from='" + schedules[i].From + "' data-to='" + schedules[i].To + "'>" + schedules[i].Start + " - " + schedules[i].End + " hrs.</option>";
                         }
                         $('#horario').html(items);
                         $('#horario').trigger("chosen:updated");
@@ -408,6 +410,8 @@
 
                 for (var j = 0; j < requests.length; j++) {
                     var formData = {
+                        from: $('#datafrom').val(),
+                        to: $('#datato').val(),
                         worker: $("#horario").val(),
                         address: $("#address").val(),
                         fecha: $("#fecha_entrega").val(),
@@ -494,6 +498,8 @@
             var horario = $("#horario").val();
             var t = $("#horario option:selected").text();
             $("#horariostring").val(t);
+            $("#datafrom").val($("#horario option:selected").attr('data-from'));
+            $("#datato").val($("#horario option:selected").attr('data-to'));
         });
 
         

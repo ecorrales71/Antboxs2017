@@ -97,7 +97,7 @@ namespace AntBoxFrontEnd.Controllers
 
         public ActionResult CrearCuenta(AgendTaskModel modelagend)
         {
-            if ( modelagend.Paso != "2")
+            if (modelagend.Paso != "2")
             {
                 return RedirectToAction("Index", "Precios");
             }
