@@ -49,7 +49,7 @@ namespace AntBoxFrontEnd.Services.Tasks
             get {
                 var epoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
                 epoch = epoch.AddMilliseconds(completeAfter);
-                return epoch.ToString("dd/MM/yyyy hh:mm tt", new CultureInfo("en-MX"));
+                return epoch.ToString("dd/MM/yyyy hh:mm tt", new CultureInfo("es-MX"));
             }
         }
 

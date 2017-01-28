@@ -1011,6 +1011,7 @@ function goto_rndf(reload)
         if (verifm) {
             if (data.success) {
                 if (verif == 1) {
+                    $('.alert-warning').remove();
                     cadhtml = htmlFacturacion($("#aidentificacion").val(), $("#arazonsocial").val(), $("#arfc").val(), data.objectaddress.Id);
                     $(".content-datos-facturacion").append(cadhtml);
                     $("#dir-facturacion").append("<option value='" + data.objectaddress.Id + "'>" + $("#aidentificacion").val() + "</option>");

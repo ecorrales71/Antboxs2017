@@ -109,6 +109,15 @@ a:hover {
 .floatl {
     float: left;
 }
+
+.nopointer:hover {
+    cursor: auto;
+}
+
+a.icon.icon-theme:hover {
+    background-color: #ba2025 !important;
+}
+
 /*----------------------------------- INICIO -------------------------------------*/
 
 /*Tamaño de los círculos rojos con los números*/
@@ -144,6 +153,22 @@ a:hover {
     border-left-color: #cf2626;
     background-color: #cf2626;
 
+}
+.tag_title {
+    background-color: rgba(186,32,37,.5);
+}
+
+.sticker_title {
+    font-size: 14px;
+    position: absolute;
+    z-index: 2;
+    bottom: 0px;
+    right: 0px;
+    display: block;
+    padding: 2px 10px 2px 10px;
+    text-align: center;
+    color: #fff;
+    border-radius: 2px;
 }
 
 /*.navbar-account {

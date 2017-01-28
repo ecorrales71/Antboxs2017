@@ -70,6 +70,10 @@
 }
 
 @media screen and (max-width: 479px){
+	.navbar {
+		padding: 0 10px !important;
+	}
+
 	.no_mobile {
 		display: none !important;
 	}
