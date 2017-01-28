@@ -28,29 +28,46 @@
                             <div class="col-md-9">
                                 <form class="form-solid" id="form-ordenar">
                                     <div class="row">
-                                        <div class="col-sm-6">
+                                        <div class="col-sm-9">
                                             <div class="irow-xs pb30">
                                                 <h3>Ordena tus antboxs</h3>
                                                 <p>Ordenar tus antboxs es muy sencillo, solo indícanos cuántas antboxs necesitas y a qué direcciones debemos enviártelas.</p>
                                             </div>
+                                            <div class="highlight highlight-light pl30 pr30 pb40 mb20">
+                                                <div class="container">
+                                                    <section class="row irow-md irow-xs">
+                                                        <div class="col-lg-6 text-center mb10">
+                                                            <h3>¡Solicita tus antboxs ahora!</h3>
+                                                            <p>Libera y ahorra espacio en tu casa u oficina.</p>
+                                                        </div>
+                                                        <div class="col-lg-6 text-center">
+                                                            <nav>
+                                                                <a class="icon icon-inverse icon-size-2 icon-theme icon-rounded nopointer" data-hover="rubberBand">
+                                                                    <i class="fa fa-archive"></i>
+                                                                </a>
+                                                                <a class="icon icon-inverse icon-size-3 icon-theme icon-rounded nopointer" data-hover="rubberBand">
+                                                                    <i class="fa fa-archive"></i>
+                                                                </a>
+                                                                <a class="icon icon-inverse icon-size-2 icon-theme icon-rounded nopointer" data-hover="rubberBand">
+                                                                    <i class="fa fa-archive"></i>
+                                                                </a>
+                                                            </nav>
+                                                        </div>
+                                                    </section>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div class="col-sm-6">
-                                            <div class="card card-image">
+                                        <div class="col-sm-3">
+                                            <div class="card card-image pt0 pb0">
                                                 <figure class="figure ">
                                                     <!--Agregar a clase para slider: "slider oneslider"-->
                                                     <ul data-fx="crossfade" data-auto="true" data-timeout="4500">
                                                         <li>
+
                                                             <img src="@Url.Content("~/Content/Images/antboxs-caja.png")" alt="">
+                                                            <div class="sticker_title tag_title mb10">antbox grande</div>
                                                         </li>
-                                                        <!--<li>
-                                                            <a href="">
-                                                                <img src="http://placehold.it/600x400" alt="">
-                                                            </a>
-                                                        </li>-->
                                                     </ul>
-                                                    <!--<a class="slider-arrow slider-arrow-prev" href=""></a>
-                                                    <a class="slider-arrow slider-arrow-next" href=""></a>
-                                                    <nav class="slider-pagination pb70"></nav>-->
                                                 </figure>
                                             </div>
                                         </div>
@@ -1292,9 +1309,9 @@
 	function generate_token() {
 	    if ($('.form-card').valid()) {
 	        showLoad(1);
-	        OpenPay.setId('muvzgciusveapovnoa7d');
-	        OpenPay.setApiKey('pk_cbcf751b755e45169f794fa2481e6bed');
-	        OpenPay.setSandboxMode(false);
+	        OpenPay.setId('miqwkvkewii1gqs4ifh2');
+	        OpenPay.setApiKey('pk_e70b7a22c6c04239b10b7be3596a1f98');
+	        OpenPay.setSandboxMode(true);
 
 	        var deviceSessionId = OpenPay.deviceData.setup("payment-form", "deviceIdHiddenFieldName");
 

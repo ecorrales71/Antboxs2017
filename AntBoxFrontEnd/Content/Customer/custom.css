@@ -528,3 +528,20 @@ ul.pagination .prev, ul.pagination .next {
     color: #666 !important;
     margin-left: 21px;
 }
+
+.tag_title {
+    background-color: rgba(186,32,37,.5);
+}
+
+.sticker_title {
+    font-size: 14px;
+    position: absolute;
+    z-index: 2;
+    bottom: 0px;
+    right: 0px;
+    display: block;
+    padding: 2px 10px 2px 10px;
+    text-align: center;
+    color: #fff;
+    border-radius: 2px;
+}

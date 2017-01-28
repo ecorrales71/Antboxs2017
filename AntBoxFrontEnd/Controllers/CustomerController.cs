@@ -160,11 +160,13 @@ namespace AntBoxFrontEnd.Controllers
                 {
                     result.Addresses = new List<AntBoxAddressViewModel>();
                 }
-                result.Cliente = ((CustomerResponse)Session["customer"]);
+                
             }
             catch (Exception ex)
             {
             }
+
+            result.Cliente = ((CustomerResponse)Session["customer"]);
 
             return View(result);
         }

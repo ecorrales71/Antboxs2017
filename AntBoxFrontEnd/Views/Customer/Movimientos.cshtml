@@ -621,7 +621,7 @@
                     $('#content-antboxes-recibo-recoleccion').html('');
                     $('#content-boxes-recibo-recoleccion').html('');
 
-                    $('.firma_recoleccion').attr("src", "http://64.28.103.84:8098/assets/sign" + tasks[i].id + ".png");
+                    $('.firma_recoleccion').attr("src", "http://64.28.103.85:8082/assets/sign" + tasks[i].id + ".png");
 
                     var formData = {};
                     formData.folio = tasks[i].folio;
@@ -711,7 +711,7 @@
                     //$('.cellr').val(tasks[i].folior);
                     if ($(this).closest('.media-body').find('.referencia').val() != 'undefined') $('.referenciar').text('Ref. ' + $(this).closest('.media-body').find('.referencia').val());
 
-                    $('.firma_entrega').attr("src", "http://64.28.103.84:8098/assets/sign" + tasks[i].id + ".png");
+                    $('.firma_entrega').attr("src", "http://64.28.103.85:8082/assets/sign" + tasks[i].id + ".png");
 
 
                     $('#content-antboxes-recibo').html('');
