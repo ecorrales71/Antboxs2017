@@ -492,6 +492,12 @@
             $("#loader-solicitar").show();
             console.log($(".select-antbox:checked").length);
 
+            OpenPay.setId('muvzgciusveapovnoa7d');
+            OpenPay.setApiKey('pk_cbcf751b755e45169f794fa2481e6bed');
+            OpenPay.setSandboxMode(false);
+
+            var deviceSessionId = OpenPay.deviceData.setup("payment-form", "deviceIdHiddenFieldName", true);
+
             var formData = {
                 from: $('#datafrom').val(),
                 to: $('#datato').val(),
@@ -501,7 +507,8 @@
                 hora: $('#horariostring').val(),
                 referencia: $('#referencia').val(),
                 folioEntrega: $(".folio-form").val(),
-                id: $('.id-task').val()
+                id: $('.id-task').val(),
+                device: deviceSessionId
             };
 
             console.log(formData);
@@ -621,7 +628,7 @@
                     $('#content-antboxes-recibo-recoleccion').html('');
                     $('#content-boxes-recibo-recoleccion').html('');
 
-                    $('.firma_recoleccion').attr("src", "http://64.28.103.85:8082/assets/sign" + tasks[i].id + ".png");
+                    $('.firma_recoleccion').attr("src", "http://64.28.103.84:8098/assets/sign" + tasks[i].id + ".png");
 
                     var formData = {};
                     formData.folio = tasks[i].folio;
@@ -711,7 +718,7 @@
                     //$('.cellr').val(tasks[i].folior);
                     if ($(this).closest('.media-body').find('.referencia').val() != 'undefined') $('.referenciar').text('Ref. ' + $(this).closest('.media-body').find('.referencia').val());
 
-                    $('.firma_entrega').attr("src", "http://64.28.103.85:8082/assets/sign" + tasks[i].id + ".png");
+                    $('.firma_entrega').attr("src", "http://64.28.103.84:8098/assets/sign" + tasks[i].id + ".png");
 
 
                     $('#content-antboxes-recibo').html('');

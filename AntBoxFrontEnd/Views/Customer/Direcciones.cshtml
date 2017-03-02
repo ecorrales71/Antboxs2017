@@ -230,13 +230,14 @@
 
 @section scripts {
     <script type="text/javascript">
-        //function colocaChosen() {
-        //    $(".chosen-container").each(function () {
-        //        $(this).insertBefore($(this).closest(".form-group").find("select"));
-        //    })
-        //}
-        //$(function () {
-        //    $('.exclamation').hide();
+        function colocaChosen() {
+            $(".chosen-container").each(function () {
+                $(this).insertBefore($(this).closest(".form-group").find("select"));
+            })
+        }
+        $(function () {
+            $('.exclamation').hide();
+
         ////Validar letras numeros y signos de puntuacion
         //$('#Street, #NStreet').keypress(function (e) {
         //    var txt = String.fromCharCode(e.which);

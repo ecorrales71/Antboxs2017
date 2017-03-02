@@ -14,10 +14,15 @@
   _deviceData._deviceDataId = undefined;
 
   /* Get current deviceDataId or generate new one */
-  function getDeviceDataId() {
-    if (_deviceData._deviceDataId === undefined) {
-      _deviceData._deviceDataId = sjcl.codec.base64.fromBits(sjcl.random.randomWords(6, 0)).replace(/[\+\/]/g,'0');
-    }
+  function getDeviceDataId(refresh) {
+      if (!refresh)
+      {
+          if (_deviceData._deviceDataId === undefined) {
+              _deviceData._deviceDataId = sjcl.codec.base64.fromBits(sjcl.random.randomWords(6, 0)).replace(/[\+\/]/g, '0');
+          }
+      } else {
+          _deviceData._deviceDataId = sjcl.codec.base64.fromBits(sjcl.random.randomWords(6, 0)).replace(/[\+\/]/g, '0');
+      }
     return _deviceData._deviceDataId;
   }
 
@@ -49,8 +54,8 @@
   }
   
   /* Collect device data */
-  function collect() {
-    var _params = "?m=" + (OpenPay.sandboxMode ? _deviceData._sandboxCollectorId : _deviceData._collectorId) + "&s=" + encodeURIComponent(getDeviceDataId());
+  function collect(refresh) {
+    var _params = "?m=" + (OpenPay.sandboxMode ? _deviceData._sandboxCollectorId : _deviceData._collectorId) + "&s=" + encodeURIComponent(getDeviceDataId(refresh));
     var hostname;
     if (OpenPay.developMode) {
         hostname = _deviceData._developHostname;
@@ -62,12 +67,12 @@
     var _imageUrl = hostname + _deviceData._collectorImg + _params;
     var _iframeUrl = hostname + _deviceData._collectorIframe + _params;
     createIframe(_iframeUrl, _imageUrl, '_op_data_r');
-    return getDeviceDataId();
+    return getDeviceDataId(refresh);
   }
   
    /* Collect device data, and add a hidden field to the form with the given ID if specified. */
-  _deviceData['setup'] = function(_formId, _hiddenFieldName) {
-  	var sessionId = getDeviceDataId();
+  _deviceData['setup'] = function(_formId, _hiddenFieldName, refresh) {
+  	var sessionId = getDeviceDataId(refresh);
     if(_formId && document.getElementById(_formId)){
       var input = document.createElement("input");
       input.setAttribute('type', 'hidden');
@@ -107,7 +112,7 @@
 	    }
     }
     
-    return collect();
+    return collect(refresh);
   };
 
 	_getBeaconKey['beaconKey'] = function(endpoint, publicKey, userId, sessionId) {

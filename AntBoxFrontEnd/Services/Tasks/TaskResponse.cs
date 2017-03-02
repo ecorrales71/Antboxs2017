@@ -48,6 +48,9 @@ namespace AntBoxFrontEnd.Services.Tasks
         public String completeAfterDate {
             get {
                 var epoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+                //----------------PRD-----------------
+                //epoch = epoch.AddMilliseconds(completeAfter).ToLocalTime();
+                //----------------SANDBOX-----------------
                 epoch = epoch.AddMilliseconds(completeAfter).ToUniversalTime();
                 TimeZoneInfo cstZone = TimeZoneInfo.FindSystemTimeZoneById("Central Standard Time");
                 epoch = TimeZoneInfo.ConvertTimeFromUtc(epoch, cstZone);

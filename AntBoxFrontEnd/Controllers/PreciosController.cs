@@ -433,22 +433,23 @@ namespace AntBoxFrontEnd.Controllers
             };
             return ts.CreateTask(t);
         }
-        private bool CreateDeliveryTask(string from, string timefrom, string idAddress, string worker, string folio)
+        private bool CreateDeliveryTask(string from, string to, string timefrom, string idAddress, string worker, string folio, string device)
         {
-            var fromDate = GetDateFromString(from, timefrom);
+            /*var fromDate = GetDateFromString(from, timefrom);
 
-            var toDate = fromDate.AddHours(RANGE_HOURS_TO_TASK);
+            var toDate = fromDate.AddHours(RANGE_HOURS_TO_TASK);*/
 
             var ts = new TaskService(ServiceConfiguration.GetApiKey());
             var t = new TaskRequestOption
             {
                 Address_id = idAddress,
                 customer_id = ((CustomerResponse)Session["customer"]).Id,
-                from = DateHelpers.ToUnixTime(fromDate),
-                To = DateHelpers.ToUnixTime(toDate),
+                from = Convert.ToInt64(from),
+                To = Convert.ToInt64(to),
                 Worker_id = worker,
                 Folio = folio,
-                Type = ts.Type_Delivery
+                Type = ts.Type_Delivery,
+                Device_id = device
             };
             return ts.CreateTask(t);
         }
@@ -609,7 +610,7 @@ namespace AntBoxFrontEnd.Controllers
                                 else
                                 {
                                     //PASO 4 - AGENDAR TASK
-                                    isTaskPickupCreated = CreatePickupTask(modeltask.From, modeltask.To, modeltask.HoraRecoleccionString, dirRec, modeltask.Horario, folioRecoleccion);
+                                    isTaskPickupCreated = CreateDeliveryTask(modeltask.From, modeltask.To, modeltask.HoraRecoleccionString, dirRec, modeltask.Horario, folioRecoleccion, requestOrder.Deviceid);
                                     if (!isTaskPickupCreated)
                                         return Json(new { success = false, verif=5, responseText = "Ocurrio un error al crear la tarea de recoleccion" }, JsonRequestBehavior.AllowGet);
                                     result += "Tarea de recoleccion agendada: " + isTaskPickupCreated + "\n";

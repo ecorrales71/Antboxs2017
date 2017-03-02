@@ -601,7 +601,7 @@ namespace AntBoxFrontEnd.Controllers
 
 
         public JsonResult DoOrder(string dirRecolId, string dirEntId, string fecRec, string fecEnt, string workerRec, string workerEnt, string couponid,
-                                string toRec, string toEnt, string fromEnt, string fromRec,
+                                string toRec, string toEnt, string fromEnt, string fromRec, string device, string device1,
                                 string horaRec, string horaEnt, string esperar, string contactoTel , string contactoMail, 
                                 string referenciasRec, string referenciasEnt, string cardid, string monto, List<boxsResponse> boxs)
         {
@@ -622,7 +622,7 @@ namespace AntBoxFrontEnd.Controllers
                 if (string.IsNullOrEmpty(folioRecoleccion))
                     return Json(new { success = false, responseText = "OCURRIO UN ERROR AL SOLICITAR LAS CAJAS DE RECOLECCION" }, JsonRequestBehavior.AllowGet);
 
-                isTaskPickupCreated = CreatePickupTask(fromRec, toRec, horaRec, dirRecolId, workerRec, folioRecoleccion);
+                isTaskPickupCreated = CreateDeliveryTask(fromRec, toRec, horaRec, dirRecolId, workerRec, folioRecoleccion, device);
 
                 if (!isTaskPickupCreated)
                     return Json(new { success = false, responseText = "OCURRIO UN ERROR AL CREAR TAREA DE RECOLECCION" }, JsonRequestBehavior.AllowGet);
@@ -630,7 +630,7 @@ namespace AntBoxFrontEnd.Controllers
                 if (!waitTimeWorker)
                 {
                     bool isTaskDeliveryCreated;
-                    isTaskDeliveryCreated = CreateDeliveryTask(fromEnt, toEnt, horaEnt, dirEntId, workerEnt, folioRecoleccion);
+                    isTaskDeliveryCreated = CreatePickupTask(fromEnt, toEnt, horaEnt, dirEntId, workerEnt, folioRecoleccion, device);
 
                     if (!isTaskDeliveryCreated)
                         return Json(new { success = false, responseText = "OCURRIO UN ERROR AL CREAR TAREA DE RECOLECCION" }, JsonRequestBehavior.AllowGet);
@@ -751,7 +751,7 @@ namespace AntBoxFrontEnd.Controllers
         }
 
 
-        private bool CreatePickupTask(string from, string to, string timefrom,  string idAddress, string worker, string folio , bool esperar = false)
+        private bool CreatePickupTask(string from, string to, string timefrom,  string idAddress, string worker, string folio, string device, bool esperar = false)
         {
             var ts = new TaskService(ServiceConfiguration.GetApiKey());
             var t = new TaskRequestOption
@@ -763,11 +763,12 @@ namespace AntBoxFrontEnd.Controllers
                 Worker_id = worker,
                 Folio = folio,
                 Type = ts.Type_Pickup,
-                Service_time = esperar
+                Service_time = esperar,
+                Device_id = device
             };
             return ts.CreateTask(t);
         }
-        private bool CreateDeliveryTask(string from, string to, string timefrom, string idAddress, string worker, string folio)
+        private bool CreateDeliveryTask(string from, string to, string timefrom, string idAddress, string worker, string folio, string device)
         {
             var ts = new TaskService(ServiceConfiguration.GetApiKey());
             var t = new TaskRequestOption
@@ -778,7 +779,8 @@ namespace AntBoxFrontEnd.Controllers
                 To = Convert.ToInt64(to),
                 Worker_id = worker,
                 Folio = folio,
-                Type = ts.Type_Delivery
+                Type = ts.Type_Delivery,
+                Device_id = device
             };
             return ts.CreateTask(t);
         }

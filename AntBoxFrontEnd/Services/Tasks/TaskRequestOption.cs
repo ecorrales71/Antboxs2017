@@ -30,7 +30,8 @@ namespace AntBoxFrontEnd.Services.Tasks
         [JsonProperty("worker_id")]
         public string Worker_id { get; set; }
 
-
+        [JsonProperty("device_id")]
+        public string Device_id { get; set; }
 
     }
 }

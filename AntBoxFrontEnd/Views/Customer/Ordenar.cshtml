@@ -854,7 +854,7 @@
             var t = $("#Horario_entrega option:selected").text();
             $('#HoraEntregaString').val(t);
             $("#datafrome").val($("#Horario_entrega option:selected").attr('data-from'));
-            $("#datatoe").val($("#Horario_entrega option:selected]").attr('data-to'));
+            $("#datatoe").val($("#Horario_entrega option:selected").attr('data-to'));
 
             $.ajax({
                 url: '@Url.Action("getSchedules", "Customer")',
@@ -923,6 +923,13 @@
                         return false;
                     }
                 }
+
+                OpenPay.setId('muvzgciusveapovnoa7d');
+                OpenPay.setApiKey('pk_cbcf751b755e45169f794fa2481e6bed');
+                OpenPay.setSandboxMode(false);
+
+                var deviceSessionId = OpenPay.deviceData.setup("payment-form", "deviceIdHiddenFieldName", true);
+                var deviceSessionId1 = OpenPay.deviceData.setup("payment-form", "deviceIdHiddenFieldName", true);
                 
                 var data =
                 {
@@ -946,7 +953,9 @@
                     cardid: cardid,
                     monto: monto,
                     boxs: antboxobject,
-                    couponid: couponid
+                    couponid: couponid,
+                    device: deviceSessionId,
+                    device1: deviceSessionId1
                 };
 
                 if (!$("#chkRestricciones").is(':checked') || !$("#chkCondiciones").is(':checked')) {
@@ -1309,11 +1318,11 @@
 	function generate_token() {
 	    if ($('.form-card').valid()) {
 	        showLoad(1);
-	        OpenPay.setId('miqwkvkewii1gqs4ifh2');
-	        OpenPay.setApiKey('pk_e70b7a22c6c04239b10b7be3596a1f98');
-	        OpenPay.setSandboxMode(true);
+	        OpenPay.setId('muvzgciusveapovnoa7d');
+	        OpenPay.setApiKey('pk_cbcf751b755e45169f794fa2481e6bed');
+	        OpenPay.setSandboxMode(false);
 
-	        var deviceSessionId = OpenPay.deviceData.setup("payment-form", "deviceIdHiddenFieldName");
+	        var deviceSessionId = OpenPay.deviceData.setup("payment-form", "deviceIdHiddenFieldName", true);
 
 	        var sucess_callbak = function (response) {
 	            var token_id = response.data.id;

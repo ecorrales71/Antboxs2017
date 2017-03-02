@@ -362,16 +362,20 @@
                         status: status,
                         antboxs: [],
                         antboxsdeposit: antboxsdeposit,
-                        antboxstore: antboxsstore
+                        antboxstore: antboxsstore,
+                        devicedeposit: "",
+                        devicestore: ""
                     };
 
                     if (requests == null)
                     {
                         if (status == 'inhouse')
                         {
+                            requestObject.devicedeposit = generate_device_id();
                             requestObject.antboxsdeposit = [antboxs];
                         } else if (status == 'stored')
                         {
+                            requestObject.devicestore = generate_device_id();
                             requestObject.antboxstore = [antboxs];
                         } else {
                             requestObject.antboxs = [antboxs];
@@ -381,11 +385,17 @@
                         for (var j = 0; j < requests.length; j++) {
                             if (requests[j].folio == folio) {
                                 found = true;
-                                if ((status != 'inhouse')&&((status != 'stored'))) {
+                                if ((status != 'inhouse') && ((status != 'stored'))) {
                                     requests[j].antboxs.push(antboxs);
                                 } else if (status == 'stored') {
+                                    if (requests[j].antboxstore.length == 0) {
+                                        requests[j].devicestore = generate_device_id();
+                                    }
                                     requests[j].antboxstore.push(antboxs);
                                 } else if (status == 'inhouse') {
+                                    if (requests[j].antboxsdeposit.length == 0) {
+                                        requests[j].devicedeposit = generate_device_id();
+                                    }
                                     requests[j].antboxsdeposit.push(antboxs);
                                 }
                             }
@@ -393,11 +403,13 @@
                         if (!found)
                         {
                             if (status == 'inhouse') {
-                                requestObject.antboxsdeposit = antboxs;
+                                requestObject.devicedeposit = generate_device_id();
+                                requestObject.antboxsdeposit = [antboxs];
                             } else if (status == 'stored') {
-                                requestObject.antboxstore = antboxs;
+                                requestObject.devicestore = generate_device_id();
+                                requestObject.antboxstore = [antboxs];
                             } else {
-                                requestObject.antboxs = antboxs;
+                                requestObject.antboxs = [antboxs];
                             }
                             requests.push(requestObject);
                         }
@@ -407,6 +419,8 @@
 
                 console.log(requests);
                 if (requests.length == 0) showLoad(0);
+
+                
 
                 for (var j = 0; j < requests.length; j++) {
                     var formData = {
@@ -421,7 +435,9 @@
                         folioEntrega: requests[j].folio,
                         antboxs: requests[j].antboxs,
                         antboxsdeposit: requests[j].antboxsdeposit,
-                        antboxsstore: requests[j].antboxstore
+                        antboxsstore: requests[j].antboxstore,
+                        devicedeposit: requests[j].devicedeposit,
+                        devicestore: requests[j].devicestore,
                     };
 
                     console.log(formData);
@@ -606,6 +622,16 @@
             else {
                 $("#loader").css('display', 'none');
             }
+        }
+
+        function generate_device_id()
+        {
+            OpenPay.setId('muvzgciusveapovnoa7d');
+            OpenPay.setApiKey('pk_cbcf751b755e45169f794fa2481e6bed');
+            OpenPay.setSandboxMode(false);
+
+            var deviceSessionId = OpenPay.deviceData.setup("payment-form", "deviceIdHiddenFieldName", true);
+            return deviceSessionId;
         }
 
     })

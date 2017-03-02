@@ -100,9 +100,10 @@ namespace AntBoxFrontEnd.Services.AntBoxes
             {
                 requestOptions = SetupRequestOptions(requestOptions);
 
-                var parameters = new Dictionary<string, string>();                
+                var parameters = new Dictionary<string, string>();
 
                 parameters.Add("items_per_page", itemPerPage.ToString());
+                parameters.Add("not_include", "reserved");
 
                 var e = AntBoxStatusEnum.Stored;                
                 

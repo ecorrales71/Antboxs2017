@@ -60,7 +60,7 @@ namespace AntBoxFrontEnd.Controllers
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult SolicitarAntbox (string worker, string address, string fecha, string hora, string referencia, string folioEntrega, string status, string idantbox, string antboxserial, string id, List<antboxssolicitud> antboxs, List<antboxssolicitud> antboxsdeposit, List<antboxssolicitud> antboxsstore, string from, string to )
+        public JsonResult SolicitarAntbox (string worker, string address, string fecha, string hora, string referencia, string folioEntrega, string status, string idantbox, string antboxserial, string id, List<antboxssolicitud> antboxs, List<antboxssolicitud> antboxsdeposit, List<antboxssolicitud> antboxsstore, string from, string to, string device, string devicestore, string devicedeposit )
         {
             bool isTaskDeliveryCreated = false;
             try
@@ -80,11 +80,11 @@ namespace AntBoxFrontEnd.Controllers
                     {
                         if (status == "inhouse")
                         {
-                            isTaskDeliveryCreated = CreatePickupTask(from, to, hora, address, worker, folioEntrega);
+                            isTaskDeliveryCreated = CreatePickupTask(from, to, hora, address, worker, folioEntrega, device);
                         }
                         else
                         {
-                            isTaskDeliveryCreated = CreateDeliveryTask(from, to, hora, address, worker, folioEntrega);
+                            isTaskDeliveryCreated = CreateDeliveryTask(from, to, hora, address, worker, folioEntrega, device);
                         }
                     }
                 }
@@ -92,7 +92,7 @@ namespace AntBoxFrontEnd.Controllers
                 {
                     if (antboxsdeposit != null)
                     {
-                        isTaskDeliveryCreated = CreatePickupTask(from, to, hora, address, worker, folioEntrega);
+                        isTaskDeliveryCreated = CreatePickupTask(from, to, hora, address, worker, folioEntrega, devicedeposit);
                     }
                     if (antboxsstore != null)
                     {
@@ -101,7 +101,7 @@ namespace AntBoxFrontEnd.Controllers
                             var folioRecoleccion = CheckOutBox(worker, antboxsstore, address);
                             if (!string.IsNullOrEmpty(folioRecoleccion))
                             {
-                                isTaskDeliveryCreated = CreateDeliveryTask(from, to, hora, address, worker, folioEntrega);
+                                isTaskDeliveryCreated = CreateDeliveryTask(from, to, hora, address, worker, folioEntrega, devicestore);
                             }
                         }
                     }
@@ -114,7 +114,7 @@ namespace AntBoxFrontEnd.Controllers
             return Json(new { success = isTaskDeliveryCreated }, JsonRequestBehavior.AllowGet);
         }
 
-        private bool CreateDeliveryTask(string from, string to, string timefrom, string idAddress, string worker, string folio)
+        private bool CreateDeliveryTask(string from, string to, string timefrom, string idAddress, string worker, string folio, string device)
         {
             var ts = new TaskService(ServiceConfiguration.GetApiKey());
             var t = new TaskRequestOption
@@ -125,12 +125,13 @@ namespace AntBoxFrontEnd.Controllers
                 To = Convert.ToInt64(to),
                 Worker_id = worker,
                 Folio = folio,
-                Type = ts.Type_Delivery
+                Type = ts.Type_Delivery,
+                Device_id = device
             };
             return ts.CreateTask(t);
         }
 
-        private bool CreatePickupTask(string from, string to, string timefrom, string idAddress, string worker, string folio, bool esperar = false)
+        private bool CreatePickupTask(string from, string to, string timefrom, string idAddress, string worker, string folio, string device, bool esperar = false)
         {
             var ts = new TaskService(ServiceConfiguration.GetApiKey());
             var t = new TaskRequestOption
@@ -142,7 +143,8 @@ namespace AntBoxFrontEnd.Controllers
                 Worker_id = worker,
                 Folio = folio,
                 Type = ts.Type_Pickup,
-                Service_time = esperar
+                Service_time = esperar,
+                Device_id = device
             };
             return ts.CreateTask(t);
         }
