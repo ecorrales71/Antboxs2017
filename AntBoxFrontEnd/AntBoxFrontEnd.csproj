@@ -696,6 +696,8 @@
     <None Include="Properties\PublishProfiles\antboxslocal.pubxml" />
     <None Include="Properties\PublishProfiles\antboxstest %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\antboxstest %283%29.pubxml" />
+    <None Include="Properties\PublishProfiles\antboxstest - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\antboxstest - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\antboxstest.pubxml" />
     <None Include="Properties\PublishProfiles\AntBoxTest - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\localhost.pubxml" />
