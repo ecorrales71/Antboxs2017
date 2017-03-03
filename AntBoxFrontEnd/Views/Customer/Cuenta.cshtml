@@ -110,33 +110,63 @@
 @section scripts {
     <script>
         $('#btnUpdate').click(function () {
-            showLoad(1);
-            $.ajax({
-                type: 'POST',
-                url: '@Url.Action("AntBoxUpdateAccountAjax", "Account")',
-                data: $('#accountForm').serialize(),
-                success: function (result) {
-                    showLoad(0);
-                    if (result.success == false) {
+            if ($('#accountForm').valid())
+            {
+                showLoad(1);
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("AntBoxUpdateAccountAjax", "Account")',
+                    data: $('#accountForm').serialize(),
+                    success: function (result) {
+                        showLoad(0);
+                        if (result.success == false) {
+                            $('#newCardResult').prepend(
+                            '<div class="alert alert-error alert-dismissible fade in" id="GetCardsError"> <button type="button" class="close" data-dismiss="alert"> <i class="fa fa-times"></i></button><p><i class="fa fa-exclamation-triangle"></i>' + 'ERROR al traer los datos de las tarjetas, intente refrescar la pagina.</p></div>');
+                            window.setTimeout(function ()
+                            { $("#GetCardsError").alert('close'); }, 10000);
+
+                        }
+                        else {
+                            var newDoc = document.open("text/html", "replace");
+                            newDoc.write(result);
+                            newDoc.close();
+                        }
+                    },
+                    error: function (emp) {
+                        showLoad(0);
                         $('#newCardResult').prepend(
-                        '<div class="alert alert-error alert-dismissible fade in" id="GetCardsError"> <button type="button" class="close" data-dismiss="alert"> <i class="fa fa-times"></i></button><p><i class="fa fa-exclamation-triangle"></i>' + 'ERROR al traer los datos de las tarjetas, intente refrescar la pagina.</p></div>');
+                        '<div class="alert alert-error alert-dismissible fade in" id="GetCardsError"> <button type="button" class="close" data-dismiss="alert"> <i class="fa fa-times"></i></button><p><i class="fa fa-exclamation-triangle"></i>' + '[ERROR ' + response.status + '] al traer los datos de las tarjetas, intente refrescar la pagina.</p></div>');
                         window.setTimeout(function ()
                         { $("#GetCardsError").alert('close'); }, 10000);
 
                     }
-                    else {
-                        var newDoc = document.open("text/html", "replace");
-                        newDoc.write(result);
-                        newDoc.close();
-                    }
+                });
+            }
+        })
+        $(function () {
+            $('#accountForm').validate({
+                rules: {
+                    phone: {
+                        minlength: 10
+                    },
+                    cellphone: {
+                        minlength: 10,
+                    },
                 },
-                error: function (emp) {
-                    showLoad(0);
-                    $('#newCardResult').prepend(
-                    '<div class="alert alert-error alert-dismissible fade in" id="GetCardsError"> <button type="button" class="close" data-dismiss="alert"> <i class="fa fa-times"></i></button><p><i class="fa fa-exclamation-triangle"></i>' + '[ERROR ' + response.status + '] al traer los datos de las tarjetas, intente refrescar la pagina.</p></div>');
-                    window.setTimeout(function ()
-                    { $("#GetCardsError").alert('close'); }, 10000);
-
+                highlight: function (element) {
+                    $(element).closest('.form-group').addClass('has-error');
+                },
+                unhighlight: function (element) {
+                    $(element).closest('.form-group').removeClass('has-error');
+                },
+                errorElement: 'span',
+                errorClass: 'help-block',
+                errorPlacement: function (error, element) {
+                    if (element.parent('.input-group').length) {
+                        error.insertAfter(element.parent());
+                    } else {
+                        error.insertAfter(element);
+                    }
                 }
             });
         })

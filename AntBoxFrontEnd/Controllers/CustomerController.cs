@@ -649,7 +649,7 @@ namespace AntBoxFrontEnd.Controllers
                     return Json(new { success = false, responseText = "OCURRIO UN ERROR Al REALIZAR EL CARGO" }, JsonRequestBehavior.AllowGet);*/
                 //result += "Cargo realizado: " + status.Status;// +" el día " + status.Creation_date;
 
-                return Json(new { success = true, responseText = "Tu pedido ha sido registrado con éxito y llegará en la fecha solicitada. A continuación te llegará un correo electrónico confirmando tu(s) Antboxs. En caso de que no te llegue el correo, no te preocupes el mismo ya fue registrado en nuestro sistema." }, JsonRequestBehavior.AllowGet);
+                return Json(new { success = true, responseText = "Tu pedido ha sido registrado con éxito y llegará en la fecha solicitada. A continuación te llegará un correo electrónico confirmando tu(s) Antboxs. En caso de que no te llegue el correo, de favor revisa tu bandeja de SPAM o correo no deseado para verificar si ahí se encuentra tu confirmación, de cualquier formar tu pedio ha quedado confirmado." }, JsonRequestBehavior.AllowGet);
             }
             catch(Exception ex)
             {

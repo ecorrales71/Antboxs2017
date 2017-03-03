@@ -66,7 +66,7 @@ namespace AntBoxFrontEnd.Services.AntBoxes
             {
                 if (Status == "inhouse")
                 {
-                    return "- En Depósito";
+                    return "- En Depósito - En proceso de entrega";
                 }
                 else
                 {
