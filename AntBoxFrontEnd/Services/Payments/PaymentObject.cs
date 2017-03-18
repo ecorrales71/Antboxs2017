@@ -48,14 +48,26 @@ namespace AntBoxFrontEnd.Services.Payments
         [JsonProperty("amount")]
         public string Amount { get; set; }
 
+        public string Monto
+        {
+            get
+            {
+                if (Type == "refund")
+                {
+                    return "-" + Amount;
+                }
+                else
+                {
+                    return Amount;
+                }
+            }
+        }
+
         [JsonProperty("payment_id")]
         public string Payment_id { get; set; }
 
         [JsonProperty("charge_date")]
         public string Charge_date { get; set; }
-
-        [JsonProperty("type")]
-        public string Typev { get; set; }
 
         [JsonProperty("antboxs")]
         public int Antboxs { get; set; }
@@ -73,7 +85,7 @@ namespace AntBoxFrontEnd.Services.Payments
             get
             {
                 var value = "";
-                switch (Typev)
+                switch (Type)
                 {
                     case "payment":
                         value = "Pago"; break;

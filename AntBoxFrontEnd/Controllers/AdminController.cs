@@ -494,7 +494,7 @@ namespace AntBoxFrontEnd.Controllers
             columns1.Add("Fecha", "Fecha");
             columns1.Add("Antboxs", "Numero de Antboxs");
             columns1.Add("Tipo", "Tipo");
-            columns1.Add("Amount", "Monto");
+            columns1.Add("Monto", "Monto");
 
             byte[] filecontent = ExcelExportHelper.ExportExcel(payments, "Pagos", false, columns1);
             return File(filecontent, ExcelExportHelper.ExcelContentType, "Pagos.xlsx");

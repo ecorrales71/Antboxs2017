@@ -22,6 +22,8 @@ namespace AntBoxFrontEnd.Models
 
         public string Rfc_id { get; set; }
 
+        public string Address { get; set; }
+
         public int? Antboxs { get; set; }
 
         public string Status { get; set; }

@@ -51,6 +51,7 @@
                                         <th><input class="input_email" type="text" name="email" id="send-form-name" placeholder="Email" value="@Model.Email"></th>
                                         <th><input class="input_rfc" type="text" name="rfc" id="send-form-name" placeholder="RFC" value="@Model.Rfc_id"></th>
                                         <th><input class="input_antboxs" type="text" name="antboxs" id="send-form-name" placeholder="Antboxs" value="@Model.Antboxs"></th>
+                                        <th><input class="input_address" type="text" name="address" id="send-form-name" placeholder="Direccion" value="@Model.Address"></th>
                                         <th>
                                             <input type="hidden" id="statusvalue" value="@Model.Status" />
                                             <select id="status" name="status">
@@ -73,6 +74,7 @@
                                                 <td>@item.Email</td>
                                                 <td>@item.Rfcv</td>
                                                 <td>@item.Antboxsnumber</td>
+                                                <td>@item.Direccion</td>
                                                 @if (item.Status == true)
                                                 {
                                                     <td>Pagado</td>

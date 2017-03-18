@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using Newtonsoft.Json;
+using AntBoxFrontEnd.Services.Address;
+using Newtonsoft.Json.Linq;
 
 namespace AntBoxFrontEnd.Services.Customer
 {
@@ -70,6 +72,33 @@ namespace AntBoxFrontEnd.Services.Customer
 
         [JsonProperty("addresses")]
         public int Addresses { get; set; }
+
+        [JsonProperty("address")]
+        public dynamic Address { get; set; }
+
+        public string Direccion
+        {
+            get
+            {
+                try
+                {
+                    if (Address is JArray)
+                    {
+                        return "";
+                    }
+                    else
+                    {
+                        AddressResponse aux = Address.ToObject<AddressResponse>();
+                        return aux.Street + " " + aux.External_number + ", " + aux.Neighborhood + ", " + aux.City + ", C.P. " + aux.Zipcode;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    return "";
+                }
+                    
+            }
+        }
 
         [JsonProperty("cards")]
         public int Cards { get; set; }
