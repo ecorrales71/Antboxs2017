@@ -402,6 +402,8 @@ namespace AntBoxFrontEnd.Controllers
             columns1.Add("Email", "Email");
             columns1.Add("MiembroDesde", "Miembro desde");
             columns1.Add("Antboxsnumber", "Numero de Antboxs");
+            columns1.Add("Addresses", "Numero de Direcciones");
+            columns1.Add("Cards", "Numero de Tarjetas");
             columns1.Add("Activo", "Activo");
 
             byte[] filecontent = ExcelExportHelper.ExportExcel(technologies, "Clientes", false, columns1);
@@ -489,7 +491,10 @@ namespace AntBoxFrontEnd.Controllers
             columns1.Add("Lastname2v", "A. Materno");
             columns1.Add("Email", "Email");
             columns1.Add("Rfc", "RFC");
-            columns1.Add("Amount", "Monto");
+            columns1.Add("Fecha", "Fecha");
+            columns1.Add("Antboxs", "Numero de Antboxs");
+            columns1.Add("Tipo", "Tipo");
+            columns1.Add("Monto", "Monto");
 
             byte[] filecontent = ExcelExportHelper.ExportExcel(payments, "Pagos", false, columns1);
             return File(filecontent, ExcelExportHelper.ExcelContentType, "Pagos.xlsx");

@@ -68,6 +68,12 @@ namespace AntBoxFrontEnd.Services.Customer
         [JsonProperty("rfc_id")]
         public string Rfc_id { get; set; }
 
+        [JsonProperty("addresses")]
+        public int Addresses { get; set; }
+
+        [JsonProperty("cards")]
+        public int Cards { get; set; }
+
         public string Rfcv
         {
             get
