@@ -7,7 +7,7 @@
     <div class="alert alert-dismissible fade in mb0 cintillo text-center">
         <button type="button" class="close" data-dismiss="alert"><i class="fa fa-times"></i></button>
         <p><i class="fa fa-bullhorn"></i>En febrero iniciamos operaciones en CDMX <strong>¡Próximamente en otras ciudades!</strong> </p>
-    </div>	
+    </div>
     <!-- VIDEO -->
     <div class="bannercontainer">
         <div class="banner" data-fullscreen="on" data-auto="true" data-hidetimerbar="off" data-fullscreenoffsetcontainer=".header">
@@ -56,7 +56,6 @@
             </section>
         </div>
         <!-- /.container -->
-
         <!-- CONTAINER -->
         <div class="container">
             <div class="row irow-sm text-center steps-2">
@@ -181,7 +180,6 @@
             </div>
         </div>
         <!-- /.container -->
-
         <!-- CONTAINER -->
         <div class="iwrap pt70 pb20">
             <div class="container">
@@ -204,8 +202,18 @@
 
     </div>
     <!-- /.content -->
-    
+
 </div>
 <!-- /.wrapper -->
 
-
+@if (ViewBag.Validate != null && ViewBag.Message != null)
+{
+    <script>
+        $(document).ready(function () {
+            if ("@ViewBag.Validate")
+                $('#body-content').prepend('<div class="alert alert-success" role="alert" id="LoginFailAlert">' + "@ViewBag.Message" + '</div>');
+            else
+                $('#body-content').prepend('<div class="alert alert-warning" role="alert" id="LoginFailAlert">' + "@ViewBag.Message" + '</div>');
+        })
+    </script>
+}

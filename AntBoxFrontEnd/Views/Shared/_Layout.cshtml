@@ -16,27 +16,31 @@
 
     <!--Start of Zopim Live Chat Script-->
     <script type="text/javascript">
-        window.$zopim||(function(d,s){var z=$zopim=function(c){z._.push(c)},$=z.s=
-        d.createElement(s),e=d.getElementsByTagName(s)[0];z.set=function(o){z.set.
-        _.push(o)};z._=[];z.set._=[];$.async=!0;$.setAttribute("charset","utf-8");
-            $.src="https://v2.zopim.com/?4S26RZQowcLd0kuYQjZyXcacnWsyek5b";z.t=+new Date;$.
-            type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
+        window.$zopim || (function (d, s) {
+            var z = $zopim = function (c) { z._.push(c) }, $ = z.s =
+            d.createElement(s), e = d.getElementsByTagName(s)[0]; z.set = function (o) {
+                z.set.
+                _.push(o)
+            }; z._ = []; z.set._ = []; $.async = !0; $.setAttribute("charset", "utf-8");
+            $.src = "https://v2.zopim.com/?4S26RZQowcLd0kuYQjZyXcacnWsyek5b"; z.t = +new Date; $.
+            type = "text/javascript"; e.parentNode.insertBefore($, e)
+        })(document, "script");
     </script>
     <!--End of Zopim Live Chat Script-->
     <script type="text/javascript">
-    // Script para aparecer/desaparecer la dirección de entrega
-    $(document).ready(function(){
-    $('.checkdisplay').change(function(){
-        if(this.checked)
-            $('.todisplay').fadeOut('slow');
-        else
-            $('.todisplay').fadeIn('slow');
+        // Script para aparecer/desaparecer la dirección de entrega
+        $(document).ready(function () {
+            $('.checkdisplay').change(function () {
+                if (this.checked)
+                    $('.todisplay').fadeOut('slow');
+                else
+                    $('.todisplay').fadeIn('slow');
 
-    });
-});
+            });
+        });
     </script>
 
-    
+
 </head>
 <body id="body-content">
     <!-- Preloader -->
@@ -122,268 +126,268 @@
         </header>
         <!-- /.header -->
     </div>
-        <!-- BODY  -->
-        @RenderBody()
-        <!-- PROMO-BOX -->
-        <div class="promo-box promo-box-light">
-            <div class="container">
-                <section class="row irow-xs page-header cols-border divtable mt30 mb30">
-                    <div class="col-lg-10 col-md-9 col-sm-8 divcell promobox_txt">
-                        <h1>¿Tienes dudas sobre nuestro servicio?</h1>
-                        <p>Visita las preguntas frecuentes, probablemente ya hemos respondido tus dudas. Si no, escríbenos o llámanos y con gusto te atendemos. </p>
-                    </div>
-                    <div class="col-lg-2 col-md-3 col-sm-4 text-right divcell">
-                        <a href='@Url.Action("PreguntasFrecuentes", "Home")' class="btn btn-primary btn-md">Preguntas Frecuentes</a>
-                    </div>
-                </section>
-            </div>
+    <!-- BODY  -->
+    @RenderBody()
+    <!-- PROMO-BOX -->
+    <div class="promo-box promo-box-light">
+        <div class="container">
+            <section class="row irow-xs page-header cols-border divtable mt30 mb30">
+                <div class="col-lg-10 col-md-9 col-sm-8 divcell promobox_txt">
+                    <h1>¿Tienes dudas sobre nuestro servicio?</h1>
+                    <p>Visita las preguntas frecuentes, probablemente ya hemos respondido tus dudas. Si no, escríbenos o llámanos y con gusto te atendemos. </p>
+                </div>
+                <div class="col-lg-2 col-md-3 col-sm-4 text-right divcell">
+                    <a href='@Url.Action("PreguntasFrecuentes", "Home")' class="btn btn-primary btn-md">Preguntas Frecuentes</a>
+                </div>
+            </section>
         </div>
-        <!-- /.promo-box -->
+    </div>
+    <!-- /.promo-box -->
+    <!-- FOOTER -->
+    <footer class="footer">
         <!-- FOOTER -->
-        <footer class="footer">
-            <!-- FOOTER -->
-            <div class="pagetitle pagetitle-collapse">
-                <a data-toggle="collapse" href="#pagetitle-collapse" class="pagetitle-toggle collapsed"></a>
-                <div id="pagetitle-collapse" class="pagetitle-panel panel-collapse collapse">
-                    <!-- FOOTER ROW -->
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-md-3 col-xs-6">
-                                <div class="widget widget_about">
-                                    <h2><img class="mb10" src="@Url.Content("~/Content/Images/antboxs_logo.png")" alt="antboxs"></h2>
-                                    <p>antboxs cuida de tu vida y espacio, al ofrecerte una solución de fácil uso, para el almacenamiento de tus artículos, con servicio a domicilio; pagando solamente el espacio que realmente necesitas, a través de una infraestructura logística y plataforma tecnológica de clase mundial.</p>
-                                    <button type="button" class="btn btn-primary registro-modal">Crear Cuenta</button>
-                                </div>
-                            </div>
-                            <div class="col-md-3 col-xs-6">
-                                <div class="widget widget_links">
-                                    <h2 class="widget-title">Categorías</h2>
-                                    <ul>
-                                        <li><a href='@Url.Action("Index", "Home")'>antboxs es...</a></li>
-                                        <li><a href='@Url.Action("ComoFunciona", "Home")'>¿Cómo funciona?</a></li>
-                                        <li><a href='@Url.Action("QueDeboHacer", "Home")'>¿Qué debo hacer?</a></li>
-                                        <li><a href='@Url.Action("Index", "Precios")'>Precios</a></li>
-                                        <li><a href='@Url.Action("PreguntasFrecuentes", "Home")'>Preguntas Frecuentes</a></li>
-                                        <li><a href='@Url.Action("Contacto", "Home")'>Contacto</a></li>
-                                        <li><a href="@Url.Content("~/Content/docs/aviso-de-privacidad.pdf")" target="_blank">Aviso de Privacidad</a></li>
-                                        <li><a href="@Url.Content("~/Content/docs/terminos-y-condiciones.pdf")" target="_blank">Términos y Condiciones</a></li>
-                                        <li><a href="@Url.Content("~/Content/docs/codigo-de-etica.pdf")" target="_blank">Código de Ética</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="col-md-3 col-xs-6">
-                                <div class="widget widget_follow_us">
-                                    <h2 class="widget-title">Redes Sociales</h2>
-                                    <ul>
-                                        <li>
-                                            <a href="http://www.facebook.com" target="_blank">
-                                                <i class="fa fa-facebook-square">  </i>
-                                                Facebook
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="http://www.youtube.com" target="_blank">
-                                                <i class="fa fa-youtube-square">  </i>
-                                                YouTube
-                                            </a>
-                                        </li>
-
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="col-md-3 col-xs-6">
-                                <div class="widget widget_contact">
-                                    <h2 class="widget-title">Contacto</h2>
-                                    <ul class="widget_contact_list">
-                                        <li>
-                                            <i class="fa fa-map-marker"></i>
-                                            <address>
-                                                Guillermo González Camarena 1600 - 2E<br>
-                                                Ciudad Santa Fe, Álvaro Obregón 01210<br>
-                                                CDMX
-                                            </address>
-                                        </li>
-                                        <li>
-                                            <i class="fa fa-phone"></i>
-                                            <address>
-                                                Tel. 55-1037-4737</a>
-                                            </address>
-                                        </li>
-
-                                        <li>
-                                            <i class="fa fa-envelope"></i>
-                                            <address>
-                                                <a href="mailto:contacto@antboxs.com">contacto@antboxs.com</a>
-                                            </address>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- /.footer row -->
-                </div>
-            </div>
-            <!-- /.pagetitle -->
-            <!-- FOOTER EXTRA -->
-            <div class="footer-extra">
+        <div class="pagetitle pagetitle-collapse">
+            <a data-toggle="collapse" href="#pagetitle-collapse" class="pagetitle-toggle collapsed"></a>
+            <div id="pagetitle-collapse" class="pagetitle-panel panel-collapse collapse">
+                <!-- FOOTER ROW -->
                 <div class="container">
-                    <nav class="contact-info pull-left">
-                        © antboxs
-                        <script type="text/javascript"> document.write(new Date().getFullYear()); </script> | Todos los derechos reservados.
-                    </nav>
-                    <nav class="extra-menu pull-right">
-                        <a class="phone"><i class="fa fa-phone"></i> 55-1037-4737</a>
-                        <a href="mailto:contacto@antboxs.com" class="email"><i class="fa fa-envelope-o"></i> contacto@antboxs.com</a>
-                    </nav>
-                </div>
-            </div>
-            <!-- /.footer-extra -->
-
-        </footer>
-
-        <!-- Modal Login -->
-        <div class="modal fade" id="login">
-            <div class="modal-dialog modal-sm">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal"><i class="fa fa-times"></i></button>
-                        <h6 class="modal-title">Entrar a mi cuenta</h6>
-                    </div>
-                    <div class="modal-body">
-                        <div class="modal-form div-login div-cont">
-                            <form id="LoginForm">
-                                <div class="form-group">
-                                    <label for="username">Correo electrónico</label>
-                                    <input type="text" name="username" id="usernamer">
-                                </div>
-                                <div class="form-group">
-                                    <label for="password">Contraseña</label>
-                                    <input type="password" name="password" id="passwordr">
-                                </div>
-                                <div class="form-group">
-                                    <a class="recuperar-password">¿Olvidaste tu contraseña?</a>
-                                </div>
-                                <hr class="hr-sm hr-stroke" />
-                                <div class="form-group" class="button-login-content">
-                                    <input type="button" class="btn btn-primary btn-wide button-login" data-dismiss="modal" value="Entrar" id="btnLogin">
-                                    @*<label class="checkbox-inline">
-                                            <input type="checkbox" id="inlineCheckbox1" value="option1"> Recordarme
-                                        </label>*@
-                                </div>
-
-                            </form>
+                    <div class="row">
+                        <div class="col-md-3 col-xs-6">
+                            <div class="widget widget_about">
+                                <h2><img class="mb10" src="@Url.Content("~/Content/Images/antboxs_logo.png")" alt="antboxs"></h2>
+                                <p>antboxs cuida de tu vida y espacio, al ofrecerte una solución de fácil uso, para el almacenamiento de tus artículos, con servicio a domicilio; pagando solamente el espacio que realmente necesitas, a través de una infraestructura logística y plataforma tecnológica de clase mundial.</p>
+                                <button type="button" class="btn btn-primary registro-modal">Crear Cuenta</button>
+                            </div>
                         </div>
-                        <div class="modal-form div-reset div-cont" style="display: none;">
-                            <form id="FormReset">
-                                <div class="form-group">
-                                    <label for="emailres">E-mail</label>
-                                    <input type="text" name="emailres" id="emailres">
-                                </div>
-                                <hr class="hr-sm hr-stroke" />
-                                <div class="form-group">
-                                    <input type="button" class="btn btn-primary btn-wide button-login" value="Enviar" id="btnEmviarReset" style="float: left; margin-right: 10px;">
-                                    <input type="button" class="btn btn-primary btn-wide button-login btn_blue" value="Volver" id="btnVolver">
-                                </div>
-
-                            </form>
+                        <div class="col-md-3 col-xs-6">
+                            <div class="widget widget_links">
+                                <h2 class="widget-title">Categorías</h2>
+                                <ul>
+                                    <li><a href='@Url.Action("Index", "Home")'>antboxs es...</a></li>
+                                    <li><a href='@Url.Action("ComoFunciona", "Home")'>¿Cómo funciona?</a></li>
+                                    <li><a href='@Url.Action("QueDeboHacer", "Home")'>¿Qué debo hacer?</a></li>
+                                    <li><a href='@Url.Action("Index", "Precios")'>Precios</a></li>
+                                    <li><a href='@Url.Action("PreguntasFrecuentes", "Home")'>Preguntas Frecuentes</a></li>
+                                    <li><a href='@Url.Action("Contacto", "Home")'>Contacto</a></li>
+                                    <li><a href="@Url.Content("~/Content/docs/aviso-de-privacidad.pdf")" target="_blank">Aviso de Privacidad</a></li>
+                                    <li><a href="@Url.Content("~/Content/docs/terminos-y-condiciones.pdf")" target="_blank">Términos y Condiciones</a></li>
+                                    <li><a href="@Url.Content("~/Content/docs/codigo-de-etica.pdf")" target="_blank">Código de Ética</a></li>
+                                </ul>
+                            </div>
                         </div>
-                        <div class="modal-form div-restore div-cont" style="display: none;">
-                            <form id="FormRestore">
-                                <div class="form-group">
-                                    <label for="code">Codigo</label>
-                                    <input type="text" name="code" id="code">
-                                </div>
-                                <div class="form-group">
-                                    <label for="Newpassword">Contraseña</label>
-                                    <input type="password" name="Newpassword" id="Newpassword">
-                                </div>
-                                <div class="form-group">
-                                    <label for="Newpassword1">Confirmar Contraseña</label>
-                                    <input type="password" name="Newpassword1" id="Newpassword1">
-                                </div>
-                                <hr class="hr-sm hr-stroke" />
-                                <div class="form-group">
-                                    <input type="button" class="btn btn-primary btn-wide button-login" value="Enviar" id="btnEmviarRestore" style="float: left; margin-right: 10px;">
-                                    <input type="button" class="btn btn-primary btn-wide button-login btn_blue" value="Volver" id="btnVolverRestore">
-                                </div>
+                        <div class="col-md-3 col-xs-6">
+                            <div class="widget widget_follow_us">
+                                <h2 class="widget-title">Redes Sociales</h2>
+                                <ul>
+                                    <li>
+                                        <a href="http://www.facebook.com" target="_blank">
+                                            <i class="fa fa-facebook-square">  </i>
+                                            Facebook
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="http://www.youtube.com" target="_blank">
+                                            <i class="fa fa-youtube-square">  </i>
+                                            YouTube
+                                        </a>
+                                    </li>
 
-                            </form>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-xs-6">
+                            <div class="widget widget_contact">
+                                <h2 class="widget-title">Contacto</h2>
+                                <ul class="widget_contact_list">
+                                    <li>
+                                        <i class="fa fa-map-marker"></i>
+                                        <address>
+                                            Guillermo González Camarena 1600 - 2E<br>
+                                            Ciudad Santa Fe, Álvaro Obregón 01210<br>
+                                            CDMX
+                                        </address>
+                                    </li>
+                                    <li>
+                                        <i class="fa fa-phone"></i>
+                                        <address>
+                                            Tel. 55-1037-4737</a>
+                                        </address>
+                                    </li>
+
+                                    <li>
+                                        <i class="fa fa-envelope"></i>
+                                        <address>
+                                            <a href="mailto:contacto@antboxs.com">contacto@antboxs.com</a>
+                                        </address>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
+                <!-- /.footer row -->
             </div>
         </div>
-        <!-- /.modal -->
-        <!-- Modal Register -->
-        <div class="modal fade" id="registro">
-            <div class="modal-dialog modal-sm">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal"><i class="fa fa-times"></i></button>
-                        <h6 class="modal-title">Registrar nueva cuenta</h6>
-                    </div>
-                    <div class="modal-body">
-                        <div class="modal-form">
-                            @*<p>Indícanos el código postal de la dirección dónde deseas que realicemos la recolección de tus cosas.</p>*@
+        <!-- /.pagetitle -->
+        <!-- FOOTER EXTRA -->
+        <div class="footer-extra">
+            <div class="container">
+                <nav class="contact-info pull-left">
+                    © antboxs
+                    <script type="text/javascript"> document.write(new Date().getFullYear()); </script> | Todos los derechos reservados.
+                </nav>
+                <nav class="extra-menu pull-right">
+                    <a class="phone"><i class="fa fa-phone"></i> 55-1037-4737</a>
+                    <a href="mailto:contacto@antboxs.com" class="email"><i class="fa fa-envelope-o"></i> contacto@antboxs.com</a>
+                </nav>
+            </div>
+        </div>
+        <!-- /.footer-extra -->
+
+    </footer>
+
+    <!-- Modal Login -->
+    <div class="modal fade" id="login">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><i class="fa fa-times"></i></button>
+                    <h6 class="modal-title">Entrar a mi cuenta</h6>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-form div-login div-cont">
+                        <form id="LoginForm">
+                            <div class="form-group">
+                                <label for="username">Correo electrónico</label>
+                                <input type="text" name="username" id="usernamer">
+                            </div>
+                            <div class="form-group">
+                                <label for="password">Contraseña</label>
+                                <input type="password" name="password" id="passwordr">
+                            </div>
+                            <div class="form-group">
+                                <a class="recuperar-password">¿Olvidaste tu contraseña?</a>
+                            </div>
                             <hr class="hr-sm hr-stroke" />
-                            <form id="registerForm">
-                                <input type="hidden" id="verifoption" name="verifoption" value="1" />
-                                <div class="form-group">
-                                    <label for="name">Nombre</label>
-                                    <input type="text" name="name" id="name" maxlength="50" required="required" onkeypress="return isAlfa(event)">
-                                </div>
-                                <div class="form-group">
-                                    <label for="lastname">Apellidos</label>
-                                    <input type="text" name="lastname" id="lastname" maxlength="100" required="required" onkeypress="return isAlfa(event)">
-                                </div>
-                                <div class="form-group">
-                                    <label for="email">E-mail</label>
-                                    <input type="email" name="email" id="email" maxlength="100" required="required">
-                                </div>
-                                <div style='display:none' id="alert_email" class="alert"><label>Campo requerido formato email incorrecto*</label></div>
-                                <div class="form-group">
-                                    <label for="email2">Confirmar Email</label>
-                                    <input type="email" name="email2" id="email2" maxlength="100" required="required">
-                                </div>
-                                <div style='display:none' id="alert_email2" class="alert"><label>Campo requerido formato email incorrecto*</label></div>
-                                <div style='display:none' id="alert_email3" class="alert"><label>Emails no coinciden*</label></div>
-                                <div class="form-group">
-                                    <label for="username">Nombre de usuario</label>
-                                    <input type="text" name="username" id="username" required="required">
-                                </div>
-                                <div class="form-group">
-                                    <label for="zipcode">Teléfono</label>
-                                    <input type="text" name="phone" id="phone" required="required" onkeypress='return onlyNumbers(event);' maxlength="10">
-                                </div>
-                                <div class="form-group">
-                                    <label for="zipcode">Código Postal de Recolección</label>
-                                    <input type="text" name="zipCode" id="zipCode" onchange="validateZipCode()" maxlength="5" required="required">
-                                </div>
-                                <div id="zipCodeError"></div>
-                                <hr class="hr-sm hr-stroke" />
-                                <div class="form-group">
-                                    <label for="password">Contraseña</label>
-                                    <input type="password" name="password" id="password" maxlength="10" required="required">
-                                </div>
-                                <div style='display:none' id="alert_password"><label>Debe contener minimo una mayuscula y un numero*</label></div>
-                                <div class="form-group">
-                                    <label for="password2">Confirmar Contraseña</label>
-                                    <input type="password" name="password2" id="password2" maxlength="10" required="required">
-                                </div>
-                                <div style='display:none' id="alert_password2"><label>Debe contener minimo una mayuscula y un numero*</label></div>
-                                <div style='display:none' id="alert_password3"><label>Contraseñas no Coinciden*</label></div>
-                                <hr class="hr-sm hr-stroke" />
-                                <div class="form-group">
-                                    <input type="button" class="btn btn-primary" value="Registrarme" id="btnRegister">
-                                </div>
-                            </form>
-                        </div>
+                            <div class="form-group" class="button-login-content">
+                                <input type="button" class="btn btn-primary btn-wide button-login" data-dismiss="modal" value="Entrar" id="btnLogin">
+                                @*<label class="checkbox-inline">
+                                        <input type="checkbox" id="inlineCheckbox1" value="option1"> Recordarme
+                                    </label>*@
+                            </div>
+
+                        </form>
+                    </div>
+                    <div class="modal-form div-reset div-cont" style="display: none;">
+                        <form id="FormReset">
+                            <div class="form-group">
+                                <label for="emailres">E-mail</label>
+                                <input type="text" name="emailres" id="emailres">
+                            </div>
+                            <hr class="hr-sm hr-stroke" />
+                            <div class="form-group">
+                                <input type="button" class="btn btn-primary btn-wide button-login" value="Enviar" id="btnEmviarReset" style="float: left; margin-right: 10px;">
+                                <input type="button" class="btn btn-primary btn-wide button-login btn_blue" value="Volver" id="btnVolver">
+                            </div>
+
+                        </form>
+                    </div>
+                    <div class="modal-form div-restore div-cont" style="display: none;">
+                        <form id="FormRestore">
+                            <div class="form-group">
+                                <label for="code">Codigo</label>
+                                <input type="text" name="code" id="code">
+                            </div>
+                            <div class="form-group">
+                                <label for="Newpassword">Contraseña</label>
+                                <input type="password" name="Newpassword" id="Newpassword">
+                            </div>
+                            <div class="form-group">
+                                <label for="Newpassword1">Confirmar Contraseña</label>
+                                <input type="password" name="Newpassword1" id="Newpassword1">
+                            </div>
+                            <hr class="hr-sm hr-stroke" />
+                            <div class="form-group">
+                                <input type="button" class="btn btn-primary btn-wide button-login" value="Enviar" id="btnEmviarRestore" style="float: left; margin-right: 10px;">
+                                <input type="button" class="btn btn-primary btn-wide button-login btn_blue" value="Volver" id="btnVolverRestore">
+                            </div>
+
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- /.modal -->
+    </div>
+    <!-- /.modal -->
+    <!-- Modal Register -->
+    <div class="modal fade" id="registro">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><i class="fa fa-times"></i></button>
+                    <h6 class="modal-title">Registrar nueva cuenta</h6>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-form">
+                        @*<p>Indícanos el código postal de la dirección dónde deseas que realicemos la recolección de tus cosas.</p>*@
+                        <hr class="hr-sm hr-stroke" />
+                        <form id="registerForm">
+                            <input type="hidden" id="verifoption" name="verifoption" value="1" />
+                            <div class="form-group">
+                                <label for="name">Nombre</label>
+                                <input type="text" name="name" id="name" maxlength="50" required="required" onkeypress="return isAlfa(event)">
+                            </div>
+                            <div class="form-group">
+                                <label for="lastname">Apellidos</label>
+                                <input type="text" name="lastname" id="lastname" maxlength="100" required="required" onkeypress="return isAlfa(event)">
+                            </div>
+                            <div class="form-group">
+                                <label for="email">E-mail</label>
+                                <input type="email" name="email" id="email" maxlength="100" required="required">
+                            </div>
+                            <div style='display:none' id="alert_email" class="alert"><label>Campo requerido formato email incorrecto*</label></div>
+                            <div class="form-group">
+                                <label for="email2">Confirmar Email</label>
+                                <input type="email" name="email2" id="email2" maxlength="100" required="required">
+                            </div>
+                            <div style='display:none' id="alert_email2" class="alert"><label>Campo requerido formato email incorrecto*</label></div>
+                            <div style='display:none' id="alert_email3" class="alert"><label>Emails no coinciden*</label></div>
+                            <div class="form-group">
+                                <label for="username">Nombre de usuario</label>
+                                <input type="text" name="username" id="username" required="required">
+                            </div>
+                            <div class="form-group">
+                                <label for="zipcode">Teléfono</label>
+                                <input type="text" name="phone" id="phone" required="required" onkeypress='return onlyNumbers(event);' maxlength="10">
+                            </div>
+                            <div class="form-group">
+                                <label for="zipcode">Código Postal de Recolección</label>
+                                <input type="text" name="zipCode" id="zipCode" onchange="validateZipCode()" maxlength="5" required="required">
+                            </div>
+                            <div id="zipCodeError"></div>
+                            <hr class="hr-sm hr-stroke" />
+                            <div class="form-group">
+                                <label for="password">Contraseña</label>
+                                <input type="password" name="password" id="password" maxlength="10" required="required">
+                            </div>
+                            <div style='display:none' id="alert_password"><label>Debe contener minimo una mayuscula y un numero*</label></div>
+                            <div class="form-group">
+                                <label for="password2">Confirmar Contraseña</label>
+                                <input type="password" name="password2" id="password2" maxlength="10" required="required">
+                            </div>
+                            <div style='display:none' id="alert_password2"><label>Debe contener minimo una mayuscula y un numero*</label></div>
+                            <div style='display:none' id="alert_password3"><label>Contraseñas no Coinciden*</label></div>
+                            <hr class="hr-sm hr-stroke" />
+                            <div class="form-group">
+                                <input type="button" class="btn btn-primary" value="Registrarme" id="btnRegister">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /.modal -->
 
 
 </body>
@@ -446,15 +450,14 @@
             $('#login').find('.modal-title').text('Recuperar contraseña');
             $('.div-login').show();
         });
-        $('#btnEmviarReset').click(function(e){
+        $('#btnEmviarReset').click(function (e) {
             e.preventDefault();
-            if ($('#FormReset').valid())
-            {
+            if ($('#FormReset').valid()) {
                 showLoad(1);
                 $.ajax({
                     type: 'POST',
                     url: '@Url.Action("ResetPasswordV", "Account")',
-                    data: { email : $('#emailres').val() },
+                    data: { email: $('#emailres').val() },
                     success: function (result) {
                         if (result.success == false) {
                             alert('E-mail no registrado');
@@ -473,12 +476,11 @@
                     }
                 });
             }
-            
+
         });
         $('#btnEmviarRestore').click(function (e) {
             e.preventDefault();
-            if ($('#FormRestore').valid())
-            {
+            if ($('#FormRestore').valid()) {
                 showLoad(1);
                 $.ajax({
                     type: 'POST',
@@ -577,8 +579,11 @@
             data: $('#LoginForm').serialize(),
             success: function (result) {
                 if (result.success == false) {
-                    $('#body-content').prepend(
-                    '<div class="alert alert-warning" role="alert" id="LoginFailAlert">Correo electrónico o Password no valido.</div>');
+                    if (result.Message != undefined) {
+                        $('#body-content').prepend('<div class="alert alert-warning" role="alert" id="LoginFailAlert">' + result.Message + '</div>');
+                    } else {
+                        $('#body-content').prepend('<div class="alert alert-warning" role="alert" id="LoginFailAlert">Correo electrónico o Password no valido.</div>');
+                    }
                     window.setTimeout(function ()
                     { $("#LoginFailAlert").alert('close'); }, 2000);
                 }
@@ -623,9 +628,10 @@
                     }
                     else {
 
-                        eleb.removeClass("disablebutton");
+                        @*eleb.removeClass("disablebutton");
                         $('#login-info').html(result);
-                        window.location.href = '@Url.Action("Index", "Customer")';
+                        window.location.href = '@Url.Action("Index", "Customer")';*@
+                        $('#body-content').prepend('<div class="alert alert-success" role="alert" id="LoginFailAlert">' + result.message + '</div>');
                     }
 
 
