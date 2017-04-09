@@ -20,7 +20,7 @@ using System.IO;
 
 namespace AntBoxFrontEnd.Controllers
 {
-    //[Authorize]
+    [Authorize]
     public class AccountController : Controller
     {
         private ApplicationSignInManager _signInManager;
@@ -885,26 +885,5 @@ namespace AntBoxFrontEnd.Controllers
             }
         }
         #endregion
-
-        public async Task<ActionResult> enviar()
-        {
-            Users us = new Users
-            {
-                customerid = "1224121",
-                email = "pruebaseguridad2012@gmail.com",
-            };
-
-            var res = _Repository.CreateUser(us);
-
-            if (res)
-            {
-                us = _Repository.GetUser(us);
-                await SendEmail("ConfirmationEmail", "Account", us, "ConfirmationEmail", "Confirma tu cuenta");
-                return Json(new { success = true, message = "Usuario registrado con éxito, por favor verifique su correo electrónico" }, JsonRequestBehavior.AllowGet);
-            }else
-            {
-                return Json(new { success = true, message = "Usuario registrado con éxito, por favor verifique su correo electrónico" }, JsonRequestBehavior.AllowGet);
-            }
-        }
     }
 }
