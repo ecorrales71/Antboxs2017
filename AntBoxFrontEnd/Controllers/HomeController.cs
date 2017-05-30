@@ -1,6 +1,7 @@
 ﻿using AntBoxFrontEnd.Entities;
 using AntBoxFrontEnd.Infrastructure;
 using AntBoxFrontEnd.Models;
+using AntBoxFrontEnd.Repository;
 using AntBoxFrontEnd.Services.Address;
 using AntBoxFrontEnd.Services.AntBoxes;
 using AntBoxFrontEnd.Services.Boxes;
@@ -19,7 +20,6 @@ namespace AntBoxFrontEnd.Controllers
     [RequireHttps]
     public class HomeController : Controller
     {
-
         public ActionResult Index()
         {
             var serAntboxs = new AntBoxesServices(ServiceConfiguration.GetApiKey());
@@ -97,7 +97,7 @@ namespace AntBoxFrontEnd.Controllers
         {
             ViewBag.Message = "Agendar entregas.";
 
-            List<SelectListItem> delegaciones = new List<SelectListItem>() { new SelectListItem { Value = "",  Text= "Selecciona una delegacion"} };
+            List<SelectListItem> delegaciones = new List<SelectListItem>() { new SelectListItem { Value = "", Text = "Selecciona una delegacion" } };
             List<SelectListItem> colonias = new List<SelectListItem>() { new SelectListItem { Value = "", Text = "Selecciona una colonia" } };
 
             ViewBag.DelegationList = new SelectList(delegaciones, "Value", "Text");
@@ -180,7 +180,7 @@ namespace AntBoxFrontEnd.Controllers
 
         //}
 
-        
+
 
         [HttpPost]
         public JsonResult CreateAddress(AntBoxAddressViewModel address)
@@ -194,9 +194,13 @@ namespace AntBoxFrontEnd.Controllers
 
                 CustomerResponse customer = (CustomerResponse)Session["customer"];
 
+<<<<<<< HEAD
                 customer = actualizaStep(3);
 
                 Session["customer"] = customer;
+=======
+
+>>>>>>> 92f5bf9412da85054e6afa1da10323ce05fb944c
 
                 var requestOption = Mapper.Map<AntBoxAddressViewModel, AddressRequestOptions>(address);
 
@@ -209,7 +213,7 @@ namespace AntBoxFrontEnd.Controllers
 
                 return Json(new { success = result, step = customer.step, responseText = "DIRECCIÓN REGISTRADA" }, JsonRequestBehavior.AllowGet);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 LogManager.Write(ex.Message, LogManager.Error);
                 return Json(new { success = false, responseText = "OCURRIO UN ERROR AL REGISTRAR LA DIRECCIÓN" }, JsonRequestBehavior.AllowGet);
@@ -263,20 +267,20 @@ namespace AntBoxFrontEnd.Controllers
                 var requestOption = Mapper.Map<AntBoxAddressViewModel, AddressUpdateOptions>(address);
 
 
-                
+
 
                 var result = addressService.UpdateAddress(requestOption, address.Id);
 
                 return Json(new { success = result, responseText = "Dirección actualizada" }, JsonRequestBehavior.AllowGet);
 
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 LogManager.Write(ex.Message, LogManager.Error);
                 return Json(new { success = false, responseText = "OCURRIO UN ERROR AL ACTUALIZAR LA DIRECCIÓN" }, JsonRequestBehavior.AllowGet);
             }
 
-           
+
         }
 
         public JsonResult ListAddresses(int numPag = 1, string idPag = null)
@@ -308,12 +312,12 @@ namespace AntBoxFrontEnd.Controllers
 
                 return Json(antBoxResult, JsonRequestBehavior.AllowGet);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 LogManager.Write(ex.Message, LogManager.Error);
                 return Json(new { success = false, responseText = "OCURRIO UN ERROR AL LISTAR LAS DIRECCIONES" }, JsonRequestBehavior.AllowGet);
             }
-           
+
         }
 
 
@@ -326,7 +330,7 @@ namespace AntBoxFrontEnd.Controllers
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 
-        
+
         public JsonResult DeleteAdress(string idAddress)
         {
             var addressService = new AddressService(ServiceConfiguration.GetApiKey());
@@ -334,7 +338,7 @@ namespace AntBoxFrontEnd.Controllers
             var result = addressService.DeleteAddress(idAddress);
 
 
-            if(result)
+            if (result)
                 return Json(new { success = result, responseText = "Se borro exitósamente el registro" }, JsonRequestBehavior.AllowGet);
 
             return Json(new { success = result, responseText = "Ocurrio un error al borrar el registro" }, JsonRequestBehavior.AllowGet);
@@ -354,7 +358,7 @@ namespace AntBoxFrontEnd.Controllers
                 LogManager.Write(ex.Message, LogManager.Error);
                 return Json(new { success = false, responseText = "Direccion no valida" }, JsonRequestBehavior.AllowGet);
             }
-            return Json(false, JsonRequestBehavior.AllowGet); 
+            return Json(false, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult SearchZip(string zipcode)
@@ -388,11 +392,11 @@ namespace AntBoxFrontEnd.Controllers
                     });
                 });
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 LogManager.Write(ex.Message + " " + ex.InnerException, LogManager.Error);
             }
-           
+
 
             return Json(new { result = delegations }, JsonRequestBehavior.AllowGet);
 
@@ -418,11 +422,11 @@ namespace AntBoxFrontEnd.Controllers
                     });
                 });
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 LogManager.Write(ex.Message + " " + ex.InnerException, LogManager.Error);
             }
-          
+
 
 
             return Json(new { result = col }, JsonRequestBehavior.AllowGet);
@@ -440,7 +444,8 @@ namespace AntBoxFrontEnd.Controllers
             try
             {
                 state = results.FirstOrDefault().State;
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 LogManager.Write(ex.Message + " " + ex.InnerException, LogManager.Error);
             }
@@ -449,12 +454,5 @@ namespace AntBoxFrontEnd.Controllers
         }
 
         #endregion
-
-
-      
-
-
-
-
     }
 }
