@@ -102,6 +102,30 @@ namespace AntBoxFrontEnd.Services.Customer
             }
         }
 
+        public virtual int CountingCustomers(RequestOptions requestOptions = null)
+        {
+            var cresponse = new CountingCustomersResponse();
+            try
+            {
+                
+
+                requestOptions = SetupRequestOptions(requestOptions);
+
+                var parameters = new Dictionary<string, string>();
+
+                var encodedParams = Infrastructure.UrlHelper.BuildURLParametersString(parameters);
+
+                cresponse = Requestor.Get<CountingCustomersResponse>(UrlsConstants.CountingCustomer, requestOptions);
+
+                return cresponse.Customers;
+            }
+            catch (Exception ex)
+            {
+                LogManager.Write(ex.Message + " " + ex.InnerException, LogManager.Error);
+                cresponse.Customers = 0;
+                return cresponse.Customers;
+            }
+        }
 
         public virtual PaginationCustomerResponse ListCustomer(int? currentPage, string name, string email, string rfc, int? antboxs, string status, string idPagination = null, RequestOptions requestOptions = null)
         {

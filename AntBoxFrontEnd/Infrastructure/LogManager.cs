@@ -13,7 +13,7 @@ namespace AntBoxFrontEnd.Infrastructure
 
         public static void Write(string log, string type)
         {
-            var pre = DateTime.Now.ToString("yyyyMM");
+            /*var pre = DateTime.Now.ToString("yyyyMM");
             //var filename = AppDomain.CurrentDomain.BaseDirectory + "App_Data\\" + "log\\" + pre+"_log"+ type +".txt";
             var filename = "C:\\" + "log\\" + pre + "_log" + type + ".txt";
 
@@ -28,7 +28,7 @@ namespace AntBoxFrontEnd.Infrastructure
 
             var sw = new System.IO.StreamWriter(filename, true);
             sw.WriteLine(DateTime.Now.ToString() + " "  + log);
-            sw.Close();
+            sw.Close();*/
         }
 
 

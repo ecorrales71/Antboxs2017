@@ -19,10 +19,13 @@
         <!-- CONTAINER -->
         <div class="container mt30">
             <div class="row">
+                @if (((AntBoxFrontEnd.Services.Customer.CustomerResponse)Session["customer"]).step == 5)
+                {
                 <div class="col-md-3 pr0 no_portrait">
                     @Html.Partial("_LeftMenu")
                 </div>
-                <div class="col-md-9">
+                }
+                <div class="@if (((AntBoxFrontEnd.Services.Customer.CustomerResponse)Session["customer"]).step == 5) { <text>col-md-9</text> } else { <text>col-md-12</text> } ">
                     <div class="row pl30 pr30 recibos">
                         <div class="irow-xs pb30">
                             <h3>Recibos y facturación</h3>
@@ -496,7 +499,7 @@ function goto_rndf(reload)
                 var count = parseInt($('#cardscount').val());
                 var state = 'inactive';
                 if (count == 0) state = 'main';
-            
+
                     $.ajax({
                         type: 'POST',
                         url: '@Url.Action("RegisterCardAjax", "Payment")',
@@ -515,6 +518,12 @@ function goto_rndf(reload)
                                     '<div class="alert alert-success alert-dismissible fade in" id="RegisterCardSuccess"> <button type="button" class="close" data-dismiss="alert"> <i class="fa fa-times"></i></button><p><i class="fa fa-check"></i>Tarjeta registrada</p></div>');
                                 window.setTimeout(function ()
                                 { $("#RegisterCardSuccess").alert('close'); }, 10000);
+
+                                if (result.step == 4)
+                                {
+                                    window.location.href = '@Url.Action("Steps", "Customer")'
+                                }
+
                                 window.setTimeout(function () {
                                     $.ajax({
                                         type: 'POST',
@@ -785,7 +794,7 @@ function goto_rndf(reload)
                 formelementg = ".form-afacturacion";
                 loaderg = "#loader1";
                 var formData = $(".form-afacturacion").serialize();
-                
+
                 if ($('.form-afacturacion').valid()) {
                     verifm = true;
                     http('@Url.Action("CreateBillingAddress", "BillingAddress")', formData, callbackSuccess, ".form-afacturacion", loaderg);
@@ -970,7 +979,7 @@ function goto_rndf(reload)
         });
 
         $('.facturar-button-form').click(function (event) {
-            
+
             event.preventDefault();
             formelementg = ".form-facturar";
             formdata = $(formelementg).serialize();

@@ -87,6 +87,7 @@ namespace AntBoxFrontEnd.Controllers
                 return Json(new { success = false }, JsonRequestBehavior.AllowGet);
             }
         }
+
         [HttpPost]
         public ActionResult RegisterCardAjax(string deviceId, string state, string token)
         {
@@ -102,12 +103,47 @@ namespace AntBoxFrontEnd.Controllers
             bool result = ps.CreatePaymentCard(pro);
             if (result)
             {
-                return Json(new { success = true }, JsonRequestBehavior.AllowGet);
+
+                CustomerResponse customer = actualizaStep(4);
+                Session["customer"] = customer;
+                
+                return Json(new { success = true, step = customer.step }, JsonRequestBehavior.AllowGet);
             }
             else
             {
                 return Json(new { success = false }, JsonRequestBehavior.AllowGet);
             }
+        }
+
+        public CustomerResponse actualizaStep(short step)
+        {
+            CustomerResponse customer = ((CustomerResponse)Session["customer"]);
+            if (customer.step < step)
+            {
+                antboxsbdEntities db = new antboxsbdEntities();
+
+                try
+                {
+                    db.Database.Connection.Open();
+                    User obj = db.Users.Where(e => e.email == customer.Email)
+                        .FirstOrDefault();
+
+                    if (obj.step < step)
+                    {
+                        obj.step = step;
+                        db.SaveChanges();
+                        customer.step = step;
+                    }
+
+                }
+                catch (Exception ex)
+                {
+
+                }
+
+                db.Database.Connection.Close();
+            }
+            return customer;
         }
 
         [HttpPost]

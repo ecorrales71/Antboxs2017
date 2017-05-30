@@ -13,8 +13,8 @@ namespace AntBoxFrontEnd.Infrastructure
         //public static String HostPublic { get { return "http://64.28.103.84:8098"; } }
 
         //----------------SANDBOX-----------------
-        public static String Host { get { return "http://198.19.143.41:8082"; } }
-        //public static String Host { get { return "http://64.28.103.85:8082"; } }
+        //public static String Host { get { return "http://198.19.143.41:8082"; } }
+        public static String Host { get { return "http://64.28.103.85:8082"; } }
         public static String HostPublic { get { return "http://64.28.103.85:8082"; } }
 
         public static String BaseUrl { get { return Host + "/v1"; } }
@@ -107,6 +107,10 @@ namespace AntBoxFrontEnd.Infrastructure
         public static String RestorePassword { get { return BaseUrl + "/restore"; } }
 
         public static String Referer { get { return BaseUrl + "/refered"; } }
+
+        public static String CountingAntboxs { get { return BaseUrl + "/counting/antboxs"; } }
+
+        public static String CountingCustomer { get { return BaseUrl + "/counting/customer"; } }
 
     }
 }

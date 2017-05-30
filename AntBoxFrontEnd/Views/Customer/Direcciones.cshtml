@@ -24,10 +24,13 @@
         <!-- CONTAINER -->
         <div class="container mt30">
             <div class="row">
+                @if (((AntBoxFrontEnd.Services.Customer.CustomerResponse)Session["customer"]).step == 5)
+                {
                 <div class="col-md-3 pr0 no_portrait">
                     @Html.Partial("_LeftMenu")
                 </div>
-                <div class="col-md-9">
+                }
+                <div class="@if (((AntBoxFrontEnd.Services.Customer.CustomerResponse)Session["customer"]).step == 5) { <text>col-md-9</text> } else { <text>col-md-12</text> } ">
                     <div class="row pl30 pr30">
                         <div class="irow-xs pb30">
                             <h3>Direcciones registradas</h3>
@@ -428,7 +431,13 @@
                     window.setTimeout(function ()
                     { $("#addressError").alert('close'); }, 2000);
 
-                    window.location.reload(true);
+                    if (result.step != 3)
+                    {
+                        window.location.reload(true);
+                    } else {
+                        window.location.href = '@Url.Action("Steps", "Customer")';
+                    }
+                   
                     //$('#frmNewAddress').ready(function () {
                     //    $("input").each(function () {
                     //        $(this).val("");

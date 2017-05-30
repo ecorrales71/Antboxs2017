@@ -127,6 +127,8 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -234,6 +236,21 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Antboxsdb.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Antboxsdb.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Antboxsdb.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Antboxsdb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Antboxsdb.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Antboxsdb.edmx</DependentUpon>
+    </Compile>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
@@ -297,6 +314,7 @@
     <Compile Include="Models\abTask.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\abAddress.cs" />
+    <Compile Include="Models\HomeViewModel.cs" />
     <Compile Include="Models\PagosModel.cs" />
     <Compile Include="Models\ReporteDeliveriesModel.cs" />
     <Compile Include="Models\ReportePagosModel.cs" />
@@ -320,6 +338,7 @@
     <Compile Include="Models\ProcessOrderModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\AntBoxes\AntBoxObjectCheckout.cs" />
+    <Compile Include="Services\AntBoxes\CountingAntboxsResponse.cs" />
     <Compile Include="Services\Billing\BillingRequestOptions.cs" />
     <Compile Include="Services\Billing\BillingService.cs" />
     <Compile Include="Services\Billing\BillingUpdateOptions.cs" />
@@ -368,6 +387,7 @@
     <Compile Include="Services\CustomerService\PaginationDelivery.cs" />
     <Compile Include="Services\CustomerService\DeliveryResponse.cs" />
     <Compile Include="Services\CustomerService\WorkerResponse.cs" />
+    <Compile Include="Services\Customer\CountingCustomersResponse.cs" />
     <Compile Include="Services\Customer\CustomerListingResponse.cs" />
     <Compile Include="Services\Customer\CustomerUpdateOptions.cs" />
     <Compile Include="Services\Customer\CustomerRequestOptions.cs" />
@@ -433,8 +453,21 @@
     <Compile Include="Services\Zipcodes\ZipCodeResponse.cs" />
     <Compile Include="Services\Zipcodes\ZipcodeService.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="User.cs">
+      <DependentUpon>Antboxsdb.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Antboxsdb.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Antboxsdb.edmx</DependentUpon>
+      <LastGenOutput>Antboxsdb.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Antboxsdb.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Antboxsdb.edmx</DependentUpon>
+      <LastGenOutput>Antboxsdb.cs</LastGenOutput>
+    </Content>
     <Content Include="Content\Admin\animate.css" />
     <Content Include="Content\Admin\bootstrap.css" />
     <Content Include="Content\Admin\calendar.css" />
@@ -691,6 +724,13 @@
     <Content Include="Content\docs\codigo-de-etica.pdf" />
     <Content Include="Content\lista-de-precios-antboxs.pdf" />
     <Content Include="Content\docs\terminos-y-condiciones.pdf" />
+    <EntityDeploy Include="Antboxsdb.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Antboxsdb.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Antboxsdb.edmx.diagram">
+      <DependentUpon>Antboxsdb.edmx</DependentUpon>
+    </Content>
     <None Include="Properties\PublishProfiles\antbox - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\AntBoxs - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\antboxslocal.pubxml" />
@@ -822,6 +862,7 @@
     <Content Include="Views\CustomerService\Cuenta.cshtml" />
     <Content Include="Views\Admin\ReporteProspectos.cshtml" />
     <Content Include="Views\Admin\Operadores.cshtml" />
+    <Content Include="Views\Customer\Steps.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Content\Admin\CSV\" />
@@ -848,6 +889,9 @@
     <EmbeddedResource Include="Migrations\201607270257118_AntboxDb.resx">
       <DependentUpon>201607270257118_AntboxDb.cs</DependentUpon>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

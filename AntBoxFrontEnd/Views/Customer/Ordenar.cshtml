@@ -22,10 +22,13 @@
                     <!-- CONTAINER -->
                     <div class="container mt30">
                         <div class="row">
+                            @if (((AntBoxFrontEnd.Services.Customer.CustomerResponse)Session["customer"]).step == 5)
+                            {
                             <div class="col-md-3 pr0 no_portrait">
                                 @Html.Partial("_LeftMenu")
                             </div>
-                            <div class="col-md-9">
+                            }
+                            <div class="@if (((AntBoxFrontEnd.Services.Customer.CustomerResponse)Session["customer"]).step == 5) { <text>col-md-9</text> } else { <text>col-md-12</text> } ">
                                 <form class="form-solid" id="form-ordenar">
                                     <div class="row">
                                         <div class="col-sm-9">
@@ -971,6 +974,7 @@
                             showLoad(0);
                             if (data.success) {
                                 alert(data.responseText);
+
                                 window.location.reload(true);
                             }
                             else { alert(data.responseText); }

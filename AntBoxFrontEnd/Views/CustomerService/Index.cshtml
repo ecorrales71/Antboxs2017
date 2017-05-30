@@ -47,7 +47,7 @@
                             <table class="table table-bordered">
                                 <thead>
                                     <tr>
-                                        <th><input class="input_cliente" type="text" name="name" id="send-form-name" placeholder="Cliente" value="@Model.Name"></th>
+                                        <th width="200"><input class="input_cliente" type="text" name="name" id="send-form-name" placeholder="Cliente" value="@Model.Name"></th>
                                         <th><input class="input_email" type="text" name="email" id="send-form-name" placeholder="Email" value="@Model.Email"></th>
                                         <th><input class="input_rfc" type="text" name="rfc" id="send-form-name" placeholder="RFC" value="@Model.Rfc_id"></th>
                                         <th><input class="input_antboxs" type="text" name="antboxs" id="send-form-name" placeholder="Antboxs" value="@Model.Antboxs"></th>
@@ -68,7 +68,7 @@
                                         foreach (var item in Model.Customers.Customers)
                                         {
                                             <tr>
-                                                <td>
+                                                <td width="200">
                                                     <button type="button" class="btn-link open-modal" data-id="@item.Id" >@item.Namev</button>
                                                 </td>
                                                 <td>@item.Email</td>

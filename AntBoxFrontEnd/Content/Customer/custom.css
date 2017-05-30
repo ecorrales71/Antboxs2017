@@ -194,6 +194,147 @@ ul.pagination .prev, ul.pagination .next {
     padding-top: 20px;
     padding-bottom: 30px;
 }
+
+/*----------------------------------- Wizard -------------------------------------*/
+
+  .steps {
+    max-width: 800px;
+        margin-top: 30px;
+    margin-right: auto;
+    margin-bottom: 30px;
+    margin-left: auto;
+  }
+
+  /*.sticker_steps {
+    font-size: 14px;
+    margin: 0 auto;
+    font-weight: 600;
+    width: 200px;
+    display: block;
+    padding: 5px 50px 5px 50px;
+    text-align: center;
+    color: #fff;
+    border-radius: 2px;
+  }*/
+
+.steps .card {
+    padding-top: 0px;
+    padding-bottom: 0px;
+    min-height: 10px !important;
+}
+
+  .step_completed {
+    color: #89cb71;
+    font-size: 150px;
+    opacity: .7;
+  }
+
+.wizard-step p {
+  padding: 10px 20px 0px 20px;
+}
+
+
+  .wizard-buttons {
+    margin: 0px auto;
+  }
+
+
+  #myModal {
+    /*margin-left: 32px;
+    border: 4px solid red;*/
+        -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    border-radius: 15px;
+    background-color: #f5f5f5;
+    padding: 10px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .wizard-steps-panel {
+    position: relative;
+    /*height: 4em;*/
+  }
+
+  .wizard-steps-panel .step-number{
+    display: inline-block;
+    text-align: center;
+    font-size: 26px;
+    position: relative;
+  }
+
+  .wizard-steps-panel .step-number .number{
+    width: 1.7em;
+    height: 1.7em;
+    background-color: #dedede;
+    color: #5a5a5a;
+    margin-left: calc(50% - 1.7em / 2 );
+    border: 4px solid #dedede;
+    border-radius: 1.7em;
+    padding-top: 5px;
+  }
+
+  .wizard-steps-panel .step-number.doing .number,
+  .wizard-steps-panel .step-number.doing .number:after,
+  .wizard-steps-panel .step-number.doing .number:before {
+    background-color: #ba2025;
+    border: 4px solid #ba2025;
+    color: white;
+  }
+
+  .wizard-steps-panel .step-number.done .number,
+  .wizard-steps-panel .step-number.done .number:after,
+  .wizard-steps-panel .step-number.done .number:before {
+    background-color: #8dc63f;
+    border: 4px solid #8dc63f;
+    color: #ffffff;
+  }
+
+  .wizard-steps-panel .step-number .number:before {
+    content: ' ';
+    position: absolute;
+    border: 4px solid #dedede;
+    border-radius: 4px;
+    left: -4px;
+    right: calc( 50% + 1.4em/2 );
+    top: calc( 1.4em / 2 );
+  }
+
+  .wizard-steps-panel .step-number .number:after  {
+    content: ' ';
+    position: absolute;
+    border: 4px solid #dedede;
+    border-radius: 4px;
+    left: calc( 50% + 1.4em/2 );
+    right: -4px;
+    top: calc( 1.4em / 2 );
+  }
+
+  .wizard-steps-panel.steps-quantity-1 .step-number {
+    width: 99%;
+  }
+
+  .wizard-steps-panel.steps-quantity-2 .step-number {
+    width: 49%;
+  }
+
+  .wizard-steps-panel.steps-quantity-3 .step-number {
+    width: 32%;
+  }
+
+  .wizard-steps-panel.steps-quantity-4 .step-number {
+    width: 24%;
+  }
+
+  .wizard-steps-panel.steps-quantity-5 .step-number {
+    width: 19%;
+  }
+
+  .wizard-steps-panel.steps-quantity-6 .step-number {
+    width: 15%;
+  }
+
+
 /*----------------------------------- MENU -------------------------------------*/
 
 /* Estilo de circulo de perfil */
@@ -238,6 +379,9 @@ ul.pagination .prev, ul.pagination .next {
 .inicio .card {
     width: 100%;
     min-height: 190px;
+}
+.h100 {
+    height: 100px;
 }
 
 
@@ -438,6 +582,22 @@ ul.pagination .prev, ul.pagination .next {
 
 }
 
+.tag_title {
+    background-color: rgba(186,32,37,.5);
+}
+
+.sticker_title {
+    font-size: 14px;
+    position: absolute;
+    z-index: 2;
+    bottom: 0px;
+    right: 0px;
+    display: block;
+    padding: 2px 10px 2px 10px;
+    text-align: center;
+    color: #fff;
+    border-radius: 2px;
+}
 
 /*----------------------------------- FOOTER -------------------------------------*/
 .footer-extra {

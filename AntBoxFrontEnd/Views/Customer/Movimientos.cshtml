@@ -22,10 +22,13 @@
             @Html.Hidden("total", @Model.Total)
             @Html.Hidden("pages", @Model.Pages)
             <div class="row">
+                @if (((AntBoxFrontEnd.Services.Customer.CustomerResponse)Session["customer"]).step == 5)
+                {
                 <div class="col-md-3 pr0 no_portrait">
                     @Html.Partial("_LeftMenu")
                 </div>
-                <div class="col-md-9">
+                }
+                <div class="@if (((AntBoxFrontEnd.Services.Customer.CustomerResponse)Session["customer"]).step == 5) { <text>col-md-9</text> } else { <text>col-md-12</text> } ">
                     <div class="row pl30 pr30">
                         <div class="irow-xs pb30">
                             <h3>Historial de movimientos</h3>

@@ -493,6 +493,7 @@ namespace AntBoxFrontEnd.Controllers
             columns1.Add("Rfc", "RFC");
             columns1.Add("Fecha", "Fecha");
             columns1.Add("Antboxs", "Numero de Antboxs");
+            columns1.Add("Descuento", "Descuento");
             columns1.Add("Tipo", "Tipo");
             columns1.Add("Monto", "Monto");
 

@@ -2,6 +2,7 @@
 using AntBoxFrontEnd.Infrastructure;
 using AntBoxFrontEnd.Models;
 using AntBoxFrontEnd.Services.Address;
+using AntBoxFrontEnd.Services.AntBoxes;
 using AntBoxFrontEnd.Services.Boxes;
 using AntBoxFrontEnd.Services.Contact;
 using AntBoxFrontEnd.Services.Customer;
@@ -21,7 +22,17 @@ namespace AntBoxFrontEnd.Controllers
 
         public ActionResult Index()
         {
-            return View();
+            var serAntboxs = new AntBoxesServices(ServiceConfiguration.GetApiKey());
+            var serCustomer = new CustomerServices(ServiceConfiguration.GetApiKey());
+
+            var antboxs = serAntboxs.CountingAntboxs();
+            var customers = serCustomer.CountingCustomers();
+
+            var model = new HomeViewModel();
+            model.antboxs = antboxs + 1000;
+            model.customers = customers + 250;
+
+            return View(model);
         }
 
         public ActionResult About()
@@ -183,7 +194,9 @@ namespace AntBoxFrontEnd.Controllers
 
                 CustomerResponse customer = (CustomerResponse)Session["customer"];
 
-                
+                customer = actualizaStep(3);
+
+                Session["customer"] = customer;
 
                 var requestOption = Mapper.Map<AntBoxAddressViewModel, AddressRequestOptions>(address);
 
@@ -194,7 +207,7 @@ namespace AntBoxFrontEnd.Controllers
 
                 var result = addresService.CreateAddress(requestOption);
 
-                return Json(new { success = result, responseText = "DIRECCIÓN REGISTRADA" }, JsonRequestBehavior.AllowGet);
+                return Json(new { success = result, step = customer.step, responseText = "DIRECCIÓN REGISTRADA" }, JsonRequestBehavior.AllowGet);
             }
             catch(Exception ex)
             {
@@ -203,6 +216,36 @@ namespace AntBoxFrontEnd.Controllers
             }
         }
 
+        public CustomerResponse actualizaStep(short step)
+        {
+            CustomerResponse customer = ((CustomerResponse)Session["customer"]);
+            if (customer.step < step)
+            {
+                antboxsbdEntities db = new antboxsbdEntities();
+
+                try
+                {
+                    db.Database.Connection.Open();
+                    User obj = db.Users.Where(e => e.email == customer.Email)
+                        .FirstOrDefault();
+
+                    if (customer.step < step)
+                    {
+                        obj.step = step;
+                        db.SaveChanges();
+                        customer.step = step;
+                    }
+
+                }
+                catch (Exception ex)
+                {
+
+                }
+
+                db.Database.Connection.Close();
+            }
+            return customer;
+        }
 
         public JsonResult UpdateAddress(AntBoxAddressViewModel address)
         {

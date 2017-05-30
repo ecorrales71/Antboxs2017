@@ -189,7 +189,30 @@ namespace AntBoxFrontEnd.Services.AntBoxes
                 return null;
             }
         }
-        
+
+        public virtual int CountingAntboxs(RequestOptions requestOptions = null)
+        {
+            var cresponse = new CountingAntboxsResponse();
+            try
+            {
+                requestOptions = SetupRequestOptions(requestOptions);
+
+                var parameters = new Dictionary<string, string>();
+
+                var encodedParams = Infrastructure.UrlHelper.BuildURLParametersString(parameters);
+
+                cresponse = Requestor.Get<CountingAntboxsResponse>(UrlsConstants.CountingAntboxs, requestOptions);
+
+                return cresponse.Antboxs;
+            }
+            catch (Exception ex)
+            {
+                LogManager.Write(ex.Message + " " + ex.InnerException, LogManager.Error);
+                cresponse.Antboxs = 0;
+                return cresponse.Antboxs;
+            }
+        }
+
     }
 
 

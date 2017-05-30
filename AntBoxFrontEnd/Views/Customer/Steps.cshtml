@@ -1,0 +1,175 @@
+﻿@model AntBoxFrontEnd.Services.Customer.CustomerResponse
+@{
+    ViewBag.Title = "Index";
+}
+
+<!-- WRAPPER -->
+<div class="wrapper">
+    <!-- CONTENT -->
+    <div class="content inicio">
+
+        <!-- CONTAINER -->
+        <div class="iwrap ">
+            <section class="container">
+                <div class="row text-wrap text-center pt20 pb20">
+                    <div class="col-md-10 col-md-offset-1" data-animate="fadeInDown">
+                        <h1>¡Bienvenido a tu cuenta antboxs!</h1>
+                        <p>Además de editar tu información personal, también podrás ordenar y gestionar tus antboxs, agregar una nueva forma de pago y más, a cualquier hora del día y desde cualquier lugar.</p>
+                        <div class="heading-divider heading-divider-xs mb30"></div>
+                    </div>
+                    <div class="col-md-10 col-md-offset-1">
+                        <div id="myModal">
+                            <!-- Eliminar botones -->
+                            <a type="button" class="btn btn-primary slider-arrow arrow-margin slider-arrow-prev wizard-button-back" href="javascript:void(0)" style="display: none; margin-left: 36px;"></a>
+                            <a type="button" class="btn btn-primary slider-arrow arrow-margin slider-arrow-next wizard-button-next" href="javascript:void(0)" style="display: block; margin-right: 36px;"></a>
+                            <!-- End - Eliminar botones -->
+                            <div class="steps">
+                                <div class="mb30">
+                                    <h2>Antes de comenzar...</h2>
+                                    <p>Antes de ordenar tu primer antboxs, sigue los siguientes 4 pasos:</p>
+                                </div>
+                                <div class="wizard-content">
+                                    <div class="wizard-steps-panel steps-quantity-4">
+                                        <div class="step-number step-1 @if (Model.step > 1) { <text>done</text> } else if (Model.step == 1) { <text>doing</text> }">
+                                            <div class="number">1</div>
+                                        </div>
+                                        <div class="step-number step-2 @if (Model.step > 2) { <text>done</text> } else if (Model.step == 2) { <text>doing</text> }">
+                                            <div class="number">2</div>
+                                        </div>
+                                        <div class="step-number step-3 @if (Model.step > 3) { <text>done</text> } else if (Model.step == 3) { <text>doing</text> }">
+                                            <div class="number">3</div>
+                                        </div>
+                                        <div class="step-number step-4 @if (Model.step > 4) { <text>done</text> } else if (Model.step == 4) { <text>doing</text> }">
+                                            <div class="number">4</div>
+                                        </div>
+                                    </div>
+                                    @if ((Model.step >= 1))
+                                    {
+                                        <div class="wizard-step row mt0" @if (Model.step != 1) { <text>style="display: none;"</text> }>
+                                            <h3 class="mt40">Paso 1</h3>
+                                            <div class="col-xs-12 col-md-4">
+                                                <div class="irow-sm text-center cards divtable">
+                                                    <div class="divcell-flip">
+                                                        <div class="card-flip">
+                                                            <div class="flipper">
+                                                                <div class="front card">
+                                                                    <img class="img-lg" src="@Url.Content("~/Content/Images/cuenta.png")" width="120" height="100" alt="">
+                                                                    <h5 class="pt10">Cuenta</h5>
+                                                                </div>
+                                                                <div class="back card">
+                                                                    <a href="@Url.Action("Cuenta", "Customer")" class="btn btn-primary mt40">Cuenta</a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-12 col-md-8 text-left">
+                                                <p>
+                                                    Entra a la sección 'Cuenta' y asegúrate de que los campos estén completos y que sea la información correcta.<br>
+                                                </p>
+                                            </div>
+                                        </div>
+}
+                                    @if (Model.step >= 2)
+                                    {
+                                    <div class="wizard-step row mt0" @if (Model.step != 2) { <text>style="display: none;"</text> } >
+                                        <h3 class="mt40">Paso 2</h3>
+                                        <div class="col-xs-12 col-md-4">
+                                            <div class="irow-sm text-center cards divtable">
+                                                <div class="divcell-flip">
+                                                    <div class="card-flip">
+                                                        <div class="flipper">
+                                                            <div class="front card">
+                                                                <img class="img-lg" src="@Url.Content("~/Content/Images/direcciones.png")" width="120" height="100" alt="">
+                                                                <h5 class="pt10">Direcciones</h5>
+                                                            </div>
+                                                            <div class="back card">
+                                                                <a href="@Url.Action("Direcciones", "Customer")" class="btn btn-primary mt40">Direcciones</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12 col-md-8 text-left">
+                                            <p>
+                                                Entra a la sección 'Direcciones' y registra por lo menos una dirección para la recolección y entregas de tus antboxs.<br>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    }
+                                    @if (Model.step >= 3)
+                                    {
+                                    <div class="wizard-step row mt0" @if (Model.step != 3) { <text>style="display: none;"</text> }>
+                                        <h3 class="mt40">Paso 3</h3>
+                                        <div class="col-xs-12 col-md-4">
+                                            <div class="irow-sm text-center cards divtable">
+                                                <div class="divcell-flip">
+                                                    <div class="card-flip">
+                                                        <div class="flipper">
+                                                            <div class="front card">
+                                                                <img class="img-lg" src="@Url.Content("~/Content/Images/pagos.png")" width="120" height="100" alt="">
+                                                                <h5 class="pt10">Pagos</h5>
+                                                            </div>
+                                                            <div class="back card">
+                                                                <a href="@Url.Action("Pagos", "Customer")" class="btn btn-primary mt40">Pagos</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12 col-md-8 text-left">
+                                            <p>
+                                                Entra a la sección 'Pagos' y regístra una tarjeta de crédito. Tu primer tarjeta se asignará automáticamente para los pagos recurrentes.<br>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    }
+                                    @if (Model.step >= 4)
+                                    {
+                                    <div class="wizard-step row mt0" @if (Model.step != 4) { <text>style="display: none;"</text> } >
+                                        <h3 class="mt40">Paso 4</h3>
+                                        <div class="col-xs-12 col-md-4">
+                                            <div class="irow-sm text-center cards divtable">
+                                                <div class="divcell-flip">
+                                                    <div class="card-flip">
+                                                        <div class="flipper">
+                                                            <div class="front card">
+                                                                <img class="img-lg" src="@Url.Content("~/Content/Images/ordenar.png")" width="120" height="100" alt="">
+                                                                <h5 class="pt10">Ordenar</h5>
+                                                            </div>
+                                                            <div class="back card">
+                                                                <a href="@Url.Action("Ordenar", "Customer")" class="btn btn-primary mt40">Ordenar</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12 col-md-8 text-left">
+                                            <p>
+                                                ¡Ahora ya estás listo para ordenar! Entra a la sección de ordenar y solicita tus antboxs.<br>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <!-- /.container -->
+        <!-- CONTAINER -->
+        
+
+
+
+
+    </div>
+
+</div>
+<!-- /.wrapper -->

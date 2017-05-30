@@ -46,16 +46,57 @@ namespace AntBoxFrontEnd.Controllers
 
                 CustomerServices cs = new CustomerServices(ServiceConfiguration.GetApiKey());
 
+                int? step = ((CustomerResponse)Session["customer"]).step;
+
                 CustomerResponse customer = cs.SearchCustomer(tempid);
+                customer.step = step;
+
+                customer = actualizaStep(customer, 2);
 
                 Session["customer"] = customer;
 
-                return RedirectToAction("Cuenta", "Customer");
-
+                if (customer.step != 2)
+                {
+                    return RedirectToAction("Cuenta", "Customer");
+                } else
+                {
+                    return RedirectToAction("Steps", "Customer");
+                }
+                
             }
 
             return Json(new { success = false }, JsonRequestBehavior.AllowGet);
             //AddErrors(result);
+        }
+
+        public CustomerResponse actualizaStep(CustomerResponse customer, short step)
+        {
+            if (customer.step < step)
+            {
+                antboxsbdEntities db = new antboxsbdEntities();
+
+                try
+                {
+                    db.Database.Connection.Open();
+                    User obj = db.Users.Where(e => e.email == customer.Email)
+                        .FirstOrDefault();
+
+                    if (customer.step < step)
+                    {
+                        obj.step = step;
+                        db.SaveChanges();
+                        customer.step = step;
+                    }
+
+                }
+                catch (Exception ex)
+                {
+
+                }
+
+                db.Database.Connection.Close();
+            }
+            return customer;
         }
 
         [HttpPost]
@@ -95,6 +136,24 @@ namespace AntBoxFrontEnd.Controllers
                 CustomerResponse customer = cs.SearchCustomer(id);
 
                 Session["customer"] = customer;
+
+                try
+                {
+                    antboxsbdEntities db = new antboxsbdEntities();
+                    db.Database.Connection.Open();
+
+                    User objUser = new User();
+                    objUser.email = customer.Email;
+                    objUser.token = "1234";
+                    objUser.status = true;
+                    objUser.step = 1;
+                    db.Users.Add(objUser);
+                    db.SaveChanges();
+
+                } catch (Exception e)
+                {
+
+                }
 
                 return PartialView("_LoginPartial");
             }

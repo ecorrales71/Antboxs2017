@@ -19,6 +19,7 @@ using AntBoxFrontEnd.Services.AntBoxes;
 using AntBoxFrontEnd.Services.BillingAddress;
 using AntBoxFrontEnd.Services.Rules;
 using Newtonsoft.Json;
+using System.Web.Routing;
 
 namespace AntBoxFrontEnd.Controllers
 {
@@ -36,6 +37,62 @@ namespace AntBoxFrontEnd.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
+            CustomerResponse customer = ((CustomerResponse)Session["customer"]);
+            antboxsbdEntities db = new antboxsbdEntities();
+
+            try
+            {
+                db.Database.Connection.Open();
+                User obj = db.Users.Where(e => e.email == customer.Email)
+                    .FirstOrDefault();
+
+                customer.step = obj.step;
+                Session["customer"] = customer;
+
+                if (obj.step < 5)
+                {
+                    db.Database.Connection.Close();
+                    Response.Redirect("Customer/Steps");
+                }
+            }
+            catch (Exception ex)
+            {
+                if (ex.Message == "Object reference not set to an instance of an object.")
+                {
+                    
+                    User objUser = new User();
+                    objUser.email = customer.Email;
+                    objUser.token = "1234";
+                    objUser.status = true;
+                    objUser.step = 5;
+                    db.Users.Add(objUser);
+                    db.SaveChanges();
+
+                    customer.step = 5;
+                    Session["customer"] = customer;
+
+                }
+                else
+                {
+                    return Content("Error: " + ex.Message);
+                }
+
+            }
+            finally
+            {
+                db.Database.Connection.Close();
+            }
+
+            return View(Session["customer"]);
+
+        }
+
+        public ActionResult Steps()
+        {
+            if (Session["customer"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             return View(Session["customer"]);
         }
 
@@ -45,6 +102,11 @@ namespace AntBoxFrontEnd.Controllers
             {
                 return RedirectToAction("Index", "Home");
             }
+            int? step = ((CustomerResponse)Session["customer"]).step;
+            if ((step < 5) && (step != 1))
+            {
+                return RedirectToAction("Steps", "Customer");
+            }
             return View(Session["customer"]);
         }
 
@@ -53,6 +115,11 @@ namespace AntBoxFrontEnd.Controllers
             if (Session["customer"] == null)
             {
                 return RedirectToAction("Index", "Home");
+            }
+            int? step = ((CustomerResponse)Session["customer"]).step;
+            if ((step < 5) && (step != 2))
+            {
+                return RedirectToAction("Steps", "Customer");
             }
 
             //CustomerResponse customer = (CustomerResponse)Session["customer"];
@@ -180,6 +247,11 @@ namespace AntBoxFrontEnd.Controllers
             {
                 return RedirectToAction("Index", "Home");
             }
+            int? step = ((CustomerResponse)Session["customer"]).step;
+            if ((step < 5) && (step != 3))
+            {
+                return RedirectToAction("Steps", "Customer");
+            }
 
             var apikey = ServiceConfiguration.GetApiKey();
             var ps = new PaymentService(apikey);
@@ -288,6 +360,11 @@ namespace AntBoxFrontEnd.Controllers
             if (Session["customer"] == null)
             {
                 return RedirectToAction("Index", "Home");
+            }
+            int? step = ((CustomerResponse)Session["customer"]).step;
+            if ((step < 5) && (step != 4))
+            {
+                return RedirectToAction("Steps", "Customer");
             }
             var order = GetNewOrder();
             Session["couponidadmin"] = null;
@@ -597,7 +674,36 @@ namespace AntBoxFrontEnd.Controllers
             }
         }
 
+        public CustomerResponse actualizaStep(short step)
+        {
+            CustomerResponse customer = ((CustomerResponse)Session["customer"]);
+            if (customer.step < step)
+            {
+                antboxsbdEntities db = new antboxsbdEntities();
 
+                try
+                {
+                    db.Database.Connection.Open();
+                    User obj = db.Users.Where(e => e.email == customer.Email)
+                        .FirstOrDefault();
+
+                    if (customer.step < step)
+                    {
+                        obj.step = step;
+                        db.SaveChanges();
+                        customer.step = step;
+                    }
+
+                }
+                catch (Exception ex)
+                {
+
+                }
+
+                db.Database.Connection.Close();
+            }
+            return customer;
+        }
 
 
         public JsonResult DoOrder(string dirRecolId, string dirEntId, string fecRec, string fecEnt, string workerRec, string workerEnt, string couponid,
@@ -649,7 +755,10 @@ namespace AntBoxFrontEnd.Controllers
                     return Json(new { success = false, responseText = "OCURRIO UN ERROR Al REALIZAR EL CARGO" }, JsonRequestBehavior.AllowGet);*/
                 //result += "Cargo realizado: " + status.Status;// +" el día " + status.Creation_date;
 
-                return Json(new { success = true, responseText = "Tu pedido ha sido registrado con éxito y llegará en la fecha solicitada. A continuación te llegará un correo electrónico confirmando tu(s) Antboxs. En caso de que no te llegue el correo, de favor revisa tu bandeja de SPAM o correo no deseado para verificar si ahí se encuentra tu confirmación, de cualquier formar tu pedio ha quedado confirmado." }, JsonRequestBehavior.AllowGet);
+                CustomerResponse customer = actualizaStep(5);
+                Session["customer"] = customer;
+
+                return Json(new { success = true, step = customer.step, responseText = "Tu pedido ha sido registrado con éxito y llegará en la fecha solicitada. A continuación te llegará un correo electrónico confirmando tu(s) Antboxs. En caso de que no te llegue el correo, de favor revisa tu bandeja de SPAM o correo no deseado para verificar si ahí se encuentra tu confirmación, de cualquier formar tu pedio ha quedado confirmado." }, JsonRequestBehavior.AllowGet);
             }
             catch(Exception ex)
             {
@@ -823,6 +932,7 @@ namespace AntBoxFrontEnd.Controllers
         {
             public string boxid { get; set; }
             public int quantity { get; set; }
+
         }
 
 

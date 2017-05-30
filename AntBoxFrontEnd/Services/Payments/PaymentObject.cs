@@ -48,17 +48,44 @@ namespace AntBoxFrontEnd.Services.Payments
         [JsonProperty("amount")]
         public string Amount { get; set; }
 
+        [JsonProperty("coupon")]
+        public PaymentDiscount Coupon { get; set; }
+
         public string Monto
         {
             get
             {
+                double am = double.Parse(Amount, System.Globalization.CultureInfo.InvariantCulture);
                 if (Type == "refund")
                 {
-                    return "-" + Amount;
+                    return "-" + am.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture);
                 }
                 else
                 {
-                    return Amount;
+                    return am.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture);
+                }
+            }
+        }
+
+        public string Descuento
+        {
+            get
+            {
+                if (Coupon != null)
+                {
+                    if (Coupon.Type == "refered")
+                    {
+                        return "Referido";
+                    } else if (Coupon.Type == "undefined")
+                    {
+                        return "";
+                    } else
+                    {
+                        return Coupon.Type;
+                    }
+                } else
+                {
+                    return "";
                 }
             }
         }
@@ -134,5 +161,16 @@ namespace AntBoxFrontEnd.Services.Payments
                 return date;
             }
         }
+    }
+
+    public class PaymentDiscount
+    {
+
+        [JsonProperty("type")]
+        public string Type { get; set; }
+
+        [JsonProperty("id")]
+        public string Id { get; set; }
+
     }
 }

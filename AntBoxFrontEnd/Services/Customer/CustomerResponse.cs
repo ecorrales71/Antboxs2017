@@ -62,5 +62,9 @@ namespace AntBoxFrontEnd.Services.Customer
         [JsonProperty("delegation")]
         string Delegation { get; set; }
 
+        public int? step { get; set; }
+
     }
+
+
 }
